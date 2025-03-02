@@ -3,11 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Connexion</title>
     <link rel="stylesheet" type="text/css" href="../component/Footer.css">
     <link rel="stylesheet" type="text/css" href="../component/Navbar.css">
+    <link rel="stylesheet" type="text/css" href="../component/Bouton.css">
+    <link rel="stylesheet" href="../Style/Connexion.css">
 </head>
 <body>
+    <div class="background-image"></div>
     <header>
         <div id="navbar-container" class="navbar-container"></div>
         <script src="../component/Navbar.js"></script>
@@ -16,7 +19,24 @@
         </script>
     </header>
     <main>
-        
+        <div>
+            <h1>Connexion</h1>
+            <p>Email</p>
+            <input class="textbox" type="text">
+            <p>Mot de passe</p>
+            <input class="textbox" type="text">
+            <p>Mot de passe oublié ?</p>
+            <div>
+                <p id="pasCompte">Pas de compte ?</p> <a  id="sinscire" href="Inscription.html">S'inscrire</a>
+            </div>
+            
+            <script src="../component/Bouton.js"></script>
+            <div id="bouton-container"></div>
+            <script>
+                document.getElementById('bouton-container').innerHTML = Bouton("Se connecter");
+            </script>
+
+        </div>
     </main>
     <footer id="footer-container" class="footer-container">
         <script src="../component/Footer.js"></script>
