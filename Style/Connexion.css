@@ -23,7 +23,7 @@
     border-radius: 5px;
     background-color: #F9F4F4;
     padding: 5px;
-    width: 200px ;
+    width: 95% ;
 }
 
 .containerLogin {
@@ -44,6 +44,8 @@
 #containerPassword {
     position: relative; 
     display: inline-block;
+    width: 100%;
+
 }
 
 #togglePassword {
