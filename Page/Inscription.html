@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription</title>
+    <link rel="stylesheet" type="text/css" href="../component/Footer.css">
+    <link rel="stylesheet" type="text/css" href="../component/Navbar.css">
+    <link rel="stylesheet" type="text/css" href="../component/BoutonBleu.css">
+    <link rel="stylesheet" href="../Style/Inscription.css">
+</head>
+<body>
+    <div class="background-image"></div>
+    <header>
+        <div id="navbar-container" class="navbar-container"></div>
+        <script src="../component/Navbar.js"></script>
+        <script>
+            document.getElementById('navbar-container').innerHTML = Navbar(false, "..");
+        </script>
+    </header>
+    <main>
+        <div class="containerLogin">
+            <h1>Inscription</h1>
+            <p>Email</p>
+            <input class="textbox" type="text" required>
+            <p>Mot de passe</p>
+            <div id="containerPassword">
+                <input class="textbox" type="password" id="password" required>
+                <img id="togglePassword" src="../assets/img/ouvert.png" alt="Afficher/Masquer" >
+            </div>
+
+<script>
+    document.getElementById("togglePassword").addEventListener("click", function() {
+        let passwordField = document.getElementById("password");
+
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            this.src = "../assets/img/ferme.png"; 
+        } else {
+            passwordField.type = "password";
+            this.src = "../assets/img/ouvert.png"; 
+        }
+    });
+</script>    
+            
+            <div>
+                <p id="pasCompte">Déjà un compte ?</p> <a  id="connexion" href="Connexion.html">Se connecter</a>
+            </div>
+
+            <div id="mention">
+                <input type="checkbox" id="mention" name="mention" />
+                <div id="mentionTexte"><label id="" for="mention">Je confirme avoir lu et accepté </label><a  id="connexion" href="Connexion.html">les conditions générales d'utilisations</a></div>
+            </div>
+            
+            <script src="../component/BoutonBleu.js"></script>
+            <div id="boutonContainer"></div>
+            <script>
+                document.getElementById('boutonContainer').innerHTML = BoutonBleu("S'inscrire");
+            </script>
+
+        </div>
+    </main>
+    <footer id="footer-container" class="footer-container">
+        <script src="../component/Footer.js"></script>
+        <script>
+            document.getElementById('footer-container').innerHTML = Footer("..");
+        </script>
+    </footer>
+    
+</body>
+</html>
