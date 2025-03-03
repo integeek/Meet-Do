@@ -6,7 +6,7 @@
     <title>Connexion</title>
     <link rel="stylesheet" type="text/css" href="../component/Footer.css">
     <link rel="stylesheet" type="text/css" href="../component/Navbar.css">
-    <link rel="stylesheet" type="text/css" href="../component/Bouton.css">
+    <link rel="stylesheet" type="text/css" href="../component/BoutonBleu.css">
     <link rel="stylesheet" href="../Style/Connexion.css">
 </head>
 <body>
@@ -19,7 +19,7 @@
         </script>
     </header>
     <main>
-        <div>
+        <div class="containerCo">
             <h1>Connexion</h1>
             <p>Email</p>
             <input class="textbox" type="text">
@@ -30,10 +30,10 @@
                 <p id="pasCompte">Pas de compte ?</p> <a  id="sinscire" href="Inscription.html">S'inscrire</a>
             </div>
             
-            <script src="../component/Bouton.js"></script>
+            <script src="../component/BoutonBleu.js"></script>
             <div id="bouton-container"></div>
             <script>
-                document.getElementById('bouton-container').innerHTML = Bouton("Se connecter");
+                document.getElementById('bouton-container').innerHTML = BoutonBleu("Se connecter");
             </script>
 
         </div>
