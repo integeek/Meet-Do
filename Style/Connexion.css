@@ -22,9 +22,35 @@
     border: 1px solid;
     border-radius: 5px;
     background-color: #F9F4F4;
+    padding: 5px;
+    width: 200px ;
 }
 
-.containerCo {
-    
+.containerLogin {
+    background-color: white;
+    padding: 15px;
+    border: black solid 0.5px;
+    border-radius: 7px;
+    margin: 50px auto;
+    width: 350px;
+
 }
 
+#boutonContainer {
+    display: flex;
+    justify-content: center;
+}
+
+#containerPassword {
+    position: relative; 
+    display: inline-block;
+}
+
+#togglePassword {
+    position: absolute;
+    right: 10px;
+    top: 50%; 
+    transform: translateY(-50%); 
+    width: 20px; 
+    cursor: pointer;
+}
