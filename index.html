@@ -7,20 +7,26 @@
     <link rel="stylesheet" type="text/css" href="./component/Navbar.css">
     <link rel="stylesheet" href="./component/ActivityCard.css">
     <script src="activityCard.js" defer></script>
+    <link rel="stylesheet" type="text/css" href="./component/Footer.css">
 </head>
 <body>
     <header>
         <div id="navbar-container" class="navbar-container"></div>
         <script src="./component/Navbar.js"></script>
         <script>
-            document.getElementById('navbar-container').innerHTML = Navbar();
+            document.getElementById('navbar-container').innerHTML = Navbar(true, ".");
         </script>
             <div id="activities-container"></div>
             <script src="./component/ActivityCard.js"></script>
     </header>
-    <main></main>
-    <footer></footer>
-
-    
+    <main>
+        <a href="./Page/FAQ.html">Login</a>
+    </main>
+    <footer id="footer-container" class="footer-container">
+        <script src="./component/Footer.js"></script>
+        <script>
+            document.getElementById('footer-container').innerHTML = Footer(".");
+        </script>
+    </footer>
 </body>
 </html>
