@@ -8,6 +8,7 @@ class ActivityCard {
     render() {
       const card = document.createElement("div");
       card.classList.add("activity-card");
+      card.onclick = () => window.location.href = this.data.url;
   
       card.innerHTML = `
         <div class="card">
@@ -28,15 +29,64 @@ class ActivityCard {
   
   // Exemple d'utilisation :
   document.addEventListener("DOMContentLoaded", function () {
-    const activityData = {
-      image: "https://via.placeholder.com/400x200", // Remplace avec l'URL réelle
-      title: "Atelier Macaron",
-      location: "10 rue de Vanves, 92130 Issy-Les-Moulineaux",
-      price: 300,
-      groupSize: 10,
-      rating: 4.8
-    };
+    const activities = [
+        {
+        image: "https://static.vecteezy.com/ti/photos-gratuite/t2/41425832-ai-genere-une-empiler-de-macarons-avec-une-en-forme-de-coeur-macaron-sur-haut-photo.jpg",
+        title: "Atelier Macaron",
+        location: "10 rue de Vanves, 92130 Issy-Les-Moulineaux",
+        price: 300,
+        groupSize: 10,
+        rating: 4.8,
+        url : "https://google.com"
+        },
+        {
+            image: "https://www.chateaux-de-la-loire.fr/images/chateau-royal-de-chambord-en-ete.jpg",
+            title: "Visite d’un chateau",
+            location: "Avenue du Château, 41700, Cheverny",
+            price: 154,
+            groupSize: 25,
+            rating: 3.7,
+            url : "https://google.com"
+        },
+        {
+            image: "https://cdn.paris.fr/qfapv4/2023/06/20/huge-be456d020506f4464615fcab9d1a00ef.jpg",
+            title: "Cours de poterie",
+            location: "28 Rue Notre Dame des Champs, 75006 Paris",
+            price: 350,
+            groupSize: 10,
+            rating: 4.1,
+            url : "https://google.com"
+        },
+        {
+            image: "https://www.vertical-art.fr/wp-content/themes/vertical-art/video/vertical-cover-2021.jpg",
+            title: "Escalade en Salle",
+            location: "13 Avenue de la Plaine des Sports, 95000 Cergy",
+            price: 15,
+            groupSize: 20,
+            rating: 3.5,
+            url : "https://google.com"
+            },
+            {
+                image: "https://img.freepik.com/photos-premium/appareil-photo-tridop-prend-photo-tour-eiffel-paris_174699-614.jpg",
+                title: "Atelier Photo Paris",
+                location: "Place Charles de Gaulle, 75008 Paris",
+                price: 100,
+                groupSize: 5,
+                rating: 4.7,
+                url : "https://google.com"
+            },
+            {
+                image: "https://actualitte.com/uploads/images/un-guide-pour-creer-et-animer-un-club-de-lecture-63de34d65b713517872305.png",
+                title: "Club de lecture",
+                location: "Quai François Mauriac, 75706 Paris",
+                price: 0,
+                groupSize: 8,
+                rating: 3.3,
+                url : "https://google.com"
+            }
+
+    ];
   
-    new ActivityCard("activities-container", activityData);
+    activities.forEach(activityData => new ActivityCard("activities-container", activityData));
   });
   
