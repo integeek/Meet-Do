@@ -41,20 +41,7 @@
     justify-content: center;
 }
 
-#containerPassword {
-    position: relative; 
-    display: inline-block;
-    width: 100%;
-}
-
-#togglePassword {
-    position: absolute;
-    right: 10px;
-    top: 50%; 
-    transform: translateY(-50%); 
-    width: 20px; 
-    cursor: pointer;
-}
+w
 
 #mentionTexte {
     font-size: 9px;
