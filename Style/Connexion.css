@@ -15,7 +15,7 @@
     border-radius: 7px;
     padding: 15px;
     margin: 50px auto; /* haut/bas et gauche/droite */
-    width: 25%;
+    width: 20%;
 }
 
 .textbox {
@@ -53,6 +53,30 @@
     justify-content: center;
 }
 
-@media screen and (max-width: 768px) {
-    
+@media screen and (max-width: 1024px) {
+    .containerLogin {
+        width: 25%;
+    }
 }
+
+@media screen and (max-width: 830px) {
+    .containerLogin {
+        width: 45%;
+    }
+}
+
+@media screen and (max-width: 520px) {
+    .containerLogin {
+        width: 50%;
+    }
+    
+    #pasCompte, #sinscrire {
+        display: inline-block;
+        margin: 1px;
+        text-decoration: none;
+    }
+    #boutonContainer {
+        margin-top: 10px;
+    }
+}
+
