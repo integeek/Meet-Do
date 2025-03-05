@@ -9,13 +9,13 @@
     z-index: -1;
 }
 
-#pasCompte, #sinscrire {
-    display: inline-block;
-    margin-right: 4px;
-    text-decoration: none;
-}
-#sinscrire{
-    text-decoration: none;
+.containerLogin {
+    background-color: white;
+    border: black solid 0.5px;
+    border-radius: 7px;
+    padding: 15px;
+    margin: 50px auto; /* haut/bas et gauche/droite */
+    width: 25%;
 }
 
 .textbox {
@@ -26,19 +26,10 @@
     width: 95% ;
 }
 
-.containerLogin {
-    background-color: white;
-    padding: 15px;
-    border: black solid 0.5px;
-    border-radius: 7px;
-    margin: 50px auto;
-    width: 350px;
-
-}
-
-#boutonContainer {
-    display: flex;
-    justify-content: center;
+#pasCompte, #sinscrire {
+    display: inline-block;
+    margin-right: 4px;
+    text-decoration: none;
 }
 
 #containerPassword {
@@ -52,7 +43,16 @@
     position: absolute;
     right: 10px;
     top: 50%; 
-    transform: translateY(-50%); 
+    transform: translateY(-50%);  /* Pour mettre le centre de l'icone au milieu */
     width: 20px; 
     cursor: pointer;
+}
+
+#boutonContainer {
+    display: flex;
+    justify-content: center;
+}
+
+@media screen and (max-width: 768px) {
+    
 }
