@@ -9,12 +9,19 @@
     z-index: -1;
 }
 
+/* .parentDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    height: 100vh; 
+} */
+
 .containerLogin {
     background-color: white;
     border: black solid 0.5px;
     border-radius: 7px;
     padding: 15px;
-    margin: 50px auto; /* haut/bas et gauche/droite */
+    margin: 10px auto; /* haut/bas et gauche/droite */
     width: 20%;
 }
 
