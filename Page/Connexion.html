@@ -14,53 +14,55 @@
     <header>
         <div id="navbar-container" class="navbar-container"></div>
         <script src="../component/Navbar.js"></script>
-        <script>
+       <script>
             document.getElementById('navbar-container').innerHTML = Navbar(false, "..");
-        </script>
+        </script> 
     </header>
     <main>
-        <div class="containerLogin">
-            <h1>Connexion</h1>
-            <form action="">
-                <p>Email</p>
-                <input class="textbox" type="text" required>
-                <p>Mot de passe</p>
-                <div id="containerPassword">
-                    <input class="textbox" type="password" id="password" required>
-                    <img id="togglePassword" src="../assets/img/ouvert.png" alt="Afficher/Masquer" >
+        <div class="parentDiv">
+            <div class="containerLogin">
+                <h1>Connexion</h1>
+                <form action="">
+                    <p>Email</p>
+                    <input class="textbox" type="text" required>
+                    <p>Mot de passe</p>
+                    <div id="containerPassword">
+                        <input class="textbox" type="password" id="password" required>
+                        <img id="togglePassword" src="../assets/img/ouvert.png" alt="Afficher/Masquer" >
+                    </div>
+                </form>
+                <p>Mot de passe oublié ?</p>
+                <div>
+                    <p id="pasCompte">Pas de compte ?</p> <a  id="sinscire" href="Inscription.html">S'inscrire</a>
                 </div>
-            </form>
-            <p>Mot de passe oublié ?</p>
-            <div>
-                <p id="pasCompte">Pas de compte ?</p> <a  id="sinscire" href="Inscription.html">S'inscrire</a>
-            </div>
-            
-            <script src="../component/BoutonBleu.js"></script>
-            <div id="boutonContainer"></div>
-            <script>
-                document.getElementById('boutonContainer').innerHTML = BoutonBleu("Se connecter");
-            </script>
-            <script>
-                document.getElementById("togglePassword").addEventListener("click", function() {
-                    let passwordField = document.getElementById("password");
+                
+                <script src="../component/BoutonBleu.js"></script>
+                <div id="boutonContainer"></div>
+                <script>
+                    document.getElementById('boutonContainer').innerHTML = BoutonBleu("Se connecter");
+                </script>
+                <script>
+                    document.getElementById("togglePassword").addEventListener("click", function() {
+                        let passwordField = document.getElementById("password");
 
-                    if (passwordField.type === "password") {
-                        passwordField.type = "text";
-                        this.src = "../assets/img/ferme.png"; 
-                    } else {
-                        passwordField.type = "password";
-                        this.src = "../assets/img/ouvert.png"; 
-                    }
-                });
-            </script> 
+                        if (passwordField.type === "password") {
+                            passwordField.type = "text";
+                            this.src = "../assets/img/ferme.png"; 
+                        } else {
+                            passwordField.type = "password";
+                            this.src = "../assets/img/ouvert.png"; 
+                        }
+                    });
+                </script> 
+            </div>
         </div>
     </main>
     <footer id="footer-container" class="footer-container">
         <script src="../component/Footer.js"></script>
         <script>
             document.getElementById('footer-container').innerHTML = Footer("..");
-        </script>
-    </footer>
+        </script> 
+    </footer> 
     
 </body>
 </html>
