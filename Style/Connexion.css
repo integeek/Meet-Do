@@ -21,7 +21,7 @@
     border: black solid 0.5px;
     border-radius: 7px;
     padding: 15px;
-    margin: 10px auto; /* haut/bas et gauche/droite */
+    margin: 50px auto; /* haut/bas et gauche/droite */
     width: 20%;
 }
 
