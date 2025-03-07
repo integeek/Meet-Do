@@ -37,14 +37,14 @@
     width: 95% ;
 }
 
-#containerPassword {
+.containerPassword {
     position: relative; 
     display: inline-block;
     width: 100%;
 
 }
 
-#togglePassword {
+.togglePassword {
     position: absolute;
     right: 10px;
     top: 50%; 

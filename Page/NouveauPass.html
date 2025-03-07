@@ -25,14 +25,14 @@
                 <p id="texte">Veuillez insérer un nouveau mot de passe et valider celui-ci</p>
                 <form action="">
                     <p>Nouveau mot de passe</p>
-                    <div id="containerPassword">
+                    <div class="containerPassword">
                         <input class="textbox" type="password" id="password" required>
-                        <img id="togglePassword" src="../assets/img/ouvert.png" alt="Afficher/Masquer" >
+                        <img class="togglePassword" src="../assets/img/ouvert.png" alt="Afficher/Masquer" >
                     </div>
                     <p>Confirmer le nouveau mot de passe</p>
-                    <div id="containerPassword">
+                    <div class="containerPassword">
                         <input class="textbox" type="password" id="password" required>
-                        <img id="togglePassword" src="../assets/img/ouvert.png" alt="Afficher/Masquer" >
+                        <img class="togglePassword" src="../assets/img/ouvert.png" alt="Afficher/Masquer" >
                     </div>
                 </form>
                 <script src="../component/BoutonBleu.js"></script>
@@ -40,19 +40,8 @@
                 <script>
                     document.getElementById('boutonContainer').innerHTML = BoutonBleu("Confirmer");
                 </script>
-                <script>
-                    document.getElementById("togglePassword").addEventListener("click", function() {
-                        let passwordField = document.getElementById("password");
+                <script src="../Script/AfficherPass.js"></script>
 
-                        if (passwordField.type === "password") {
-                            passwordField.type = "text";
-                            this.src = "../assets/img/ferme.png"; 
-                        } else {
-                            passwordField.type = "password";
-                            this.src = "../assets/img/ouvert.png"; 
-                        }
-                    });
-                </script> 
             </div>
         </div>
     </main>

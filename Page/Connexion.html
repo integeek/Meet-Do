@@ -28,7 +28,7 @@
                     <p>Mot de passe</p>
                     <div id="containerPassword">
                         <input class="textbox" type="password" id="password" required>
-                        <img id="togglePassword" src="../assets/img/ouvert.png" alt="Afficher/Masquer" >
+                        <img class="togglePassword" src="../assets/img/ouvert.png" alt="Afficher/Masquer" >
                     </div>
                 </form>
                 <p>Mot de passe oublié ?</p>
@@ -41,19 +41,7 @@
                 <script>
                     document.getElementById('boutonContainer').innerHTML = BoutonBleu("Se connecter");
                 </script>
-                <script>
-                    document.getElementById("togglePassword").addEventListener("click", function() {
-                        let passwordField = document.getElementById("password");
-
-                        if (passwordField.type === "password") {
-                            passwordField.type = "text";
-                            this.src = "../assets/img/ferme.png"; 
-                        } else {
-                            passwordField.type = "password";
-                            this.src = "../assets/img/ouvert.png"; 
-                        }
-                    });
-                </script> 
+                <script src="../Script/AfficherPass.js"></script>
             </div>
         </div>
     </main>
