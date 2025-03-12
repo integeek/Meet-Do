@@ -7,16 +7,13 @@
     <link rel="stylesheet" type="text/css" href="../component/Footer.css">
     <link rel="stylesheet" type="text/css" href="../component/Navbar.css">
     <link rel="stylesheet" type="text/css" href="../component/BoutonBleu.css">
+    <link rel="stylesheet" type="text/css" href="../component/BoutonRouge.css">
     <link rel="stylesheet" href="../Style/Connexion.css">
 </head>
 <body>
     <div class="background-image"></div>
     <header>
         <div id="navbar-container" class="navbar-container"></div>
-        <script src="../component/Navbar.js"></script>
-       <script>
-            document.getElementById('navbar-container').innerHTML = Navbar(false, "..");
-        </script> 
     </header>
     <main>
         <div class="parentDiv">
@@ -31,7 +28,7 @@
                         <img class="togglePassword" src="../assets/img/ouvert.png" alt="Afficher/Masquer" >
                     </div>
                 </form>
-                <p>Mot de passe oublié ?</p>
+                <p onclick="openPopUp()">Mot de passe oublié ?</p>
                 <div>
                     <p id="pasCompte">Pas de compte ?</p> <a  id="sinscire" href="Inscription.html">S'inscrire</a>
                 </div>
@@ -41,9 +38,35 @@
                 <script>
                     document.getElementById('boutonContainer').innerHTML = BoutonBleu("Se connecter");
                 </script>
-                <script src="../Script/AfficherPass.js"></script>
             </div>
         </div>
+        <div class="popup-overlay" id="popup">
+            <div class="popup-content">
+                <h1>Mot de passe oublié</h1>
+                <p>Insérez votre adresse mail, un lien vous sera adressé par mail pour réinitialiser votre mot de passe</p>
+                <form action="">
+                    <p>Email</p>
+                    <input class="textbox" type="text" required>
+                </form>
+                <div class="popup-buttons">
+                    <script src="../component/BoutonRouge.js"></script>
+                    <div id="bouton-rouge" onclick="closePopUp()"></div>
+                    <script>
+                        document.getElementById('bouton-rouge').innerHTML = BoutonRouge("Annuler");
+                    </script>
+                    <div id="bouton-bleue"></div>
+                    <script>
+                        document.getElementById('bouton-bleue').innerHTML = BoutonBleu("Valider");
+                    </script>
+                </div>
+            </div>
+        </div>
+        <script src="../Script/AfficherPass.js"></script>
+        <script src="../Script/PopUp.js"></script>
+        <script src="../component/Navbar.js"></script>
+       <script>
+            document.getElementById('navbar-container').innerHTML = Navbar(false, "..");
+        </script> 
     </main>
     <footer id="footer-container" class="footer-container">
         <script src="../component/Footer.js"></script>
