@@ -21,29 +21,16 @@
     <main>
         <div class="containerLogin">
             <h1>Inscription</h1>
-            <p>Email</p>
-            <input class="textbox" type="text" required>
-            <p>Mot de passe</p>
-            <div id="containerPassword">
-                <input class="textbox" type="password" id="password" required>
-                <img id="togglePassword" src="../assets/img/ouvert.png" alt="Afficher/Masquer" >
-            </div>
-
-<script>
-    document.getElementById("togglePassword").addEventListener("click", function() {
-        let passwordField = document.getElementById("password");
-
-        if (passwordField.type === "password") {
-            passwordField.type = "text";
-            this.src = "../assets/img/ferme.png"; 
-        } else {
-            passwordField.type = "password";
-            this.src = "../assets/img/ouvert.png"; 
-        }
-    });
-</script>    
-            
-            <div>
+            <form action="">
+                <p>Email</p>
+                <input class="textbox" type="text" required>
+                <p>Mot de passe</p>
+                <div id="containerPassword">
+                    <input class="textbox" type="password" id="password" required>
+                    <img class="togglePassword" src="../assets/img/ouvert.png" alt="Afficher/Masquer" >
+                </div>  
+            </form>
+            <div class="versCo"> 
                 <p id="pasCompte">Déjà un compte ?</p> <a  id="connexion" href="Connexion.html">Se connecter</a>
             </div>
 
@@ -57,6 +44,8 @@
             <script>
                 document.getElementById('boutonContainer').innerHTML = BoutonBleu("S'inscrire");
             </script>
+            <script src="../Script/AfficherPass.js"></script>
+
 
         </div>
     </main>
