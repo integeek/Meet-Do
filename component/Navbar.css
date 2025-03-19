@@ -35,6 +35,11 @@ body {
     color: black;
 }
 
+.hamburger, .icone1 {
+    display: none;
+}
+
+
 .nav-links li {
     list-style-type: none;
 }
@@ -66,6 +71,13 @@ nav {
     flex-grow: 1;
 }
 
+.sign-btns {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
 #profil-img {
     width: 5vh;
     height: 5vh;
@@ -96,4 +108,141 @@ nav {
 #profil:hover{
     color: #004AAD;
     border: 3px solid #004AAD;
+}
+
+@media (max-width: 900px) {
+    nav {
+      padding: 15px 20px;
+      position: relative;
+      margin: 0;
+    }
+
+    #navbar-grow {
+      flex-grow: 0;
+  }
+  
+    .nav-icon {
+      order: 2;
+      margin: 0 auto;
+    }
+  
+    .nav-icon span {
+      font-size: 22px;
+    }
+
+    .main-navlinks {
+      order: 1;
+      left: 0;
+      width: auto;
+      margin: 0;
+    }
+  
+    .hamburger {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      border: none;
+      display: flex;
+      background: #fafafa;
+      align-items: center;
+      position: relative;
+    }
+
+    .navbar-container ul {
+      display: flex;
+      padding: 0;
+      margin: 0;
+  }  
+  
+    .hamburger span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: #333;
+      position: absolute;
+      pointer-events: none;
+      transition: opacity 0.3s 0.15s ease-out;
+    }
+    .hamburger span:nth-child(1),
+    .hamburger span:nth-child(3) {
+      transition: transform 0.3s ease-out;
+    }
+  
+    .hamburger span:nth-child(1) {
+      transform: translateY(7px);
+    }
+    .hamburger span:nth-child(3) {
+      transform: translateY(-7px);
+    }
+  
+    .hamburger.open span:nth-child(1) {
+      transform: translate(0) rotate(135deg);
+    }
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+      transition: opacity 0s ease-out;
+    }
+    .hamburger.open span:nth-child(3) {
+      transform: translate(0) rotate(-135deg);
+    }
+  
+    .nav-links {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      position: absolute;
+      background: white;
+      top: 100%;
+      left: 0;
+      transform: translate(-130%);
+      height: 100vh;
+      padding: 15px 50px 15px 20px;
+      border-right: 1px solid black;
+      border-top: 1px solid black;
+    }
+    .open {
+      transform: translate(-0%);
+    }
+  
+    .nav-links a {
+      font-size: 18px;
+      margin: 10px 0px;
+    }
+  
+    .nav-authentication {
+      order: 3;
+      margin-left: 0;
+    }
+
+    .sign-btns {
+      display: none;
+    }
+  
+    .icone1 {
+      display: block;
+      cursor: pointer;
+      border: none;
+      margin: 0;
+      padding: 0;
+      right: 0;
+    }
+  
+    .icone1 img {
+      width: 20px;
+    }
+
+    .user-toggler a {
+      margin: 0;
+      padding: 0;
+      right: 0;
+    }
+  }
+    
+    @media (max-width: 500px) {
+      .nav-icon img {
+        width: 30px;
+      }
+      .nav-icon span {
+        font-size: 20px;
+      }
 }
