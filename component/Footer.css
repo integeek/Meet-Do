@@ -2,6 +2,14 @@
     background-color: #004AAD;
 }
 
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+
 .footer-container {
     display: flex;
     justify-content: space-around;

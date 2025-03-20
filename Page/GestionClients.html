@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion clients</title>
+    <link rel="stylesheet" type="text/css" href="../component/Footer.css">
+    <link rel="stylesheet" type="text/css" href="../component/Navbar.css">
+    <link rel="stylesheet" type="text/css" href="../component/BoutonBleu.css">
+    <link rel="stylesheet" type="text/css" href="../component/BoutonRouge.css">
+    <link rel="stylesheet" type="text/css" href="../component/SideBarAdmin.css">
+    <link rel="stylesheet" href="../Style/GestionClients.css">
+</head>
+<body>
+    <header>
+        <div id="navbar-container" class="navbar-container"></div>
+    </header>
+    <main>
+        <div id="sidebar-container" class="sidebar-container"></div>
+
+
+        
+        <script src="../component/Navbar.js"></script>
+        <script>
+            document.getElementById('navbar-container').innerHTML = Navbar(true, "..");
+        </script> 
+        <script src="../component/navAction.js"></script> 
+        <script src="../component/SideBarAdmin.js"></script>
+        <script>
+            document.getElementById('sidebar-container').innerHTML = SideBarAdmin(true, "..");
+        </script> 
+        
+    </main>
+    <footer id="footer-container" class="footer-container">
+        <script src="../component/Footer.js"></script>
+        <script>
+            document.getElementById('footer-container').innerHTML = Footer("..");
+        </script> 
+    </footer> 
+    
+</body>
+</html>
