@@ -63,11 +63,10 @@ function Navbar(connect, url) {
                     </div>
                     <div class="sign-btns">
                         <div class="annonce">
-                            <a href="#">Poster une annonce</a>
+                            <a href="#">S'inscrire</a>
                         </div>
                         <a href="./Page/Connexion.html" class="profil" id="profil">
-                            <div>Profil</div>
-                            <image src="${url}/assets/img/profil.png" id="profil-img">
+                            <div>Se connecter</div>
                         </a>
                     </div>
                 </div>
