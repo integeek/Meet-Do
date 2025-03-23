@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="../component/Footer.css">
     <link rel="stylesheet" type="text/css" href="../component/Navbar.css">
+    <link rel="stylesheet" type="text/css" href="../style/FAQ.css">
+    <script src="../Script/Faq.js" defer></script>
 </head>
+
 <body>
     <header>
         <div id="navbar-container" class="navbar-container"></div>
@@ -15,13 +19,31 @@
             document.getElementById('navbar-container').innerHTML = Navbar(true, "..");
         </script>
     </header>
-    <main></main>
+    <main>
+        <h1 id="title">FAQ</h1>
+        <div style="display: flex;">
+            <select id="select"></select>
+            <div id="selected" class="hidden">
+                <p id="selected-text"></p>
+                <img src="../assets/img/croix.png" alt="croix icon" id="croix-selected"/>
+            </div>
+            <div class="grow"></div>
+            <button type="button" id="new-question-button">
+                <p>Ajouter une question</p>
+                <img src="../assets/img/message.png" alt="message icon" id="message-icon"/>
+            </button>
+            
+        </div>
+        <div class="collapse-container">
+        </div>
+    </main>
     <footer id="footer-container" class="footer-container">
         <script src="../component/Footer.js"></script>
         <script>
             document.getElementById('footer-container').innerHTML = Footer("..");
         </script>
     </footer>
-    
+
 </body>
+
 </html>
