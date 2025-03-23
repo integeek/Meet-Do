@@ -9,6 +9,14 @@
     z-index: -1;
 }
 
+.containerLogin {
+    background-color: white;
+    padding: 15px;
+    border: black solid 0.5px;
+    border-radius: 7px;
+    margin: 50px auto;
+    width: 25%;
+}
 
 .textbox {
     border: 1px solid;
@@ -18,24 +26,15 @@
     width: 95% ;
 }
 
-.containerLogin {
-    background-color: white;
-    padding: 15px;
-    border: black solid 0.5px;
-    border-radius: 7px;
-    margin: 50px auto;
-    width: 350px;
 
-}
-
-#containerPassword {
+#containerAdresse {
     position: relative; 
     display: inline-block;
     width: 100%;
     margin-bottom: 20px;
 }
 
-#togglePassword {
+#iconAdresse {
     position: absolute;
     right: 10px;
     top: 50%; 
@@ -47,4 +46,34 @@
 #boutonContainer {
     display: flex;
     justify-content: center;
+}
+
+@media screen and (max-width: 1000px) {
+    .containerLogin {
+        width: 30%;
+    }
+}
+
+@media screen and (max-width: 836px) {
+    .containerLogin {
+        width: 35%;
+    }
+}
+
+@media screen and (max-width: 712px) {
+    .containerLogin {
+        width: 45%;
+    }
+}
+
+@media screen and (max-width: 577px) {
+    .containerLogin {
+        width: 55%;
+    }
+}
+
+@media screen and (max-width: 475px) {
+    .containerLogin {
+        width: 65%;
+    }
 }

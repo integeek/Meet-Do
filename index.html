@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Accueil</title>
     <link rel="stylesheet" type="text/css" href="./component/Navbar.css">
+    <link rel="stylesheet" href="./component/SearchBar.css">
     <link rel="stylesheet" href="./component/ActivityCard.css">
-    <script src="activityCard.js" defer></script>
+<!--<script src="activityCard.js" defer></script>-->
     <link rel="stylesheet" type="text/css" href="./component/Footer.css">
 </head>
 <body>
@@ -16,6 +17,11 @@
         <script>
             document.getElementById('navbar-container').innerHTML = Navbar(true, ".");
         </script>
+            <div id="search-bar"></div>
+            <script src="./component/SearchBar.js"></script>
+            <script>
+                document.getElementById('search-bar').innerHTML = SearchBar(".")
+            </script>
             <div id="activities-container"></div>
             <script src="./component/ActivityCard.js"></script>
     </header>
