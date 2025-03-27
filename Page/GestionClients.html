@@ -16,8 +16,41 @@
         <div id="navbar-container" class="navbar-container"></div>
     </header>
     <main>
-        <div id="sidebar-container" class="sidebar-container"></div>
-
+        <div class="flexbox-container">
+            <div id="sidebar-container" class="sidebar-container"></div>
+            <div class="">
+                <h1>Gestion des clients</h1>
+                <div class="search-number">
+                    <div class="search-container">
+                        <input type="text" class="search-input" placeholder="Rechercher">
+                        <img class="search-icon" src="../assets/img/icons/search-icon.svg" alt="">
+                    </div>
+                    <div class="client-count">
+                        Nombre de clients : <span id="clientNumber">10</span>
+                    </div>
+                </div>
+                <div class="column-container">
+                    <table border="1">
+                        <tr><th>Nom</th><th>Prénom</th><th>Email</th><th>Rôle</th><th>Actions</th></tr>
+                        <tr><td>Dupont</td><td>Jean</td><td>Jean.dupont@gmail.com</td><td>Meeter</td><td><div class="icon-actions"><img src="../assets/img/icons/eye-open-icon.svg" alt=""><img src="../assets/img/icons/edit-icon.svg" alt=""><img src="../assets/img/icons/icon-trash.svg" alt=""></div></td></tr>
+                        <tr><td>Dupuis</td><td>Kevin</td><td>kevin.dupuis@gmail.com</td><td>Client</td><td><div class="icon-actions"><img src="../assets/img/icons/eye-open-icon.svg" alt=""><img src="../assets/img/icons/edit-icon.svg" alt=""><img src="../assets/img/icons/icon-trash.svg" alt=""></div></td></tr>
+                        <tr><td>Test</td><td>Test</td><td>kevin.dupuis@gmail.com</td><td>Client</td><td><div class="icon-actions"><img src="../assets/img/icons/eye-open-icon.svg" alt=""><img src="../assets/img/icons/edit-icon.svg" alt=""><img src="../assets/img/icons/icon-trash.svg" alt=""></div></td></tr>
+                    </table>
+                    
+                    <div class="pagination">
+                        <a href="#">&laquo;</a>
+                        <a href="#">1</a>
+                        <a href="#" class="active">2</a>
+                        <a href="#">3</a>
+                        <a href="#">4</a>
+                        <a href="#">5</a>
+                        <a href="#">6</a>
+                        <a href="#">&raquo;</a>
+                      </div>
+                </div>
+            </div>
+        </div>
+        
 
         
         <script src="../component/Navbar.js"></script>
