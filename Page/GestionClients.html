@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="../component/BoutonBleu.css">
     <link rel="stylesheet" type="text/css" href="../component/BoutonRouge.css">
     <link rel="stylesheet" type="text/css" href="../component/SideBarAdmin.css">
+    <link rel="stylesheet" type="text/css" href="../component/Pagination.css">
     <link rel="stylesheet" href="../Style/GestionClients.css">
 </head>
 <body>
@@ -36,23 +37,12 @@
                         <tr><td>Dupuis</td><td>Kevin</td><td>kevin.dupuis@gmail.com</td><td>Client</td><td><div class="icon-actions"><img src="../assets/img/icons/eye-open-icon.svg" alt=""><img src="../assets/img/icons/edit-icon.svg" alt=""><img src="../assets/img/icons/icon-trash.svg" alt=""></div></td></tr>
                         <tr><td>Test</td><td>Test</td><td>kevin.dupuis@gmail.com</td><td>Client</td><td><div class="icon-actions"><img src="../assets/img/icons/eye-open-icon.svg" alt=""><img src="../assets/img/icons/edit-icon.svg" alt=""><img src="../assets/img/icons/icon-trash.svg" alt=""></div></td></tr>
                     </table>
-                    
-                    <div class="pagination">
-                        <a href="#">&laquo;</a>
-                        <a href="#">1</a>
-                        <a href="#" class="active">2</a>
-                        <a href="#">3</a>
-                        <a href="#">4</a>
-                        <a href="#">5</a>
-                        <a href="#">6</a>
-                        <a href="#">&raquo;</a>
-                      </div>
+                    <div class="pagination-container" id="pagination-container"></div>
                 </div>
             </div>
         </div>
         
 
-        
         <script src="../component/Navbar.js"></script>
         <script>
             document.getElementById('navbar-container').innerHTML = Navbar(true, "..");
@@ -62,6 +52,12 @@
         <script>
             document.getElementById('sidebar-container').innerHTML = SideBarAdmin(true, "..");
         </script> 
+        <script src="../component/Pagination.js"></script>
+        <script>
+            document.getElementById('pagination-container').innerHTML = Pagination();
+        </script> 
+        <script src="../Script/PaginationChange.js"></script>
+
         
     </main>
     <footer id="footer-container" class="footer-container">
