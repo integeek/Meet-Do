@@ -22,7 +22,11 @@
     border-radius: 7px;
     padding: 15px;
     margin: 50px auto; /* haut/bas et gauche/droite */
-    width: 20%;
+    width: 22%;
+}
+
+#texte {
+    font-size: 12px;
 }
 
 .textbox {
@@ -33,13 +37,7 @@
     width: 95% ;
 }
 
-#pasCompte, #sinscrire {
-    display: inline-block;
-    margin-right: 4px;
-    text-decoration: none;
-}
-
-#containerPassword {
+.containerPassword {
     position: relative; 
     display: inline-block;
     width: 100%;
@@ -56,56 +54,14 @@
 }
 
 #boutonContainer {
+    margin-top: 20px;
     display: flex;
     justify-content: center;
 }
 
-
-.popup-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-}
-
-.popup-content {
-    width: 28%;
-    height: 275px;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
-}
-
-.popup-buttons {
-    margin-top: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-}
-
-@media screen and (max-width: 1100px) {
-    .popup-content {
-        width: 35%;
-    }
-}
-
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1040px) {
     .containerLogin {
-        width: 25%;
-    }
-}
-
-@media screen and (max-width: 880px) {
-    .popup-content {
-        width: 45%;
+        width: 35%;
     }
 }
 
@@ -115,15 +71,9 @@
     }
 }
 
-@media screen and (max-width: 680px) {
-    .popup-content {
-        width: 65%;
-    }
-}
-
-@media screen and (max-width: 520px) {
+@media screen and (max-width: 567px) {
     .containerLogin {
-        width: 50%;
+        width: 60%;
     }
     
     #pasCompte, #sinscrire {
@@ -133,12 +83,6 @@
     }
     #boutonContainer {
         margin-top: 10px;
-    }
-}
-
-@media screen and (max-width: 470px) {
-    .popup-content {
-        width: 80%;
     }
 }
 

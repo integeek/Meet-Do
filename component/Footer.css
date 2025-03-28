@@ -45,3 +45,24 @@
     width: 3rem;
     height: 3rem;
 }
+
+@media screen and (max-width: 700px) {
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-links {
+        flex-direction: column;
+        padding: 0;
+    }
+
+    .footer-links li {
+        margin: 0.5rem 0;
+    }
+
+    .footer-social-container {
+        margin-top: 1rem;
+    }
+}
