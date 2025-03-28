@@ -199,7 +199,16 @@ nav {
       padding: 15px 50px 15px 20px;
       border-right: 1px solid black;
       border-top: 1px solid black;
+      z-index: 10;
+      border-radius: 0;
     }
+
+    .nav-links li:hover {
+      background-color: #004AAD;
+      border-radius: 0px;
+      color: white;
+  }
+
     .open {
       transform: translate(-0%);
     }
@@ -212,6 +221,8 @@ nav {
     .nav-authentication {
       order: 3;
       margin-left: 0;
+      position: absolute;
+      right: -35px;
     }
 
     .sign-btns {
@@ -231,7 +242,7 @@ nav {
       width: 20px;
     }
 
-    .user-toggler a {
+    .user-toggler {
       margin: 0;
       padding: 0;
       right: 0;
