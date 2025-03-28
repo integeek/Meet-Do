@@ -1,0 +1,47 @@
+.side-links li {
+    list-style-type: none;
+    margin: 20px;
+    margin-top: 0;
+}
+
+.side-links li:hover {
+    background: #64A0FB;
+    border-radius: 10px;
+}
+
+.side-links ul {
+    padding: 0;
+    margin: 0;
+}
+
+.side-links a {
+    display: flex;
+    color: black;
+    align-items: center;
+    justify-content: center;
+    width: 200px;  
+    height: 35px; 
+    text-align: center;
+    margin: 5px auto;
+    border: 1px solid black;
+    border-radius: 10px;
+    text-decoration: none;
+    padding: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.main-sidelinks {
+    display: flex;
+    margin-left: -35px;
+    flex-direction: column;
+    align-items: flex-start;
+    position: absolute;
+    background: white;
+    height: 100vh;
+    color: black;
+    padding: 15px 0px 15px 0px;
+    border-right: 1px solid black;
+    border-top: 1px solid black;
+}

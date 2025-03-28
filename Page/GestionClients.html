@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion clients</title>
+    <link rel="stylesheet" type="text/css" href="../component/Footer.css">
+    <link rel="stylesheet" type="text/css" href="../component/Navbar.css">
+    <link rel="stylesheet" type="text/css" href="../component/BoutonBleu.css">
+    <link rel="stylesheet" type="text/css" href="../component/BoutonRouge.css">
+    <link rel="stylesheet" type="text/css" href="../component/SideBarAdmin.css">
+    <link rel="stylesheet" type="text/css" href="../component/Pagination.css">
+    <link rel="stylesheet" href="../Style/GestionClients.css">
+</head>
+<body>
+    <header>
+        <div id="navbar-container" class="navbar-container"></div>
+    </header>
+    <main>
+        <div class="flexbox-container">
+            <div id="sidebar-container" class="sidebar-container"></div>
+            <div class="">
+                <h1>Gestion des clients</h1>
+                <div class="search-number">
+                    <div class="search-container">
+                        <input type="text" class="search-input" placeholder="Rechercher">
+                        <img class="search-icon" src="../assets/img/icons/search-icon.svg" alt="">
+                    </div>
+                    <div class="client-count">
+                        Nombre de clients : <span id="clientNumber">10</span>
+                    </div>
+                </div>
+                <div class="column-container">
+                    <table border="1">
+                        <tr><th>Nom</th><th>Prénom</th><th>Email</th><th>Rôle</th><th>Actions</th></tr>
+                        <tr><td>Dupont</td><td>Jean</td><td>Jean.dupont@gmail.com</td><td>Meeter</td><td><div class="icon-actions"><img src="../assets/img/icons/eye-open-icon.svg" alt=""><img src="../assets/img/icons/edit-icon.svg" alt=""><img src="../assets/img/icons/icon-trash.svg" alt=""></div></td></tr>
+                        <tr><td>Dupuis</td><td>Kevin</td><td>kevin.dupuis@gmail.com</td><td>Client</td><td><div class="icon-actions"><img src="../assets/img/icons/eye-open-icon.svg" alt=""><img src="../assets/img/icons/edit-icon.svg" alt=""><img src="../assets/img/icons/icon-trash.svg" alt=""></div></td></tr>
+                        <tr><td>Test</td><td>Test</td><td>kevin.dupuis@gmail.com</td><td>Client</td><td><div class="icon-actions"><img src="../assets/img/icons/eye-open-icon.svg" alt=""><img src="../assets/img/icons/edit-icon.svg" alt=""><img src="../assets/img/icons/icon-trash.svg" alt=""></div></td></tr>
+                    </table>
+                    <div class="pagination-container" id="pagination-container"></div>
+                </div>
+            </div>
+        </div>
+        
+
+        <script src="../component/Navbar.js"></script>
+        <script>
+            document.getElementById('navbar-container').innerHTML = Navbar(true, "..");
+        </script> 
+        <script src="../component/navAction.js"></script> 
+        <script src="../component/SideBarAdmin.js"></script>
+        <script>
+            document.getElementById('sidebar-container').innerHTML = SideBarAdmin(true, "..");
+        </script> 
+        <script src="../component/Pagination.js"></script>
+        <script>
+            document.getElementById('pagination-container').innerHTML = Pagination();
+        </script> 
+        <script src="../Script/PaginationChange.js"></script>
+
+        
+    </main>
+    <footer id="footer-container" class="footer-container">
+        <script src="../component/Footer.js"></script>
+        <script>
+            document.getElementById('footer-container').innerHTML = Footer("..");
+        </script> 
+    </footer> 
+    
+</body>
+</html>
