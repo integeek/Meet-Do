@@ -28,7 +28,7 @@ function Navbar(connect, url) {
                         <div class="annonce">
                             <a href="#">Poster une annonce</a>
                         </div>
-                        <a href="./Page/PageCompte.html" class="profil" id="profil">
+                        <a href="./PageCompte.html" class="profil" id="profil">
                             <div>Profil</div>
                             <image src="${url}/assets/img/profil.png" id="profil-img">
                         </a>
