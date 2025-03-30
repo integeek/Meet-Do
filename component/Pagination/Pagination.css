@@ -28,12 +28,17 @@
     transition: background-position 0.5s;
 } 
 
-ul li.active {
-    background-image: linear-gradient(#64A0FB, #64A0FB);
-    background-repeat: no-repeat;
-    color: #fff;
-    background-position: 0 0;
+.pagination ul li:hover {
+    background-color: rgba(100, 160, 251, 0.5);
+}
 
+.pagination ul li a{
+    text-decoration: none;
+    color: black
+} 
+
+ul li.active {
+    background-color:  #64A0FB;
 }
 
 .btn1, .btn2 {
@@ -41,7 +46,7 @@ ul li.active {
     align-items: center;
     font-size: 14px;
     font-weight: 500;
-    color: #383838;
+    color: black;
     background: transparent;
     outline: none;
     border: none;
