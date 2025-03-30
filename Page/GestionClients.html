@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion clients</title>
-    <link rel="stylesheet" type="text/css" href="../component/Footer.css">
-    <link rel="stylesheet" type="text/css" href="../component/Navbar.css">
+    <link rel="stylesheet" type="text/css" href="../component/Footer/Footer.css">
+    <link rel="stylesheet" type="text/css" href="../component/Navbar/Navbar.css">
+    <link rel="stylesheet" type="text/css" href="../component/SearchBarAdmin/SearchBarAdmin.css">
     <link rel="stylesheet" type="text/css" href="../component/BoutonBleu.css">
     <link rel="stylesheet" type="text/css" href="../component/BoutonRouge.css">
-    <link rel="stylesheet" type="text/css" href="../component/SideBarAdmin.css">
-    <link rel="stylesheet" type="text/css" href="../component/Pagination.css">
+    <link rel="stylesheet" type="text/css" href="../component/SideBarAdmin/SideBarAdmin.css">
+    <link rel="stylesheet" type="text/css" href="../component/Pagination/Pagination.css">
     <link rel="stylesheet" href="../Style/GestionClients.css">
 </head>
 <body>
@@ -21,15 +22,9 @@
             <div id="sidebar-container" class="sidebar-container"></div>
             <div class="">
                 <h1>Gestion des clients</h1>
-                <div class="search-number">
-                    <div class="search-container">
-                        <input type="text" class="search-input" placeholder="Rechercher">
-                        <img class="search-icon" src="../assets/img/icons/search-icon.svg" alt="">
-                    </div>
-                    <div class="client-count">
-                        Nombre de clients : <span id="clientNumber">10</span>
-                    </div>
-                </div>
+
+                <div class="searchBarAdmin-container" id="searchBarAdmin-container"></div>
+
                 <div class="column-container">
                     <table border="1">
                         <tr><th>Nom</th><th>Prénom</th><th>Email</th><th>Rôle</th><th>Actions</th></tr>
@@ -42,17 +37,23 @@
             </div>
         </div>
         
-
-        <script src="../component/Navbar.js"></script>
+        <script src="../component/Navbar/Navbar.js"></script>
         <script>
             document.getElementById('navbar-container').innerHTML = Navbar(true, "..");
         </script> 
-        <script src="../component/navAction.js"></script> 
-        <script src="../component/SideBarAdmin.js"></script>
+        <script src="../component/Navbar/navAction.js"></script> 
+
+        <script src="../component/SideBarAdmin/SideBarAdmin.js"></script>
         <script>
             document.getElementById('sidebar-container').innerHTML = SideBarAdmin(true, "..");
         </script> 
-        <script src="../component/Pagination.js"></script>
+
+        <script src="../component/SearchBarAdmin/SearchBarAdmin.js"></script>
+        <script>
+            document.getElementById('searchBarAdmin-container').innerHTML = SearchBarAdmin();
+        </script> 
+
+        <script src="../component/Pagination/Pagination.js"></script>
         <script>
             document.getElementById('pagination-container').innerHTML = Pagination();
         </script> 
@@ -60,8 +61,9 @@
 
         
     </main>
+    
     <footer id="footer-container" class="footer-container">
-        <script src="../component/Footer.js"></script>
+        <script src="../component/Footer/Footer.js"></script>
         <script>
             document.getElementById('footer-container').innerHTML = Footer("..");
         </script> 
