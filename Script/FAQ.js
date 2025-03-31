@@ -67,7 +67,7 @@ container.innerHTML = data
         <button type="button" class="collapse-title alone" id="${item.id}btn">
             <h3>${item.question}</h3>
             <div class="grow"></div>
-            <image class="pen" src="../assets/img/pen.png" id="${
+            <image onclick="openPopUp1()" class="pen" src="../assets/img/pen.png" id="${
               item.id
             }img-pen"></image>
             <image class="trash" src="../assets/img/trash.png" id="${
@@ -160,4 +160,12 @@ function openPopUp() {
 
 function closePopUp() {
   document.getElementById("popup").style.display = "none";
+}
+
+function openPopUp1() {
+  document.getElementById("popup1").style.display = "block";
+}
+
+function closePopUp1() {
+  document.getElementById("popup1").style.display = "none";
 }

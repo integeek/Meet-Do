@@ -102,7 +102,7 @@ h1 {
     align-items: center;
   }
 
-  #question {
+  #question, #question1 {
     width: 700px;
     height: 20px;
     border-radius: 10px;
@@ -112,7 +112,7 @@ h1 {
     font-size: 1rem;
   }
 
-  #reponse {
+  #reponse , #reponse1 {
     width: 700px;
     height: 200px;
     border-radius: 10px;
