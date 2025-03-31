@@ -10,14 +10,22 @@
 }
 
 table {
-    width: 215%;
+    width: 1100px;
     border-collapse: collapse;
     font-family: Arial, sans-serif;
+    table-layout: fixed;
 }
+
 th, td {
     border: 1px solid #c9c7c7;
     padding: 10px;
     text-align: left;
+}
+
+td {
+    max-width: 100px;
+    word-wrap: break-word;
+    overflow: hidden;
 }
 
 tr:nth-child(even) {
@@ -29,4 +37,8 @@ td .icon-actions {
     justify-content: center;
     align-items: center;
     justify-content: space-between;
+}
+
+td .icon-actions img {
+    padding: 5px;
 }

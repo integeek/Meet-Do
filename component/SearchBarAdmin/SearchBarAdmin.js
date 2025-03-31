@@ -1,4 +1,4 @@
-function SearchBarAdmin(){
+function SearchBarAdmin(texte){
     return `
     <div class="search-number">
                     <div class="search-container">
@@ -6,7 +6,7 @@ function SearchBarAdmin(){
                         <img class="search-icon" src="../assets/img/icons/search-icon.svg" alt="">
                     </div>
                     <div class="client-count">
-                        Nombre de clients : <span id="clientNumber">10</span>
+                        Nombre de ${texte} : <span id="clientNumber">10</span>
                     </div>
                 </div>
     `
