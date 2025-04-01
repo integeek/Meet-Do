@@ -4,9 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="../component/Footer.css" />
-    <link rel="stylesheet" type="text/css" href="../component/Navbar.css" />
-    <link rel="stylesheet" type="text/css" href="../style/FAQ.css" />
+    <link rel="stylesheet" type="text/css" href="../component/Footer/Footer.css">
+    <link rel="stylesheet" type="text/css" href="../component/Navbar/Navbar.css">
+    <link rel="stylesheet" type="text/css" href="../style/FAQ.css">
+    <script src="../Script/Faq.js" defer></script>
     <link rel="stylesheet" type="text/css" href="../component/BoutonBleu.css" />
     <link
       rel="stylesheet"
@@ -20,15 +21,12 @@
 
   <body>
     <header>
-      <div id="navbar-container" class="navbar-container"></div>
-      <script src="../component/Navbar.js"></script>
-      <script>
-        document.getElementById("navbar-container").innerHTML = Navbar(
-          true,
-          ".."
-        );
-      </script>
-      <script src="../component/navAction.js"></script>
+        <div id="navbar-container" class="navbar-container"></div>
+        <script src="../component/Navbar/Navbar.js"></script>
+        <script>
+            document.getElementById('navbar-container').innerHTML = Navbar(true, "..");
+        </script>
+        <script src="../component/Navbar/navAction.js"></script> 
     </header>
     <main>
       <h1 id="title">FAQ</h1>
@@ -130,10 +128,11 @@
       </div>
     </main>
     <footer id="footer-container" class="footer-container">
-      <script src="../component/Footer.js"></script>
-      <script>
-        document.getElementById("footer-container").innerHTML = Footer("..");
-      </script>
+        <script src="../component/Footer/Footer.js"></script>
+        <script>
+            document.getElementById('footer-container').innerHTML = Footer("..");
+        </script>
+
     </footer>
   </body>
 </html>
