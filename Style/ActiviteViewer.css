@@ -1,0 +1,169 @@
+body {
+    font-family: "Inter", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+.activity-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+}
+.carousel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.carousel-images {
+    display: flex;
+    overflow: hidden;
+    width: 500px;
+}
+.carousel-images img {
+    display: none;
+    width: 100%;
+    border-radius: 10px;
+}
+.carousel-images img.active {
+    display: block;
+}
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 20px;
+}
+.prev { left: 10px; }
+.next { right: 10px; }
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+.price {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+.host-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+.reviews {
+    margin-top: 20px;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+}
+
+.activite-container {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.titre-activite-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.titre-activite {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.date-activite {
+    font-size: 1.2rem;
+}
+
+.infos-activite {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.adresse-activite, .groupe-activite {
+    font-size: 1.2rem;
+    margin: 5px 0;
+}
+
+.images-activite {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.image-activite {
+    width: 48%;
+    border-radius: 10px;
+}
+
+.separator {
+    border-top: 2px solid black;
+    margin: 20px 0;
+}
+
+.description-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.description-activite {
+    width: 60%;
+}
+
+.actions-container {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.participer-btn, .laisser-avis-btn, .contact-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.prix-activite {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.organisateur {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.nom-organisateur {
+    font-weight: bold;
+}
+
+.avis-container {
+    margin-top: 20px;
+}
+
+.avis {
+    border-top: 1px solid #ccc;
+    padding: 10px 0;
+}
+
+
+
+
