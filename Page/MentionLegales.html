@@ -4,38 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mentions Légales | Meet & Do</title>
-    <link rel="stylesheet" href="../component/">
-    <link rel="stylesheet" href="styles/Footer.css">
-    <link rel="stylesheet" href="styles/BoutonBleu.css">
-    <link rel="stylesheet" href="styles/BoutonRouge.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-        }
-        .container {
-            width: 80%;
-            margin: auto;
-            background: #fff;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            margin-top: 20px;
-        }
-        h1 {
-            color: #0073e6;
-            text-align: center;
-        }
-    </style>
+    <link rel="stylesheet" href="../component/Navbar/Navbar.css">
+    <link rel="stylesheet" href="../component/Footer/Footer.css">
+    <link rel="stylesheet" href="../component/BoutonBleu.css">
+    <link rel="stylesheet" href="../Style/MentionLegales.css">
+    <link rel="stylesheet" href="../component/BoutonRouge.css">
 </head>
 <body>
 
    <!-- Navbar -->
  <div id="navbar-container" class="navbar-container"></div>
- <script src="../component/Navbar.js"></script>
+ <script src="../component/Navbar/Navbar.js"></script>
  <script>
      document.getElementById('navbar-container').innerHTML = Navbar(true, "..");
  </script>
@@ -64,7 +43,6 @@
     <!-- Footer -->
     <div id="footer"></div>
 
-    <script src="scripts/Navbar.js"></script>
-    <script src="scripts/Footer.js"></script>
+    <script src="../component/Navbar/navAction.js"></script>
 </body>
 </html>
