@@ -1,0 +1,101 @@
+h1 {
+    font-size: 2.5rem;
+    margin-left: 50px;
+}
+
+.profile-container {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+#profile-icon {
+    width: 150px;
+    height: 150px;
+   margin-left: 70px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2%;
+    margin-left: 70px;
+    gap: 20px;
+    
+}
+
+.firstname-container {
+    display: flex;
+    align-items: flex-end;
+
+}
+
+.input-firstname {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.lastname-container {
+    display: flex;
+    align-items: flex-end;
+}
+
+.input-lastname {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.email-container {
+    display: flex;
+    align-items: flex-end;
+}
+
+.input-email {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.password-container {
+    display: flex;
+    align-items: flex-end;
+}
+
+.input-password {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#edit-icon {
+    width: 35px;
+    height: 35px;
+}
+
+form label {
+    font-size: 1.5rem;
+}
+
+form input {
+    width: 200px;
+    height: 30px;
+    font-size: 1.2rem;
+    border: #000000 solid 2px;
+    border-radius: 10px;
+    background: #f9f4f4;
+    padding-left: 10px;
+}
+
+h2 {
+    margin-left: 50px;
+    margin-top: 50px;
+}
+
+.meeter-container {
+    display: flex;
+    align-items: center;
+    margin-left: 70px;
+    gap: 20px;
+}

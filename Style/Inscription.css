@@ -1,0 +1,116 @@
+.background-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("../assets/img/fondRando.jfif") center/cover;
+    opacity: 0.35;
+    z-index: -1;
+}
+
+.containerLogin {
+    background-color: white;
+    border: black solid 0.5px;
+    border-radius: 7px;
+    padding: 15px;
+    margin: 50px auto;
+    width: 20%;
+}
+
+.textbox {
+    border: 1px solid;
+    border-radius: 5px;
+    background-color: #F9F4F4;
+    padding: 5px;
+    width: 95% ;
+}
+
+#pasCompte, #connexion {
+    display: inline-block;
+    margin-right: 0px;
+    text-decoration: none;
+}
+
+#containerPassword {
+    position: relative; 
+    display: inline-block;
+    width: 100%;
+
+}
+
+.togglePassword {
+    position: absolute;
+    right: 10px;
+    top: 50%; 
+    transform: translateY(-50%);  /* Pour mettre le centre de l'icone au milieu */
+    width: 20px; 
+    cursor: pointer;
+}
+
+#versCo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0px; /* Ajuste l'écart entre les éléments */
+}
+
+#boutonContainer {
+    display: flex;
+    justify-content: center;
+}
+
+#mention {
+    display: flex;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+#mentionTexte {
+    font-size: 9px;
+}
+
+#conditionsG {
+    text-decoration: underline;
+}
+
+@media screen and (max-width: 1175px) {
+    .containerLogin {
+        width: 25%;
+    }
+    #pasCompte {
+        margin: 0;
+        padding: 0px;
+    }
+
+    #mention {
+        margin-top: 2px;
+    }
+    
+    .versCo {
+        margin: 8px;
+    }
+}
+
+@media screen and (max-width: 830px) {
+    .containerLogin {
+        width: 45%;
+    }
+
+    .versCo {
+        margin: 8px;
+    }
+}
+
+@media screen and (max-width: 520px) {
+    .containerLogin {
+        width: 50%;
+    }
+
+    .versCo {
+        margin: 8px;
+    }
+    
+    #boutonContainer {
+        margin-top: 10px;
+    }
+}
