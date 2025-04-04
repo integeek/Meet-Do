@@ -1,0 +1,43 @@
+.flexbox-container {
+    display: flex;
+    column-gap: 280px;
+}
+
+.column-container {
+    display: flex;
+    flex-direction: column;
+}
+
+table {
+    width: 1100px;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    table-layout: fixed;
+}
+
+th, td {
+    border: 1px solid #c9c7c7;
+    padding: 10px;
+    text-align: left;
+}
+
+td {
+    max-width: 100px;
+    word-wrap: break-word;
+    overflow: hidden;
+}
+
+tr:nth-child(even) {
+    background-color: #D9D9D9;
+}
+
+td .icon-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-content: space-between;
+}
+
+td .icon-actions img {
+    padding: 5px;
+}

@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vos informations</title>
-    <link rel="stylesheet" type="text/css" href="../component/Footer.css">
-    <link rel="stylesheet" type="text/css" href="../component/Navbar.css">
+    <link rel="stylesheet" type="text/css" href="../component/Footer/Footer.css">
+    <link rel="stylesheet" type="text/css" href="../component/Navbar/Navbar.css">
     <link rel="stylesheet" type="text/css" href="../component/BoutonBleu.css">
     <link rel="stylesheet" href="../Style/InfoPerso.css">
 </head>
@@ -13,10 +13,12 @@
     <div class="background-image"></div>
     <header>
         <div id="navbar-container" class="navbar-container"></div>
-        <script src="../component/Navbar.js"></script>
+        <script src="../component/Navbar/Navbar.js"></script>
         <script>
             document.getElementById('navbar-container').innerHTML = Navbar(false, "..");
         </script>
+        <script src="../component/Navbar/navAction.js"></script> 
+
     </header>
     <main>
         <div class="containerLogin">
@@ -41,7 +43,7 @@
         </div>
     </main>
     <footer id="footer-container" class="footer-container">
-        <script src="../component/Footer.js"></script>
+        <script src="../component/Footer/Footer.js"></script>
         <script>
             document.getElementById('footer-container').innerHTML = Footer("..");
         </script>

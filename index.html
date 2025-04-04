@@ -4,32 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accueil</title>
-    <link rel="stylesheet" type="text/css" href="./component/Navbar.css">
-    <link rel="stylesheet" href="./component/SearchBar.css">
-    <link rel="stylesheet" href="./component/ActivityCard.css">
+    <link rel="stylesheet" type="text/css" href="./component/Navbar/Navbar.css">
+    <link rel="stylesheet" href="./component/SearchBar/SearchBar.css">
+    <link rel="stylesheet" href="./component/ActivityCard/ActivityCard.css">
 <!--<script src="activityCard.js" defer></script>-->
-    <link rel="stylesheet" type="text/css" href="./component/Footer.css">
+    <link rel="stylesheet" type="text/css" href="./component/Footer/Footer.css">
 </head>
 <body>
     <header>
         <div id="navbar-container" class="navbar-container"></div>
-        <script src="./component/Navbar.js"></script>
+        <script src="./component/Navbar/Navbar.js"></script>
         <script>
             document.getElementById('navbar-container').innerHTML = Navbar(true, ".");
         </script>
             <div id="search-bar"></div>
-            <script src="./component/SearchBar.js"></script>
+            <script src="./component/SearchBar/SearchBar.js"></script>
             <script>
                 document.getElementById('search-bar').innerHTML = SearchBar(".")
             </script>
             <div id="activities-container"></div>
-            <script src="./component/ActivityCard.js"></script>
+            <script src="./component/ActivityCard/ActivityCard.js"></script>
     </header>
     <main>
         <a href="./Page/FAQ.html">Login</a>
     </main>
     <footer id="footer-container" class="footer-container">
-        <script src="./component/Footer.js"></script>
+        <script src="./component/Footer/Footer.js"></script>
         <script>
             document.getElementById('footer-container').innerHTML = Footer(".");
         </script>
