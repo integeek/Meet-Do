@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentions Légales | Meet & Do</title>
+    <link rel="stylesheet" href="../component/">
+    <link rel="stylesheet" href="styles/Footer.css">
+    <link rel="stylesheet" href="styles/BoutonBleu.css">
+    <link rel="stylesheet" href="styles/BoutonRouge.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        h1 {
+            color: #0073e6;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+   <!-- Navbar -->
+ <div id="navbar-container" class="navbar-container"></div>
+ <script src="../component/Navbar.js"></script>
+ <script>
+     document.getElementById('navbar-container').innerHTML = Navbar(true, "..");
+ </script>
+
+    <div class="container">
+        <h1>MENTIONS LÉGALES</h1>
+        <p>Conformément aux dispositions de la loi n° 2004-575 du 21 juin 2004...</p>
+
+        <h2>Édition du site</h2>
+        <p>Le présent site, accessible à l’URL www.meet&do.com...</p>
+
+        <h2>Hébergement</h2>
+        <p>Le site est hébergé par la société Google...</p>
+
+        <h2>Directeur de publication</h2>
+        <p>Antoine LATOUR...</p>
+
+        <h2>Nous contacter</h2>
+        <p>Par téléphone : +33652848878</p>
+        <p>Par email : antoine.latour@ext.isep.fr</p>
+
+        <h2>Données personnelles</h2>
+        <p>Le traitement de vos données...</p>
+    </div>
+
+    <!-- Footer -->
+    <div id="footer"></div>
+
+    <script src="scripts/Navbar.js"></script>
+    <script src="scripts/Footer.js"></script>
+</body>
+</html>

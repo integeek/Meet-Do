@@ -1,0 +1,60 @@
+body {
+    margin: 0; /* Reset default margin */
+    padding: 0; /* Reset default padding */
+    height: 100%; /* Ensure the body covers 100% of the page height */
+    min-height: 100vh; /* Minimum height to allow scrolling if content overflows */
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif; /* Set font family */
+    background-image: url(background.png); /* Background image */
+    background-size: cover; /* Cover the entire area */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Prevent background image repetition */
+    background-attachment: fixed; /* Fix the background image so it stays in place during scroll */
+  }
+  
+  .header {
+    width: 100%; /* Full width of the header */
+    height: 120px; /* Set the height of the header */
+    display: flex; /* Use flexbox to layout the items */
+    align-items: center; /* Vertically center the items */
+    justify-content: center; /* Horizontally center the content */
+    background-color: #20201f; /* Dark background color */
+    border-bottom: 2px solid #bf6a02; /* Bottom border color */
+    position: fixed; /* Fix the header to the top of the page */
+    top: 0; /* Align the header at the top */
+    left: 0; /* Align the header to the left */
+    z-index: 1000; /* Ensure the header stays above other content */
+  }
+  
+  .header img {
+    width: 100px; /* Set the width of the logo */
+    height: 100px; /* Set the height of the logo */
+    left: 20px; /* Align the logo to the left */
+    position: absolute; /* Position the logo absolutely */
+  }
+  
+  .header input {
+    width: 50%; /* Adjust the width of the search bar */
+    max-width: 400px; /* Set the maximum width of the search bar */
+    min-width: 200px; /* Set the minimum width of the search bar */
+    padding: 10px; /* Add padding inside the search bar */
+    border: 2px solid #bf6a02; /* Set the border color */
+    border-radius: 30px; /* Round the corners of the search bar */
+    background-color: #4a4a49; /* Set the background color */
+    color: #ffffff; /* Set the text color to white */
+    font-size: 16px; /* Set the font size */
+    outline: none; /* Remove the outline */
+    position: relative; /* Ensure it is positioned normally within the flex container */
+  }
+  
+  .text-box {
+    width: auto; /* Auto width for the text box */
+    max-width: 800px; /* Set a maximum width */
+    margin: 140px auto 15px; /* Add a top margin of 135px (120px for the header + 15px for spacing) */
+    padding: 20px; /* Padding inside the text box */
+    background-color: #ffffff; /* Set the background color to white */
+    border: 2px solid black; /* Black border around the text box */
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Add a shadow for depth */
+    position: relative; /* Keep it in the document flow */
+  }
+  
