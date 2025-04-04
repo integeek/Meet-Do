@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Activité Viewer</title>
-    <link rel="stylesheet" type="text/css" href="../component/Footer.css">
-    <link rel="stylesheet" type="text/css" href="../component/Navbar.css">
+    <link rel="stylesheet" type="text/css" href="../component/Footer/Footer.css">
+    <link rel="stylesheet" type="text/css" href="../component/Navbar/Navbar.css">
     <link rel="stylesheet" type="text/css" href="../component/BoutonBleu.css">
     <link rel="stylesheet" type="text/css" href="../component/BoutonRouge.css">
     <link rel="stylesheet" type="text/css" href="../Style/ActiviteViewer.css">
@@ -31,13 +31,13 @@
     </main>
 
     <footer id="footer-container" class="footer-container">
-        <script src="../component/Footer.js"></script>
+        <script src="../component/Footer/Footer.js"></script>
         <script>
             document.getElementById('footer-container').innerHTML = Footer("..");
         </script> 
     </footer> 
 
-    <script src="../component/Navbar.js"></script>
+    <script src="../component/Navbar/Navbar.js"></script>
     <script>
         document.getElementById('navbar-container').innerHTML = Navbar(false, "..");
     </script>
@@ -59,8 +59,8 @@
                     <p class="date-activite">${activite.date}</p>
                 </div>
                 <div class="infos-activite">
-                    <p class="adresse-activite">📍 ${activite.adresse}</p>
-                    <p class="groupe-activite">👥 Groupe de ${activite.nbParticipants}</p>
+                    <p class="adresse-activite"><img src="../assets/img/icons/position-icon.svg" alt=""> ${activite.adresse}</p>
+                    <p class="groupe-activite"><img src="../assets/img/icons/group.svg" alt=""> Groupe de ${activite.nbParticipants}</p>
                 </div>
             </div>
             <div class="images-activite">
@@ -70,25 +70,25 @@
             <div class="separator"></div>
             <div class="description-container">
                 <div class="description-activite">
-                    <h2>📄 Description de l’activité</h2>
+                    <h2><img src="../assets/img/icons/file.svg" alt=""> Description de l’activité</h2>
                     <p>${activite.description}</p>
                 </div>
                 <div class="actions-container">
                     ${boutonParticiper}
                     ${boutonLaisserAvis}
-                    <p class="prix-activite">💶 Prix : ${activite.prix}€</p>
+                    <p class="prix-activite"><img src="../assets/img/icons/price.svg alt=""> Prix : ${activite.prix}€</p>
                     <div class="organisateur">
-                        <p class="nom-organisateur">👤 ${activite.organisateur.nom}</p>
-                        <p class="note-organisateur">⭐ ${activite.organisateur.note} / 5</p>
+                        <p class="nom-organisateur"><img src="../assets/img/icons/user.svg" alt=""> ${activite.organisateur.nom}</p>
+                        <p class="note-organisateur"><img src="../assets/img/icons/etoile.svg" alt=""> ${activite.organisateur.note} / 5</p>
                         ${boutonContact}
                     </div>
                 </div>
             </div>
             <div class="avis-container">
-                <h2>📢 Avis (${activite.avis.length})</h2>
+                <h2><img src="../assets/img/icons/megaphone.svg" alt=""> Avis (${activite.avis.length})</h2>
                 ${activite.avis.map(avis => `
                     <div class="avis">
-                        <p><strong>${avis.utilisateur}</strong> ⭐ ${avis.note}</p>
+                        <p><strong>${avis.utilisateur}</strong> <img src="../assets/img/icons/etoile.svg" alt=""> ${avis.note}</p>
                         <p>${avis.commentaire}</p>
                     </div>
                 `).join('')}
