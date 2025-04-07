@@ -7,8 +7,8 @@
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="../component/Footer.css">
     <link rel="stylesheet" type="text/css" href="../component/Navbar.css">
-    <link rel="stylesheet" type="text/css" href="../style/FAQ.css">
-    <script src="../Script/Faq.js" defer></script>
+    <link rel="stylesheet" type="text/css" href="../style/Forum.css">
+    <script src="../Script/Forum.js" defer></script>
 </head>
 
 <body>
@@ -18,21 +18,24 @@
         <script>
             document.getElementById('navbar-container').innerHTML = Navbar(true, "..");
         </script>
-        <script src="../component/navAction.js"></script> 
+        <script src="../component/navAction.js"></script>
+
     </header>
     <main>
-        <h1>FAQ</h1>
+        <h1>Forum</h1>
         <div style="display: flex;">
+            <input type="text" class="search" placeholder="Rechercher">
             <div id="select-div">
                 <select id="select"></select>
             </div>
             <div class="grow"></div>
             <button type="button" id="new-question-button">
                 <p>Ajouter une question</p>
-                <img src="../assets/img/message.png" alt="message icon" id="message-icon"/>
+                <img src="../assets/img/message.png" alt="message icon" id="message-icon" />
             </button>
         </div>
         <div class="collapse-container">
+
         </div>
     </main>
     <footer id="footer-container" class="footer-container">
@@ -41,7 +44,6 @@
             document.getElementById('footer-container').innerHTML = Footer("..");
         </script>
     </footer>
-
 </body>
 
 </html>
