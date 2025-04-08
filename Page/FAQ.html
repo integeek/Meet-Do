@@ -1,95 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="../component/Footer/Footer.css">
-    <link rel="stylesheet" type="text/css" href="../component/Navbar/Navbar.css">
-    <link rel="stylesheet" type="text/css" href="../style/FAQ.css">
-    <script src="../Script/Faq.js" defer></script>
-    <link rel="stylesheet" type="text/css" href="../component/BoutonBleu.css" />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="../component/BoutonRouge.css"
-    />
-    <script src="../component/BoutonBleu.js"></script>
-    <script src="../component/BoutonRouge.js"></script>
-    <script src="../Script/FAQ.js" defer></script>
-  </head>
 
-  <body>
-    <header>
-        <div id="navbar-container" class="navbar-container"></div>
-        <script src="../component/Navbar/Navbar.js"></script>
-        <script>
-            document.getElementById('navbar-container').innerHTML = Navbar(true, "..");
-        </script>
-        <script src="../component/navAction.js"></script> 
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" type="text/css" href="../component/Footer/Footer.css">
+  <link rel="stylesheet" type="text/css" href="../component/Navbar/Navbar.css">
+  <link rel="stylesheet" type="text/css" href="../style/FAQ.css">
+  <script src="../Script/Faq.js" defer></script>
+  <link rel="stylesheet" type="text/css" href="../component/BoutonBleu.css" />
+  <link rel="stylesheet" type="text/css" href="../component/BoutonRouge.css" />
+  <script src="../component/BoutonBleu.js"></script>
+  <script src="../component/BoutonRouge.js"></script>
+  <script src="../Script/FAQ.js" defer></script>
+</head>
 
-    </header>
-    <main>
-        <h1 id="title">FAQ</h1>
-        <div style="display: flex;">
-            <select id="select"></select>
-            <div id="selected" class="hidden">
-                <p id="selected-text"></p>
-                <img src="../assets/img/croix.png" alt="croix icon" id="croix-selected"/>
-            </div>
-            <div class="grow"></div>
-            <button type="button" id="new-question-button">
-                <p>Ajouter une question</p>
-                <img src="../assets/img/message.png" alt="message icon" id="message-icon"/>
-            </button>
-            
-        </div>
+<body>
+  <header>
+    <div id="navbar-container" class="navbar-container"></div>
+    <script src="../component/Navbar/Navbar.js"></script>
+    <script>
+      document.getElementById('navbar-container').innerHTML = Navbar(true, "..");
+    </script>
+    <script src="../component/navAction.js"></script>
+
+  </header>
+  <main>
+    <h1 id="title">FAQ</h1>
+    <div style="display: flex;">
+      <div id="select-div">
+        <select id="select"></select>
       </div>
-      <div class="collapse-container"></div>
-      <div class="popup-container" id="popup1">
-        <div class="popup-content">
-          <div class="popup-header">
-            <h1>Modifier une question</h1>
+      <div class="grow"></div>
+      <button type="button" id="new-question-button">
+        <p>Ajouter une question</p>
+        <img src="../assets/img/message.png" alt="message icon" id="message-icon" />
+      </button>
+
+    </div>
+    </div>
+    <div class="collapse-container"></div>
+    <div class="popup-container" id="popup1">
+      <div class="popup-content">
+        <div class="popup-header">
+          <h1>Modifier une question</h1>
+        </div>
+        <div class="popup-main">
+          <div class="selecteur"></div>
+          <div class="question">
+            <input type="text" id="question1" placeholder="Entrez une question" />
           </div>
-          <div class="popup-main">
-            <div class="selecteur"></div>
-            <div class="question">
-              <input
-                type="text"
-                id="question1"
-                placeholder="Entrez une question"
-              />
-            </div>
-            <div class="reponse">
-              <textarea
-                id="reponse1"
-                placeholder="Entrez une réponse"
-                rows="4"
-                cols="50"
-              ></textarea>
-            </div>
-          </div>
-          <div class="popup-footer">
-            <div id="bouton-rouge1" onclick="closePopUp1()"></div>
-            <script>
-              document.getElementById("bouton-rouge1").innerHTML =
-                BoutonRouge("Annuler");
-            </script>
-            <div id="bouton-bleue1"></div>
-            <script>
-              document.getElementById("bouton-bleue1").innerHTML =
-                BoutonBleu("Valider");
-            </script>
+          <div class="reponse">
+            <textarea id="reponse1" placeholder="Entrez une réponse" rows="4" cols="50"></textarea>
           </div>
         </div>
+        <div class="popup-footer">
+          <div id="bouton-rouge1" onclick="closePopUp1()"></div>
+          <script>
+            document.getElementById("bouton-rouge1").innerHTML =
+              BoutonRouge("Annuler");
+          </script>
+          <div id="bouton-bleue1"></div>
+          <script>
+            document.getElementById("bouton-bleue1").innerHTML =
+              BoutonBleu("Valider");
+          </script>
+        </div>
       </div>
-    </main>
-    <footer id="footer-container" class="footer-container">
-        <script src="../component/Footer/Footer.js"></script>
-        <script>
-            document.getElementById('footer-container').innerHTML = Footer("..");
-        </script>
+    </div>
+  </main>
+  <footer id="footer-container" class="footer-container">
+    <script src="../component/Footer/Footer.js"></script>
+    <script>
+      document.getElementById('footer-container').innerHTML = Footer("..");
+    </script>
 
-    </footer>
-  </body>
+  </footer>
+</body>
+
 </html>

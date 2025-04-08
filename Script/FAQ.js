@@ -47,13 +47,18 @@ const data = [
 const themes = ["Themes", "Connexion", "Groupe", "Profil", "Paramètres"];
 
 const container = document.querySelector('.collapse-container');
-const select = document.querySelector('#select');
-const selected = document.querySelector('#selected');
-const selectedText = document.querySelector('#selected-text');
-const croixselected = document.querySelector('#croix-selected');
 const newQeustion = document.querySelector('#new-question-button');
 let theme = "";
 
+const Theme = () => {
+  select.innerHTML = themes.map((item, index) => {
+      return `
+      <option value="${item}" ${index === 0 ? "disabled selected" : ""}>${item}</option>
+      `;
+  }).join('');
+}
+
+Theme();
 
 container.innerHTML = data.map((item, index) => {
     return `
@@ -78,12 +83,6 @@ container.innerHTML = data.map((item, index) => {
     `;
   })
   .join("");
-
-select.innerHTML = themes.map((item, index) => {
-    return `
-    <option value="${item}" ${index === 0 ? "disabled selected" : ""}>${item}</option>
-    `;
-}).join('');
 
 data.forEach((item) => {
   const button = document.getElementById(`${item.id}btn`);
@@ -126,19 +125,39 @@ data.forEach((item) => {
   });
 });
 
-select.addEventListener('change', (e) => {
-    theme = e.target.value;
-    selectedText.innerHTML = theme;
-    selected.classList.remove('hidden');
-    console.log(e.target.value);
-});
+const Selector = () => {
+  const select = document.querySelector('#select');
 
-croixselected.addEventListener('click', () => {
-    selected.classList.add('hidden');
-    select.selectedIndex = 0;
-    selectedText.innerHTML = "";
-    theme = "";
-});
+  select?.addEventListener('change', (e) => {
+      document.getElementById('select-div').innerHTML = `
+          <div id="selected" >
+             <p id="selected-text"></p>
+              <img src="../assets/img/croix.png" alt="croix icon" id="croix-selected"/>
+          </div>
+      `;
+      const selectedText = document.querySelector('#selected-text');
+      theme = e.target.value;
+      selectedText.innerHTML = theme;
+      ThemeSelected();
+  });
+}
+
+Selector();
+
+const ThemeSelected = () => {
+  const croixselected = document.querySelector('#croix-selected');
+  console.log(croixselected, "croixselected");
+  croixselected?.addEventListener('click', () => {
+      document.getElementById('select-div').innerHTML = `
+          <select id="select"></select>
+      `;
+      let select = document.querySelector('#select');
+      select.selectedIndex = 0;
+      theme = "";
+      Theme();
+      Selector();
+  });
+}
 
 newQeustion.addEventListener("click", () => {
   console.log("Ajout d'une nouvelle question");
