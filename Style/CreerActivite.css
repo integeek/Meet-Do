@@ -1,0 +1,260 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.container {
+    padding: 30px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 800px;
+}
+
+.upload-container {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Centrage du contenu */
+    width: 200px; /* Taille du carré */
+    height: 200px; /* Taille du carré */
+    border-radius: 10px; /* Coins arrondis */
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.upload-box {
+    display: block; /* Faire en sorte que le label occupe toute la largeur */
+    width: 100%; /* S'assurer que le label occupe toute la largeur du conteneur */
+    height: 100px; /* Vous pouvez ajuster la hauteur du rectangle */
+    background-color: #d9d9d9; /* Exemple de couleur de fond */
+    color: #555; /* Couleur du texte */
+    text-align: center; /* Centrer le texte */
+    padding: 20px 0; /* Espacement autour du texte */
+    border: 2px solid #ccc; /* Style de bordure */
+    border-radius: 5% ;
+    cursor: pointer; /* Changer le curseur pour indiquer que c'est cliquable */
+}
+
+.upload-box input {
+    display: none; /* Cacher l'élément input */
+}
+
+.upload-box:hover {
+    background-color: #e0e0e0; /* Modifier la couleur de fond au survol */
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/*.buttons-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.bouton-bleu, .bouton-rouge {
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    border: none;
+}
+
+.boutonContainer {
+    align-items: center;
+}
+*/
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.checkbox-container label {
+    font-size: 1rem;
+}
+
+.theme-badge {
+    display: inline-flex;
+    align-items: center;
+    background-color: #64A0FB;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+    margin: 5px;
+    font-size: 14px;
+}
+
+.theme-badge .remove-theme {
+    margin-left: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 16px;
+}
+
+.theme-container {
+    display: flex;
+    flex-direction: column; /* Organisation verticale */
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.theme-selection {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espacement entre le sélecteur et le bouton */
+    width: 100%;
+}
+
+#themesAjoutes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+#themeSelect {
+    background-color: #d9d9d9;
+    border: 1px solid #bbb;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    flex-grow: 1; /* Permet au select de prendre plus d'espace si nécessaire */
+}
+
+#ajouterTheme {
+    background-color: #d9d9d9;
+    border: 1px solid #bbb;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    
+    cursor: pointer;
+    white-space: nowrap; /* Évite que le texte se coupe */
+}
+
+#ajouterTheme:hover {
+    background-color: #c0c0c0;
+}
+
+/* Styles pour la popup de la carte */
+#mapPopup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 600px;
+    height: 400px;
+    background: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+    z-index: 1000;
+}
+
+#mapPopup h2 {
+    margin: 0 0 10px;
+    font-size: 18px;
+}
+
+#map {
+    width: 100%;
+    height: 300px;
+    border-radius: 5px;
+}
+
+#closeMap {
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+#closeMap:hover {
+    background: #cc0000;
+}
+
+/* Fond semi-transparent derrière la popup */
+#overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+/* Styles pour les badges de dates */
+#datesAjoutees {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.date-badge {
+    display: inline-flex;
+    align-items: center;
+    background-color: #64A0FB;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+    margin: 5px;
+    font-size: 14px;
+}
+
+.date-badge .remove-date {
+    margin-left: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 16px;
+}
+
+/* Flatpickr (calendrier) */
+.flatpickr-calendar {
+    font-family: Arial, sans-serif;
+}
+
+.flatpickr-day.selected {
+    background: #64A0FB !important;
+    color: white !important;
+}
+
+.flatpickr-day:hover {
+    background: #c0c0c0 !important;
+}
