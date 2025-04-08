@@ -1,67 +1,66 @@
 const data = [
-  {
-    id: 1,
-    question: "J'ai oublié mon mot de passe, comment le récupérer ?",
-    answer:
-      "Pour récupérer votre mot de passe, veuillez cliquer sur le bouton 'Mot de passe oublié' situé sur la page de connexion. <br/> Un email vous sera envoyé pour réinitialiser votre mot de passe. <br/> Si vous ne recevez pas d'email, veuillez vérifier vos spams. <br/> Si vous n'avez pas reçu d'email, veuillez contacter le support.",
-    theme: "Connexion",
-  },
-  {
-    id: 2,
-    question: "Comment changer mon mot de passe ?",
-    answer:
-      "Pour changer votre mot de passe, veuillez vous rendre sur votre profil et cliquer sur 'Modifier le mot de passe'.",
-    theme: "Connexion",
-  },
-  {
-    id: 3,
-    question: "Comment supprimer mon compte ?",
-    answer:
-      "Pour supprimer votre compte, veuillez vous rendre sur votre profil et cliquer sur 'Supprimer le compte'.",
-    theme: "Connexion",
-  },
-  {
-    id: 4,
-    question: "Comment contacter le support ?",
-    answer:
-      "Pour contacter le support, veuillez vous rendre sur la page de contact et remplir le formulaire.",
-    theme: "Connexion",
-  },
-  {
-    id: 5,
-    question: "Comment ajouter un ami ?",
-    answer:
-      "Pour ajouter un ami, veuillez vous rendre sur la page de profil de l'utilisateur et cliquer sur 'Ajouter en ami'.",
-    theme: "Connexion",
-  },
-  {
-    id: 6,
-    question: "Comment créer un groupe ?",
-    answer:
-      "Pour créer un groupe, veuillez vous rendre sur la page de groupe et cliquer sur 'Créer un groupe'.",
-    theme: "Groupe",
-  },
-  {
-    id: 7,
-    question: "Comment rejoindre un groupe ?",
-    answer:
-      "Pour rejoindre un groupe, veuillez vous rendre sur la page de groupe et cliquer sur 'Rejoindre un groupe'.",
-    theme: "Groupe",
-  },
+    {
+        id: 1,
+        question:"J'ai oublié mon mot de passe, comment le récupérer ?",
+        answer:"Pour récupérer votre mot de passe, veuillez cliquer sur le bouton 'Mot de passe oublié' situé sur la page de connexion. <br/> Un email vous sera envoyé pour réinitialiser votre mot de passe. <br/> Si vous ne recevez pas d'email, veuillez vérifier vos spams. <br/> Si vous n'avez pas reçu d'email, veuillez contacter le support.",
+        theme: "Connexion"
+    },
+    {
+        id: 2,
+        question:"Comment changer mon mot de passe ?",
+        answer:"Pour changer votre mot de passe, veuillez vous rendre sur votre profil et cliquer sur 'Modifier le mot de passe'.",
+        theme: "Connexion"
+    },
+    {
+        id: 3,
+        question:"Comment supprimer mon compte ?",
+        answer:"Pour supprimer votre compte, veuillez vous rendre sur votre profil et cliquer sur 'Supprimer le compte'.",
+        theme: "Connexion"
+    },
+    {
+        id: 4,
+        question:"Comment contacter le support ?",
+        answer:"Pour contacter le support, veuillez vous rendre sur la page de contact et remplir le formulaire.",
+        theme: "Connexion"
+    },
+    {
+        id: 5,
+        question:"Comment ajouter un ami ?",
+        answer:"Pour ajouter un ami, veuillez vous rendre sur la page de profil de l'utilisateur et cliquer sur 'Ajouter en ami'.",
+        theme: "Connexion"
+    },
+    {
+        id: 6,
+        question:"Comment créer un groupe ?",
+        answer:"Pour créer un groupe, veuillez vous rendre sur la page de groupe et cliquer sur 'Créer un groupe'.",
+        theme: "Groupe"
+    },
+    {
+        id: 7,
+        question:"Comment rejoindre un groupe ?",
+        answer:"Pour rejoindre un groupe, veuillez vous rendre sur la page de groupe et cliquer sur 'Rejoindre un groupe'.",
+        theme: "Groupe"
+    },
+    
 ];
 
 const themes = ["Themes", "Connexion", "Groupe", "Profil", "Paramètres"];
 
-const container = document.querySelector(".collapse-container");
-const select = document.querySelector("#select");
-const selected = document.querySelector("#selected");
-const selectedText = document.querySelector("#selected-text");
-const croixselected = document.querySelector("#croix-selected");
-const newQeustion = document.querySelector("#new-question-button");
+const container = document.querySelector('.collapse-container');
+const newQeustion = document.querySelector('#new-question-button');
 let theme = "";
 
-container.innerHTML = data
-  .map((item, index) => {
+const Theme = () => {
+  select.innerHTML = themes.map((item, index) => {
+      return `
+      <option value="${item}" ${index === 0 ? "disabled selected" : ""}>${item}</option>
+      `;
+  }).join('');
+}
+
+Theme();
+
+container.innerHTML = data.map((item, index) => {
     return `
     <div class="${index % 2 === 0 ? "collapse-left" : "collapse-right"}">
         <button type="button" class="collapse-title alone" id="${item.id}btn">
@@ -81,16 +80,6 @@ container.innerHTML = data
             <p>${item.answer}</p>
         </div>
     </div>
-    `;
-  })
-  .join("");
-
-select.innerHTML = themes
-  .map((item, index) => {
-    return `
-    <option value="${item}" ${
-      index === 0 ? "disabled selected" : ""
-    }>${item}</option>
     `;
   })
   .join("");
@@ -136,19 +125,39 @@ data.forEach((item) => {
   });
 });
 
-select.addEventListener("change", (e) => {
-  theme = e.target.value;
-  selectedText.innerHTML = theme;
-  selected.classList.remove("hidden");
-  console.log(e.target.value);
-});
+const Selector = () => {
+  const select = document.querySelector('#select');
 
-croixselected.addEventListener("click", () => {
-  selected.classList.add("hidden");
-  select.selectedIndex = 0;
-  selectedText.innerHTML = "";
-  theme = "";
-});
+  select?.addEventListener('change', (e) => {
+      document.getElementById('select-div').innerHTML = `
+          <div id="selected" >
+             <p id="selected-text"></p>
+              <img src="../assets/img/croix.png" alt="croix icon" id="croix-selected"/>
+          </div>
+      `;
+      const selectedText = document.querySelector('#selected-text');
+      theme = e.target.value;
+      selectedText.innerHTML = theme;
+      ThemeSelected();
+  });
+}
+
+Selector();
+
+const ThemeSelected = () => {
+  const croixselected = document.querySelector('#croix-selected');
+  console.log(croixselected, "croixselected");
+  croixselected?.addEventListener('click', () => {
+      document.getElementById('select-div').innerHTML = `
+          <select id="select"></select>
+      `;
+      let select = document.querySelector('#select');
+      select.selectedIndex = 0;
+      theme = "";
+      Theme();
+      Selector();
+  });
+}
 
 newQeustion.addEventListener("click", () => {
   console.log("Ajout d'une nouvelle question");
