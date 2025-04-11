@@ -11,8 +11,6 @@ const toggleNav = e => {
   navLinksContainer.classList.toggle("open");
 };
 
-console.log("test")
-console.log(toggler)
 toggler.addEventListener("click", toggleNav);
 
 
