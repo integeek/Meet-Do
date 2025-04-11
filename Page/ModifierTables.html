@@ -1,1 +1,106 @@
-<h1>Modifier tables</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifier les tables</title>
+    <link rel="stylesheet" type="text/css" href="../component/Footer/Footer.css">
+    <link rel="stylesheet" type="text/css" href="../component/Navbar/Navbar.css">
+    <link rel="stylesheet" type="text/css" href="../component/SearchBarAdmin/SearchBarAdmin.css">
+    <link rel="stylesheet" type="text/css" href="../component/BoutonBleu.css">
+    <link rel="stylesheet" type="text/css" href="../component/BoutonRouge.css">
+    <link rel="stylesheet" type="text/css" href="../component/SideBarAdmin/SideBarAdmin.css">
+    <link rel="stylesheet" type="text/css" href="../component/Pagination/Pagination.css">
+    <link rel="stylesheet" href="../Style/ModifierTables.css">
+</head>
+<body>
+    <header>
+        <div id="navbar-container" class="navbar-container"></div>
+    </header>
+    <main>
+        <div class="flexbox-container">
+            <div id="sidebar-container" class="sidebar-container"></div>
+            <div class="">
+                <h1>Modifier les tables</h1>
+                <div class="column-container">
+                   <p>Thèmes activités</p>
+                   <div class="selection-theme">
+                        <input id="themeInput" class="textbox" type="text" placeholder="Thème">
+                        <button class="buttonAjouter" onclick="ajouterTheme('themeInput', 'themeC')">Ajouter</button>
+                    </div>
+                    <div id="themeC"></div>
+
+                    <p>Thèmes FAQ</p>
+                   <div class="selection-theme">
+                        <input id="FaqInput" class="textbox" type="text" placeholder="Thème">
+                        <button class="buttonAjouter" onclick="ajouterTheme('FaqInput','FaqC')">Ajouter</button>
+                    </div>
+                    <div id="FaqC"></div>
+                
+                    <p>Thèmes FAQ</p>
+                    <div class="selection-theme">
+                         <input id="FaqInput" class="textbox" type="text" placeholder="Thème">
+                         <button class="buttonAjouter" onclick="ajouterTheme('FaqInput','FaqC')">Ajouter</button>
+                     </div>
+                     <div id="FaqC"></div>
+
+                     <p>Thèmes Forum</p>
+                     <div class="selection-theme">
+                          <input id="ForumInput" class="textbox" type="text" placeholder="Thème">
+                          <button class="buttonAjouter" onclick="ajouterTheme('ForumInput','ForumC')">Ajouter</button>
+                      </div>
+                      <div id="ForumC"></div>
+
+                      <p>Thèmes signalement utilisateur</p>
+                      <div class="selection-theme">
+                           <input id="UserInput" class="textbox" type="text" placeholder="Thème">
+                           <button class="buttonAjouter" onclick="ajouterTheme('UserInput','UserC')">Ajouter</button>
+                       </div>
+                       <div id="UserC"></div>
+
+                       <p>Thèmes signalement activité</p>
+                       <div class="selection-theme">
+                            <input id="ActiInput" class="textbox" type="text" placeholder="Thème">
+                            <button class="buttonAjouter" onclick="ajouterTheme('ActiInput','ActiC')">Ajouter</button>
+                        </div>
+                        <div id="ActiC"></div>
+
+                    
+                </div>
+            </div>
+        </div>
+        <script src="../Script/ModifierTables.js"></script>
+        <script src="../component/Navbar/Navbar.js"></script>
+        <script>
+            document.getElementById('navbar-container').innerHTML = Navbar(true, "..");
+        </script> 
+        <script src="../component/Navbar/navAction.js"></script> 
+
+        <script src="../component/SideBarAdmin/SideBarAdmin.js"></script>
+        <script>
+            document.getElementById('sidebar-container').innerHTML = SideBarAdmin(true, "..");
+        </script> 
+
+        <script src="../component/SearchBarAdmin/SearchBarAdmin.js"></script>
+        <script>
+            document.getElementById('searchBarAdmin-container').innerHTML = SearchBarAdmin("client");
+        </script> 
+
+        <script src="../component/Pagination/Pagination.js"></script>
+        <script>
+            document.getElementById('pagination-container').innerHTML = Pagination();
+        </script> 
+        <script src="../Script/PaginationChange.js"></script>
+
+        
+    </main>
+    
+    <footer id="footer-container" class="footer-container">
+        <script src="../component/Footer/Footer.js"></script>
+        <script>
+            document.getElementById('footer-container').innerHTML = Footer("..");
+        </script> 
+    </footer> 
+    
+</body>
+</html>
