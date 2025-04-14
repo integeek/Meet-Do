@@ -84,7 +84,6 @@ main p {
     font-size: 1rem;
     outline: none;
     border: none;
-    font-family: "Inter";
 }
 
 #new-question-button:hover {

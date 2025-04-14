@@ -13,7 +13,7 @@ function Navbar(connect, url) {
                     </button>
                     <ul class="nav-links">
                         <li><a href="#">Accueil</a></li>
-                        <li><a href="#">Messagerie</a></li>
+                        <li><a href="/Page/Messagerie.html">Messagerie</a></li>
                     </ul>
                 </div>
 
@@ -50,7 +50,7 @@ function Navbar(connect, url) {
                     </button>
                     <ul class="nav-links">
                         <li><a href="#">Accueil</a></li>
-                        <li><a href="#">Messagerie</a></li>
+                        <li><a href="/Page/Messagerie.html">Messagerie</a></li>
                     </ul>
                 </div>
 
