@@ -19,14 +19,15 @@
         <div class="parentDiv">
             <div class="containerLogin">
                 <h1>Connexion</h1>
-                <form action="">
+                <form action="../PHP/Connexion.php" method="post">
                     <p>Email</p>
-                    <input class="textbox" type="text" required>
+                    <input class="textbox" type="text" name="email" required>
                     <p>Mot de passe</p>
                     <div id="containerPassword">
-                        <input class="textbox" type="password" id="password" required>
+                        <input class="textbox" type="password" id="password" name="password" required>
                         <img class="togglePassword" src="../assets/img/ouvert.png" alt="Afficher/Masquer" >
                     </div>
+                    <button type="submit">S'inscrire</button>
                 </form>
                 <p onclick="openPopUp()">Mot de passe oublié ?</p>
                 <div>
@@ -47,6 +48,7 @@
                 <form action="">
                     <p>Email</p>
                     <input class="textbox" type="text" required>
+                    
                 </form>
                 <div class="popup-buttons">
                     <script src="../component/BoutonRouge.js"></script>
