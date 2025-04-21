@@ -270,6 +270,10 @@ sendMessage.addEventListener('click', () => {
             }
         });
         RefreshMessage(talkID);
+        setTimeout(() => {
+            sendText.style = "animation: none;"
+            attachmentLabel.style = "animation: none;"
+        }, 1000);
     }
 });
 

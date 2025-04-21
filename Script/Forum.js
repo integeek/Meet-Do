@@ -1,48 +1,48 @@
 const data = [
     {
-        id : 1,
-        userName : "Jean Soleil",
-        date : "2023-10-01",
-        question : "Comment fonctionne le système de points ?",
-        theme : "Connexion",
-        answer : [
+        id: 1,
+        userName: "Jean Soleil",
+        date: "2023-10-01",
+        question: "Comment fonctionne le système de points ?",
+        theme: "Connexion",
+        answer: [
             {
-                userName : "Jean Soleil",
-                date : "2023-10-01",
-                answer : "Le système de points fonctionne en attribuant des points aux utilisateurs en fonction de leur activité sur la plateforme. Plus vous êtes actif, plus vous gagnez de points."
+                userName: "Jean Soleil",
+                date: "2023-10-01",
+                answer: "Le système de points fonctionne en attribuant des points aux utilisateurs en fonction de leur activité sur la plateforme. Plus vous êtes actif, plus vous gagnez de points."
             },
             {
-                userName : "Marie Dupont",
-                date : "2023-10-02",
-                answer : "Merci pour l'info !"
+                userName: "Marie Dupont",
+                date: "2023-10-02",
+                answer: "Merci pour l'info !"
             }
         ]
     },
     {
-        id : 2,
-        userName : "Marie Dupont",
-        date : "2023-10-02",
-        question : "Comment changer mon mot de passe ?",
-        theme : "Connexion",
-        answer : [
+        id: 2,
+        userName: "Marie Dupont",
+        date: "2023-10-02",
+        question: "Comment changer mon mot de passe ?",
+        theme: "Connexion",
+        answer: [
             {
-                userName : "Jean Soleil",
-                date : "2023-10-01",
-                answer : "Pour changer votre mot de passe, allez dans les paramètres de votre compte."
+                userName: "Jean Soleil",
+                date: "2023-10-01",
+                answer: "Pour changer votre mot de passe, allez dans les paramètres de votre compte."
             }
         ]
     },
     {
-        id : 3,
-        userName : "Pierre Martin",
-        date : "2023-10-03",
-        question : "Comment signaler un utilisateur ?",
-        theme : "Groupe",
-        answer : [
+        id: 3,
+        userName: "Pierre Martin",
+        date: "2023-10-03",
+        question: "Comment signaler un utilisateur ?",
+        theme: "Groupe",
+        answer: [
             {
-                userName : "Marie Dupont",
-                date : "2023-10-02",
-                answer : "Pour signaler un utilisateur, cliquez sur le bouton 'Signaler' sur son profil."
+                userName: "Marie Dupont",
+                date: "2023-10-02",
+                answer: "Pour signaler un utilisateur, cliquez sur le bouton 'Signaler' sur son profil."
             }
         ]
     }
@@ -122,12 +122,20 @@ container.innerHTML = data.map((item, index) => {
                     </div>
                     <div class="collapse-question">
                         <p>${item.question}</p>
+                        ${item.answer.length > 0 ?
+                        `    
+                            <div class="grow"></div>
+                            <p>${item.answer.length}</p>
+                            <img src="../assets/img/icons/message-square.svg" alt="message" class="message" />
+                        `
+                        : ""
+                        }
                     </div>
                 </button>
             </div>
             <div class="collapse-content hidden" id="${item.id}content">
                 ${item.answer.map((answer, index) => {
-                    return `
+            return `
                         <div class="collapse-content-answer">
                             <img src="../assets/img/return.png" alt="return icon" class="collapse-return" />
                             <div class="collapse-header">
@@ -141,7 +149,7 @@ container.innerHTML = data.map((item, index) => {
                             <div class="collapse-question">${answer.answer}</div>
                         </div>
                     `
-                }).join('')}
+        }).join('')}
                 <div class="collapse-add">
                     <button type="button" class="collapse-add-button" id="${item.id}add">
                         <p>Répondre</p>
@@ -162,10 +170,10 @@ data.forEach((item) => {
         if (document.getElementById(`${item.id}texte`)) {
             document.getElementById(`${item.id}texte`).style = 'animation: send 1s forwards;';
             add.style = 'scale: 1.2';
-            setTimeout(()=> {
+            setTimeout(() => {
                 add.style = 'scale:1';
             }, [200]);
-            setTimeout(()=> {
+            setTimeout(() => {
                 document.getElementById(`${item.id}texte`).remove();
                 add.style = 'animation: buttonLeft 1s forwards;';
                 add.innerHTML = `
@@ -186,7 +194,7 @@ data.forEach((item) => {
     })
 
     button.addEventListener('click', () => {
-        const content = document.getElementById(`${item.id}content`);	
+        const content = document.getElementById(`${item.id}content`);
         if (content.style.animation === '0.5s forwards show') {
             content.style = 'animation: hidden 0.5s forwards;';
         } else {
