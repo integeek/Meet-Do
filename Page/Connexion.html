@@ -19,24 +19,24 @@
         <div class="parentDiv">
             <div class="containerLogin">
                 <h1>Connexion</h1>
-                <form action="">
+                <form action="../PHP/Connexion.php" method="post">
                     <p>Email</p>
-                    <input class="textbox" type="text" required>
+                    <input class="textbox" type="text" name="email" required>
                     <p>Mot de passe</p>
                     <div id="containerPassword">
-                        <input class="textbox" type="password" id="password" required>
+                        <input class="textbox" type="password" id="password" name="password" required>
                         <img class="togglePassword" src="../assets/img/ouvert.png" alt="Afficher/Masquer" >
                     </div>
+                    <p onclick="openPopUp()">Mot de passe oublié ?</p>
+                    <div>
+                        <p id="pasCompte">Pas de compte ?</p> <a  id="sinscire" href="Inscription.html">S'inscrire</a>
+                    </div>
+                    
+                    <div id="boutonContainer"></div>
                 </form>
-                <p onclick="openPopUp()">Mot de passe oublié ?</p>
-                <div>
-                    <p id="pasCompte">Pas de compte ?</p> <a  id="sinscire" href="Inscription.html">S'inscrire</a>
-                </div>
-                
-                <script src="../component/BoutonBleu.js"></script>
-                <div id="boutonContainer"></div>
+                <script src="../component/BoutonBleu.js?v=1.2"></script>
                 <script>
-                    document.getElementById('boutonContainer').innerHTML = BoutonBleu("Se connecter","../index.html");
+                    document.getElementById('boutonContainer').innerHTML = BoutonBleu("Se connecter");
                 </script>
             </div>
         </div>
@@ -47,6 +47,7 @@
                 <form action="">
                     <p>Email</p>
                     <input class="textbox" type="text" required>
+                    
                 </form>
                 <div class="popup-buttons">
                     <script src="../component/BoutonRouge.js"></script>

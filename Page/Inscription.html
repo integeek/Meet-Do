@@ -20,36 +20,38 @@
         <script src="../component/Navbar/navAction.js"></script> 
 
     </header>
+
     <main>
         <div class="containerLogin">
             <h1>Inscription</h1>
-            <form action="">
+            <form action="../PHP/Inscription.php" method="post">
                 <p>Email</p>
-                <input class="textbox" type="text" required>
+                <input class="textbox" type="text" name="email" required>
                 <p>Mot de passe</p>
                 <div id="containerPassword">
-                    <input class="textbox" type="password" id="password" required>
+                    <input class="textbox" type="password" id="password" name="password" required>
                     <img class="togglePassword" src="../assets/img/ouvert.png" alt="Afficher/Masquer" >
-                </div>  
-            </form>
-            <div class="versCo"> 
-                <p id="pasCompte">Déjà un compte ?</p> <a  id="connexion" href="Connexion.html">Se connecter</a>
-            </div>
-
-            <div id="mention">
-                <input type="checkbox" id="mention" name="mention" />
-                <div id="mentionTexte"><label id="" for="mention">Je confirme avoir lu et accepté </label><a  id="connexion" href="Connexion.html">les conditions générales d'utilisations</a></div>
-            </div>
+                </div> 
             
-            <script src="../component/BoutonBleu.js"></script>
-            <div id="boutonContainer"></div>
+                <div class="versCo"> 
+                    <p id="pasCompte">Déjà un compte ?</p> <a  id="connexion" href="Connexion.html">Se connecter</a>
+                </div>
+
+                <div id="mention">
+                    <input type="checkbox" id="mention" name="mention" />
+                    <div id="mentionTexte"><label id="" for="mention">Je confirme avoir lu et accepté </label><a  id="connexion" href="Connexion.html">les conditions générales d'utilisations</a></div>
+                </div>
+                
+                <div id="boutonContainer"></div>
+            </form>
+
+            <script src="../component/BoutonBleu.js?v=1.2"></script>
             <script>
-                document.getElementById('boutonContainer').innerHTML = BoutonBleu("S'inscrire","../index.html");
+                document.getElementById('boutonContainer').innerHTML = BoutonBleu("S'inscrire");
             </script>
             <script src="../Script/AfficherPass.js"></script>
-
-
         </div>
+
     </main>
     <footer id="footer-container" class="footer-container">
         <script src="../component/Footer/Footer.js"></script>
