@@ -3,12 +3,12 @@ return `
         <div></div>
         <div class="search-bar">
             <input type="text" placeholder="Rechercher">
-            <button>🔍</button>
+            <button><img src="../assets/img/icons/search-icon.svg" alt=""></button>
             <div class="separator"></div>
-            <button>⚙️</button>
-            <button>📍</button>
+            <button><img src="../assets/img/icons/settings.svg" alt=""></button>
+            <button><img src="../assets/img/icons/position-icon.svg" alt=""></button>
             <div class="separator"></div>
-            <button>📅 <span>07/02/2025</span></button>
+            <button><img src="../assets/img/icons/calendar.svg" alt=""> <span>07/02/2025</span></button>
         </div>
     `;
 };
