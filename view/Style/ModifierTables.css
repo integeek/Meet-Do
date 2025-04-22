@@ -1,0 +1,38 @@
+.flexbox-container {
+    display: flex;
+    column-gap: 280px;
+}
+
+
+.column-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.buttonAjouter {
+    margin: 0 10px;
+    border: 1px solid;
+    border-radius: 2px;
+    background-color: #D9D9D9;
+}
+
+.tag {
+    display: inline-flex;
+    align-items: center;
+    background-color: #64A0FB;
+    color: white;
+    border-radius: 10px;
+    padding: 5px 10px;
+    margin: 5px;
+    font-size: 14px;
+}
+
+.tag button {
+    background: none;
+    border: none;
+    color: white;
+    margin-left: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+}
