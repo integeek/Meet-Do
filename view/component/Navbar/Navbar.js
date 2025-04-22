@@ -13,7 +13,7 @@ function Navbar(connect, url) {
                     </button>
                     <ul class="nav-links">
                         <li><a href="#">Accueil</a></li>
-                        <li><a href="/Page/Messagerie.html">Messagerie</a></li>
+                        <li><a href="/view/Page/Messagerie.html">Messagerie</a></li>
                     </ul>
                 </div>
 
@@ -28,7 +28,7 @@ function Navbar(connect, url) {
                         <div class="annonce">
                             <a href="#">Poster une annonce</a>
                         </div>
-                        <a href="./PageCompte.html" class="profil" id="profil">
+                        <a href="/view/PageCompte.html" class="profil" id="profil">
                             <div>Profil</div>
                             <image src="${url}/assets/img/profil.png" id="profil-img">
                         </a>
