@@ -8,7 +8,25 @@ if(!empty($_POST)){
             die("l'adresse email est incorrecte");
         }
 
-        $pass = password_hash($_POST["password"], PASSWORD_ARGON2ID);
+        $password = $_POST["password"];
+
+        if(strlen($password) < 8){
+            die("Le mot de passe doit contenir au moins 8 caractères");
+        }
+
+        if(!preg_match("/[0-9]/", $password)){
+            die("Le mot de passe doit contenir au moins un chiffre");
+        }
+
+        if(!preg_match("/[A-Z]/", $password)){
+            die("Le mot de passe doit contenir au moins une majuscule");
+        }
+
+        if(!preg_match("/[a-z]/", $password)){
+            die("Le mot de passe doit contenir au moins une minuscule");
+        }
+
+        $pass = password_hash($password, PASSWORD_ARGON2ID);
 
         $servername = "localhost";
         $username = "root";
@@ -17,6 +35,14 @@ if(!empty($_POST)){
         $db = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+        $checkEmail = $db->prepare("SELECT id FROM user WHERE email = :email");
+        $checkEmail->bindValue(":email", $_POST["email"], PDO::PARAM_STR);
+        $checkEmail->execute();
+    
+        if($checkEmail->fetch()){
+            die("Cette adresse email est déjà utilisée.");
+        }
+        
         $sql = "INSERT INTO user (email, password) VALUES (:email, '$pass')";
 
         $query = $db -> prepare($sql);
@@ -31,7 +57,7 @@ if(!empty($_POST)){
             "id" => $id,
             "email" => $_POST["email"],
         ];
-        header("Location: ../Page/FAQ.html");
+        header("Location: ../../view/Page/FAQ.html");
 
     } else {
         die("le formulaire est incomplet");
