@@ -48,10 +48,31 @@
     cursor: pointer;
 }
 
+.validator-criters {
+    padding: 10px 3px;
+    margin: auto;
+    display: none;
+  }
+  
+.validator-criters span {
+    display: block;
+    color: #cacaca;
+    font-size: 13px;
+    margin: 5px 0;
+  }
+  
+.validator-criters span.error {
+    color: #a70b0b;
+  }
+  
+.validator-criters span.succes {
+    color: green;
+  }
+
 #versCo {
     display: flex;
     flex-wrap: wrap;
-    gap: 0px; /* Ajuste l'écart entre les éléments */
+    gap: 0px;
 }
 
 #boutonContainer {

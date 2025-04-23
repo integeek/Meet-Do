@@ -8,6 +8,11 @@
     <link rel="stylesheet" type="text/css" href="../component/Navbar/Navbar.css">
     <link rel="stylesheet" type="text/css" href="../component/BoutonBleu.css">
     <link rel="stylesheet" href="../Style/Inscription.css">
+    <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+/>
+
 </head>
 <body>
     <div class="background-image"></div>
@@ -24,7 +29,7 @@
     <main>
         <div class="containerLogin">
             <h1>Inscription</h1>
-            <form action="../PHP/Inscription.php" method="post">
+            <form action="../../controller/Connexion/Inscription.php" method="post" class="group-form">
                 <p>Email</p>
                 <input class="textbox" type="text" name="email" required>
                 <p>Mot de passe</p>
@@ -32,6 +37,14 @@
                     <input class="textbox" type="password" id="password" name="password" required>
                     <img class="togglePassword" src="../assets/img/ouvert.png" alt="Afficher/Masquer" >
                 </div> 
+
+                <div class="validator-criters">
+                    <span class="chiffre"><i class="far fa-check-circle"></i> &nbsp;Votre mot de passe doit avoir 1 chiffres</span>
+                    <span class="majuscule"><i class="far fa-check-circle"></i> &nbsp;Votre mot de passe doit avoir 1 lettre majuscule</span>
+                    <span class="minuscule"><i class="far fa-check-circle"></i> &nbsp;Votre mot de passe doit avoir 1 lettre minuscule</span>
+                    <span class="generique"><i class="far fa-check-circle"></i> &nbsp;Votre mot doit comporter 8 Caractères au minimum</span>
+                </div>
+        
             
                 <div class="versCo"> 
                     <p id="pasCompte">Déjà un compte ?</p> <a  id="connexion" href="Connexion.html">Se connecter</a>
@@ -51,6 +64,7 @@
             </script>
             <script src="../Script/AfficherPass.js"></script>
         </div>
+        <script src="../Script/Inscription.js"></script>
 
     </main>
     <footer id="footer-container" class="footer-container">
