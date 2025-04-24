@@ -27,6 +27,7 @@ if(!empty($_POST)){
         }
 
         $pass = password_hash($password, PASSWORD_ARGON2ID);
+        $cle = rand(1000000,9000000);
 
         $servername = "localhost";
         $username = "root";
@@ -43,7 +44,7 @@ if(!empty($_POST)){
             die("Cette adresse email est déjà utilisée.");
         }
         
-        $sql = "INSERT INTO user (email, password) VALUES (:email, '$pass')";
+        $sql = "INSERT INTO user (cle, email, password) VALUES ('$cle', :email, '$pass')";
 
         $query = $db -> prepare($sql);
         $query -> bindValue(":email", $_POST["email"], PDO::PARAM_STR);
@@ -51,13 +52,23 @@ if(!empty($_POST)){
 
         $id = $db->lastInsertId();
 
-        session_start();
          
         $_SESSION["user"] = [
             "id" => $id,
             "email" => $_POST["email"],
         ];
-        header("Location: ../../view/Page/FAQ.html");
+        // header("Location: ../../view/Page/FAQ.html");
+
+        $destinataire = $_POST["email"];
+        $sujet = "Inscription";
+        $message = "http://localhost/view/page/InfoPerso.php?id=" . $_SESSION["user"]["id"] . "&cle=" . $cle;
+        $headers = "From: integeek789@gmail.com";
+        if (mail($destinataire, $sujet, $message, $headers)) {
+            echo "L'email a été envoyé avec succès.";
+        } else {
+            echo "L'email n'a pas pu être envoyé.";
+        }
+
 
     } else {
         die("le formulaire est incomplet");
