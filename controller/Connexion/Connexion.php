@@ -14,7 +14,7 @@ if(!empty($_POST)){
         $db = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $sql = "SELECT * FROM user WHERE email = :email";
+        $sql = "SELECT * FROM user_valide WHERE email = :email";
         $query = $db -> prepare($sql);
         $query -> bindValue(":email", $_POST["email"], PDO::PARAM_STR);
         $query -> execute();
@@ -35,7 +35,7 @@ if(!empty($_POST)){
             "id" => $user["id"],
             "email" => $user["email"],
         ];
-        header("Location: ../Page/FAQ.html");
+        header("Location: ../../view/Page/FAQ.html");
 
     } else {
         die("le formulaire est incomplet");
