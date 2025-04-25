@@ -1,10 +1,10 @@
 <?php 
+session_start();
 if(!empty($_POST)){
-    //var_dump(value: $_POST);
     if(isset($_POST["email"],$_POST["password"]) && !empty(($_POST["email"]) && !empty($_POST["password"]))) {
-        // $email = strip_tags($_POST["email"]);
         if(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
-            die("l'adresse email est incorrecte");
+            $_SESSION["erreur"] = "L'adresse email est incorrecte.";
+            header("Location: ../../view/Page/Connexion.php");
         }
 
         $servername = "localhost";
@@ -22,11 +22,13 @@ if(!empty($_POST)){
         $user = $query -> fetch();
         
         if(!$user){
-            die("l'utilisateur et/ou le mot de passe n'existe pas");
+            $_SESSION["erreur"] = "L'utilisateur et/ou le mot de passe n'existe pas";
+            header("Location: ../../view/Page/Connexion.php");
         }
 
         if(!password_verify($_POST["password"], $user["password"])){
-            die("l'utilisateur et/ou le mot de passe n'existe pas");
+            $_SESSION["erreur"] = "L'utilisateur et/ou le mot de passe n'existe pas";
+            header("Location: ../../view/Page/Connexion.php");
         }
 
         session_start();
@@ -38,7 +40,8 @@ if(!empty($_POST)){
         header("Location: ../../view/Page/FAQ.html");
 
     } else {
-        die("le formulaire est incomplet");
+        $_SESSION["erreur"] = "Le formulaire est incomplet.";
+            header("Location: ../../view/Page/Connexion.php");
     }
 }
 ?>
