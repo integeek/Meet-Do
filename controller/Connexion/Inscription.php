@@ -3,27 +3,31 @@ session_start(); //METTRE CA SUR TOUTES LES PAGES
 if(!empty($_POST)){
     //var_dump(value: $_POST);
     if(isset($_POST["email"],$_POST["password"]) && !empty(($_POST["email"]) && !empty($_POST["password"]))) {
-        // $email = strip_tags($_POST["email"]);
         if(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
-            die("l'adresse email est incorrecte");
+            $_SESSION["erreur"] = "L'adresse email est incorrecte";
+            header("Location: ../../view/Page/Inscription.php");
         }
 
         $password = $_POST["password"];
 
         if(strlen($password) < 8){
-            die("Le mot de passe doit contenir au moins 8 caractères");
+            $_SESSION["erreur"] = "Le mot de passe doit contenir au moins 8 caractères";
+            header("Location: ../../view/Page/Inscription.php");
         }
 
         if(!preg_match("/[0-9]/", $password)){
-            die("Le mot de passe doit contenir au moins un chiffre");
+            $_SESSION["erreur"] = "Le mot de passe doit contenir au moins un chiffre";
+            header("Location: ../../view/Page/Inscription.php");
         }
 
         if(!preg_match("/[A-Z]/", $password)){
-            die("Le mot de passe doit contenir au moins une majuscule");
+            $_SESSION["erreur"] = "Le mot de passe doit contenir au moins une majuscule";
+            header("Location: ../../view/Page/Inscription.php");
         }
 
         if(!preg_match("/[a-z]/", $password)){
-            die("Le mot de passe doit contenir au moins une minuscule");
+            $_SESSION["erreur"] = "Le mot de passe doit contenir au moins une minuscule";
+            header("Location: ../../view/Page/Inscription.php");
         }
 
         $pass = password_hash($password, PASSWORD_ARGON2ID);
@@ -41,7 +45,8 @@ if(!empty($_POST)){
         $checkEmail->execute();
     
         if($checkEmail->fetch()){
-            die("Cette adresse email est déjà utilisée.");
+            $_SESSION["erreur"] = "Cette adresse email est déjà utilisée";
+            header("Location: ../../view/Page/Inscription.php");
         }
         
         $sql = "INSERT INTO user (cle, email, password) VALUES ('$cle', :email, '$pass')";
@@ -57,7 +62,6 @@ if(!empty($_POST)){
             "id" => $id,
             "email" => $_POST["email"],
         ];
-        // header("Location: ../../view/Page/FAQ.html");
 
         $lienActivation = "http://localhost/view/page/InfoPerso.php?id=" . $_SESSION["user"]["id"] . "&cle=" . $cle;
 
@@ -108,8 +112,7 @@ if(!empty($_POST)){
         $headers = "From: integeek789@gmail.com\r\n";
         $headers .= "MIME-Version: 1.0\r\n";
         $headers .= "Content-type: text/html; charset=UTF-8\r\n";
-        // $message = "http://localhost/view/page/InfoPerso.php?id=" . $_SESSION["user"]["id"] . "&cle=" . $cle;
-        // $headers = "From: integeek789@gmail.com";
+
         if (mail($destinataire, $sujet, $message, $headers)) {
             echo "L'email a été envoyé avec succès.";
         } else {
@@ -118,7 +121,8 @@ if(!empty($_POST)){
 
 
     } else {
-        die("le formulaire est incomplet");
+        $_SESSION["erreur"] = "le formulaire est incomplet";
+        header("Location: ../../view/Page/Inscription.php");
     }
 }
 ?>

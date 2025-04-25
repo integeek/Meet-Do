@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+$messageErreur = "";
+
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -10,7 +12,7 @@ try {
     $db = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
-    die("Erreur de connexion : " . $e->getMessage());
+    $messageErreur = "Erreur de connexion : " . $e->getMessage();
 }
 
 if (isset($_GET["id"], $_GET["cle"]) && !empty($_GET["id"]) && !empty($_GET["cle"])) {
@@ -33,7 +35,6 @@ if (isset($_GET["id"], $_GET["cle"]) && !empty($_GET["id"]) && !empty($_GET["cle
                 $prenom = strip_tags($_POST["prenom"]);
                 $adresse = strip_tags($_POST["adresse"]);
 
-                // Insertion dans la table user_valide
                 $insertUser = $db->prepare("
                     INSERT INTO user_valide (email, password, nom, prenom, adresse)
                     VALUES (:email, :password, :nom, :prenom, :adresse)
@@ -92,8 +93,7 @@ if (isset($_GET["id"], $_GET["cle"]) && !empty($_GET["id"]) && !empty($_GET["cle
                 $headers = "From: integeek789@gmail.com\r\n";
                 $headers .= "MIME-Version: 1.0\r\n";
                 $headers .= "Content-type: text/html; charset=UTF-8\r\n";
-                // $message = "http://localhost/view/page/InfoPerso.php?id=" . $_SESSION["user"]["id"] . "&cle=" . $cle;
-                // $headers = "From: integeek789@gmail.com";
+
                 if (mail($destinataire, $sujet, $message, $headers)) {
                     echo "L'email a été envoyé avec succès.";
                 } else {
@@ -103,16 +103,16 @@ if (isset($_GET["id"], $_GET["cle"]) && !empty($_GET["id"]) && !empty($_GET["cle
                 header("Location: ../Page/FAQ.html");
                 exit;
             } else {
-                die("Erreur : tous les champs doivent être complétés (nom et prénom obligatoires)");
+                $messageErreur = "Erreur : tous les champs doivent être complétés (nom et prénom obligatoires)";
             }
         }
 
     } else {
-        die("Erreur : identifiant ou clé de sécurité incorrecte");
+        $messageErreur = "Erreur : identifiant ou clé de sécurité incorrecte";
     }
 
 } else {
-    die("Erreur : identifiant ou clé de sécurité manquante");
+    $messageErreur = "Erreur : identifiant ou clé de sécurité manquante";
 }
 ?>
 
@@ -150,6 +150,9 @@ if (isset($_GET["id"], $_GET["cle"]) && !empty($_GET["id"]) && !empty($_GET["cle
                 <div id="containerAdresse">
                     <input class="textbox" type="text" name="adresse" id="adresse" required>
                     <img id="iconAdresse" src="../assets/img/pin.png" alt="Adresse" >
+                </div>
+                <div class="erreur" style="color: red; margin-bottom: 1rem;">
+                <?= htmlspecialchars($messageErreur) ?>
                 </div>
                 <div id="boutonContainer"></div>
             </form>

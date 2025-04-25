@@ -1,3 +1,10 @@
+<?php
+session_start();
+$messageErreur = $_SESSION["erreur"] ?? "";
+unset($_SESSION["erreur"]);
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,12 +54,15 @@
         
             
                 <div class="versCo"> 
-                    <p id="pasCompte">Déjà un compte ?</p> <a  id="connexion" href="Connexion.html">Se connecter</a>
+                    <p id="pasCompte">Déjà un compte ?</p> <a  id="connexion" href="Connexion.php">Se connecter</a>
                 </div>
 
                 <div id="mention">
                     <input type="checkbox" id="mention" name="mention" required/>
                     <div id="mentionTexte"><label id="" for="mention">Je confirme avoir lu et accepté </label><a  id="connexion" href="Connexion.html">les conditions générales d'utilisations</a></div>
+                </div>
+                <div class="erreur" style="color: red; margin-bottom: 1rem;">
+                        <?= htmlspecialchars($messageErreur) ?>
                 </div>
                 
                 <div id="boutonContainer"></div>
