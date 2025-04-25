@@ -1,18 +1,14 @@
 <?php 
 session_start();
+
+require_once("../../model/bddAmbre.php");
+
 if(!empty($_POST)){
     if(isset($_POST["email"],$_POST["password"]) && !empty(($_POST["email"]) && !empty($_POST["password"]))) {
         if(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
             $_SESSION["erreur"] = "L'adresse email est incorrecte.";
             header("Location: ../../view/Page/Connexion.php");
         }
-
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "test";
-        $db = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
-            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         $sql = "SELECT * FROM user_valide WHERE email = :email";
         $query = $db -> prepare($sql);

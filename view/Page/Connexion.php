@@ -25,7 +25,7 @@ unset($_SESSION["erreur"]);
         <div class="parentDiv">
             <div class="containerLogin">
                 <h1>Connexion</h1>
-                <form action="../../controller/Connexion/Connexion.php" method="post">
+                <form action="../../controller/Authentification/Connexion.php" method="post">
                     <p>Email</p>
                     <input class="textbox" type="text" name="email" required>
                     <p>Mot de passe</p>
