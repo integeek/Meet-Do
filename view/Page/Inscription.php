@@ -36,7 +36,7 @@ unset($_SESSION["erreur"]);
     <main>
         <div class="containerLogin">
             <h1>Inscription</h1>
-            <form action="../../controller/Connexion/Inscription.php" method="post" class="group-form">
+            <form action="../../controller/Authentification/Inscription.php" method="post" class="group-form">
                 <p>Email</p>
                 <input class="textbox" type="text" name="email" required>
                 <p>Mot de passe</p>

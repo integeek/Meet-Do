@@ -24,20 +24,21 @@
             <div class="containerLogin">
                 <h1>Nouveau mot de passe</h1>
                 <p id="texte">Veuillez insérer un nouveau mot de passe et valider celui-ci</p>
-                <form action="">
+                <form action="" method="post">
+                    <input type="hidden" name="token" value="<?= htmlspecialchars($token) ?>">
                     <p>Nouveau mot de passe</p>
                     <div class="containerPassword">
-                        <input class="textbox" type="password" id="password" required>
+                        <input class="textbox" type="password" name="pass1" id="password" required>
                         <img class="togglePassword" src="../assets/img/ouvert.png" alt="Afficher/Masquer" >
                     </div>
                     <p>Confirmer le nouveau mot de passe</p>
                     <div class="containerPassword">
-                        <input class="textbox" type="password" id="password" required>
+                        <input class="textbox" type="password" name="pass2" id="password" required>
                         <img class="togglePassword" src="../assets/img/ouvert.png" alt="Afficher/Masquer" >
+                        <div id="boutonContainer"></div>
                     </div>
                 </form>
                 <script src="../component/BoutonBleu.js"></script>
-                <div id="boutonContainer"></div>
                 <script>
                     document.getElementById('boutonContainer').innerHTML = BoutonBleu("Confirmer");
                 </script>
