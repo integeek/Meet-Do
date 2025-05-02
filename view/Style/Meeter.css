@@ -1,0 +1,169 @@
+/* Reset et styles globaux */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #E3F6FC;
+}
+
+/* Conteneur principal */
+.profile-container {
+    max-width: 1000px;
+    margin: 20px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Sections */
+.profile-info, .activities, .reviews, .contact {
+    margin-bottom: 20px;
+}
+
+/* Bouton */
+.btn-bleu {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.btn-bleu:hover {
+    background-color: #0056b3;
+}
+/* Conteneur des activités */
+.activity-list {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+/* Style d'une carte d'activité */
+.activity-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    overflow: hidden;
+    text-align: center;
+}
+
+/* Image de l'activité */
+.activity-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-bottom: 2px solid #ddd;
+}
+
+/* Contenu de la carte */
+.activity-card .content {
+    padding: 10px;
+}
+.activity-card h3 {
+    font-size: 18px;
+    margin: 5px 0;
+}
+.activity-card p {
+    font-size: 14px;
+    color: #555;
+}
+
+.review-list {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.review-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    padding: 10px;
+    text-align: center;
+}
+
+.review-card h3 {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.review-card .rating {
+    font-size: 18px;
+    color: #ffcc00;
+}
+
+.review-card p {
+    font-size: 14px;
+    color: #555;
+}
+/* ===================== */
+/*      SECTION CONTACT  */
+/* ===================== */
+
+.contact {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+/* Titre et texte */
+.contact h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.contact p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+/* Bouton bleu */
+.btn-bleu {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+.btn-bleu:hover {
+    background-color: #0056b3;
+}
+
+.footer {
+    background-color: #f8f9fa;
+    padding: 15px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.footer-links a {
+    margin: 0 10px;
+    color: #007bff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+.social-icons {
+    margin-top: 10px;
+}
+
+.social-icons a img {
+    width: 24px;
+    height: 24px;
+    margin: 0 5px;
+}
