@@ -35,7 +35,7 @@ if(!empty($_POST)){
         $pass = password_hash($password, PASSWORD_ARGON2ID);
         $cle = rand(1000000,9000000);
 
-        $checkEmail = $db->prepare("SELECT id FROM user WHERE email = :email");
+        $checkEmail = $db->prepare("SELECT id FROM user_valide WHERE email = :email");
         $checkEmail->bindValue(":email", $_POST["email"], PDO::PARAM_STR);
         $checkEmail->execute();
     
@@ -43,8 +43,9 @@ if(!empty($_POST)){
             $_SESSION["erreur"] = "Cette adresse email est déjà utilisée";
             header("Location: ../../view/Page/Inscription.php");
         }
-        
-        $sql = "INSERT INTO user (cle, email, password) VALUES ('$cle', :email, '$pass')";
+
+        $expiricy = date("Y-m-d H:i:s", time() + 60 * 60 * 3); // 3 heures
+        $sql = "INSERT INTO user (cle, email, password, token_expires_at) VALUES ('$cle', :email, '$pass', '$expiricy')";
 
         $query = $db -> prepare($sql);
         $query -> bindValue(":email", $_POST["email"], PDO::PARAM_STR);
@@ -74,7 +75,7 @@ if(!empty($_POST)){
                 <p style="font-family: Inter;">Bonjour,</p>
                 <p style="font-family: Inter;">Nous vous remercions d\'avoir pris le temps de vous inscrire sur notre plateforme Meet&Do. Nous sommes ravis de vous accueillir parmi nous et nous espérons que vous trouverez notre service utile et agréable.</p>
                 
-                <p style="font-family: Inter;">Pour finaliser votre inscription et activer votre compte, cliquez simplement sur le lien ci-dessous :</p>
+                <p style="font-family: Inter;">Pour finaliser votre inscription et activer votre compte, cliquez simplement sur le lien ci-dessous, il sera valide 3h :</p>
                 <p style="font-family: Inter;"><a  target="_blank "href="' . $lienActivation . '">Cliquez ici pour activer votre compte</a></p>                
                 <p style="font-family: Inter;">Si vous n’êtes pas à l’origine de cette inscription, ignorez simplement ce message.</p>
                 <p style="font-family: Inter;">À très vite sur Meet&Do !  </p>
