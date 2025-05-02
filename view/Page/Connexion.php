@@ -1,3 +1,9 @@
+<?php 
+session_start();
+$messageErreur = $_SESSION["erreur"] ?? "";
+unset($_SESSION["erreur"]);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +25,7 @@
         <div class="parentDiv">
             <div class="containerLogin">
                 <h1>Connexion</h1>
-                <form action="../PHP/Connexion.php" method="post">
+                <form action="../../controller/Connexion/Connexion.php" method="post">
                     <p>Email</p>
                     <input class="textbox" type="text" name="email" required>
                     <p>Mot de passe</p>
@@ -29,7 +35,10 @@
                     </div>
                     <p onclick="openPopUp()">Mot de passe oublié ?</p>
                     <div>
-                        <p id="pasCompte">Pas de compte ?</p> <a  id="sinscire" href="Inscription.html">S'inscrire</a>
+                        <p id="pasCompte">Pas de compte ?</p> <a  id="sinscire" href="Inscription.php">S'inscrire</a>
+                    </div>
+                    <div class="erreur" style="color: red; margin-bottom: 1rem;">
+                        <?= htmlspecialchars($messageErreur) ?>
                     </div>
                     
                     <div id="boutonContainer"></div>
