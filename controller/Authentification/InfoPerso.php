@@ -77,7 +77,7 @@ if (isset($_GET["id"], $_GET["cle"]) && !empty($_GET["id"]) && !empty($_GET["cle
                 </div>
                 ';
                 $message .= "</body></html>";
-                $headers = "From: integeek789@gmail.com\r\n";
+                $headers = "From: meetdosav@gmail.com\r\n";
                 $headers .= "MIME-Version: 1.0\r\n";
                 $headers .= "Content-type: text/html; charset=UTF-8\r\n";
 

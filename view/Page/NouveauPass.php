@@ -24,7 +24,7 @@
             <div class="containerLogin">
                 <h1>Nouveau mot de passe</h1>
                 <p id="texte">Veuillez insérer un nouveau mot de passe et valider celui-ci</p>
-                <form action="" method="post">
+                <form action="../../controller/Authentification/ProcessResetPass.php" method="post">
                     <input type="hidden" name="token" value="<?= htmlspecialchars($token) ?>">
                     <p>Nouveau mot de passe</p>
                     <div class="containerPassword">
