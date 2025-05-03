@@ -1,3 +1,9 @@
+<?php 
+session_start();
+$messageErreur = $_SESSION["erreur"] ?? "";
+unset($_SESSION["erreur"]);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +25,7 @@
         <div class="parentDiv">
             <div class="containerLogin">
                 <h1>Connexion</h1>
-                <form action="../PHP/Connexion.php" method="post">
+                <form action="../../controller/Authentification/Connexion.php" method="post">
                     <p>Email</p>
                     <input class="textbox" type="text" name="email" required>
                     <p>Mot de passe</p>
@@ -29,7 +35,10 @@
                     </div>
                     <p onclick="openPopUp()">Mot de passe oublié ?</p>
                     <div>
-                        <p id="pasCompte">Pas de compte ?</p> <a  id="sinscire" href="Inscription.html">S'inscrire</a>
+                        <p id="pasCompte">Pas de compte ?</p> <a  id="sinscire" href="Inscription.php">S'inscrire</a>
+                    </div>
+                    <div class="erreur" style="color: red; margin-bottom: 1rem;">
+                        <?= htmlspecialchars($messageErreur) ?>
                     </div>
                     
                     <div id="boutonContainer"></div>
@@ -44,10 +53,13 @@
             <div class="popup-content">
                 <h1>Mot de passe oublié</h1>
                 <p>Insérez votre adresse mail, un lien vous sera adressé par mail pour réinitialiser votre mot de passe</p>
-                <form action="">
+                <form action="../../controller/Authentification/AskResetPass.php" method="post">
                     <p>Email</p>
-                    <input class="textbox" type="text" required>
-                    
+                    <input class="textbox" type="text" name="emailSend" required>
+                    <div class="popup-buttons">
+                        <div id="bouton-rouge" onclick="closePopUp()"></div>
+                        <div id="bouton-bleue"></div>
+                    </div>
                 </form>
                 <div class="popup-buttons">
                     <script src="../component/BoutonRouge.js"></script>
@@ -55,7 +67,6 @@
                     <script>
                         document.getElementById('bouton-rouge').innerHTML = BoutonRouge("Annuler");
                     </script>
-                    <div id="bouton-bleue"></div>
                     <script>
                         document.getElementById('bouton-bleue').innerHTML = BoutonBleu("Valider");
                     </script>

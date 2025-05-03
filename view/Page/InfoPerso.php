@@ -1,3 +1,10 @@
+<?php
+session_start();
+require_once '../../controller/Authentification/InfoPerso.php';
+$messageErreur = $_SESSION["erreur"] ?? "";
+unset($_SESSION["erreur"]);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,19 +30,22 @@
     <main>
         <div class="containerLogin">
             <h1>Vos informations</h1>
-            <form action="">
+            <form action="" method="post">
                 <p>Nom</p>
-                <input class="textbox" type="text" required>
+                <input class="textbox" type="text" name="nom" required>
                 <p>Prénom</p>
-                <input class="textbox" type="text" required>
+                <input class="textbox" type="text" name="prenom" required>
                 <p>Adresse (optionnelle)</p>
                 <div id="containerAdresse">
-                    <input class="textbox" type="password" id="adresse" required>
+                    <input class="textbox" type="text" name="adresse" id="adresse" required>
                     <img id="iconAdresse" src="../assets/img/pin.png" alt="Adresse" >
                 </div>
+                <div class="erreur" style="color: red; margin-bottom: 1rem;">
+                <?= htmlspecialchars($messageErreur) ?>
+                </div>
+                <div id="boutonContainer"></div>
             </form>
             <script src="../component/BoutonBleu.js"></script>
-            <div id="boutonContainer"></div>
             <script>
                 document.getElementById('boutonContainer').innerHTML = BoutonBleu("Confirmer");
             </script>
