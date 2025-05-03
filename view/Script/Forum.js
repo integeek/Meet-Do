@@ -48,6 +48,30 @@ const data = [
     }
 ]
 
+var request = new XMLHttpRequest();
+request.open("GET", "../../controller/Forum/Forum.php?sortBy=test", true);
+request.send();
+
+request.onreadystatechange = function () {
+    console.log(this.readyState, this.status);
+  if (this.readyState == 4 && this.status == 200) {
+    try {
+      // Parse the JSON response
+      const responseData = JSON.parse(this.responseText);
+      console.log(responseData); // Log the parsed data
+
+      // Replace the existing data with the new data
+      data = responseData;
+
+      // Re-render the container with the new data
+      renderFaqContent();
+    } catch (error) {
+      console.error("Error parsing JSON response:", error);
+    }
+  } else if (this.readyState == 4) {
+    console.error("Error: Unable to fetch data. Status:", this.status);
+  }
+};
 
 const themes = [
     "Themes",
