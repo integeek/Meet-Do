@@ -1,5 +1,6 @@
 <?php
 session_start();
+var_dump($_SESSION);
 ?>
 
 <!DOCTYPE html>
@@ -11,5 +12,7 @@ session_start();
 </head>
 <body>
     <p>Bonjour <?= $_SESSION["user"]["email"]; ?></p>
+    <p>Bonjour <?= $_SESSION["user"]["id"]; ?></p>
+
 </body>
 </html>
