@@ -29,20 +29,35 @@
         <?php
             session_start();
 
+            if (!isset($_SESSION['user']['email'])) {
+                header("Location: ../../view/page/Connexion.php");
+                exit;
+            }
+
             $host = '127.0.0.1';
             $dbname = 'test_meetdo1';
             $user = 'root';
-            $pass = 'root';
-
-            if (!isset($_SESSION['idClient'])) {
-                echo "<p>Erreur : utilisateur non connecté.</p>";
-                exit;
-            }
-            $idClient = $_SESSION['idClient'];
+            $pass = '';
 
             try {
-                $pdo = new PDO("mysql:host=$host;port=8889;dbname=$dbname;charset=utf8", $user, $pass);
+                $pdo = new PDO("mysql:host=$host;port=3306;dbname=$dbname;charset=utf8", $user, $pass);
                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $email = $_SESSION['user']['email'];
+                $sql = "SELECT idClient FROM user_valide WHERE email = :email";
+                $stmt = $pdo->prepare($sql);
+                $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+                $stmt->execute();
+
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                if ($result && isset($result['idClient'])) {
+                    $idClient = $result['idClient'];
+                    echo "<p>Id client : $idClient</p>";
+                } else {
+                    echo "<p>Aucun client trouvé pour l'email $email</p>";
+                }
+
+
                 $stmt =  $pdo->prepare("
                     SELECT activite.titre, activite.adresse, activite.prix, evenement.dateEvenement, reservation.nbPlace
                     FROM reservation
@@ -55,48 +70,16 @@
                 $reservations = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                 function resaComponent($title, $place, $date, $people, $price) {
-                    return '
-                    <div class="reservation-item">
-                        <div class="item-header">
-                            <h2>' . htmlspecialchars($title) . '</h2>
-                            <img src="../../view/assets/img/macaron1.jpeg" alt="photo-reservation" class="photo-reservation">
+                    return "
+                        <div class='reservation-item'>
+                            <h2>$title</h2>
+                            <p>Adresse : $place</p>
+                            <p>Date : $date</p>
+                            <p>Nombre de places : $people</p>
+                            <p>Prix : $price €</p>
                         </div>
-                        <div class="item-main">
-                            <div class="item-adresse">
-                                <img src="../../view/assets/img/icons/position-icon.svg" alt="position-icon">
-                                <p>' . htmlspecialchars($place) . '</p>
-                            </div>
-                            <div class="item-date">
-                                <img src="../../view/assets/img/icons/calendar.svg" alt="calendar-icon">
-                                <p>' . htmlspecialchars($date) . '</p>
-                            </div>
-                            <div class="item-places">
-                                <img src="../../view/assets/img/icons/group.svg" alt="group-icon">
-                                <p>' . htmlspecialchars($people) . ' place(s) réservée(s)</p>
-                            </div>
-                            <div class="item-prix">
-                                <img src="../../view/assets/img/icons/price.svg" alt="price-icon">
-                                <p>' . htmlspecialchars($price) . ' €</p>
-                            </div>
-                        </div>
-                        <div class="item-footer">
-                            <div id="boutonContainer"></div>
-                            <script>
-                                document.getElementById("boutonContainer").innerHTML = BoutonBleu("Voir l\'activité");
-                            </script>
-                            <div id="boutonContainer1"></div>
-                            <script>
-                                document.getElementById("boutonContainer1").innerHTML = BoutonBleu("Modifier ma réservation");
-                            </script>
-                            <div id="bouton-rouge" onclick="closePopUp()"></div>
-                            <script>
-                                document.getElementById("bouton-rouge").innerHTML = BoutonRouge("Annuler ma réservation");
-                            </script>
-                        </div>
-                    </div>
-                ';
+                    ";
                 }
-
                 foreach ($reservations as $resa) {
                     echo resaComponent(
                         $resa['titre'],
