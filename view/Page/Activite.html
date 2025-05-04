@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -10,6 +11,9 @@
     <link rel="stylesheet" type="text/css" href="../component/BoutonRouge.css">
     <link rel="stylesheet" type="text/css" href="../Style/ActiviteViewer.css">
     <link rel="stylesheet" type="text/css" href="../component/LoadActivite.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
 </head>
 <body>
     <div class="background-image"></div>
@@ -69,27 +73,37 @@
                 </div>
                 <div class="popup-overlay" id="popup">
                     <div class="popup-content">
-                        <h1>Mot de passe oublié</h1>
-                        <p>Insérez votre adresse mail, un lien vous sera adressé par mail pour réinitialiser votre mot de passe</p>
-                        <form action="../../controller/Authentification/AskResetPass.php" method="post">
-                            <p>Email</p>
-                            <input class="textbox" type="text" name="emailSend" required>
-                            <div class="popup-buttons">
-                                <div id="bouton-rouge" onclick="closePopUp()"></div>
-                                <div id="bouton-bleue"></div>
-                            </div>
-                        </form>
+                        <h1>Participer à l'activité</h1>
+                      
+                        <div class="popup-main">
+                          <div class="form-section">
+                            <p>Nombre de participants</p>
+                            <input class="textbox" type="text" name="nbParticipant" required>
+                            <p>Choisissez votre date</p>
+                            <input type="text" id="datepicker" placeholder="Choisissez une date disponible">
+                          </div>
+                      
+                          <div class="creneaux-section">
+                            <h3>Créneaux disponibles</h3>
+                            <div id="creneaux-container"></div>
+                          </div>
+                        </div>
+                      
                         <div class="popup-buttons">
+                          <div id="bouton-rouge" onclick="closePopUp()"></div>
+                          <div id="boutonBleuPop"></div>
+                        </div>
+                      </div>
+                                        
                             <script src="../component/BoutonRouge.js"></script>
-                            <div id="bouton-rouge" onclick="closePopUp()"></div>
+                            <script src="../Script/Activite.js"></script>
                             <script>
                                 document.getElementById('bouton-rouge').innerHTML = BoutonRouge("Annuler");
                             </script>
+                            <script src="../component/BoutonBleu.js"></script>
                             <script>
-                                document.getElementById('bouton-bleue').innerHTML = BoutonBleu("Valider");
+                                document.getElementById('boutonBleuPop').innerHTML = BoutonBleu("Valider");
                             </script>
-                        </div>
-                    </div>
             </div>
         </div>
     </main>
@@ -105,7 +119,6 @@
         document.getElementById('navbar-container').innerHTML = Navbar(false, "..");
     </script>
 
-    <script src="../component/BoutonBleu.js"></script>
     <script src="../Script/PopUp.js"></script>
     <script>
         document.getElementById('boutonParticiper').innerHTML = BoutonBleu("Participer");    
