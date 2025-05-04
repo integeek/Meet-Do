@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" type="text/css" href="../component/Footer/Footer.css">
+    <link rel="stylesheet" type="text/css" href="../component/Navbar/Navbar.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 800px;
+            margin: 20px auto;
+            border: 1px solid #ccc;
+            padding: 20px;
+        }
+        .contact, .form {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        @media (min-width: 768px) {
+            .contact, .form {
+                width: 48%;
+                margin-bottom: 0;
+            }
+        }
+        .contact h2, .form h2 {
+            font-size: 22px;
+        }
+        .contact-info {
+            margin-top: 15px;
+        }
+        .contact-info p {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .contact-info img {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+        .social-icons {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .social-icons img {
+            width: 30px;
+            height: 30px;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .form-row input {
+            width: 100%;
+        }
+        @media (min-width: 768px) {
+            .form-row input {
+                width: 50%;
+            }
+        }
+        .btn-submit {
+            background-color: #6495ED;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 5px;
+        }
+    </style>
+    </head>
+    <body>
+        <header>
+            <div id="navbar-container" class="navbar-container"></div>
+            <script src="../component/Navbar/Navbar.js"></script>
+            <script>
+                document.getElementById('navbar-container').innerHTML = Navbar(true, "..");
+            </script>
+        </header>
+
+<body>
+
+<div class="container">
+    <div class="contact">
+        <h2>Contact Us</h2>
+        <div class="contact-info">
+            <p><img src="../assets/img/pin.png" alt="Address"> 28 rue Notre Dame des Champs, 75006 Paris</p>
+            <p><img src="../assets/img/telephone.png" alt="Phone"> +33 06 06 06 06 06</p>
+            <p><img src="../assets/img/icons/icon-mail.svg" alt="Email"> meet.do@gmail.com</p>
+        </div>
+        <h3>Our Socials</h3>
+        <div class="social-icons">
+            <img src="../assets/img/linkedin-icon.png" alt="LinkedIn">
+            <img src="../assets/img/facebook-icon.png" alt="Facebook">
+            <img src="../assets/img/x-icon.png" alt="X">
+            <img src="../assets/img/instagram-icon.png" alt="Instagram">
+        </div>
+    </div>
+
+    <div class="form">
+        <h2>Form</h2>
+        <form>
+            <div class="form-row">
+                <input type="text" placeholder="nom">
+                <input type="text" placeholder="prénom">
+            </div>
+            <div class="form-group">
+                <input type="email" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="objet">
+            </div>
+            <div class="form-group">
+                <textarea rows="4" placeholder="Message"></textarea>
+            </div>
+            <button type="submit" class="btn-submit">Send</button>
+        </form>
+    </div>
+</div>
+<footer id="footer-container" class="footer-container">
+    <script src="../component/Footer/Footer.js"></script>
+    <script>
+        document.getElementById('footer-container').innerHTML = Footer("..");
+    </script>
+</footer>
+
+</dive>
+
+</body>
+</html>
