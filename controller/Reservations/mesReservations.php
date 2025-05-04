@@ -52,14 +52,13 @@
 
                 if ($result && isset($result['idClient'])) {
                     $idClient = $result['idClient'];
-                    echo "<p>Id client : $idClient</p>";
                 } else {
                     echo "<p>Aucun client trouvé pour l'email $email</p>";
                 }
 
 
                 $stmt =  $pdo->prepare("
-                    SELECT activite.titre, activite.adresse, activite.prix, evenement.dateEvenement, reservation.nbPlace
+                    SELECT activite.titre, activite.adresse, activite.prix, evenement.dateEvenement, reservation.nbPlace, reservation.idReservation
                     FROM reservation
                     INNER JOIN evenement ON reservation.idEvenement = evenement.idEvenement
                     INNER JOIN activite ON evenement.idActivite = activite.idActivite
@@ -69,14 +68,57 @@
                 $stmt->execute([':idClient' => $idClient]);
                 $reservations = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                function resaComponent($title, $place, $date, $people, $price) {
+                function resaComponent($title, $place, $date, $people, $price, $index) {
+                    $boutonbleu = "boutonbleu" . $index;
+                    $boutonbleu1 = "boutonbleu1" . $index;
+                    $boutonrouge = "boutonrouge" . $index;
+
+
                     return "
                         <div class='reservation-item'>
-                            <h2>$title</h2>
-                            <p>Adresse : $place</p>
-                            <p>Date : $date</p>
-                            <p>Nombre de places : $people</p>
-                            <p>Prix : $price €</p>
+                            <div class='reservation-item' id='reservation-item-1'>
+                                <div class='item-header'>
+                                    <h2>$title</h2>
+                                <img src='../../view/assets/img/macaron1.jpeg' alt='photo-reservation' class='photo-reservation'>
+                                </div>
+                                <div class='item-main'>
+                                    <div class='item-adresse'>
+                                        <img src='../../view/assets/img/icons/position-icon.svg' alt='position-icon'>
+                                        <p>$place</p>
+                                    </div>
+                                    <div class='item-date'>
+                                        <img src='../../view/assets/img/icons/calendar.svg' alt='calendar-icon'>
+                                        <p>$date</p>
+                                    </div>
+                                    <div class='item-places'>
+                                        <img src='../../view/assets/img/icons/group.svg' alt='group-icon'>
+                                        <p>$people</p>
+                                    </div>
+                                    <div class='item-prix'>
+                                        <img src='../../view/assets/img/icons/price.svg' alt='price-icon'>
+                                        <p>$price</p>
+                                    </div>
+                                </div>
+                                <div class='item-footer'>
+                                    <div id='$boutonbleu'></div>
+                                    <script>
+                                        document.getElementById('$boutonbleu').innerHTML = BoutonBleu(
+                                            'Voir l\'activité'
+                                        );
+                                    </script>
+                                    <div id='$boutonbleu1'></div>
+                                    <script>
+                                        document.getElementById('$boutonbleu1').innerHTML = BoutonBleu(
+                                            'Modifier ma réservation'
+                                        );
+                                    </script>
+                                    <div id='$boutonrouge' onclick='closePopUp()'></div>
+                                    <script>
+                                        document.getElementById('$boutonrouge').innerHTML = BoutonRouge('Annuler ma réservation');
+                                    </script>
+                                </div>
+                            </div>
+
                         </div>
                     ";
                 }
@@ -86,7 +128,8 @@
                         $resa['adresse'],
                         $resa['dateEvenement'],
                         $resa['nbPlace'],
-                        $resa['prix']
+                        $resa['prix'],
+                        $resa['idReservation']
                     );
                 }
 
