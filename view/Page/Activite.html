@@ -48,8 +48,10 @@
                                 <p>Rejoignez-nous pour un atelier gourmand et créatif où vous apprendrez à réaliser de délicieux macarons maison. Encadré par un pâtissier expérimenté, vous découvrirez les secrets d'une coque parfaite, la préparation d'une ganache savoureuse et les astuces pour un résultat digne des grands chefs. Que vous soyez débutant ou amateur passionné, cet atelier vous permettra de développer vos compétences culinaires. Repartez avec vos propres créations et émerveillez vos proches !</p>
                             </div>
                             <div class="actions-container">
-                                <div id="boutonParticiper"></div>
-                                <div id="boutonAvis"></div>
+                                <div class="boutonActivite">
+                                    <div id="boutonParticiper"></div>
+                                    <div id="boutonAvis"></div>
+                                </div>
                                 <p class="prix-activite"><img src="../assets/img/icons/price.svg" alt=""> Prix : 300€</p>
                                 <div class="organisateur">
                                     <p class="nom-organisateur"><img src="../assets/img/icons/user.svg" alt=""> Jean Dupont</p>
@@ -115,6 +117,7 @@
         </script> 
     </footer> 
     <script src="../component/Navbar/Navbar.js"></script>
+    <script src="../component/Navbar/navAction.js"></script>
     <script>
         document.getElementById('navbar-container').innerHTML = Navbar(false, "..");
     </script>
