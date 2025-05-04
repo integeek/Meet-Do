@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activité Viewer</title>
+    <link rel="stylesheet" type="text/css" href="../component/Footer/Footer.css">
+    <link rel="stylesheet" type="text/css" href="../component/Navbar/Navbar.css">
+    <link rel="stylesheet" type="text/css" href="../component/BoutonBleu.css">
+    <link rel="stylesheet" type="text/css" href="../component/BoutonRouge.css">
+    <link rel="stylesheet" type="text/css" href="../Style/ActiviteViewer.css">
+    <link rel="stylesheet" type="text/css" href="../component/LoadActivite.css">
+</head>
+<body>
+    <div class="background-image"></div>
+    
+    <header>
+        <div id="navbar-container" class="navbar-container"></div>
+    </header>
+
+    <main>
+        <div class="parentDiv">
+            <div class="containerActivite">
+                <div id="activiteDetails">
+                    <div class="activite-container">
+                        <div class="titre-activite-container">
+                            <div>
+                                <h1 class="titre-activite">Atelier Macaron</h1>
+                                <p class="date-activite">10 Février 2025</p>
+                            </div>
+                            <div class="infos-activite">
+                                <p class="adresse-activite"><img src="../assets/img/icons/position-icon.svg" alt=""> 10 rue de Vanves, 92130, Issy-les-Moulineaux</p>
+                                <p class="groupe-activite"><img src="../assets/img/icons/group.svg" alt=""> Groupe de 10</p>
+                            </div>
+                        </div>
+                        <div class="images-activite">
+                            <img src="../assets/img/macaron2.jpeg" alt="Image de l'activité" class="image-activite">
+                            <img src="../assets/img/macaron1.jpeg" alt="Image de l'activité" class="image-activite">
+                        </div>
+                        <div class="separator"></div>
+                        <div class="description-container">
+                            <div class="description-activite">
+                                <h2><img src="../assets/img/icons/file.svg" alt=""> Description de l’activité</h2>
+                                <p>Rejoignez-nous pour un atelier gourmand et créatif où vous apprendrez à réaliser de délicieux macarons maison. Encadré par un pâtissier expérimenté, vous découvrirez les secrets d'une coque parfaite, la préparation d'une ganache savoureuse et les astuces pour un résultat digne des grands chefs. Que vous soyez débutant ou amateur passionné, cet atelier vous permettra de développer vos compétences culinaires. Repartez avec vos propres créations et émerveillez vos proches !</p>
+                            </div>
+                            <div class="actions-container">
+                                <div id="boutonParticiper"></div>
+                                <div id="boutonAvis"></div>
+                                <p class="prix-activite"><img src="../assets/img/icons/price.svg" alt=""> Prix : 300€</p>
+                                <div class="organisateur">
+                                    <p class="nom-organisateur"><img src="../assets/img/icons/user.svg" alt=""> Jean Dupont</p>
+                                    <p class="note-organisateur"><img src="../assets/img/icons/etoile.svg" alt=""> 4.89 / 5</p>
+                                    <div id="boutonContact"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="avis-container">
+                            <h2><img src="../assets/img/icons/megaphone.svg" alt=""> Avis (2)</h2>
+                            <div class="avis">
+                                <p><strong>Alice</strong> <img src="../assets/img/icons/etoile.svg" alt=""> 4.5</p>
+                                <p>Accueil chaleureux, je recommande</p>
+                            </div>
+                            <div class="avis">
+                                <p><strong>Axel</strong> <img src="../assets/img/icons/etoile.svg" alt=""> 2.9</p>
+                                <p>Expérience mitigée</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="popup-overlay" id="popup">
+                    <div class="popup-content">
+                        <h1>Mot de passe oublié</h1>
+                        <p>Insérez votre adresse mail, un lien vous sera adressé par mail pour réinitialiser votre mot de passe</p>
+                        <form action="../../controller/Authentification/AskResetPass.php" method="post">
+                            <p>Email</p>
+                            <input class="textbox" type="text" name="emailSend" required>
+                            <div class="popup-buttons">
+                                <div id="bouton-rouge" onclick="closePopUp()"></div>
+                                <div id="bouton-bleue"></div>
+                            </div>
+                        </form>
+                        <div class="popup-buttons">
+                            <script src="../component/BoutonRouge.js"></script>
+                            <div id="bouton-rouge" onclick="closePopUp()"></div>
+                            <script>
+                                document.getElementById('bouton-rouge').innerHTML = BoutonRouge("Annuler");
+                            </script>
+                            <script>
+                                document.getElementById('bouton-bleue').innerHTML = BoutonBleu("Valider");
+                            </script>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </main>
+
+    <footer id="footer-container" class="footer-container">
+        <script src="../component/Footer/Footer.js"></script>
+        <script>
+            document.getElementById('footer-container').innerHTML = Footer("..");
+        </script> 
+    </footer> 
+    <script src="../component/Navbar/Navbar.js"></script>
+    <script>
+        document.getElementById('navbar-container').innerHTML = Navbar(false, "..");
+    </script>
+
+    <script src="../component/BoutonBleu.js"></script>
+    <script src="../Script/PopUp.js"></script>
+    <script>
+        document.getElementById('boutonParticiper').innerHTML = BoutonBleu("Participer");    
+        const bouton = document.querySelector('#boutonParticiper button');
+        bouton.addEventListener('click', openPopUp);
+    </script>
+    
+    <script>
+        document.getElementById('boutonAvis').innerHTML = BoutonBleu("Laisser un avis");
+    </script>
+    <script>
+        document.getElementById('boutonContact').innerHTML = BoutonBleu("Contactez moi");
+    </script>
+</body>
+</html>
