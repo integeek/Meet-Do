@@ -29,7 +29,7 @@ if(!empty($_POST)){
         <div style="font-family: Inter;">
             <section style="margin: 0 2rem 0 2rem; font-family: Inter;">
                 <p style="font-family: Inter;">Bonjour,</p>
-                
+                <p style="font-family: Inter;">Suite à votre demande de réinitialisation de mot de passe, voici un lien. Il sera valide 30 min,</p>
                 <p style="font-family: Inter;"><a  target="_blank "href="' . $lienMDP . '">Cliquez ici pour réinitialiser votre mot de passe</a></p>                
                 <p style="font-family: Inter;">Si vous n’êtes pas à l’origine de cette inscription, ignorez simplement ce message.</p>
                 <p style="font-family: Inter;">À très vite sur Meet&Do !  </p>
