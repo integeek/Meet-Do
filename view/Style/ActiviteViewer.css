@@ -92,7 +92,7 @@ body {
 }
 
 .adresse-activite, .groupe-activite {
-    font-size: 1.2rem;
+    font-size: 1rem;
     margin: 5px 0;
 }
 
@@ -129,15 +129,6 @@ body {
     align-items: flex-start;
 }
 
-.participer-btn, .laisser-avis-btn, .contact-btn {
-    background-color: #007bff;
-    color: white;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
 .prix-activite {
     font-size: 1.5rem;
     font-weight: bold;
@@ -147,7 +138,7 @@ body {
 .organisateur {
     display: flex;
     flex-direction: column;
-    margin-top: 20px;
+    margin-top: 10px;
     width: 100%;
 }
 
@@ -175,21 +166,114 @@ body {
 }
 
 .popup-content {
-    width: 28%;
-    height: 275px;
     position: absolute;
-    left: 50%;
     top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
+    width: 800px;
     background: white;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 65vh;
+    box-sizing: border-box;
+  }
+  
+  .popup-main {
+    display: flex;
+    flex: 1;
+    gap: 40px;
+    margin-top: 20px;
+    overflow-y: auto;
+  }
+  
+  .form-section {
+    flex: 1;
+  }
+  
+  .creneaux-section {
+    flex: 1;
+  }
+  
+  .popup-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+.popup-columns {
+    display: flex;
+    gap: 40px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .popup-left, .popup-right {
+    flex: 1;
+    min-width: 250px;
+  }
+  
+  #creneaux-container {
+    margin-top: 10px;
+  }
+  
+
+.creneau-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    margin: 5px 0;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 220px;
+    background-color: white;
 }
 
-.popup-buttons {
-    margin-top: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+.creneau-btn:hover {
+    border-color: #007bff;
+}
+
+.creneau-btn.selected {
+    border: 2px solid #007bff;
+    background-color: #e6f0ff;
+}
+
+.creneau-btn.full {
+    background-color: #aaa;
+    color: white;
+    cursor: not-allowed;
+}
+
+.creneau-time {
+    font-weight: bold;
+}
+
+.creneau-capacity {
+    font-size: 0.9em;
+}
+
+@media (max-width: 770px) {
+    .description-container {
+        flex-direction: column;
+    }
+
+    .actions-container .boutonActivite  {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+    }
+    .organisateur {
+        display: flex;
+        flex-direction: row;
+        gap: 50px;
+    }
+
+    .description-activite {
+        width: 90%;
+    }
 }
