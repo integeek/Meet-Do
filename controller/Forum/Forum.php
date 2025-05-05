@@ -8,14 +8,14 @@ if (!empty($_GET)) {
         // Requête principale pour récupérer les questions
         $sqlQuestions = "
             SELECT
-                sujetforum.idSujetForum AS id,
-                sujetforum.dateCreationl AS date,
-                sujetforum.titre AS question,
-                CONCAT(client.nom, ' ', client.prenom) AS userName,
-                categorieforum.type AS theme
-            FROM `sujetforum`
-            INNER JOIN client ON sujetforum.idClient = client.idClient 
-            INNER JOIN categorieforum ON categorieforum.idCategorieForum = sujetforum.idCategorieForum;
+                SujetForum.idSujetForum AS id,
+                SujetForum.dateCreationl AS date,
+                SujetForum.titre AS question,
+                CONCAT(Client.nom, ' ', Client.prenom) AS userName,
+                CategorieForum.type AS theme
+            FROM `SujetForum`
+            INNER JOIN Client ON SujetForum.idClient = Client.idClient 
+            INNER JOIN CategorieForum ON CategorieForum.idCategorieForum = SujetForum.idCategorieForum;
         ";
         $queryQuestions = $db->prepare($sqlQuestions);
         $queryQuestions->execute();
@@ -25,12 +25,12 @@ if (!empty($_GET)) {
         foreach ($questions as &$question) {
             $sqlAnswers = "
                 SELECT 
-                    CONCAT(client.nom, ' ', client.prenom) AS userName,
-                    messageforum.dateEnvoie AS date,
-                    messageforum.message AS answer
-                FROM `messageforum` 
-                INNER JOIN client ON client.idClient = messageforum.idRedacteur
-                WHERE messageforum.idSujetForum = :forumId;
+                    CONCAT(Client.nom, ' ', Client.prenom) AS userName,
+                    MessageForum.dateEnvoie AS date,
+                    MessageForum.message AS answer
+                FROM `MessageForum` 
+                INNER JOIN Client ON Client.idClient = MessageForum.idRedacteur
+                WHERE MessageForum.idSujetForum = :forumId;
             ";
             $queryAnswers = $db->prepare($sqlAnswers);
             $queryAnswers->execute(['forumId' => $question['id']]);

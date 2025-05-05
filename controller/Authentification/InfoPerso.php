@@ -23,7 +23,7 @@ if (isset($_GET["id"], $_GET["cle"]) && !empty($_GET["id"]) && !empty($_GET["cle
                 $adresse = strip_tags($_POST["adresse"]);
 
                 $insertUser = $db->prepare("
-                    INSERT INTO Client (email, password, nom, prenom, adresse)
+                    INSERT INTO Client (email, password, nom, prenom, localisation)
                     VALUES (:email, :password, :nom, :prenom, :adresse)
                 ");
                 $insertUser->execute([

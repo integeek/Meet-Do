@@ -38,7 +38,7 @@ if(!empty($_POST)){
         $pass = password_hash($password, PASSWORD_ARGON2ID);
         $cle = rand(1000000,9000000);
 
-        $checkEmail = $db->prepare("SELECT idClient FROM user_valide WHERE email = :email");
+        $checkEmail = $db->prepare("SELECT idClient FROM Client WHERE email = :email");
         $checkEmail->bindValue(":email", $_POST["email"], PDO::PARAM_STR);
         $checkEmail->execute();
     
@@ -63,7 +63,7 @@ if(!empty($_POST)){
         //     "email" => $_POST["email"],
         // ];
 
-        $lienActivation = "http://localhost/view/page/InfoPerso.php?id=" . $id . "&cle=" . $cle;
+        $lienActivation = "http://localhost/Meet-Do/view/page/InfoPerso.php?id=" . $id . "&cle=" . $cle;
 
         $destinataire = $_POST["email"];
         $sujet = "Finalisation de votre inscription à Meet&Do";
