@@ -8,9 +8,10 @@ if(!empty($_POST)){
         if(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
             $_SESSION["erreur"] = "L'adresse email est incorrecte.";
             header("Location: ../../view/Page/Connexion.php");
+            exit;
         }
 
-        $sql = "SELECT * FROM user_valide WHERE email = :email";
+        $sql = "SELECT * FROM Client WHERE email = :email";
         $query = $db -> prepare($sql);
         $query -> bindValue(":email", $_POST["email"], PDO::PARAM_STR);
         $query -> execute();
@@ -20,11 +21,13 @@ if(!empty($_POST)){
         if(!$user){
             $_SESSION["erreur"] = "L'utilisateur et/ou le mot de passe n'existe pas";
             header("Location: ../../view/Page/Connexion.php");
+            exit;
         }
 
         if(!password_verify($_POST["password"], $user["password"])){
             $_SESSION["erreur"] = "L'utilisateur et/ou le mot de passe n'existe pas";
             header("Location: ../../view/Page/Connexion.php");
+            exit;
         }
 
         session_start();
@@ -38,6 +41,7 @@ if(!empty($_POST)){
     } else {
         $_SESSION["erreur"] = "Le formulaire est incomplet.";
             header("Location: ../../view/Page/Connexion.php");
+            exit;
     }
 }
 ?>

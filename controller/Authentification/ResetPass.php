@@ -4,7 +4,7 @@ require_once("../../model/Bdd.php");
 $token = $_GET["token"];
 $token_hash = hash("sha256", $token);
 
-$sql = "SELECT * FROM user_valide WHERE reset_token_hash = :reset_token";
+$sql = "SELECT * FROM Client WHERE reset_token_hash = :reset_token";
 $query = $db -> prepare($sql);
     $query->execute([
         "reset_token" => $token_hash,
