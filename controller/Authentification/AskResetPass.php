@@ -1,6 +1,6 @@
 <?php 
 
-require_once("../../model/bddAmbre.php");
+require_once("../../model/Bdd.php");
 if(!empty($_POST)){
     $email = $_POST["emailSend"];
     $token = bin2hex(random_bytes(16));

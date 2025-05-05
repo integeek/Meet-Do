@@ -1,7 +1,7 @@
 <?php 
 session_start();
 
-require_once("../../model/bddAmbre.php");
+require_once("../../model/Bdd.php");
 
 if(!empty($_POST)){
     if(isset($_POST["email"],$_POST["password"]) && !empty(($_POST["email"]) && !empty($_POST["password"]))) {

@@ -1,5 +1,5 @@
 <?php
-require_once("../../model/bddAmbre.php");
+require_once("../../model/Bdd.php");
 
 
 if (isset($_GET["id"], $_GET["cle"]) && !empty($_GET["id"]) && !empty($_GET["cle"])) {
@@ -23,7 +23,7 @@ if (isset($_GET["id"], $_GET["cle"]) && !empty($_GET["id"]) && !empty($_GET["cle
                 $adresse = strip_tags($_POST["adresse"]);
 
                 $insertUser = $db->prepare("
-                    INSERT INTO user_valide (email, password, nom, prenom, adresse)
+                    INSERT INTO Client (email, password, nom, prenom, adresse)
                     VALUES (:email, :password, :nom, :prenom, :adresse)
                 ");
                 $insertUser->execute([
