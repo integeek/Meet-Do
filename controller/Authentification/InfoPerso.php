@@ -34,6 +34,13 @@ if (isset($_GET["id"], $_GET["cle"]) && !empty($_GET["id"]) && !empty($_GET["cle
                     "adresse" => $adresse
                 ]);
 
+                $id = $db->lastInsertId();
+
+                $_SESSION["user"] = [
+                    "id" => $id,
+                    "email" => $_POST["email"],
+                ];
+
                 $destinataire = $userInfo["email"];
                 $sujet = "Confirmation de votre inscription à Meet&Do";
                 $message = "<html><body style=\"margin: 0;\">";

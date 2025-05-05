@@ -1,3 +1,5 @@
+<?php require_once("../../controller/Admin/GestionClients.php"); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,19 +28,35 @@
                 <div class="searchBarAdmin-container" id="searchBarAdmin-container"></div>
 
                 <div class="column-container">
-                    <table border="1">
-                        <thead>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Email</th>
+                            <th>Rôle</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableauCorps">
+                        <?php foreach ($users as $user): ?>
                             <tr>
-                                <th>Nom</th><th>Prénom</th><th>Email</th><th>Rôle</th><th>Actions</th>
+                                <td><?= htmlspecialchars($user['nom']) ?></td>
+                                <td><?= htmlspecialchars($user['prenom']) ?></td>
+                                <td><?= htmlspecialchars($user['email']) ?></td>
+                                <td><?= htmlspecialchars($user['role']) ?></td>
+                                <td>
+                                    <div class="icon-actions">
+                                        <img src="../assets/img/icons/eye-open-icon.svg" alt="">
+                                        <img src="../assets/img/icons/edit-icon.svg" alt="">
+                                        <img src="../assets/img/icons/icon-trash.svg" alt="">
+                                    </div>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody id="tableauCorps">
-                            <tr><td>Dupont</td><td>Jean</td><td>Jean.dupont@gmail.com</td><td>Meeter</td><td><div class="icon-actions"><img src="../assets/img/icons/eye-open-icon.svg" alt=""><img src="../assets/img/icons/edit-icon.svg" alt=""><img src="../assets/img/icons/icon-trash.svg" alt=""></div></td></tr>
-                            <tr><td>Dupuis</td><td>Kevin</td><td>kevin.dupuis@gmail.com</td><td>Client</td><td><div class="icon-actions"><img src="../assets/img/icons/eye-open-icon.svg" alt=""><img src="../assets/img/icons/edit-icon.svg" alt=""><img src="../assets/img/icons/icon-trash.svg" alt=""></div></td></tr>
-                            
-                        </tbody>
-                    </table>
-                    
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+
                     <div class="pagination-container" id="pagination-container"></div>
                 </div>
             </div>
