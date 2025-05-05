@@ -43,20 +43,20 @@ const renderFaqContent = () => {
     .map((item, index) => {
       return `
       <div class="${index % 2 === 0 ? "collapse-left" : "collapse-right"}">
-          <button type="button" class="collapse-title alone" id="${item.idFaq}btn">
+          <button type="button" class="collapse-title alone" id="${item.id}btn">
               <h3>${item.question}</h3>
               <div class="grow"></div>
               <image onclick="openPopUp1()" class="pen" src="../assets/img/pen.png" id="${
-                item.idFaq
+                item.id
               }img-pen"></image>
               <image class="trash" src="../assets/img/trash.png" id="${
-                item.idFaq
+                item.id
               }img-trash"></image>
               <image class="chevron" src="../assets/img/chevron.png" id="${
-                item.idFaq
+                item.id
               }img"></image>
           </button>
-          <div class="collapse-content hidden" id="${item.idFaq}p">
+          <div class="collapse-content hidden" id="${item.id}p">
               <p>${item.reponse}</p>
           </div>
       </div>
@@ -69,11 +69,11 @@ const renderFaqContent = () => {
 
 const attachEventListeners = () => {
   data.forEach((item) => {
-    const button = document.getElementById(`${item.idFaq}btn`);
-    const content = document.getElementById(`${item.idFaq}p`);
-    const chevron = document.getElementById(`${item.idFaq}img`);
-    const pen = document.getElementById(`${item.idFaq}img-pen`);
-    const trash = document.getElementById(`${item.idFaq}img-trash`);
+    const button = document.getElementById(`${item.id}btn`);
+    const content = document.getElementById(`${item.id}p`);
+    const chevron = document.getElementById(`${item.id}img`);
+    const pen = document.getElementById(`${item.id}img-pen`);
+    const trash = document.getElementById(`${item.id}img-trash`);
 
     button.addEventListener("click", () => {
       content.classList.toggle("hidden");
@@ -87,7 +87,7 @@ const attachEventListeners = () => {
 
     trash.addEventListener("click", () => {
       if (confirm("Voulez-vous vraiment supprimer cette question ?")) {
-        console.log("Suppression de la question" + item.idFaq);
+        console.log("Suppression de la question" + item.id);
       } else {
         console.log("Annulation de la suppression");
       }
@@ -101,7 +101,7 @@ const attachEventListeners = () => {
     });
 
     pen.addEventListener("click", () => {
-      console.log("Modification de la question" + item.idFaq);
+      console.log("Modification de la question" + item.id);
       content.classList.toggle("hidden");
       button.classList.toggle("alone");
       chevron.style.transform =
