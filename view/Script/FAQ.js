@@ -13,7 +13,7 @@ request.onreadystatechange = function () {
     try {
       // Parse the JSON response
       const responseData = JSON.parse(this.responseText);
-      console.log(responseData, "data"); // Log the parsed data
+      console.log(responseData); // Log the parsed data
 
       // Replace the existing data with the new data
       data = responseData;

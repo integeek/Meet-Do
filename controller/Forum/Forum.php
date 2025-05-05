@@ -1,5 +1,5 @@
 <?php
-require_once("../../model/bddAmbre.php");
+require_once("../../model/Bdd.php");
 
 if (!empty($_GET)) {
     try {

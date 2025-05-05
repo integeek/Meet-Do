@@ -1,6 +1,6 @@
 <?php 
 session_start(); //METTRE CA SUR TOUTES LES PAGES
-require_once("../../model/bddAmbre.php");
+require_once("../../model/Bdd.php");
 
 if(!empty($_POST)){
     //var_dump(value: $_POST);

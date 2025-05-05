@@ -1,5 +1,5 @@
 <?php
-require_once("../../model/bddAmbre.php");
+require_once("../../model/Bdd.php");
 
 $token = $_POST["token"];
 $token_hash = hash("sha256", $token);
