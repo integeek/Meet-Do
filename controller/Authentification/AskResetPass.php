@@ -7,7 +7,7 @@ if(!empty($_POST)){
     $token_hash = hash("sha256", $token);
     $expiricy = date("Y-m-d H:i:s", time() + 60*30);//30 minutes
     
-    $sql = "UPDATE user_valide SET reset_token_hash = :reset_token, reset_token_expires_at= :reset_expires WHERE email = :email";
+    $sql = "UPDATE Client SET reset_token_hash = :reset_token, reset_token_expires_at= :reset_expires WHERE email = :email";
     $query = $db -> prepare($sql);
     $query->execute([
         "email" => $email,
