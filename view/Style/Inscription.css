@@ -32,7 +32,7 @@
     text-decoration: none;
 }
 
-#containerPassword {
+.containerPassword {
     position: relative; 
     display: inline-block;
     width: 100%;
@@ -87,7 +87,7 @@
 }
 
 #mentionTexte {
-    font-size: 9px;
+    font-size: 17   px;
 }
 
 #conditionsG {

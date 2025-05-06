@@ -39,6 +39,10 @@ if (isset($_GET["id"], $_GET["cle"]) && !empty($_GET["id"]) && !empty($_GET["cle
                 $_SESSION["user"] = [
                     "id" => $id,
                     "email" => $_POST["email"],
+                    "nom" => $nom,
+                    "prenom" => $prenom,
+                    "adresse" => $adresse,
+                    
                 ];
 
                 $destinataire = $userInfo["email"];
