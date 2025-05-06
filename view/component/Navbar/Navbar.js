@@ -43,14 +43,11 @@ const GetCookie = async () => {
 
 async function Navbar(url) {
     try {
-        // Attendre que GetCookie termine et mette à jour `connect`
         await GetCookie();
-        console.log(connect,"dd");
-
         if (connect.connect) {
             return `
                 <nav> 
-                    <a href="../index.html" class="nav-icon" aria-label="homepage" aria-current="page">
+                    <a href="./accueil.php" class="nav-icon" aria-label="homepage" aria-current="page">
                         <img src="${url}/assets/img/logoMeet&Do.png" alt="logo" id="logo" />
                     </a>
                     <div class="main-navlinks">
@@ -60,8 +57,8 @@ async function Navbar(url) {
                             <span></span>
                         </button>
                         <ul class="nav-links">
-                            <li><a href="./accueil.html">Accueil</a></li>
-                            <li><a href="./Messagerie.html">Messagerie</a></li>
+                            <li><a href="./accueil.php">Accueil</a></li>
+                            <li><a href="./Messagerie.php">Messagerie</a></li>
                         </ul>
                     </div>
                     <div id="navbar-grow"></div>
@@ -73,12 +70,15 @@ async function Navbar(url) {
                         </div>
                         <div class="sign-btns">
                             <div class="annonce">
-                                <a href="#">Poster une annonce</a>
+                                <a href="./CreerActivite.php">Poster une annonce</a>
                             </div>
-                            <a href="./PageCompte.html" class="profil" id="profil">
+                            <a href="./PageCompte.php" class="profil" id="profil">
                                 <div>${connect.firstName} ${connect.lastName}</div>
                                 <img src="${url}/assets/img/profil.png" id="profil-img">
                             </a>
+                            <div class="deconnexion">
+                                <a id="logout-btn" href="../../../Meet-Do/controller/Authentification/Deconnexion.php">Se déconnecter</a>
+                            </div>
                         </div>
                     </div>
                 </nav>
@@ -86,7 +86,7 @@ async function Navbar(url) {
         } else {
             return `
                 <nav> 
-                    <a href="../index.html" class="nav-icon" aria-label="homepage" aria-current="page">
+                    <a href="./accueil.php" class="nav-icon" aria-label="homepage" aria-current="page">
                         <img src="${url}/assets/img/logoMeet&Do.png" alt="logo" id="logo" />
                     </a>
                     <div class="main-navlinks">
@@ -96,8 +96,8 @@ async function Navbar(url) {
                             <span></span>
                         </button>
                         <ul class="nav-links">
-                            <li><a href="./accueil.html">Accueil</a></li>
-                            <li><a href="./Messagerie.html">Messagerie</a></li>
+                            <li><a href="./accueil.php">Accueil</a></li>
+                            <li><a href="./Messagerie.php">Messagerie</a></li>
                         </ul>
                     </div>
                     <div id="navbar-grow"></div>
