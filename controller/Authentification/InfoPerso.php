@@ -42,7 +42,7 @@ if (isset($_GET["id"], $_GET["cle"]) && !empty($_GET["id"]) && !empty($_GET["cle
                     "nom" => $_POST["nom"],
                     "prenom" => $prenom,
                     "adresse" => $adresse,
-                    
+                    "role" => $userInfo["role"],
                 ];
 
                 $destinataire = $userInfo["email"];
@@ -98,7 +98,7 @@ if (isset($_GET["id"], $_GET["cle"]) && !empty($_GET["id"]) && !empty($_GET["cle
                     echo "L'email n'a pas pu être envoyé.";
                 }
 
-                header("Location: ../Page/FAQ.html");
+                header("Location: ../Page/FAQ.php");
                 exit;
             } else {
                 $_SESSION["erreur"] = "Erreur : tous les champs doivent être complétés (nom et prénom obligatoires)";

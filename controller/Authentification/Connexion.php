@@ -35,8 +35,13 @@ if(!empty($_POST)){
         $_SESSION["user"] = [
             "id" => $user["id"],
             "email" => $user["email"],
+            "nom" => $user["nom"],
+            "prenom" => $user["prenom"],
+            "adresse" => $user["localisation"],
+            "role" => $user["role"],
+
         ];
-        header("Location: ../../view/Page/FAQ.html");
+        header("Location: ../../view/Page/FAQ.php");
 
     } else {
         $_SESSION["erreur"] = "Le formulaire est incomplet.";

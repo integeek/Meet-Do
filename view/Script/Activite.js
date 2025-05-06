@@ -1,32 +1,58 @@
+function openPopUpReport() {
+    document.getElementById("popup-report").style.display = "block";
+}
+
+function closePopUpReport() {
+    document.getElementById("popup-report").style.display = "none";
+}
+
+function openPopUpReportUser() {
+    document.getElementById("popup-report-user").style.display = "block";
+  }
+  
+  function closePopUpReportUser() {
+    document.getElementById("popup-report-user").style.display = "none";
+  }
+
+  function openPopUpReportActivity() {
+    document.getElementById("popup-report-activity").style.display = "block";
+  }
+  
+  function closePopUpReportActivity() {
+    document.getElementById("popup-report-activity").style.display = "none";
+  }
+  
+  
 document.addEventListener("DOMContentLoaded", () => {
-    const datesDisponibles = ["2025-05-05", "2025-05-08", "2025-05-12"];
+    fetch("../../controller/Activite/Activite.php?idActivite=7")
+        .then(res => res.json())
+        .then(data => {
+            const datesDisponibles = data.datesDisponibles;
+            const horairesParDate = {};
 
-    const horairesParDate = {
-        "2025-05-05": [
-            { heure: "9h30-10h30", inscrits: 10, max: 10 },
-            { heure: "10h30-11h30", inscrits: 5, max: 10 },
-            { heure: "12h30-13h30", inscrits: 0, max: 10 },
-            { heure: "14h30-15h30", inscrits: 3, max: 10 },
-            { heure: "15h30-16h30", inscrits: 4, max: 10 },
-        ],
-        "2025-05-08": [
-            { heure: "10h00-11h00", inscrits: 7, max: 10 },
-            { heure: "11h30-12h30", inscrits: 10, max: 10 },
-        ],
-        "2025-05-12": [
-            { heure: "13h00-14h00", inscrits: 1, max: 10 },
-        ]
-    };
+            data.horairesParDate.forEach(e => {
+                if (!horairesParDate[e.dateEvenement]) {
+                    horairesParDate[e.dateEvenement] = [];
+                }
+                horairesParDate[e.dateEvenement].push({
+                    heure: e.heure,
+                    inscrits: parseInt(e.inscrits),
+                    max: parseInt(e.max)
+                });
+            });
+            console.log(data); // juste après le fetch
 
-    flatpickr("#datepicker", {
-        enable: datesDisponibles,
-        dateFormat: "Y-m-d",
-        onChange: function(selectedDates, dateStr) {
-            afficherCreneaux(dateStr);
-        }
-    });
 
-    function afficherCreneaux(date) {
+            flatpickr("#datepicker", {
+                enable: datesDisponibles,
+                dateFormat: "Y-m-d",
+                onChange: function(selectedDates, dateStr) {
+                    afficherCreneaux(dateStr, horairesParDate);
+                }
+            });
+        });
+
+    function afficherCreneaux(date, horairesParDate) {
         const creneaux = horairesParDate[date] || [];
         const container = document.getElementById("creneaux-container");
         container.innerHTML = "";
@@ -53,7 +79,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 btn.addEventListener("click", () => {
                     document.querySelectorAll(".creneau-btn").forEach(el => el.classList.remove("selected"));
                     btn.classList.add("selected");
-
                     console.log("Créneau sélectionné :", c.heure);
                 });
             }
