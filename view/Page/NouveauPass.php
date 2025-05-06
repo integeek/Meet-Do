@@ -1,3 +1,7 @@
+<?php
+$token = isset($_GET["token"]) ? $_GET["token"] : "";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
