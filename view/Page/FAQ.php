@@ -53,10 +53,10 @@ unset($_SESSION["erreur"]);
     <div class="popup-container" id="add-question-popup">
       <div class="popup-content">
         <div class="popup-header">
-          <h1>Ajouter un question</h1>
+        <h1>Ajouter un question</h1>
         </div>
         <div class="popup-main">
-          <div class="theme">
+        <div class="theme">
             <label for="theme">Sélectionner un thème :</label>
             <select id="theme" name="theme">
               <option value="theme1">Thème 1</option>
@@ -72,7 +72,7 @@ unset($_SESSION["erreur"]);
           </div>
         </div>
         <div class="popup-footer">
-          <div id="bouton-rouge1" onclick="closePopUp('add-question-popup')"></div>
+        <div id="bouton-rouge1" onclick="closePopUp('add-question-popup')"></div>
           <script>
             document.getElementById("bouton-rouge1").innerHTML =
               BoutonRouge("Annuler");
