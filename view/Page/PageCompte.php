@@ -1,3 +1,11 @@
+<?php 
+session_start();
+if(!isset($_SESSION['user'])) {
+    header('Location: Connexion.php');
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -71,7 +79,7 @@
           maintenant.
         </p>
         <script src="../component/BoutonBleu.js"></script>
-        <div id="boutonContainer1"></div>
+        <div id="boutonContainer1" ></div>
         <script>
           document.getElementById("boutonContainer1").innerHTML = BoutonBleu(
             "Devenir Meeter !",
