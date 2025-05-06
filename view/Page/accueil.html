@@ -1,29 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accueil</title>
-    <link rel="stylesheet" type="text/css" href="../component/Navbar/Navbar.css"">
+    <link rel="stylesheet" type="text/css" href="../component/Navbar/Navbar.css">
     <link rel="stylesheet" href="../component/SearchBar/SearchBar.css">
     <link rel="stylesheet" href="../component/ActivityCard/ActivityCard.css">
-<!--<script src="activityCard.js" defer></script>-->
+    <!--<script src="activityCard.js" defer></script>-->
     <link rel="stylesheet" type="text/css" href="../component/Footer/Footer.css">
 </head>
+
 <body>
     <header>
         <div id="navbar-container" class="navbar-container"></div>
         <script src="../component/Navbar/Navbar.js"></script>
         <script>
-            document.getElementById('navbar-container').innerHTML = Navbar(true, "..");
+            (async () => {
+                document.getElementById('navbar-container').innerHTML = await Navbar("..");
+            })();
         </script>
-            <div id="search-bar"></div>
-            <script src="../component/SearchBar/SearchBar.js"></script>
-            <script>
-                document.getElementById('search-bar').innerHTML = SearchBar("..")
-            </script>
-            <div id="activities-container"></div>
-            <script src="../component/ActivityCard/ActivityCard.js"></script>
+        <div id="search-bar"></div>
+        <script src="../component/SearchBar/SearchBar.js"></script>
+        <script>
+            document.getElementById('search-bar').innerHTML = SearchBar("..")
+        </script>
+        <div id="activities-container"></div>
+        <script src="../component/ActivityCard/ActivityCard.js"></script>
     </header>
     <footer id="footer-container" class="footer-container">
         <script src="../component/Footer/Footer.js"></script>
@@ -32,4 +36,5 @@
         </script>
     </footer>
 </body>
+
 </html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,9 +12,10 @@
     <link rel="stylesheet" type="text/css" href="../Style/ActiviteViewer.css">
     <link rel="stylesheet" type="text/css" href="../component/LoadActivite.css">
 </head>
+
 <body>
     <div class="background-image"></div>
-    
+
     <header>
         <div id="navbar-container" class="navbar-container"></div>
     </header>
@@ -34,12 +36,14 @@
         <script src="../component/Footer/Footer.js"></script>
         <script>
             document.getElementById('footer-container').innerHTML = Footer("..");
-        </script> 
-    </footer> 
+        </script>
+    </footer>
 
     <script src="../component/Navbar/Navbar.js"></script>
     <script>
-        document.getElementById('navbar-container').innerHTML = Navbar(false, "..");
+        (async () => {
+            document.getElementById('navbar-container').innerHTML = await Navbar("..");
+        })();
     </script>
 
     <script src="../component/BoutonBleu.js"></script>
@@ -51,7 +55,7 @@
             const boutonLaisserAvis = BoutonBleu("Laisser un avis");
             const boutonContact = BoutonBleu("Contactez-moi");
 
-    return `
+            return `
         <div class="activite-container">
             <div class="titre-activite-container">
                 <div>
@@ -95,7 +99,7 @@
             </div>
         </div>
     `;
-}
+        }
 
 
         // Exemple d'activité à afficher
@@ -123,4 +127,5 @@
         document.getElementById('deleteButton').innerHTML = BoutonRouge("Supprimer");
     </script>
 </body>
+
 </html>
