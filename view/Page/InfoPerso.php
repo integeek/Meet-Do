@@ -31,9 +31,9 @@ unset($_SESSION["erreur"]);
         <div class="containerLogin">
             <h1>Vos informations</h1>
             <form action="" method="post">
-                <p>Nom</p>
+                <p>Nom *</p>
                 <input class="textbox" type="text" name="nom" required>
-                <p>Prénom</p>
+                <p>Prénom *</p>
                 <input class="textbox" type="text" name="prenom" required>
                 <p>Adresse (optionnelle)</p>
                 <div id="containerAdresse">
