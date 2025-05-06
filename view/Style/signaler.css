@@ -1,0 +1,13 @@
+.containerLogin {
+    background-color: white;
+    border: black solid 0.5px;
+    border-radius: 7px;
+    padding: 15px;
+    margin: 50px auto;
+    padding-bottom: 0;
+    width: 15%;
+}
+
+.buttonRo {
+    width: 12rem;
+}

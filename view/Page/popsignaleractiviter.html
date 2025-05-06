@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>signaleractiviter</title></header>
+    <title>signalerutilisateur</title></header>
     <link rel="stylesheet" type="text/css" href="../component/Footer/Footer.css">
     <link rel="stylesheet" type="text/css" href="../component/Navbar/Navbar.css">
     <link rel="stylesheet" type="text/css" href="../component/BoutonRouge.css">
     <link rel="stylesheet" type="text/css" href="../component/BoutonBleu.css">
-    <link rel="stylesheet" href="../Style/Inscription.css">
+    <link rel="stylesheet" href="../Style/popupUser.css">
 </head>
 <body>
     <div class="background-image"></div>
@@ -21,39 +21,34 @@
         <script src="../component/Navbar/navAction.js"></script> 
 <main>
     <div class="containerLogin">
-        <h1>signaler une activité</h1>
-        <p> raison du signalement<p></p>
+        <h1>Signaler un utilisateur</h1>
+        <p>Raison du signalement<p></p>
         </form>
         <div class="container">
-            <p style="width:200px" ><input type="radio" name=   "genre" value="acctiviter dangereuse">acctiviter dangereuse</p>
-            <p style="width:200px" ><input type="radio" name=   "genre" value="publicité déguisé" >publicité déguisé</p>
-            <p style="width:200px" ><input type="radio" name=   "genre" value="probléme de localisation" >probléme de localisation</p>
-            <p style="width:200px" ><input type="radio" name=   "genre" value="texte inaproprier">texte inaproprier</p>
-            <p  style="width:200px" ><input type="radio" name=   "genre" value="ph to inaproprier">ph to inaproprier</p>
-            <p  style="width:200px" ><input type="radio" name=   "genre" value="autre...">autre...</p>
+            <p ><input type="radio" name="genre" value="activite-dangereuse">Activité dangereuse</p>
+            <p ><input type="radio" name="genre" value="publicite-deguise">Publicité déguisée</p>
+            <p ><input type="radio" name="genre" value="probleme-localisation">Problème de localisation</p>
+            <p ><input type="radio" name="genre" value="texte-inapproprie">Texte inapproprié</p>
+            <p ><input type="radio" name="genre" value="photo-inappropriee">Photo inappropriée</p>
+            <p ><input type="radio" name="genre" value="autre">Autre</p>            
         </div>
         <form action="">
-            <p>un commentaire:</p>
-            <input class="textbox" type="text" required>
+            <p>Commentaire : (facultatif)</p>
+            <textarea class="textComm" name="Commentaire" rows="4" cols="38"></textarea>
         </form>   
         <div class="popup-buttons">
+            <div id="bouton-rouge" onclick="closePopUp()"></div>
+            <div id="bouton-bleue"></div>
+        </div>
+
             <script src="../component/BoutonRouge.js"></script>
             <script src="../component/BoutonBleu.js"></script>
-            <div id="bouton-rouge" onclick="closePopUp()"></div>
             <script>
                 document.getElementById('bouton-rouge').innerHTML = BoutonRouge("Annuler");
             </script>
-            <div id="bouton-bleue"></div>
             <script>
                 document.getElementById('bouton-bleue').innerHTML = BoutonBleu("Signaler");
             </script>
-        </div>
-
-        
-
-        
-
-
     </div>
 </main>
 <footer id="footer-container" class="footer-container">
