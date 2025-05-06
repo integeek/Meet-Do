@@ -11,6 +11,13 @@ if(!empty($_POST)){
         }
 
         $password = $_POST["password"];
+        $password2 = $_POST["password2"];
+        if($password !== $password2){
+            $_SESSION["erreur"] = "Les mots de passe ne correspondent pas";
+            header("Location: ../../view/Page/Inscription.php");
+            exit;
+        }
+
 
         if(strlen($password) < 8){
             $_SESSION["erreur"] = "Le mot de passe doit contenir au moins 8 caractères";

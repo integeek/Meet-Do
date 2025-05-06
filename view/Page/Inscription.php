@@ -43,11 +43,15 @@ unset($_SESSION["erreur"]);
                 <p>Email</p>
                 <input class="textbox" type="text" name="email" required>
                 <p>Mot de passe</p>
-                <div id="containerPassword">
+                <div class="containerPassword">
                     <input class="textbox" type="password" id="password" name="password" required>
-                    <img class="togglePassword" src="../assets/img/ouvert.png" alt="Afficher/Masquer">
-                </div>
-
+                    <img class="togglePassword" src="../assets/img/ouvert.png" alt="Afficher/Masquer" >
+                </div> 
+                <p>Confirmer le mot de passe</p>
+                <div class="containerPassword">
+                    <input class="textbox" type="password" id="password2" name="password2" required>
+                    <img class="togglePassword" src="../assets/img/ouvert.png" alt="Afficher/Masquer" >
+                </div> 
                 <div class="validator-criters">
                     <span class="chiffre"><i class="far fa-check-circle"></i> &nbsp;Votre mot de passe doit avoir 1 chiffres</span>
                     <span class="majuscule"><i class="far fa-check-circle"></i> &nbsp;Votre mot de passe doit avoir 1 lettre majuscule</span>
@@ -61,8 +65,8 @@ unset($_SESSION["erreur"]);
                 </div>
 
                 <div id="mention">
-                    <input type="checkbox" id="mention" name="mention" required />
-                    <div id="mentionTexte"><label id="" for="mention">Je confirme avoir lu et accepté </label><a id="connexion" href="Connexion.html">les conditions générales d'utilisations</a></div>
+                    <input type="checkbox" id="mention" name="mention" required/>
+                    <div id="mentionTexte"><label id="" for="mention">Je confirme avoir lu et accepté </label><a  id="connexion" href="MentionLegales.html">les conditions générales d'utilisations</a></div>
                 </div>
                 <div class="erreur" style="color: red; margin-bottom: 1rem;">
                     <?= htmlspecialchars($messageErreur) ?>
