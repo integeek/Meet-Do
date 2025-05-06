@@ -73,7 +73,9 @@
     
     <script src="../component/Navbar.js"></script>
     <script>
-        document.getElementById('navbar-container').innerHTML = Navbar(false, "..");
+        (async () => {
+                document.getElementById('navbar-container').innerHTML = await Navbar("..");
+        })();
     </script>
     <script src="../component/Footer.js"></script>
     <script>

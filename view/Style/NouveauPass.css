@@ -41,7 +41,6 @@
     position: relative; 
     display: inline-block;
     width: 100%;
-
 }
 
 .togglePassword {
@@ -52,6 +51,27 @@
     width: 20px; 
     cursor: pointer;
 }
+
+.validator-criters {
+    padding: 10px 3px;
+    margin: auto;
+    display: none;
+  }
+  
+.validator-criters span {
+    display: block;
+    color: #cacaca;
+    font-size: 13px;
+    margin: 5px 0;
+  }
+  
+.validator-criters span.error {
+    color: #a70b0b;
+  }
+  
+.validator-criters span.succes {
+    color: green;
+  }
 
 #boutonContainer {
     margin-top: 20px;

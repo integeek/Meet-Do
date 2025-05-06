@@ -31,13 +31,13 @@ class ActivityCard {
   document.addEventListener("DOMContentLoaded", function () {
     const activities = [
         {
-        image: "https://static.vecteezy.com/ti/photos-gratuite/t2/41425832-ai-genere-une-empiler-de-macarons-avec-une-en-forme-de-coeur-macaron-sur-haut-photo.jpg",
+        image: "https://www.chateaux-de-la-loire.fr/images/chateau-royal-de-chambord-en-ete.jpg",
         title: "Atelier Macaron",
         location: "10 rue de Vanves, 92130 Issy-Les-Moulineaux",
         price: 300,
         groupSize: 10,
         rating: 4.8,
-        url : "https://google.com"
+        url : "http://localhost/Meet-Do/view/Page/ActiviteViewer.html"
         },
         {
             image: "https://www.chateaux-de-la-loire.fr/images/chateau-royal-de-chambord-en-ete.jpg",

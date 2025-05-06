@@ -1,5 +1,7 @@
 <?php 
 session_start(); //METTRE CA SUR TOUTES LES PAGES
+require_once("../../model/Bdd.php");
+
 if(!empty($_POST)){
     //var_dump(value: $_POST);
     if(isset($_POST["email"],$_POST["password"]) && !empty(($_POST["email"]) && !empty($_POST["password"]))) {
@@ -9,6 +11,13 @@ if(!empty($_POST)){
         }
 
         $password = $_POST["password"];
+        $password2 = $_POST["password2"];
+        if($password !== $password2){
+            $_SESSION["erreur"] = "Les mots de passe ne correspondent pas";
+            header("Location: ../../view/Page/Inscription.php");
+            exit;
+        }
+
 
         if(strlen($password) < 8){
             $_SESSION["erreur"] = "Le mot de passe doit contenir au moins 8 caractères";
@@ -18,38 +27,36 @@ if(!empty($_POST)){
         if(!preg_match("/[0-9]/", $password)){
             $_SESSION["erreur"] = "Le mot de passe doit contenir au moins un chiffre";
             header("Location: ../../view/Page/Inscription.php");
+            exit;
         }
 
         if(!preg_match("/[A-Z]/", $password)){
             $_SESSION["erreur"] = "Le mot de passe doit contenir au moins une majuscule";
             header("Location: ../../view/Page/Inscription.php");
+            exit;
         }
 
         if(!preg_match("/[a-z]/", $password)){
             $_SESSION["erreur"] = "Le mot de passe doit contenir au moins une minuscule";
             header("Location: ../../view/Page/Inscription.php");
+            exit;
         }
 
         $pass = password_hash($password, PASSWORD_ARGON2ID);
         $cle = rand(1000000,9000000);
 
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "test";
-        $db = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
-            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        $checkEmail = $db->prepare("SELECT id FROM user WHERE email = :email");
+        $checkEmail = $db->prepare("SELECT idClient FROM Client WHERE email = :email");
         $checkEmail->bindValue(":email", $_POST["email"], PDO::PARAM_STR);
         $checkEmail->execute();
     
         if($checkEmail->fetch()){
             $_SESSION["erreur"] = "Cette adresse email est déjà utilisée";
             header("Location: ../../view/Page/Inscription.php");
+            exit;
         }
-        
-        $sql = "INSERT INTO user (cle, email, password) VALUES ('$cle', :email, '$pass')";
+
+        $expiricy = date("Y-m-d H:i:s", time() + 60 * 60 * 3); // 3 heures
+        $sql = "INSERT INTO user (cle, email, password, token_expires_at) VALUES ('$cle', :email, '$pass', '$expiricy')";
 
         $query = $db -> prepare($sql);
         $query -> bindValue(":email", $_POST["email"], PDO::PARAM_STR);
@@ -58,12 +65,12 @@ if(!empty($_POST)){
         $id = $db->lastInsertId();
 
          
-        $_SESSION["user"] = [
-            "id" => $id,
-            "email" => $_POST["email"],
-        ];
+        // $_SESSION["user"] = [
+        //     "id" => $id,
+        //     "email" => $_POST["email"],
+        // ];
 
-        $lienActivation = "http://localhost/view/page/InfoPerso.php?id=" . $_SESSION["user"]["id"] . "&cle=" . $cle;
+        $lienActivation = "http://localhost/Meet-Do/view/page/InfoPerso.php?id=" . $id . "&cle=" . $cle;
 
         $destinataire = $_POST["email"];
         $sujet = "Finalisation de votre inscription à Meet&Do";
@@ -79,7 +86,7 @@ if(!empty($_POST)){
                 <p style="font-family: Inter;">Bonjour,</p>
                 <p style="font-family: Inter;">Nous vous remercions d\'avoir pris le temps de vous inscrire sur notre plateforme Meet&Do. Nous sommes ravis de vous accueillir parmi nous et nous espérons que vous trouverez notre service utile et agréable.</p>
                 
-                <p style="font-family: Inter;">Pour finaliser votre inscription et activer votre compte, cliquez simplement sur le lien ci-dessous :</p>
+                <p style="font-family: Inter;">Pour finaliser votre inscription et activer votre compte, cliquez simplement sur le lien ci-dessous, il sera valide 3h :</p>
                 <p style="font-family: Inter;"><a  target="_blank "href="' . $lienActivation . '">Cliquez ici pour activer votre compte</a></p>                
                 <p style="font-family: Inter;">Si vous n’êtes pas à l’origine de cette inscription, ignorez simplement ce message.</p>
                 <p style="font-family: Inter;">À très vite sur Meet&Do !  </p>
@@ -109,7 +116,7 @@ if(!empty($_POST)){
         </div>
         ';
         $message .= "</body></html>";
-        $headers = "From: integeek789@gmail.com\r\n";
+        $headers = "From: meetdosav@gmail.com\r\n";
         $headers .= "MIME-Version: 1.0\r\n";
         $headers .= "Content-type: text/html; charset=UTF-8\r\n";
 
@@ -123,6 +130,7 @@ if(!empty($_POST)){
     } else {
         $_SESSION["erreur"] = "le formulaire est incomplet";
         header("Location: ../../view/Page/Inscription.php");
+        exit;
     }
 }
 ?>

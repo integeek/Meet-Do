@@ -1,9 +1,9 @@
 <?php
 try {
     $db = new PDO(
-        "mysql:host=144.76.54.100;dbname=MeetDo;charset=utf8",
-        "meetndodatabase",
-        "AppG10-D",
+        "mysql:host=localhost;dbname=meetdo;charset=utf8",
+        "root",
+        "",
         [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
     );
 } catch (Exception $e) {

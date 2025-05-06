@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../Style/fondReservations.css">
+    <link rel="stylesheet" href="../component/Navbar/Navbar.css" />
+    <link rel="stylesheet" href="../component/Footer/Footer.css" />
+    <link rel="stylesheet" href="../component/BoutonBleu.css" />
+    <link rel="stylesheet" type="text/css" href="../component/BoutonRouge.css">
+    <script src="../component/BoutonBleu.js"></script>
+    <script src="../component/BoutonRouge.js"></script>
+    <title>Mes Réservations | Meet&Do</title>
+</head>
+<body>
+    <header>
+        <div class="navbar-container" id="navbar-container"></div>
+        <script src="../component/Navbar/Navbar.js"></script>
+        <script>
+            (async () => {
+                document.getElementById('navbar-container').innerHTML = await Navbar("..");
+            })();
+        </script>
+        <h1>Mes Réservations :</h1>
+    </header>
+    <main>
+        <div class="reservation-list">
+            <div class="reservation-item" id="reservation-item-1">
+                <div class="item-header">
+                    <h2>Titre de l'activité</h2>
+                    <img src="../assets/img/macaron1.jpeg" alt="photo-reservation" class="photo-reservation">
+                </div>
+                <div class="item-main">
+                    <div class="item-adresse">
+                        <img src="../assets/img/icons/position-icon.svg" alt="position-icon">
+                        <p>Adresse de l'atelier</p>
+                    </div>
+                    <div class="item-date">
+                        <img src="../assets/img/icons/calendar.svg" alt="calendar-icon">
+                        <p>Date de l'atelier</p>
+                    </div>
+                    <div class="item-places">
+                        <img src="../assets/img/icons/group.svg" alt="group-icon">
+                        <p>Nombre de places réservées</p>
+                    </div>
+                    <div class="item-prix">
+                        <img src="../assets/img/icons/price.svg" alt="price-icon">
+                        <p>Prix total</p>
+                    </div>
+                </div>
+                <div class="item-footer">
+                  <div id="boutonContainer"></div>
+                  <script>
+                    document.getElementById("boutonContainer").innerHTML = BoutonBleu(
+                      "Voir l'activité"
+                    );
+                  </script>
+                  <div id="boutonContainer1"></div>
+                  <script>
+                    document.getElementById("boutonContainer1").innerHTML = BoutonBleu(
+                      "Modifier ma réservation"
+                    );
+                  </script>
+                  <div id="bouton-rouge" onclick="closePopUp()"></div>
+                  <script>
+                      document.getElementById('bouton-rouge').innerHTML = BoutonRouge("Annuler ma réservation");
+                  </script>
+                </div>
+            </div>
+            <div class="reservation-item" id="reservation-item-2">
+                <div class="item-header">
+                    <h2>Titre de l'activité</h2>
+                    <img src="../assets/img/macaron1.jpeg" alt="photo-reservation" class="photo-reservation">
+                </div>
+                <div class="item-main">
+                  <div class="item-adresse">
+                        <img src="../assets/img/icons/position-icon.svg" alt="position-icon">
+                        <p>Adresse de l'atelier</p>
+                    </div>
+                    <div class="item-date">
+                        <img src="../assets/img/icons/calendar.svg" alt="calendar-icon">
+                        <p>Date de l'atelier</p>
+                    </div>
+                    <div class="item-places">
+                        <img src="../assets/img/icons/group.svg" alt="group-icon">
+                        <p>Nombre de places réservées</p>
+                    </div>
+                    <div class="item-prix">
+                        <img src="../assets/img/icons/price.svg" alt="price-icon">
+                        <p>Prix total</p>
+                    </div>
+                </div>
+                <div class="item-footer">
+                  <div id="boutonContainer2"></div>
+                  <script>
+                    document.getElementById("boutonContainer2").innerHTML = BoutonBleu(
+                      "Voir l'activité"
+                    );
+                  </script>
+                  <div id="boutonContainer3"></div>
+                  <script>
+                    document.getElementById("boutonContainer3").innerHTML = BoutonBleu(
+                      "Modifier ma réservation"
+                    );
+                  </script>
+                  <div id="bouton-rouge1" onclick="closePopUp()"></div>
+                  <script>
+                      document.getElementById('bouton-rouge1').innerHTML = BoutonRouge("Annuler ma réservation");
+                  </script>
+                </div>
+            </div>
+            <div class="reservation-item" id="reservation-item-3">
+                <div class="item-header">
+                    <h2>Titre de l'activité</h2>
+                    <img src="../assets/img/macaron1.jpeg" alt="photo-reservation" class="photo-reservation">
+                </div>
+                <div class="item-main">
+                  <div class="item-adresse">
+                    <img src="../assets/img/icons/position-icon.svg" alt="position-icon">
+                    <p>Adresse de l'atelier</p>
+                </div>
+                <div class="item-date">
+                    <img src="../assets/img/icons/calendar.svg" alt="calendar-icon">
+                    <p>Date de l'atelier</p>
+                </div>
+                <div class="item-places">
+                    <img src="../assets/img/icons/group.svg" alt="group-icon">
+                    <p>Nombre de places réservées</p>
+                </div>
+                <div class="item-prix">
+                    <img src="../assets/img/icons/price.svg" alt="price-icon">
+                    <p>Prix total</p>
+                </div>
+                </div>
+                <div class="item-footer">
+                  <div id="boutonContainer4"></div>
+                  <script>
+                    document.getElementById("boutonContainer4").innerHTML = BoutonBleu(
+                      "Voir l'activité"
+                    );
+                  </script>
+                  <div id="boutonContainer5"></div>
+                  <script>
+                    document.getElementById("boutonContainer5").innerHTML = BoutonBleu(
+                      "Modifier ma réservation"
+                    );
+                  </script>
+                  <div id="bouton-rouge2" onclick="closePopUp()"></div>
+                  <script>
+                      document.getElementById('bouton-rouge2').innerHTML = BoutonRouge("Annuler ma réservation");
+                  </script>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer id="footer-container" class="footer-container">
+        <script src="../component/Footer/Footer.js"></script>
+        <script>
+          document.getElementById("footer-container").innerHTML = Footer("..");
+        </script>
+      </footer>
+      
+</body>
+</html>

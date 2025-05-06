@@ -1,54 +1,3 @@
-const data = [
-    {
-        id: 1,
-        userName: "Jean Soleil",
-        date: "2023-10-01",
-        question: "Comment fonctionne le système de points ?",
-        theme: "Connexion",
-        answer: [
-            {
-                userName: "Jean Soleil",
-                date: "2023-10-01",
-                answer: "Le système de points fonctionne en attribuant des points aux utilisateurs en fonction de leur activité sur la plateforme. Plus vous êtes actif, plus vous gagnez de points."
-            },
-            {
-                userName: "Marie Dupont",
-                date: "2023-10-02",
-                answer: "Merci pour l'info !"
-            }
-        ]
-    },
-    {
-        id: 2,
-        userName: "Marie Dupont",
-        date: "2023-10-02",
-        question: "Comment changer mon mot de passe ?",
-        theme: "Connexion",
-        answer: [
-            {
-                userName: "Jean Soleil",
-                date: "2023-10-01",
-                answer: "Pour changer votre mot de passe, allez dans les paramètres de votre compte."
-            }
-        ]
-    },
-    {
-        id: 3,
-        userName: "Pierre Martin",
-        date: "2023-10-03",
-        question: "Comment signaler un utilisateur ?",
-        theme: "Groupe",
-        answer: [
-            {
-                userName: "Marie Dupont",
-                date: "2023-10-02",
-                answer: "Pour signaler un utilisateur, cliquez sur le bouton 'Signaler' sur son profil."
-            }
-        ]
-    }
-]
-
-
 const themes = [
     "Themes",
     "Connexion",
@@ -61,6 +10,30 @@ const newQuestion = document.querySelector('#new-question-button');
 const buttonSend = document.querySelector('.collapse-add-button');
 const container = document.querySelector('.collapse-container');
 let theme = "";
+
+var request = new XMLHttpRequest();
+request.open("GET", "../../controller/Forum/Forum.php?sortBy=test", true);
+request.send();
+
+request.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+        try {
+            // Parse the JSON response
+            const responseData = JSON.parse(this.responseText);
+            console.log(responseData); // Log the parsed data
+
+            // Replace the existing data with the new data
+            data = responseData;
+
+            // Re-render the container with the new data
+            renderForumContent();
+        } catch (error) {
+            console.error("Error parsing JSON response:", error);
+        }
+    } else if (this.readyState == 4) {
+        console.error("Error: Unable to fetch data. Status:", this.status);
+    }
+};
 
 const Theme = () => {
     select.innerHTML = themes.map((item, index) => {
@@ -109,8 +82,9 @@ newQuestion.addEventListener('click', () => {
     console.log("Ajout d'une nouvelle question");
 });
 
-container.innerHTML = data.map((item, index) => {
-    return `
+const renderForumContent = () => {
+    container.innerHTML = data.map((item, index) => {
+        return `
             <div class="collapse-right">
                 <button type="button" class="collapse-title alone" id="${item.id}btn">
                     <div class="collapse-header">
@@ -123,19 +97,19 @@ container.innerHTML = data.map((item, index) => {
                     <div class="collapse-question">
                         <p>${item.question}</p>
                         ${item.answer.length > 0 ?
-                        `    
+                `    
                             <div class="grow"></div>
                             <p>${item.answer.length}</p>
                             <img src="../assets/img/icons/message-square.svg" alt="message" class="message" />
                         `
-                        : ""
-                        }
+                : ""
+            }
                     </div>
                 </button>
             </div>
             <div class="collapse-content hidden" id="${item.id}content">
                 ${item.answer.map((answer, index) => {
-            return `
+                return `
                         <div class="collapse-content-answer">
                             <img src="../assets/img/return.png" alt="return icon" class="collapse-return" />
                             <div class="collapse-header">
@@ -149,7 +123,7 @@ container.innerHTML = data.map((item, index) => {
                             <div class="collapse-question">${answer.answer}</div>
                         </div>
                     `
-        }).join('')}
+            }).join('')}
                 <div class="collapse-add">
                     <button type="button" class="collapse-add-button" id="${item.id}add">
                         <p>Répondre</p>
@@ -159,47 +133,51 @@ container.innerHTML = data.map((item, index) => {
             </div>
         </div>
     `;
-}).join('');
+    }).join('');
+    attachEventListeners();
+}
 
-data.forEach((item) => {
-    const button = document.getElementById(`${item.id}btn`);
-    const more = document.getElementById(`${item.id}more`);
-    const add = document.getElementById(`${item.id}add`);
+const attachEventListeners = () => {
+    data.forEach((item) => {
+        const button = document.getElementById(`${item.id}btn`);
+        const more = document.getElementById(`${item.id}more`);
+        const add = document.getElementById(`${item.id}add`);
 
-    add.addEventListener('click', () => {
-        if (document.getElementById(`${item.id}texte`)) {
-            document.getElementById(`${item.id}texte`).style = 'animation: send 1s forwards;';
-            add.style = 'scale: 1.2';
-            setTimeout(() => {
-                add.style = 'scale:1';
-            }, [200]);
-            setTimeout(() => {
-                document.getElementById(`${item.id}texte`).remove();
-                add.style = 'animation: buttonLeft 1s forwards;';
-                add.innerHTML = `
+        add.addEventListener('click', () => {
+            if (document.getElementById(`${item.id}texte`)) {
+                document.getElementById(`${item.id}texte`).style = 'animation: send 1s forwards;';
+                add.style = 'scale: 1.2';
+                setTimeout(() => {
+                    add.style = 'scale:1';
+                }, [200]);
+                setTimeout(() => {
+                    document.getElementById(`${item.id}texte`).remove();
+                    add.style = 'animation: buttonLeft 1s forwards;';
+                    add.innerHTML = `
                 <p>Répondre</p>
                 <img src="../assets/img/message.png" alt="message icon" id="message-icon" />
             `
-            }, [800]);
-        } else {
-            add.insertAdjacentHTML("beforeBegin", `
+                }, [800]);
+            } else {
+                add.insertAdjacentHTML("beforeBegin", `
                 <textarea class="collapse-add-answer" placeholder="Répondre" id="${item.id}texte"></textarea>
             `);
-            add.style = 'animation: buttonRight 1s forwards;';
-            add.innerHTML = `
+                add.style = 'animation: buttonRight 1s forwards;';
+                add.innerHTML = `
                 <p>Envoyer</p>
                 <img src="../assets/img/message.png" alt="message icon" id="message-icon" />
             `
-        }
-    })
+            }
+        })
 
-    button.addEventListener('click', () => {
-        const content = document.getElementById(`${item.id}content`);
-        if (content.style.animation === '0.5s forwards show') {
-            content.style = 'animation: hidden 0.5s forwards;';
-        } else {
-            content.style = 'animation: show 0.5s forwards;';
-        }
-        button.classList.toggle('alone');
+        button.addEventListener('click', () => {
+            const content = document.getElementById(`${item.id}content`);
+            if (content.style.animation === '0.5s forwards show') {
+                content.style = 'animation: hidden 0.5s forwards;';
+            } else {
+                content.style = 'animation: show 0.5s forwards;';
+            }
+            button.classList.toggle('alone');
+        });
     });
-});
+}

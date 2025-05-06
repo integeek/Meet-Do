@@ -1,3 +1,9 @@
+<?php 
+session_start();
+$messageErreur = $_SESSION["erreur"] ?? "";
+unset($_SESSION["erreur"]);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,7 +27,9 @@
     <div id="navbar-container" class="navbar-container"></div>
     <script src="../component/Navbar/Navbar.js"></script>
     <script>
-      document.getElementById('navbar-container').innerHTML = Navbar(true, "..");
+      (async () => {
+        document.getElementById('navbar-container').innerHTML = await Navbar("..");
+      })();
     </script>
     <script src="../component/navAction.js"></script>
 
