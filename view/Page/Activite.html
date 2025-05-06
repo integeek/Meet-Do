@@ -18,7 +18,7 @@
 
 <body>
     <div class="background-image"></div>
-
+    
     <header>
         <div id="navbar-container" class="navbar-container"></div>
     </header>
@@ -34,10 +34,8 @@
                                 <p class="date-activite">10 Février 2025</p>
                             </div>
                             <div class="infos-activite">
-                                <p class="adresse-activite"><img src="../assets/img/icons/position-icon.svg" alt=""> 10
-                                    rue de Vanves, 92130, Issy-les-Moulineaux</p>
-                                <p class="groupe-activite"><img src="../assets/img/icons/group.svg" alt=""> Groupe de 10
-                                </p>
+                                <p class="adresse-activite"><img src="../assets/img/icons/position-icon.svg" alt=""> 10 rue de Vanves, 92130, Issy-les-Moulineaux</p>
+                                <p class="groupe-activite"><img src="../assets/img/icons/group.svg" alt=""> Groupe de 10</p>
                             </div>
                         </div>
                         <div class="images-activite">
@@ -84,8 +82,11 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Pop-up participer à une activité -->
                 <div class="popup-overlay" id="popup">
                     <div class="popup-content">
+                        <div class="close-cross" onclick="closePopUp()">✕</div>
                         <h1>Participer à l'activité</h1>
 
                         <div class="popup-main">
@@ -101,24 +102,24 @@
                                 <div id="creneaux-container"></div>
                             </div>
                         </div>
-
+                      
                         <div class="popup-buttons">
                             <div id="bouton-rouge" onclick="closePopUp()"></div>
                             <div id="boutonBleuPop"></div>
                         </div>
-                    </div>
-
-                    <script src="../component/BoutonRouge.js"></script>
-                    <script src="../Script/Activite.js"></script>
-                    <script>
-                        document.getElementById('bouton-rouge').innerHTML = BoutonRouge("Annuler");
-                    </script>
-                    <script src="../component/BoutonBleu.js"></script>
-                    <script>
-                        document.getElementById('boutonBleuPop').innerHTML = BoutonBleu("Valider");
-                    </script>
-                </div>
+                      </div>
+                                        
+                            <script src="../component/BoutonRouge.js"></script>
+                            <script src="../Script/Activite.js"></script>
+                            <script>
+                                document.getElementById('bouton-rouge').innerHTML = BoutonRouge("Annuler");
+                            </script>
+                            <script src="../component/BoutonBleu.js"></script>
+                            <script>
+                                document.getElementById('boutonBleuPop').innerHTML = BoutonBleu("Valider");
+                            </script>
             </div>
+        </div>
     </main>
 
     <footer id="footer-container" class="footer-container">
