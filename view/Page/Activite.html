@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,9 +15,10 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 </head>
+
 <body>
     <div class="background-image"></div>
-    
+
     <header>
         <div id="navbar-container" class="navbar-container"></div>
     </header>
@@ -33,8 +34,10 @@
                                 <p class="date-activite">10 Février 2025</p>
                             </div>
                             <div class="infos-activite">
-                                <p class="adresse-activite"><img src="../assets/img/icons/position-icon.svg" alt=""> 10 rue de Vanves, 92130, Issy-les-Moulineaux</p>
-                                <p class="groupe-activite"><img src="../assets/img/icons/group.svg" alt=""> Groupe de 10</p>
+                                <p class="adresse-activite"><img src="../assets/img/icons/position-icon.svg" alt=""> 10
+                                    rue de Vanves, 92130, Issy-les-Moulineaux</p>
+                                <p class="groupe-activite"><img src="../assets/img/icons/group.svg" alt=""> Groupe de 10
+                                </p>
                             </div>
                         </div>
                         <div class="images-activite">
@@ -45,17 +48,25 @@
                         <div class="description-container">
                             <div class="description-activite">
                                 <h2><img src="../assets/img/icons/file.svg" alt=""> Description de l’activité</h2>
-                                <p>Rejoignez-nous pour un atelier gourmand et créatif où vous apprendrez à réaliser de délicieux macarons maison. Encadré par un pâtissier expérimenté, vous découvrirez les secrets d'une coque parfaite, la préparation d'une ganache savoureuse et les astuces pour un résultat digne des grands chefs. Que vous soyez débutant ou amateur passionné, cet atelier vous permettra de développer vos compétences culinaires. Repartez avec vos propres créations et émerveillez vos proches !</p>
+                                <p>Rejoignez-nous pour un atelier gourmand et créatif où vous apprendrez à réaliser de
+                                    délicieux macarons maison. Encadré par un pâtissier expérimenté, vous découvrirez
+                                    les secrets d'une coque parfaite, la préparation d'une ganache savoureuse et les
+                                    astuces pour un résultat digne des grands chefs. Que vous soyez débutant ou amateur
+                                    passionné, cet atelier vous permettra de développer vos compétences culinaires.
+                                    Repartez avec vos propres créations et émerveillez vos proches !</p>
                             </div>
                             <div class="actions-container">
                                 <div class="boutonActivite">
                                     <div id="boutonParticiper"></div>
                                     <div id="boutonAvis"></div>
                                 </div>
-                                <p class="prix-activite"><img src="../assets/img/icons/price.svg" alt=""> Prix : 300€</p>
+                                <p class="prix-activite"><img src="../assets/img/icons/price.svg" alt=""> Prix : 300€
+                                </p>
                                 <div class="organisateur">
-                                    <p class="nom-organisateur"><img src="../assets/img/icons/user.svg" alt=""> Jean Dupont</p>
-                                    <p class="note-organisateur"><img src="../assets/img/icons/etoile.svg" alt=""> 4.89 / 5</p>
+                                    <p class="nom-organisateur"><img src="../assets/img/icons/user.svg" alt=""> Jean
+                                        Dupont</p>
+                                    <p class="note-organisateur"><img src="../assets/img/icons/etoile.svg" alt=""> 4.89
+                                        / 5</p>
                                     <div id="boutonContact"></div>
                                 </div>
                             </div>
@@ -76,59 +87,61 @@
                 <div class="popup-overlay" id="popup">
                     <div class="popup-content">
                         <h1>Participer à l'activité</h1>
-                      
+
                         <div class="popup-main">
-                          <div class="form-section">
-                            <p>Nombre de participants</p>
-                            <input class="textbox" type="text" name="nbParticipant" required>
-                            <p>Choisissez votre date</p>
-                            <input type="text" id="datepicker" placeholder="Choisissez une date disponible">
-                          </div>
-                      
-                          <div class="creneaux-section">
-                            <h3>Créneaux disponibles</h3>
-                            <div id="creneaux-container"></div>
-                          </div>
+                            <div class="form-section">
+                                <p>Nombre de participants</p>
+                                <input class="textbox" type="text" name="nbParticipant" required>
+                                <p>Choisissez votre date</p>
+                                <input type="text" id="datepicker" placeholder="Choisissez une date disponible">
+                            </div>
+
+                            <div class="creneaux-section">
+                                <h3>Créneaux disponibles</h3>
+                                <div id="creneaux-container"></div>
+                            </div>
                         </div>
-                      
+
                         <div class="popup-buttons">
-                          <div id="bouton-rouge" onclick="closePopUp()"></div>
-                          <div id="boutonBleuPop"></div>
+                            <div id="bouton-rouge" onclick="closePopUp()"></div>
+                            <div id="boutonBleuPop"></div>
                         </div>
-                      </div>
-                                        
-                            <script src="../component/BoutonRouge.js"></script>
-                            <script src="../Script/Activite.js"></script>
-                            <script>
-                                document.getElementById('bouton-rouge').innerHTML = BoutonRouge("Annuler");
-                            </script>
-                            <script src="../component/BoutonBleu.js"></script>
-                            <script>
-                                document.getElementById('boutonBleuPop').innerHTML = BoutonBleu("Valider");
-                            </script>
+                    </div>
+
+                    <script src="../component/BoutonRouge.js"></script>
+                    <script src="../Script/Activite.js"></script>
+                    <script>
+                        document.getElementById('bouton-rouge').innerHTML = BoutonRouge("Annuler");
+                    </script>
+                    <script src="../component/BoutonBleu.js"></script>
+                    <script>
+                        document.getElementById('boutonBleuPop').innerHTML = BoutonBleu("Valider");
+                    </script>
+                </div>
             </div>
-        </div>
     </main>
 
     <footer id="footer-container" class="footer-container">
         <script src="../component/Footer/Footer.js"></script>
         <script>
             document.getElementById('footer-container').innerHTML = Footer("..");
-        </script> 
-    </footer> 
+        </script>
+    </footer>
     <script src="../component/Navbar/Navbar.js"></script>
     <script src="../component/Navbar/navAction.js"></script>
     <script>
-        document.getElementById('navbar-container').innerHTML = Navbar(false, "..");
+        (async () => {
+            document.getElementById('navbar-container').innerHTML = await Navbar("..");
+        })();
     </script>
 
     <script src="../Script/PopUp.js"></script>
     <script>
-        document.getElementById('boutonParticiper').innerHTML = BoutonBleu("Participer");    
+        document.getElementById('boutonParticiper').innerHTML = BoutonBleu("Participer");
         const bouton = document.querySelector('#boutonParticiper button');
         bouton.addEventListener('click', openPopUp);
     </script>
-    
+
     <script>
         document.getElementById('boutonAvis').innerHTML = BoutonBleu("Laisser un avis");
     </script>
@@ -136,4 +149,5 @@
         document.getElementById('boutonContact').innerHTML = BoutonBleu("Contactez moi");
     </script>
 </body>
+
 </html>

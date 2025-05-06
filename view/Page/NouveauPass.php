@@ -4,6 +4,7 @@ $token = isset($_GET["token"]) ? $_GET["token"] : "";
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,14 +14,17 @@ $token = isset($_GET["token"]) ? $_GET["token"] : "";
     <link rel="stylesheet" type="text/css" href="../component/BoutonBleu.css">
     <link rel="stylesheet" href="../Style/NouveauPass.css">
 </head>
+
 <body>
     <div class="background-image"></div>
     <header>
         <div id="navbar-container" class="navbar-container"></div>
         <script src="../component/Navbar/Navbar.js"></script>
-       <script>
-            document.getElementById('navbar-container').innerHTML = Navbar(false, "..");
-        </script> 
+        <script>
+            (async () => {
+                document.getElementById('navbar-container').innerHTML = await Navbar("..");
+            })();
+        </script>
         <script src="../component/Navbar/navAction.js"></script>
     </header>
     <main>
@@ -33,12 +37,12 @@ $token = isset($_GET["token"]) ? $_GET["token"] : "";
                     <p>Nouveau mot de passe</p>
                     <div class="containerPassword">
                         <input class="textbox" type="password" name="pass1" id="password" required>
-                        <img class="togglePassword" src="../assets/img/ouvert.png" alt="Afficher/Masquer" >
+                        <img class="togglePassword" src="../assets/img/ouvert.png" alt="Afficher/Masquer">
                     </div>
                     <p>Confirmer le nouveau mot de passe</p>
                     <div class="containerPassword">
                         <input class="textbox" type="password" name="pass2" id="password" required>
-                        <img class="togglePassword" src="../assets/img/ouvert.png" alt="Afficher/Masquer" >
+                        <img class="togglePassword" src="../assets/img/ouvert.png" alt="Afficher/Masquer">
                         <div id="boutonContainer"></div>
                     </div>
                 </form>
@@ -55,8 +59,9 @@ $token = isset($_GET["token"]) ? $_GET["token"] : "";
         <script src="../component/Footer/Footer.js"></script>
         <script>
             document.getElementById('footer-container').innerHTML = Footer("..");
-        </script> 
-    </footer> 
-    
+        </script>
+    </footer>
+
 </body>
+
 </html>

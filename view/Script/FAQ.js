@@ -11,14 +11,9 @@ request.send();
 request.onreadystatechange = function () {
   if (this.readyState == 4 && this.status == 200) {
     try {
-      // Parse the JSON response
       const responseData = JSON.parse(this.responseText);
-      console.log(responseData); // Log the parsed data
-
-      // Replace the existing data with the new data
+      console.log(responseData);
       data = responseData;
-
-      // Re-render the container with the new data
       renderFaqContent();
     } catch (error) {
       console.error("Error parsing JSON response:", error);

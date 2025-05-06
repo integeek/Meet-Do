@@ -16,7 +16,7 @@ if(!empty($_POST)){
     ]);
 
     if ($query->rowCount() > 0){
-        $lienMDP = "http://localhost/view/page/NouveauPass.php?token=$token";
+        $lienMDP = "http://localhost/Meet-Do/view/page/NouveauPass.php?token=$token";
 
         $destinataire = $email;
         $sujet = "Réinitialisation de votre mot de passe Meet&Do";

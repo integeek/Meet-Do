@@ -64,7 +64,9 @@
         
         <script src="../component/Navbar/Navbar.js"></script>
         <script>
-            document.getElementById('navbar-container').innerHTML = Navbar(true, "..");
+            (async () => {
+                document.getElementById('navbar-container').innerHTML = await Navbar("..");
+            })();
         </script> 
         <script src="../component/Navbar/navAction.js"></script> 
 
