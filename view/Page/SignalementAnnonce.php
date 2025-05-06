@@ -1,10 +1,21 @@
+<?php 
+session_start();
+if (!isset($_SESSION['user'])) {
+    header('Location: Connexion.php');
+    exit;
+} else if ($_SESSION['user']['role'] !== "Administrateur") {
+    header('Location: ../Page/accueil.html');
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accepter meeters</title>
+    <title>Signalement annonces</title>
     <link rel="stylesheet" type="text/css" href="../component/Footer/Footer.css">
     <link rel="stylesheet" type="text/css" href="../component/Navbar/Navbar.css">
     <link rel="stylesheet" type="text/css" href="../component/SearchBarAdmin/SearchBarAdmin.css">
@@ -23,7 +34,7 @@
         <div class="flexbox-container">
             <div id="sidebar-container" class="sidebar-container"></div>
             <div class="">
-                <h1>Gestion des nouveaux meeters</h1>
+                <h1>Gestion des annonces signalées</h1>
 
                 <div class="searchBarAdmin-container" id="searchBarAdmin-container"></div>
 
@@ -33,8 +44,8 @@
                             <tr>
                                 <th>Nom</th>
                                 <th>Prénom</th>
-                                <th>Date de la demande</th>
-                                <th>Demande</th>
+                                <th>Date du signalement</th>
+                                <th>Raison</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -83,7 +94,7 @@
 
         <script src="../component/SearchBarAdmin/SearchBarAdmin.js"></script>
         <script>
-            document.getElementById('searchBarAdmin-container').innerHTML = SearchBarAdmin("demandes");
+            document.getElementById('searchBarAdmin-container').innerHTML = SearchBarAdmin("signalements");
         </script>
 
         <script src="../component/Pagination/Pagination.js"></script>
