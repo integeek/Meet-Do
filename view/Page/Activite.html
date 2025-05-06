@@ -78,6 +78,7 @@
                 <!-- Pop-up participer à une activité -->
                 <div class="popup-overlay" id="popup">
                     <div class="popup-content">
+                        <div class="close-cross" onclick="closePopUp()">✕</div>
                         <h1>Participer à l'activité</h1>
                       
                         <div class="popup-main">
@@ -112,6 +113,7 @@
                 <!-- Pop up globale pour signaler ou bloquer  -->
                 <div class="popup-overlay" id="popup-report">
                     <div class="containerPopUp">
+                        <div class="close-cross" onclick="closePopUpReport()">✕</div>
                         <h1>Autres actions :</h1>
                             <div class="bouton-report">
                                 <div class="boutonRo" id="bouton-rouge1" onclick="openPopUpReportActivity()"></div>
@@ -132,6 +134,8 @@
 
                 <div class="popup-overlay" id="popup-report-user">
                     <div class="containerReport">
+                        <div class="close-cross" onclick="closePopUpReportUser()">✕</div>
+
                         <h1>Signaler un utilisateur</h1>
                         <p>Raison du signalement<p></p>
                         </form>
@@ -162,6 +166,7 @@
 
                 <div class="popup-overlay" id="popup-report-activity">
                     <div class="containerReport">
+                        <div class="close-cross" onclick="closePopUpReportActivity()">✕</div>
                         <h1>Signaler une activité</h1>
                         <p>Raison du signalement<p></p>
                         </form>
