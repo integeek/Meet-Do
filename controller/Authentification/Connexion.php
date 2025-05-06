@@ -33,7 +33,7 @@ if(!empty($_POST)){
         session_start();
          
         $_SESSION["user"] = [
-            "id" => $user["id"],
+            "id" => $user["idClient"],
             "email" => $user["email"],
             "nom" => $user["nom"],
             "prenom" => $user["prenom"],
