@@ -1,3 +1,30 @@
+function openPopUpReport() {
+    document.getElementById("popup-report").style.display = "block";
+}
+
+function closePopUpReport() {
+    document.getElementById("popup-report").style.display = "none";
+}
+
+function openPopUpReportUser() {
+    document.getElementById("popup-report-user").style.display = "block";
+  }
+  
+  function closePopUpReportUser() {
+    document.getElementById("popup-report-user").style.display = "none";
+  }
+
+  function openPopUpReportActivity() {
+    document.getElementById("popup-report-activity").style.display = "block";
+  }
+  
+  function closePopUpReportActivity() {
+    document.getElementById("popup-report-activity").style.display = "none";
+  }
+  
+  
+
+
 document.addEventListener("DOMContentLoaded", () => {
     const datesDisponibles = ["2025-05-05", "2025-05-08", "2025-05-12"];
 

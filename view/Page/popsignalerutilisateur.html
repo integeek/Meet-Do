@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="../Style/popupUser.css">
 </head>
 <body>
-    <div class="background-image"></div>
     <header>
         <div id="navbar-container" class="navbar-container"></div>
         <script src="../component/Navbar/Navbar.js"></script>
@@ -37,25 +36,18 @@
             <textarea class="textComm" name="Commentaire" rows="4" cols="38"></textarea>
         </form>   
         <div class="popup-buttons">
-            <div id="bouton-rouge" onclick="closePopUp()"></div>
-            <div id="bouton-bleue"></div>
+            <div id="bouton-rougeUser" onclick="closePopUp()"></div>
+            <div id="bouton-bleueUser"></div>
         </div>
 
             <script src="../component/BoutonRouge.js"></script>
             <script src="../component/BoutonBleu.js"></script>
             <script>
-                document.getElementById('bouton-rouge').innerHTML = BoutonRouge("Annuler");
+                document.getElementById('bouton-rougeUser').innerHTML = BoutonRouge("Annuler");
             </script>
             <script>
-                document.getElementById('bouton-bleue').innerHTML = BoutonBleu("Signaler");
+                document.getElementById('bouton-bleueUser').innerHTML = BoutonBleu("Signaler");
             </script>
-        
-
-        
-
-        
-
-
     </div>
 </main>
 <footer id="footer-container" class="footer-container">
