@@ -53,10 +53,10 @@ unset($_SESSION["erreur"]);
                     <img class="togglePassword" src="../assets/img/ouvert.png" alt="Afficher/Masquer" >
                 </div> 
                 <div class="validator-criters">
-                    <span class="chiffre"><i class="far fa-check-circle"></i> &nbsp;Votre mot de passe doit avoir 1 chiffres</span>
-                    <span class="majuscule"><i class="far fa-check-circle"></i> &nbsp;Votre mot de passe doit avoir 1 lettre majuscule</span>
-                    <span class="minuscule"><i class="far fa-check-circle"></i> &nbsp;Votre mot de passe doit avoir 1 lettre minuscule</span>
-                    <span class="generique"><i class="far fa-check-circle"></i> &nbsp;Votre mot doit comporter 8 Caractères au minimum</span>
+                    <span class="chiffre"><i class="far fa-check-circle"></i> &nbsp;Votre mot de passe doit comporter au moins 1 chiffre</span>
+                    <span class="majuscule"><i class="far fa-check-circle"></i> &nbsp;Votre mot de passe doit comporter au moins 1 lettre majuscule</span>
+                    <span class="minuscule"><i class="far fa-check-circle"></i> &nbsp;Votre mot de passe doit comporter au moins 1 lettre minuscule</span>
+                    <span class="generique"><i class="far fa-check-circle"></i> &nbsp;Votre mot doit comporter au moins 8 caractères</span>
                 </div>
 
 
