@@ -31,13 +31,13 @@
                         <div class="titre-activite-container">
                             <div>
                                 <h1 class="titre-activite">Atelier Macaron</h1>
-                                <p class="date-activite">10 Février 2025</p>
+                                <!-- <p class="date-activite">10 Février 2025</p> -->
                             </div>
                             <div class="infos-activite">
                                 <p class="adresse-activite"><img src="../assets/img/icons/position-icon.svg" alt=""> 10 rue de Vanves, 92130, Issy-les-Moulineaux</p>
                                 <p class="groupe-activite"><img src="../assets/img/icons/group.svg" alt=""> Groupe de 10</p>
                                 <p class="duree-activite"><img src="../assets/img/icons/clock-icon.svg" alt=""> 2h</p>
-                                <p onclick="openPopUpReport()" class="report-activite"><img src="../assets/img/icons/warning-icon.svg" alt="">Signaler</p>
+                                <p onclick="openPopUp('popup-report')" class="report-activite"><img src="../assets/img/icons/report-icon.svg" alt="">Signaler</p>
                             </div>
                         </div>
                         <div class="images-activite">
@@ -80,7 +80,7 @@
                 <!-- Pop-up participer à une activité -->
                 <div class="popup-overlay" id="popup">
                     <div class="popup-content">
-                        <div class="close-cross" onclick="closePopUp()">✕</div>
+                        <div class="close-cross" onclick="closePopUp('popup')">✕</div>
                         <h1>Participer à l'activité</h1>
                       
                         <div class="popup-main">
@@ -97,7 +97,7 @@
                           </div>
                         </div>
                         <div class="popup-buttons">
-                          <div id="bouton-rouge" onclick="closePopUp()"></div>
+                          <div id="bouton-rouge" onclick="closePopUp('popup')"></div>
                           <div id="boutonBleuPop"></div>
                         </div>
                       </div>            
@@ -115,18 +115,18 @@
                 <!-- Pop up globale pour signaler ou bloquer  -->
                 <div class="popup-overlay" id="popup-report">
                     <div class="containerPopUp">
-                        <div class="close-cross" onclick="closePopUpReport()">✕</div>
+                        <div class="close-cross" onclick="closePopUp('popup-report')">✕</div>
                         <h1>Autres actions :</h1>
                             <div class="bouton-report">
-                                <div class="boutonRo" id="bouton-rouge1" onclick="openPopUpReportActivity()"></div>
+                                <div class="boutonRo" id="bouton-rouge1" onclick="openPopUp('popup-report-activity')"></div>
                                 <script>
                                 document.getElementById('bouton-rouge1').innerHTML = BoutonRouge("Signaler l'activité");
                                 </script>
-                                <div class="boutonRo" id="bouton-rouge2"  onclick="openPopUpReportUser()" onclick="closePopUpReport()"></div>
+                                <div class="boutonRo" id="bouton-rouge2"  onclick="openPopUp('popup-report-user')" onclick="closePopUp('popup-report-user')"></div>
                                 <script>
                                 document.getElementById('bouton-rouge2').innerHTML = BoutonRouge("Signaler le meeter");
                                 </script>
-                                <div class="boutonRo" id="bouton-rouge3" onclick="closePopUpReport()"></div>
+                                <div class="boutonRo" id="bouton-rouge3" onclick="closePopUp('popup-report')"></div>
                                 <script>
                                 document.getElementById('bouton-rouge3').innerHTML = BoutonRouge("Bloquer l'utilisateur");
                                 </script>
@@ -136,7 +136,7 @@
 
                 <div class="popup-overlay" id="popup-report-user">
                     <div class="containerReport">
-                        <div class="close-cross" onclick="closePopUpReportUser()">✕</div>
+                        <div class="close-cross" onclick="closePopUp('popup-report-user')">✕</div>
 
                         <h1>Signaler un utilisateur</h1>
                         <p>Raison du signalement<p></p>
@@ -154,7 +154,7 @@
                             <textarea class="textComm" name="Commentaire" rows="4" cols="38"></textarea>
                         </form>   
                         <div class="popup-buttonsReport">
-                            <div id="bouton-rougeUser" onclick="closePopUpReportUser()"></div>
+                            <div id="bouton-rougeUser" onclick="closePopUp('popup-report-user')"></div>
                             <div id="bouton-bleueUser"></div>
                         </div>
                             <script>
@@ -168,7 +168,7 @@
 
                 <div class="popup-overlay" id="popup-report-activity">
                     <div class="containerReport">
-                        <div class="close-cross" onclick="closePopUpReportActivity()">✕</div>
+                        <div class="close-cross" onclick="closePopUp('popup-report-activity')">✕</div>
                         <h1>Signaler une activité</h1>
                         <p>Raison du signalement<p></p>
                         </form>
@@ -185,7 +185,7 @@
                             <textarea class="textComm" name="Commentaire" rows="4" cols="38"></textarea>
                         </form>   
                         <div class="popup-buttonsReport">
-                            <div id="bouton-rougeActivity" onclick="closePopUpReportActivity()"></div>
+                            <div id="bouton-rougeActivity" onclick="closePopUp('popup-report-activity')"></div>
                             <div id="bouton-bleueActivity"></div>
                         </div>
                             <script>
@@ -218,7 +218,8 @@
     <script>
         document.getElementById('boutonParticiper').innerHTML = BoutonBleu("Participer");
         const bouton = document.querySelector('#boutonParticiper button');
-        bouton.addEventListener('click', openPopUp);
+        console.log(bouton);
+        bouton.addEventListener('click', () => openPopUp("popup"));
     </script>
 
     <script>

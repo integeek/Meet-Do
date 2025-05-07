@@ -1,28 +1,3 @@
-function openPopUpReport() {
-    document.getElementById("popup-report").style.display = "block";
-}
-
-function closePopUpReport() {
-    document.getElementById("popup-report").style.display = "none";
-}
-
-function openPopUpReportUser() {
-    document.getElementById("popup-report-user").style.display = "block";
-  }
-  
-  function closePopUpReportUser() {
-    document.getElementById("popup-report-user").style.display = "none";
-  }
-
-  function openPopUpReportActivity() {
-    document.getElementById("popup-report-activity").style.display = "block";
-  }
-  
-  function closePopUpReportActivity() {
-    document.getElementById("popup-report-activity").style.display = "none";
-  }
-  
-  
 document.addEventListener("DOMContentLoaded", () => {
     fetch("../../controller/Activite/Activite.php?idActivite=7")
         .then(res => res.json())
@@ -40,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     max: parseInt(e.max)
                 });
             });
-            console.log(data); // juste après le fetch
+            console.log(data);
 
 
             flatpickr("#datepicker", {
