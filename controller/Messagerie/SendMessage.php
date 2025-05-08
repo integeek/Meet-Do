@@ -1,23 +1,26 @@
 <?php
 require_once("../../model/Bdd.php");
+session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         $data = json_decode(file_get_contents('php://input'), true);
+        $param = $_SESSION['user']['id'];
 
-        $idMessage = $data["idMessage"];
-        $idUser = $data["idUser"];
-        $message = $data["message"];
+        $content = $data["content"];
+        $idRecepteur = $data["idRecepteur"];
+        $file = isset($data["file"]) && $data["file"] !== "false" ? $data["file"] : null;
 
         $sql = "
-            INSERT INTO `MessageForum`(`message`, `dateEnvoie`, `idSujetForum`, `idRedacteur`) VALUES (:message, NOW(), :idMessage, :idUser)
+            INSERT INTO `Message`(`contenu`, `dateEnvoie`, `isRead`, `attachement`, `idRedacteur`, `idRecepteur`) VALUES (:content, NOW(), FALSE, FALSE, :param, :idRecepteur);
         ";
         $query = $db->prepare($sql);
         $query->execute(
             [
-                "message" => $message,
-                "idMessage" => $idMessage,
-                "idUser" => $idUser
+                'content' => $content,
+                // 'file' => $file,
+                'param' => $param,
+                'idRecepteur' => $idRecepteur
             ]
         );
 

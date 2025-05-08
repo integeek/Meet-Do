@@ -14,6 +14,7 @@ let theme = "";
 let searchValue = "";
 let response = "";
 let userId = -1;
+let userName = "";
 
 const GetUserId = () => {
     var request = new XMLHttpRequest();
@@ -27,6 +28,7 @@ const GetUserId = () => {
                 console.log(responseData, "userId");
                 if (responseData.success) {
                     userId = responseData.user.id;
+                    userName = responseData.user.prenom + " " + responseData.user.nom;
                 } else {
                     console.error("Error:", responseData.message);
                 }
@@ -46,25 +48,19 @@ const Post = (idForum) => {
     request.open("POST", "./../../controller/Forum/AddResponse.php", true);
     request.setRequestHeader("Content-Type", "application/json");
 
-    // const body = JSON.stringify({
-    //     idMessage: idForum,
-    //     idUser: userId,
-    //     message: message
-    // });
-
     const body = JSON.stringify({
         idMessage: idForum,
-        idUser: 7,
-        message: response
+        idUser: userId,
+        message: message
     });
-
+    
     request.send(body);
 
     request.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             try {
                 const responseData = JSON.parse(this.responseText);
-                console.log(responseData, "Response from server");
+                console.log(responseData);
                 if (responseData.success) {
                     console.log("Message ajouté avec succès !");
                 } else {
@@ -77,12 +73,24 @@ const Post = (idForum) => {
             console.error("Error: Unable to fetch data. Status:", this.status);
         }
     };
-    Refresh();
     setTimeout(() => {
         const content = document.getElementById(`${idForum}content`);
-        content.style = 'animation: show 0.5s forwards;';
-        console.log("Message ajouté avec succès !!!!!!!!!!!!!!!!!");
-        console.log(content)
+        const newElement = document.createElement('div');
+        newElement.className = 'collapse-content-answer';
+        newElement.innerHTML = `
+            <img src="../assets/img/return.png" alt="return icon" class="collapse-return" />
+            <div class="collapse-header">
+            <img src="../assets/img/profil.png" alt="profil icon" class="collapse-profil" />
+            <p>${userName}</p>
+            <div class="grow"></div>
+            <p>${new Date().toLocaleString()}</p>
+            <img src="../assets/img/more.png" alt="more icon" class="collapse-more" />
+            </div>
+            <div></div>
+            <div class="collapse-question">${response}</div>
+        `;
+        const addButton = content.querySelector('.collapse-add');
+        content.insertBefore(newElement, addButton);
     }, 500);
 }
 

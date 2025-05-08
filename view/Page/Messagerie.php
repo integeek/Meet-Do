@@ -1,3 +1,11 @@
+<?php 
+session_start();
+if(!isset($_SESSION['user'])) {
+    header('Location: Connexion.php');
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
