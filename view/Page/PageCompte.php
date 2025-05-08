@@ -47,28 +47,28 @@ if(!isset($_SESSION['user'])) {
           <label for="firstname">Prénom :</label>
           <input type="text" id="firstname" value="Prénom" />
         </div>
-        <img src="../assets/img/icons/edit-icon.svg" alt="edit-icon" id="edit-icon" />
+        <img src="../assets/img/icons/edit-icon.svg" alt="edit-icon" class="edit-icon" />
       </div>
       <div class="lastname-container">
         <div class="input-lastname">
           <label for="lastname">Nom :</label>
           <input type="text" id="lastname" value="Nom" />
         </div>
-        <img src="../assets/img/icons/edit-icon.svg" alt="edit-icon" id="edit-icon" />
+        <img src="../assets/img/icons/edit-icon.svg" alt="edit-icon" class="edit-icon" />
       </div>
       <div class="email-container">
         <div class="input-email">
           <label for="email">Email :</label>
           <input type="email" id="email" value="Email" />
         </div>
-        <img src="../assets/img/icons/edit-icon.svg" alt="edit-icon" id="edit-icon" />
+        <img src="../assets/img/icons/edit-icon.svg" alt="edit-icon" class="edit-icon" />
       </div>
       <div class="password-container">
         <div class="input-password">
           <label for="password">Mot de passe :</label>
           <input type="password" id="password" value="Mot de passe" />
         </div>
-        <img src="../assets/img/icons/edit-icon.svg" alt="edit-icon" id="edit-icon" />
+        <img src="../assets/img/icons/edit-icon.svg" alt="edit-icon" class="edit-icon" />
       </div>
     </form>
     <div class="become-meeter">
