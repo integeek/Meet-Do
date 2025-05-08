@@ -120,54 +120,48 @@
         </script>
     </header>
 
-    <body>
-
-        <div class="container">
-            <div class="contactez-nous">
-                <h2>contactez-nous </h2>
-                <div class="contact-info">
-                    <p><img src="../assets/img/pin.png" alt="Address"> 28 rue Notre Dame des Champs, 75006 Paris</p>
-                    <p><img src="../assets/img/telephone.png" alt="Phone"> +33 06 06 06 06 06</p>
-                    <p><img src="../assets/img/icons/icon-mail.svg" alt="Email"> meet.do@gmail.com</p>
-                </div>
-                <h3></h3>
-                <div class="social-icons">
-                    <img src="../assets/img/linkedin-icon.png" alt="LinkedIn">
-                    <img src="../assets/img/facebook-icon.png" alt="Facebook">
-                    <img src="../assets/img/x-icon.png" alt="X">
-                    <img src="../assets/img/instagram-icon.png" alt="Instagram">
-                </div>
+    <div class="container">
+        <div class="contact">
+            <h2>Contactez-nous</h2>
+            <div class="contact-info">
+                <p><img src="../assets/img/pin.png" alt="Adresse"> 28 rue Notre Dame des Champs, 75006 Paris</p>
+                <p><img src="../assets/img/telephone.png" alt="Téléphone"> +33 06 06 06 06 06</p>
+                <p><img src="../assets/img/icons/icon-mail.svg" alt="Email"> meet.do@gmail.com</p>
             </div>
-
-            <div class="Formulaire">
-                <h2>Formulaire</h2>
-                <form>
-                    <div class="form-row">
-                        <input type="text" placeholder="nom">
-                        <input type="text" placeholder="prénom">
-                    </div>
-                    <div class="form-group">
-                        <input type="email" placeholder="Email">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" placeholder="objet">
-                    </div>
-                    <div class="form-group">
-                        <textarea rows="4" placeholder="Message"></textarea>
-                    </div>
-                    <button type="submit" class="btn-submit">Send</button>
-                </form>
+            <div class="social-icons">
+                <img src="../assets/img/b.webp" alt="Facebook">
+                <img src="../assets/img/twitter-x-new-logo-symbol-png-11692479881mg8srkkgy5.webp" alt="Twitter">
+                <img src="../assets/img/png-transparent-icon-essential-instagram-2016-app-logo-vector-images-social-networks.png" alt="Instagram">
+                <img src="../assets/img/a.png" alt="LinkedIn">
             </div>
         </div>
-        <footer id="footer-container" class="footer-container">
-            <script src="../component/Footer/Footer.js"></script>
-            <script>
-                document.getElementById('footer-container').innerHTML = Footer("..");
-            </script>
-        </footer>
 
-        </dive>
+        <div class="forume">
+            <h2>Formulaire</h2>
+            <form>
+                <div class="form-row">
+                    <input type="text" placeholder="Nom" required>
+                    <input type="text" placeholder="Prénom" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Objet" required>
+                </div>
+                <div class="form-group">
+                    <textarea rows="4" placeholder="Message" required></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Envoyer</button>
+            </form>
+        </div>
+    </div>
 
-    </body>
+    <footer id="footer-container" class="footer-container"></footer>
+    <script src="../component/Footer/Footer.js"></script>
+    <script>
+        document.getElementById('footer-container').innerHTML = Footer("..");
+    </script>
+</body>
 
 </html>
