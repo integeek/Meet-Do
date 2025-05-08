@@ -122,6 +122,12 @@
                         </div>
                     ";
                 }
+
+                if (empty($reservations)) {
+                    include_once '../../view/Page/noReservations.php';
+                    exit;
+                }
+                    
                 foreach ($reservations as $resa) {
                     echo resaComponent(
                         $resa['titre'],
