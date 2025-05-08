@@ -20,7 +20,7 @@ footer {
 }
 
 main {
-    margin: 0 auto 7rem auto;
+    margin: 0 auto 7rem auto !important;
 }
 
 .footer-links {
