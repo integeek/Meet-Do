@@ -1,101 +1,148 @@
 h1 {
-    font-size: 2.5rem;
-    margin-left: 50px;
+  font-size: 2.5rem;
+  margin-left: 50px;
 }
 
 .profile-container {
-    display: flex;
-    align-items: center;
-    gap: 30px;
+  display: flex;
+  align-items: center;
+  gap: 30px;
 }
 
 #profile-icon {
-    width: 150px;
-    height: 150px;
-   margin-left: 70px;
+  width: 150px;
+  height: 150px;
+  margin-left: 70px;
 }
 
 form {
-    display: flex;
-    flex-direction: column;
-    margin-top: 2%;
-    margin-left: 70px;
-    gap: 20px;
-    
+  display: flex;
+  flex-direction: column;
+  margin-top: 2%;
+  margin-left: 70px;
+  gap: 20px;
 }
 
 .firstname-container {
-    display: flex;
-    align-items: flex-end;
-
+  display: flex;
+  align-items: flex-end;
 }
 
 .input-firstname {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .lastname-container {
-    display: flex;
-    align-items: flex-end;
+  display: flex;
+  align-items: flex-end;
 }
 
 .input-lastname {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .email-container {
-    display: flex;
-    align-items: flex-end;
+  display: flex;
+  align-items: flex-end;
 }
 
 .input-email {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .password-container {
-    display: flex;
-    align-items: flex-end;
+  display: flex;
+  align-items: flex-end;
 }
 
 .input-password {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .edit-icon {
-    width: 35px;
-    height: 35px;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
 }
 
 form label {
-    font-size: 1.5rem;
+  font-size: 1.5rem;
 }
 
 form input {
-    width: 200px;
-    height: 30px;
-    font-size: 1.2rem;
-    border: #000000 solid 2px;
-    border-radius: 10px;
-    background: #f9f4f4;
-    padding-left: 10px;
+  width: 200px;
+  height: 30px;
+  font-size: 1.2rem;
+  border: #000000 solid 2px;
+  border-radius: 10px;
+  background: #f9f4f4;
+  padding-left: 10px;
 }
 
 h2 {
-    margin-left: 50px;
-    margin-top: 50px;
+  margin-left: 50px;
+  margin-top: 50px;
 }
 
 .meeter-container {
-    display: flex;
-    align-items: center;
-    margin-left: 70px;
-    gap: 20px;
+  display: flex;
+  align-items: center;
+  margin-left: 70px;
+  gap: 20px;
+}
+
+.edit-container {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.edit-content {
+  width: 500px;
+  height: 300px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.edit-header h3 {
+  font-size: 2.5rem;
+}
+
+.edit-main input {
+  width: 200px;
+  height: 30px;
+  font-size: 1.2rem;
+  border: #000000 solid 2px;
+  border-radius: 10px;
+  background: #f9f4f4;
+  padding-left: 10px;
+}
+
+.edit-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 50px;
 }
