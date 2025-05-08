@@ -3,10 +3,10 @@ require_once("../../model/Bdd.php");
 
 if (!empty($_GET)) {
     try {
-        $param = $_GET["sortBy"];
+        $param = $_GET["selectBy"];
+        $search = $_GET["search"];
 
-        // Requête principale pour récupérer les questions
-        $sqlQuestions = "
+        $sqlQuestions = " 
             SELECT
                 SujetForum.idSujetForum AS id,
                 SujetForum.dateCreationl AS date,
@@ -15,8 +15,16 @@ if (!empty($_GET)) {
                 CategorieForum.type AS theme
             FROM `SujetForum`
             INNER JOIN Client ON SujetForum.idClient = Client.idClient 
-            INNER JOIN CategorieForum ON CategorieForum.idCategorieForum = SujetForum.idCategorieForum;
-        ";
+            INNER JOIN CategorieForum ON CategorieForum.idCategorieForum = SujetForum.idCategorieForum";
+
+        if ($param != "") {
+            $sqlQuestions .= " WHERE CategorieForum.type = '$param'";
+        } if ($search != "" && $param != "") {
+            $sqlQuestions .= " AND SujetForum.titre LIKE '%$search%'";
+        } elseif ($search != "") {
+            $sqlQuestions .= " WHERE SujetForum.titre LIKE '%$search%'";
+        }
+        $sqlQuestions .= ";";
         $queryQuestions = $db->prepare($sqlQuestions);
         $queryQuestions->execute();
         $questions = $queryQuestions->fetchAll(PDO::FETCH_ASSOC);
@@ -43,13 +51,10 @@ if (!empty($_GET)) {
         // Retourner le JSON final
         header('Content-Type: application/json');
         echo json_encode($questions, JSON_UNESCAPED_UNICODE);
-
     } catch (Exception $e) {
         // Gestion des erreurs
         echo json_encode(["error" => "Erreur lors de la récupération des données : " . $e->getMessage()]);
     }
 } else {
-    header("Location: ../../view/page/FAQ.html");
     exit();
 }
-?>

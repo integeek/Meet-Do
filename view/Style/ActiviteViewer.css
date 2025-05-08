@@ -79,6 +79,10 @@ body {
     margin: 5px 0;
 }
 
+.report-activite{
+    color: #FF4646;
+}
+
 .images-activite {
     display: flex;
     margin-top: 10px;
