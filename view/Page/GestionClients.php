@@ -1,5 +1,13 @@
-<?php require_once("../../controller/Admin/GestionClients.php"); ?>
-
+<?php 
+require_once("../../controller/Admin/GestionClients.php");
+if (!isset($_SESSION['user'])) {
+    header('Location: Connexion.php');
+    exit;
+} else if ($_SESSION['user']['role'] !== "Administrateur") {
+    header('Location: ../Page/accueil.html');
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,7 +72,9 @@
         
         <script src="../component/Navbar/Navbar.js"></script>
         <script>
-            document.getElementById('navbar-container').innerHTML = Navbar(true, "..");
+            (async () => {
+                document.getElementById('navbar-container').innerHTML = await Navbar("..");
+            })();
         </script> 
         <script src="../component/Navbar/navAction.js"></script> 
 

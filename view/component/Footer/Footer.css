@@ -3,18 +3,24 @@
 }
 
 footer {
-    /* position: fixed;
+    position: fixed;
     bottom: 0;
-    left: 0; */
+    left: 0;
     width: 100%;
+    z-index: 10;
 }
-
 
 .footer-container {
     display: flex;
     justify-content: space-around;
     padding: 1rem;
     color: white;
+    background-color: #004AAD;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+}
+
+main {
+    margin: 0 auto 7rem auto !important;
 }
 
 .footer-links {

@@ -1,3 +1,11 @@
+<?php 
+session_start();
+if(!isset($_SESSION['user'])) {
+    header('Location: Connexion.php');
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,7 +26,9 @@
         <div id="navbar-container" class="navbar-container"></div>
         <script src="../component/Navbar/Navbar.js"></script>
         <script>
-            document.getElementById('navbar-container').innerHTML = Navbar(true, "..");
+            (async () => {
+                document.getElementById('navbar-container').innerHTML = await Navbar("..");
+            })();
         </script>
         <script src="../component/Navbar/navAction.js"></script>
     </header>
@@ -34,11 +44,11 @@
                 <div id="statisqtiques-container">
                     <div id="nb-clients">
                         <p>Utilisateur enregistrer </p>
-                        <h2>80</h2>
+                        <h2 id="client-container-content">80</h2>
                     </div>
-                    <div id="nb-visiteurs">
-                        <p>Visiteurs quotidients</p>
-                        <h2>200</h2>
+                    <div id="nb-activity">
+                        <p>Nombres d'activités quotidients</p>
+                        <h2 id="activity-container-content">200</h2>
                     </div>
                 </div>
                 <div id="graphic-container">

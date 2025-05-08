@@ -51,6 +51,7 @@ unset($_SESSION["erreur"]);
         </div>
         <div class="popup-overlay" id="popup">
             <div class="popup-content">
+                <div class="close-cross" onclick="closePopUp()">✕</div>
                 <h1>Mot de passe oublié</h1>
                 <p>Insérez votre adresse mail, un lien vous sera adressé par mail pour réinitialiser votre mot de passe</p>
                 <form action="../../controller/Authentification/AskResetPass.php" method="post">
@@ -61,16 +62,14 @@ unset($_SESSION["erreur"]);
                         <div id="bouton-bleue"></div>
                     </div>
                 </form>
-                <div class="popup-buttons">
-                    <script src="../component/BoutonRouge.js"></script>
-                    <div id="bouton-rouge" onclick="closePopUp()"></div>
-                    <script>
-                        document.getElementById('bouton-rouge').innerHTML = BoutonRouge("Annuler");
-                    </script>
-                    <script>
-                        document.getElementById('bouton-bleue').innerHTML = BoutonBleu("Valider");
-                    </script>
-                </div>
+                <script src="../component/BoutonRouge.js"></script>
+                <div id="bouton-rouge" onclick="closePopUp()"></div>
+                <script>
+                    document.getElementById('bouton-rouge').innerHTML = BoutonRouge("Annuler");
+                </script>
+                <script>
+                    document.getElementById('bouton-bleue').innerHTML = BoutonBleu("Valider");
+                </script>
             </div>
         </div>
         <script src="../Script/AfficherPass.js"></script>
@@ -78,7 +77,9 @@ unset($_SESSION["erreur"]);
         <script src="../component/Navbar/Navbar.js"></script>
 
         <script>
-            document.getElementById('navbar-container').innerHTML = Navbar(true, "..");
+            (async () => {
+                document.getElementById('navbar-container').innerHTML = await Navbar("..");
+            })();
         </script> 
         <script src="../component/Navbar/navAction.js"></script> 
         

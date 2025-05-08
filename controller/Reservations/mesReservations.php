@@ -43,7 +43,7 @@
                 $pdo = new PDO("mysql:host=$host;port=3306;dbname=$dbname;charset=utf8", $user, $pass);
                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 $email = $_SESSION['user']['email'];
-                $sql = "SELECT idClient FROM user_valide WHERE email = :email";
+                $sql = "SELECT idClient FROM Client WHERE email = :email";
                 $stmt = $pdo->prepare($sql);
                 $stmt->bindValue(':email', $email, PDO::PARAM_STR);
                 $stmt->execute();

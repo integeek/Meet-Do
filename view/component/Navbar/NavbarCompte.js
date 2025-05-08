@@ -1,15 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="../component/Navbar/Navbar.css" />
-</head>
-<body>
-<nav class="navbar-container">
+function NavbarCompte(url) {
+        return `
+          <nav>
                     <a href="./accueil.php" class="nav-icon" aria-label="homepage" aria-current="page">
-                        <img src="../assets/img/logoMeet&Do.png" alt="logo" id="logo" />
+                        <img src="${url}/assets/img/logoMeet&Do.png" alt="logo" id="logo" />
                     </a>
                     <div class="main-navlinks">
                         <button type="button" class="hamburger" aria-label="Toggle Navigation" aria-expanded="false">
@@ -39,6 +32,5 @@
                         </div>
                     </div>
                 </nav>
-                <script src="../component/Navbar/navAction.js"></script>
-</body>
-</html>
+    `;
+}

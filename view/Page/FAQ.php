@@ -1,3 +1,9 @@
+<?php 
+session_start();
+$messageErreur = $_SESSION["erreur"] ?? "";
+unset($_SESSION["erreur"]);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,6 +20,7 @@
   <script src="../component/BoutonBleu.js"></script>
   <script src="../component/BoutonRouge.js"></script>
   <script src="../Script/FAQ.js" defer></script>
+  <script src="../Script/PopUp.js" defer></script>
 </head>
 
 <body>
@@ -21,7 +28,9 @@
     <div id="navbar-container" class="navbar-container"></div>
     <script src="../component/Navbar/Navbar.js"></script>
     <script>
-      document.getElementById('navbar-container').innerHTML = Navbar(true, "..");
+      (async () => {
+        document.getElementById('navbar-container').innerHTML = await Navbar("..");
+      })();
     </script>
     <script src="../component/navAction.js"></script>
 
@@ -33,21 +42,36 @@
         <select id="select"></select>
       </div>
       <div class="grow"></div>
-      <button type="button" id="new-question-button">
+      <?php if (isset($_SESSION['user']) && $_SESSION['user']['role'] === "Administrateur"): ?>
+        <button type="button" id="new-question-button" onclick="openPopUp('add-question-popup')">
+          <p>Ajouter une question</p>
+          <img src="../assets/img/message.png" alt="message icon" id="message-icon" />
+        </button>
+      <?php endif; ?>
+<!-- 
+      <button type="button" id="new-question-button" onclick="openPopUp('add-question-popup')">
         <p>Ajouter une question</p>
         <img src="../assets/img/message.png" alt="message icon" id="message-icon" />
-      </button>
+      </button> -->
 
     </div>
     </div>
     <div class="collapse-container"></div>
-    <div class="popup-container" id="popup1">
+
+    <div class="popup-container" id="add-question-popup">
       <div class="popup-content">
         <div class="popup-header">
-          <h1>Modifier une question</h1>
+        <h1>Ajouter un question</h1>
         </div>
         <div class="popup-main">
-          <div class="selecteur"></div>
+        <div class="theme">
+            <label for="theme">Sélectionner un thème :</label>
+            <select id="theme" name="theme">
+              <option value="theme1">Thème 1</option>
+              <option value="theme2">Thème 2</option>
+              <option value="theme3">Thème 3</option>
+            </select>
+          </div>
           <div class="question">
             <input type="text" id="question1" placeholder="Entrez une question" />
           </div>
@@ -56,7 +80,7 @@
           </div>
         </div>
         <div class="popup-footer">
-          <div id="bouton-rouge1" onclick="closePopUp1()"></div>
+        <div id="bouton-rouge1" onclick="closePopUp('add-question-popup')"></div>
           <script>
             document.getElementById("bouton-rouge1").innerHTML =
               BoutonRouge("Annuler");
