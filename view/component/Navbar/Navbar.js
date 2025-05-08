@@ -97,7 +97,6 @@ async function Navbar(url) {
                         </button>
                         <ul class="nav-links">
                             <li><a href="./accueil.php">Accueil</a></li>
-                            <li><a href="./Messagerie.php">Messagerie</a></li>
                         </ul>
                     </div>
                     <div id="navbar-grow"></div>
