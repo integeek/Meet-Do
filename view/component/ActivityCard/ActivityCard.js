@@ -37,7 +37,7 @@ class ActivityCard {
         price: 300,
         groupSize: 10,
         rating: 4.8,
-        url : "http://localhost/Meet-Do/view/Page/ActiviteViewer.html"
+        url : "http://localhost/view/Page/Activite.php"
         },
         {
             image: "https://www.chateaux-de-la-loire.fr/images/chateau-royal-de-chambord-en-ete.jpg",

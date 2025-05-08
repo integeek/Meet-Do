@@ -70,7 +70,7 @@ if(!empty($_POST)){
         //     "email" => $_POST["email"],
         // ];
 
-        $lienActivation = "http://localhost/Meet-Do/view/page/InfoPerso.php?id=" . $id . "&cle=" . $cle;
+        $lienActivation = "http://localhost/view/page/InfoPerso.php?id=" . $id . "&cle=" . $cle;
 
         $destinataire = $_POST["email"];
         $sujet = "Finalisation de votre inscription à Meet&Do";
