@@ -1,16 +1,17 @@
 <?php
 
-$host = "144.76.54.100";
-$dbname = "test";
-$username = "root";
-$password = "";
+// $host = "144.76.54.100";
+// $dbname = "test";
+// $username = "root";
+// $password = "";
 
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
-} catch (PDOException $e) {
-    die("Erreur de connexion : " . $e->getMessage());
-}
+// try {
+//     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
+//     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
+// } catch (PDOException $e) {
+//     die("Erreur de connexion : " . $e->getMessage());
+// }
+include "../../Model/bdd.php";
 
 $last_name = htmlspecialchars(trim($_POST['last_name'] ?? ''));
 $first_name = htmlspecialchars(trim($_POST['first_name'] ?? ''));
@@ -21,7 +22,7 @@ $message = htmlspecialchars(trim($_POST['message'] ?? ''));
 
 if ($last_name && $first_name && $email && $subject && $message) {
     
-    $sql = "INSERT INTO test (last_name, first_name, email, subject, message)
+    $sql = "INSERT INTO FormulaireContact (last_name, first_name, email, subject, message)
             VALUES (:last_name, :first_name, :email, :subject, :message)";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([

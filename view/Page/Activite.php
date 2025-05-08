@@ -1,3 +1,7 @@
+<script>
+    const isLoggedIn = <?= json_encode(isset($_SESSION['user'])) ?>;
+</script>
+
 <!DOCTYPE html>
 <html lang="fr">
 
