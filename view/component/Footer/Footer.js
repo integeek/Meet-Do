@@ -3,8 +3,10 @@ function Footer(url) {
         <div>
             <ul class="footer-links">
                 <li><a href="./Faq.php">FAQ</a></li>
+
                 <li><a href="./Formulaire.php">Nous contacter</a></li>
                 <li><a href="./MentionLegales.php">Mentions légales</a></li>
+                <li><a href="./CGU.html">CGU</a></li>
                 <li><a href="./Forum.php">Forum</a></li>
             </ul>
         </div>

@@ -1,10 +1,20 @@
+<?php 
+session_start();
+if (!isset($_SESSION['user'])) {
+    header('Location: Connexion.php');
+    exit;
+} else if ($_SESSION['user']['role'] !== "Administrateur") {
+    header('Location: ../Page/accueil.html');
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signalement utilisateur</title>
+    <title>Messagerie</title>
     <link rel="stylesheet" type="text/css" href="../component/Footer/Footer.css">
     <link rel="stylesheet" type="text/css" href="../component/Navbar/Navbar.css">
     <link rel="stylesheet" type="text/css" href="../component/SearchBarAdmin/SearchBarAdmin.css">
@@ -12,7 +22,7 @@
     <link rel="stylesheet" type="text/css" href="../component/BoutonRouge.css">
     <link rel="stylesheet" type="text/css" href="../component/SideBarAdmin/SideBarAdmin.css">
     <link rel="stylesheet" type="text/css" href="../component/Pagination/Pagination.css">
-    <link rel="stylesheet" href="../Style/Messagerie.css">
+    <link rel="stylesheet" href="../Style/MessagerieAdmin.css">
 </head>
 
 <body>
@@ -23,7 +33,7 @@
         <div class="flexbox-container">
             <div id="sidebar-container" class="sidebar-container"></div>
             <div class="">
-                <h1>Gestion des utilisateurs signalés</h1>
+                <h1>Gestion de la messagerie</h1>
 
                 <div class="searchBarAdmin-container" id="searchBarAdmin-container"></div>
 
@@ -33,8 +43,8 @@
                             <tr>
                                 <th>Nom</th>
                                 <th>Prénom</th>
-                                <th>Date du signalement</th>
-                                <th>Raison</th>
+                                <th>Sujet</th>
+                                <th>Date</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -42,21 +52,23 @@
                             <tr>
                                 <td>Dupont</td>
                                 <td>Jean</td>
-                                <td>10/10/2010</td>
-                                <td><img src="../assets/img/icons/openFilled-icon.svg" alt=""></td>
+                                <td>Suggestion d'une nouvelle</td>
+                                <td>30/03/2025</td>
                                 <td>
                                     <div class="icon-actions"><img src="../assets/img/icons/eye-open-icon.svg"
-                                            alt=""><img src="../assets/img/icons/icon-trash.svg" alt=""></div>
+                                            alt=""><img src="../assets/img/icons/reply-icon.svg" alt=""><img
+                                            src="../assets/img/icons/icon-trash.svg" alt=""></div>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Dupuis</td>
                                 <td>Kevin</td>
-                                <td>12/10/2020</td>
-                                <td><img src="../assets/img/icons/openFilled-icon.svg" alt=""></td>
+                                <td>kevin.dupuis@gmail.com</td>
+                                <td>Client</td>
                                 <td>
                                     <div class="icon-actions"><img src="../assets/img/icons/eye-open-icon.svg"
-                                            alt=""><img src="../assets/img/icons/icon-trash.svg" alt=""></div>
+                                            alt=""><img src="../assets/img/icons/reply-icon.svg" alt=""><img
+                                            src="../assets/img/icons/icon-trash.svg" alt=""></div>
                                 </td>
                             </tr>
 
@@ -83,7 +95,7 @@
 
         <script src="../component/SearchBarAdmin/SearchBarAdmin.js"></script>
         <script>
-            document.getElementById('searchBarAdmin-container').innerHTML = SearchBarAdmin("signalements");
+            document.getElementById('searchBarAdmin-container').innerHTML = SearchBarAdmin("messages");
         </script>
 
         <script src="../component/Pagination/Pagination.js"></script>
