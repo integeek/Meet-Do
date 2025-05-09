@@ -258,11 +258,18 @@
             document.querySelector(".note-organisateur").innerHTML = `<img src="../assets/img/icons/etoile.svg" alt=""> ${data.moyenneAvis ?? "Pas encore de note"} / 5`;
 
             const imagesContainer = document.querySelector(".images-activite");
-            if (data.image) {
-                imagesContainer.innerHTML = `<img src="${data.image}" alt="Image de l'activité" class="image-activite">`;
+
+            if (data.images && data.images.length > 0) {
+                imagesContainer.innerHTML = data.images.map(src => `
+                    <img src="${src}" alt="Image de l'activité" class="image-activite">
+                `).join('');
             } else {
-                imagesContainer.innerHTML = `<p>Aucune image disponible</p><img src="../../view/assets/img/placeholder.png" alt="Aucune image disponible" class="image-activite">`;
+                imagesContainer.innerHTML = `
+                    <p>Aucune image disponible</p>
+                    <img src="../../view/assets/img/placeholder.png" alt="Aucune image disponible" class="image-activite">
+                `;
             }
+
 
             const avisContainer = document.querySelector(".avis-container");
             if (data.avis.length > 0) {
