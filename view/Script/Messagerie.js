@@ -63,7 +63,7 @@ const sendMessageFunction = (message) => {
         idRecepteur: message.idRecepteur,
         file: message.attachment
     });
-    
+
     request.send(body);
 
     request.onreadystatechange = function () {
@@ -133,6 +133,10 @@ const renderSideBar = () => {
             }, 500);
             document.querySelector('.message-input').classList.remove('invisible');
         }, 500);
+        setInterval(() => {
+            Refresh2();
+            RefreshMessage();
+        }, 3000);
     })
 }
 
@@ -162,10 +166,10 @@ sendMessage.addEventListener('click', () => {
         //     content: file?.files.length > 0 ? file.files[0].name : sendText.value,
         //     attachment: file?.files.length > 0
         // };
-        sendMessageFunction({content: file?.files.length > 0 ? file.files[0].name : sendText.value, attachment: file?.files.length > 0, idRecepteur : talkID});
+        sendMessageFunction({ content: file?.files.length > 0 ? file.files[0].name : sendText.value, attachment: file?.files.length > 0, idRecepteur: talkID });
         const attachmentLabel = document.getElementById('send-attachment');
         if (sendText.value !== "") {
-             sendText.style = "animation: send 1s forwards;"
+            sendText.style = "animation: send 1s forwards;"
         } else {
             attachmentLabel.style = "animation: send 1s forwards;"
         }
@@ -175,7 +179,7 @@ sendMessage.addEventListener('click', () => {
         // file = null;
         // attachmentInput.value = null;
         // attachmentLabel.innerHTML = `<img src="../assets/img/icons/attachFile.svg" alt="file">`;
-        
+
         setTimeout(() => {
             sendText.style = "animation: none;"
             attachmentLabel.style = "animation: none;"
