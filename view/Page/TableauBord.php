@@ -1,7 +1,9 @@
 <?php 
 session_start();
-$messageErreur = $_SESSION["erreur"] ?? "";
-unset($_SESSION["erreur"]);
+if(!isset($_SESSION['user'])) {
+    header('Location: Connexion.php');
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -42,11 +44,11 @@ unset($_SESSION["erreur"]);
                 <div id="statisqtiques-container">
                     <div id="nb-clients">
                         <p>Utilisateur enregistrer </p>
-                        <h2>80</h2>
+                        <h2 id="client-container-content">80</h2>
                     </div>
-                    <div id="nb-visiteurs">
-                        <p>Visiteurs quotidients</p>
-                        <h2>200</h2>
+                    <div id="nb-activity">
+                        <p>Nombres d'activités quotidients</p>
+                        <h2 id="activity-container-content">200</h2>
                     </div>
                 </div>
                 <div id="graphic-container">

@@ -33,7 +33,7 @@ if(!empty($_POST)){
         session_start();
          
         $_SESSION["user"] = [
-            "id" => $user["id"],
+            "id" => $user["idClient"],
             "email" => $user["email"],
             "nom" => $user["nom"],
             "prenom" => $user["prenom"],
@@ -41,7 +41,7 @@ if(!empty($_POST)){
             "role" => $user["role"],
 
         ];
-        header("Location: ../../view/Page/FAQ.php");
+        header("Location: ../../view/Page/accueil.html");
 
     } else {
         $_SESSION["erreur"] = "Le formulaire est incomplet.";

@@ -1,7 +1,8 @@
-function openPopUp() {
-    document.getElementById("popup").style.display = "block";
+function openPopUp(id) {
+    console.log("openPopUp appelé"); // ← Ajoute ceci pour tester
+    document.getElementById(id).style.display = "block";
 }
 
-function closePopUp() {
-    document.getElementById("popup").style.display = "none";
+function closePopUp(id) {
+    document.getElementById(id).style.display = "none";
 }
