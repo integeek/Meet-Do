@@ -29,7 +29,7 @@ session_start();
     </header>
     <main>
     <?php if (isset($_SESSION['user'])): ?>
-        <h1 class="message-bienvenue">Ravi de vous revoir sur Meet&Do <?= htmlspecialchars($_SESSION['user']['prenom']) ?> !</h1>
+        <h1 class="message-bienvenue">Ravi de vous revoir sur Meet&Do <span style="color: #004AAD;"><?= htmlspecialchars($_SESSION['user']['prenom']) ?></span> !</h1>
     <?php else: ?>
         <h1 class="message-bienvenue">Bienvenue sur Meet&Do !</h1>
     <?php endif; ?>
