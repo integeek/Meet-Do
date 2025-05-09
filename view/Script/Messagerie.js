@@ -136,7 +136,7 @@ const renderSideBar = () => {
         setInterval(() => {
             Refresh2();
             RefreshMessage();
-        }, 3000);
+        }, 5000);
     })
 }
 

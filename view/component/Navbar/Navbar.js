@@ -71,19 +71,20 @@ async function Navbar(url) {
                             </a>
                         </div>
                         <div class="sign-btns">
-                            ${connect.role == "Administrateur" ? `<div class="annonce"><a href="./TableauBord.php">Administrateur</a></div>` : ""}
-                            ${connect.role == "Meeter" || connect.role == "Administrateur" ? `
-                                ${connect.role == "Administrateur"
-                                    ? `<div class="annonce"><a href="./TableauBord.php">Administrateur</a></div>`
-                                    : ""
-                                }
-                                ${connect.role == "Meeter" ? `
-                                        <div class="annonce">
-                                            <a href="./CreerActivite.php">Poster une annonce</a>
-                                        </div>
-                                        `
-                                    : ""
-                                }` : ""}
+                            ${
+                              connect.role == "Administrateur"
+                                ? `<div class="annonce"><a href="./TableauBord.php">Administrateur</a></div>`
+                                : ""
+                            }
+                            ${
+                              connect.role == "Meeter" || connect.role == "Administrateur"
+                                ? `
+                            <div class="annonce">
+                                <a href="./CreerActivite.php">Poster une annonce</a>
+                            </div>
+`
+                                : ""
+                            }
                             <a href="./PageCompte.php" class="profil" id="profil">
                                 <div>${connect.firstName} ${connect.lastName
                     }</div>
