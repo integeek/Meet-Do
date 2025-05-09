@@ -10,11 +10,11 @@ class ActivityCard {
       card.classList.add("activity-card");
 
       // Redirige vers une page avec l’ID de l’activité
-      card.onclick = () => window.location.href = `http://localhost/Meet-Do/view/Page/ActiviteViewer.php?id=${this.data.idActivite}`;
+      card.onclick = () => window.location.href = `../../view/Page/Activite.php?id=${this.data.idActivite}`;
 
       card.innerHTML = `
           <div class="card">
-              <img src="${this.data.chemin ?? 'https://via.placeholder.com/300x200?text=Pas+de+visuel'}" alt="Image de l'activité" class="card-img">
+              <img src="${this.data.chemin ?? 'view/assets/img/logoMeet&Do.png'}" alt="Image de l'activité" class="card-img">
               <div class="card-content">
                   <h2 class="card-title">${this.data.titre}</h2>
                   <p><strong>Lieu :</strong> ${this.data.adresse}</p>
