@@ -3,6 +3,7 @@ let connect = {
   firstName: "",
   lastName: "",
   email: "",
+  role: "",
 };
 
 const GetCookie = async () => {
@@ -21,6 +22,7 @@ const GetCookie = async () => {
             connect.firstName = responseData.user.prenom;
             connect.lastName = responseData.user.nom;
             connect.email = responseData.user.email;
+            connect.role = responseData.user.role;
             resolve(connect); // Résoudre la promesse avec les données mises à jour
           } else {
             console.error("Error:", responseData.message);
@@ -47,7 +49,7 @@ async function Navbar(url) {
     if (connect.connect) {
       return `
                 <nav> 
-                    <a href="../../view/Page/accueil.html#" class="nav-icon" aria-label="homepage" aria-current="page">
+                    <a href="./accueil.html" class="nav-icon" aria-label="homepage" aria-current="page">
                         <img src="${url}/assets/img/logoMeet&Do.png" alt="logo" id="logo" />
                     </a>
                     <div class="main-navlinks">
@@ -69,11 +71,18 @@ async function Navbar(url) {
                             </a>
                         </div>
                         <div class="sign-btns">
+                            ${
+                              connect.role == "Administrateur"
+                                ? `<div class="annonce"><a href="./TableauBord.php">Administrateur</a></div>`
+                                : ""
+                            }
                             <div class="annonce">
                                 <a href="./CreerActivite.php">Poster une annonce</a>
                             </div>
                             <a href="./PageCompte.php" class="profil" id="profil">
-                                <div>${connect.firstName} ${connect.lastName}</div>
+                                <div>${connect.firstName} ${
+        connect.lastName
+      }</div>
                                 <img src="${url}/assets/img/profil.png" id="profil-img">
                             </a>
                             <div class="deconnexion">
@@ -110,9 +119,9 @@ async function Navbar(url) {
                             <div class="annonce">
                                 <a href="./Inscription.php">S'inscrire</a>
                             </div>
-                            <a href="./Connexion.php" class="profil" id="profil">
-                                <div>Se connecter</div>
-                            </a>
+                            <div class="annonce">
+                                <a href="./Connexion.php" class="" id="">Se connecter</a>
+                            </div>
                         </div>
                     </div>
                 </nav>
