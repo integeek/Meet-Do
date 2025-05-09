@@ -261,7 +261,7 @@
             if (data.image) {
                 imagesContainer.innerHTML = `<img src="${data.image}" alt="Image de l'activité" class="image-activite">`;
             } else {
-                imagesContainer.innerHTML = `<p>Aucune image disponible</p>`;
+                imagesContainer.innerHTML = `<p>Aucune image disponible</p><img src="../../view/assets/img/placeholder.png" alt="Aucune image disponible" class="image-activite">`;
             }
 
             const avisContainer = document.querySelector(".avis-container");
