@@ -1,53 +1,53 @@
 let connect = {
-    connect: false,
-    firstName: "",
-    lastName: "",
-    email: "",
-}
+  connect: false,
+  firstName: "",
+  lastName: "",
+  email: "",
+};
 
 const GetCookie = async () => {
-    return new Promise((resolve, reject) => {
-        var request = new XMLHttpRequest();
-        request.open("GET", "./../../controller/Navbar/Navbar.php", true);
-        request.send();
+  return new Promise((resolve, reject) => {
+    var request = new XMLHttpRequest();
+    request.open("GET", "./../../controller/Navbar/Navbar.php", true);
+    request.send();
 
-        request.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                try {
-                    const responseData = JSON.parse(this.responseText);
-                    console.log(responseData);
-                    if (responseData.success) {
-                        connect.connect = true;
-                        connect.firstName = responseData.user.prenom;
-                        connect.lastName = responseData.user.nom;
-                        connect.email = responseData.user.email;
-                        resolve(connect); // Résoudre la promesse avec les données mises à jour
-                    } else {
-                        console.error("Error:", responseData.message);
-                        connect.connect = false;
-                        resolve(connect); // Résoudre même si non connecté
-                    }
-                } catch (error) {
-                    console.error("Error parsing JSON response:", error);
-                    connect.connect = false;
-                    resolve(connect); // Résoudre même si une erreur survient
-                }
-            } else if (this.readyState == 4) {
-                console.error("Error: Unable to fetch data. Status:", this.status);
-                connect.connect = false;
-                resolve(connect); // Résoudre même si la requête échoue
-            }
-        };
-    });
+    request.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        try {
+          const responseData = JSON.parse(this.responseText);
+          console.log(responseData);
+          if (responseData.success) {
+            connect.connect = true;
+            connect.firstName = responseData.user.prenom;
+            connect.lastName = responseData.user.nom;
+            connect.email = responseData.user.email;
+            resolve(connect); // Résoudre la promesse avec les données mises à jour
+          } else {
+            console.error("Error:", responseData.message);
+            connect.connect = false;
+            resolve(connect); // Résoudre même si non connecté
+          }
+        } catch (error) {
+          console.error("Error parsing JSON response:", error);
+          connect.connect = false;
+          resolve(connect); // Résoudre même si une erreur survient
+        }
+      } else if (this.readyState == 4) {
+        console.error("Error: Unable to fetch data. Status:", this.status);
+        connect.connect = false;
+        resolve(connect); // Résoudre même si la requête échoue
+      }
+    };
+  });
 };
 
 async function Navbar(url) {
-    try {
-        await GetCookie();
-        if (connect.connect) {
-            return `
+  try {
+    await GetCookie();
+    if (connect.connect) {
+      return `
                 <nav> 
-                    <a href="./accueil.html" class="nav-icon" aria-label="homepage" aria-current="page">
+                    <a href="../../view/Page/accueil.html#" class="nav-icon" aria-label="homepage" aria-current="page">
                         <img src="${url}/assets/img/logoMeet&Do.png" alt="logo" id="logo" />
                     </a>
                     <div class="main-navlinks">
@@ -83,8 +83,8 @@ async function Navbar(url) {
                     </div>
                 </nav>
             `;
-        } else {
-            return `
+    } else {
+      return `
                 <nav> 
                     <a href="./accueil.php" class="nav-icon" aria-label="homepage" aria-current="page">
                         <img src="${url}/assets/img/logoMeet&Do.png" alt="logo" id="logo" />
@@ -117,9 +117,9 @@ async function Navbar(url) {
                     </div>
                 </nav>
             `;
-        }
-    } catch (error) {
-        console.error("Error in Navbar:", error);
-        return `<p>Erreur lors du chargement de la barre de navigation.</p>`;
     }
+  } catch (error) {
+    console.error("Error in Navbar:", error);
+    return `<p>Erreur lors du chargement de la barre de navigation.</p>`;
+  }
 }
