@@ -16,6 +16,7 @@ var_dump($_SESSION);
     <p>Bonjour <?= $_SESSION["user"]["nom"]; ?></p>
     <p>Bonjour <?= $_SESSION["user"]["prenom"]; ?></p>
     <p>Bonjour <?= $_SESSION["user"]["adresse"]; ?></p>
+    <p>Bonjour <?= $_SESSION["user"]["role"]; ?></p>
     
 </body>
 </html>
