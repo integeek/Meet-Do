@@ -95,6 +95,11 @@ $email = $_SESSION['user']['email'];
       </div>
     </div>
   </main>
+  <footer id="footer-container" class="footer-container"></footer>
+  <script src="../component/Footer/Footer.js"></script>
+        <script>
+            document.getElementById('footer-container').innerHTML = Footer("..");
+        </script>
 
           <div class="edit-container" id="edit-firstname-popup">
             <div class="edit-content">
