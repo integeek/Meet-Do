@@ -44,10 +44,10 @@ const GetCookie = async () => {
 };
 
 async function Navbar(url) {
-  try {
-    await GetCookie();
-    if (connect.connect) {
-      return `
+    try {
+        await GetCookie();
+        if (connect.connect) {
+            return `
                 <nav> 
                     <a href="./accueil.php" class="nav-icon" aria-label="homepage" aria-current="page">
                         <img src="${url}/assets/img/logoMeet&Do.png" alt="logo" id="logo" />
@@ -77,7 +77,7 @@ async function Navbar(url) {
                                 : ""
                             }
                             ${
-                              connect.role == "Meeter"
+                              connect.role == "Meeter" || connect.role == "Administrateur"
                                 ? `
                             <div class="annonce">
                                 <a href="./CreerActivite.php">Poster une annonce</a>
@@ -86,9 +86,8 @@ async function Navbar(url) {
                                 : ""
                             }
                             <a href="./PageCompte.php" class="profil" id="profil">
-                                <div>${connect.firstName} ${
-        connect.lastName
-      }</div>
+                                <div>${connect.firstName} ${connect.lastName
+                    }</div>
                                 <img src="${url}/assets/img/profil.png" id="profil-img">
                             </a>
                             <div class="deconnexion">
@@ -98,8 +97,8 @@ async function Navbar(url) {
                     </div>
                 </nav>
             `;
-    } else {
-      return `
+        } else {
+            return `
                 <nav> 
                     <a href="./accueil.php" class="nav-icon" aria-label="homepage" aria-current="page">
                         <img src="${url}/assets/img/logoMeet&Do.png" alt="logo" id="logo" />
@@ -132,9 +131,9 @@ async function Navbar(url) {
                     </div>
                 </nav>
             `;
+        }
+    } catch (error) {
+        console.error("Error in Navbar:", error);
+        return `<p>Erreur lors du chargement de la barre de navigation.</p>`;
     }
-  } catch (error) {
-    console.error("Error in Navbar:", error);
-    return `<p>Erreur lors du chargement de la barre de navigation.</p>`;
-  }
 }

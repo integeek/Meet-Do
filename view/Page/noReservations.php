@@ -29,9 +29,7 @@ if(!isset($_SESSION['user'])) {
     <h2 id="warning-text">Aucune réservation trouvée.</h2>
     <p id="warning-subtext">Vous n'avez pas encore de réservation.</p>
     <script src="../component/BoutonBleu.js"></script>
-    <a href="../../view/Page/accueil.php">
     <div id="boutonContainer1"></div>
-    </a>
     <script>
       document.getElementById("boutonContainer1").innerHTML = BoutonBleu(
         "Voir les activités disponibles"

@@ -9,7 +9,7 @@ require_once("../../model/Bdd.php");
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 // } catch (PDOException $e) {
     $_SESSION["erreur_contact"] = "Erreur de connexion à la base de données.";
-    header("Location: ../../view/formulaire.php");
+    header("Location: ../../view/Contact.php");
     exit;
 // }
 
@@ -22,14 +22,14 @@ $message = htmlspecialchars(trim($_POST['message'] ?? ''));
 
 if (empty($nom) || empty($prenom) || empty($email) || empty($objet) || empty($message)) {
     $_SESSION["erreur_contact"] = "Veuillez remplir tous les champs du formulaire.";
-    header("Location: ../../view/formulaire.php");
+    header("Location: ../../view/Contact.php");
     exit;
 }
 
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $_SESSION["erreur_contact"] = "Adresse e-mail invalide.";
-    header("Location: ../../view/formulaire.php");
+    header("Location: ../../view/Contact.php");
     exit;
 }
 
@@ -47,11 +47,11 @@ try {
     ]);
 
     $_SESSION["erreur_contact"] = "Message envoyé avec succès !";
-    header("Location: ../../view/formulaire.php");
+    header("Location: ../../view/Contact.php");
     exit;
 } catch (PDOException $e) {
     $_SESSION["erreur_contact"] = "Erreur lors de l'envoi du message.";
-    header("Location: ../../view/formulaire.php");
+    header("Location: ../../view/Contact.php");
     exit;
 }
 ?>

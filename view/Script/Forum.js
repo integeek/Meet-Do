@@ -6,7 +6,7 @@ const themes = [
     "Bug"
 ];
 
-//const newQuestion = document.querySelector('#new-question-button');
+const newQuestion = document.querySelector('#new-question-button');
 const buttonSend = document.querySelector('.collapse-add-button');
 const container = document.querySelector('.collapse-container');
 const search = document.querySelector('.search');
@@ -53,7 +53,7 @@ const Post = (idForum) => {
     const body = JSON.stringify({
         idMessage: idForum,
         idUser: userId,
-        message: message
+        message: response
     });
     
     request.send(body);
@@ -216,7 +216,7 @@ const renderForumContent = () => {
                         </div>
                     `
             }).join('')}
-            ${role !== "Administrateur" || "Client" ? `
+            ${role === "Administrateur" || role === "Client" ? `
                 <div class="collapse-add">
                     <button type="button" class="collapse-add-button" id="${item.id}add">
                         <p>Répondre</p>
