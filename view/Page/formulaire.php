@@ -1,39 +1,174 @@
-<?php
-
-$host = "144.76.54.100";
-$dbname = "test";
-$username = "root";
-$password = "";
-
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
-} catch (PDOException $e) {
-    die("Erreur de connexion : " . $e->getMessage());
-}
-
-$last_name = htmlspecialchars(trim($_POST['last_name'] ?? ''));
-$first_name = htmlspecialchars(trim($_POST['first_name'] ?? ''));
-$email = filter_var(trim($_POST['email'] ?? ''), FILTER_SANITIZE_EMAIL);
-$subject = htmlspecialchars(trim($_POST['subject'] ?? ''));
-$message = htmlspecialchars(trim($_POST['message'] ?? ''));
-
-
-if ($last_name && $first_name && $email && $subject && $message) {
-    
-    $sql = "INSERT INTO test (last_name, first_name, email, subject, message)
-            VALUES (:last_name, :first_name, :email, :subject, :message)";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([
-        ':last_name' => $last_name,
-        ':first_name' => $first_name,
-        ':email' => $email,
-        ':subject' => $subject,
-        ':message' => $message
-    ]);
-
-    echo "Message envoyé avec succès !";
-} else {
-    echo "Veuillez remplir tous les champs du formulaire.";
-}
+<?php 
+session_start();
+$messageErreur = $_SESSION["erreur_contact"] ?? "";
+unset($_SESSION["erreur_contact"]);
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" type="text/css" href="../component/Footer/Footer.css">
+    <link rel="stylesheet" type="text/css" href="../component/Navbar/Navbar.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            padding: 40px;
+            max-width: 1200px;
+            margin: auto;
+            flex-wrap: wrap;
+        }
+
+        .contact,
+        .forume {
+            flex: 1 1 400px;
+            background-color: #fff;
+            min-width: 300px;
+        }
+
+        .contact h2,
+        .forume h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .contact-info p {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+        .contact-info img {
+            width: 20px;
+            margin-right: 10px;
+        }
+
+        .social-icons {
+            margin-top: 20px;
+        }
+
+        .social-icons img {
+            width: 30px;
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        .forume form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-row {
+            display: flex;
+            flex-direction: row;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-row input {
+            flex: 1;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        .btn-submit {
+            padding: 12px;
+            background-color: #6cb4ff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .erreur {
+            color: red;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div id="navbar-container" class="navbar-container"></div>
+        <script src="../component/Navbar/Navbar.js"></script>
+        <script>
+            (async () => {
+                document.getElementById('navbar-container').innerHTML = await Navbar("..");
+            })();
+        </script>
+    </header>
+
+    <div class="container">
+        <div class="contact">
+            <h2>Contactez-nous</h2>
+            <div class="contact-info">
+                <p><img src="../assets/img/pin.png" alt="Adresse"> 28 rue Notre Dame des Champs, 75006 Paris</p>
+                <p><img src="../assets/img/telephone.png" alt="Téléphone"> +33 06 06 06 06 06</p>
+                <p><img src="../assets/img/icons/icon-mail.svg" alt="Email"> meet.do@gmail.com</p>
+            </div>
+            <div class="social-icons">
+                <img src="../assets/img/b.webp" alt="Facebook">
+                <img src="../assets/img/twitter-x-new-logo-symbol-png-11692479881mg8srkkgy5.webp" alt="Twitter">
+                <img src="../assets/img/png-transparent-icon-essential-instagram-2016-app-logo-vector-images-social-networks.png" alt="Instagram">
+                <img src="../assets/img/a.png" alt="LinkedIn">
+            </div>
+        </div>
+
+        <div class="forume">
+            <h2>Formulaire</h2>
+            <form action="../../controller/formulaire/formulaire.php" method="post">
+                <div class="form-row">
+                    <input type="text" name="nom" placeholder="Nom" required>
+                    <input type="text" name="prenom" placeholder="Prénom" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="objet" placeholder="Objet" required>
+                </div>
+                <div class="form-group">
+                    <textarea name="message" rows="4" placeholder="Message" required></textarea>
+                <div class="erreur"><?= htmlspecialchars($messageErreur) ?></div>
+                <button type="submit" class="btn-submit">Envoyer</button>
+            </form>
+        </div>
+    </div>
+
+    <footer id="footer-container" class="footer-container"></footer>
+    <script src="../component/Footer/Footer.js"></script>
+    <script>
+        document.getElementById('footer-container').innerHTML = Footer("..");
+    </script>
+</body>
+</html>
