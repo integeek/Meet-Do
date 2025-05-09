@@ -7,12 +7,12 @@ let connect = {
 }
 
 const GetCookie = async () => {
-    return new Promise((resolve, reject) => {
-        var request = new XMLHttpRequest();
-        request.open("GET", "./../../controller/Navbar/Navbar.php", true);
-        request.send();
-
-        request.onreadystatechange = function () {
+  return new Promise((resolve, reject) => {
+    var request = new XMLHttpRequest();
+    request.open("GET", "./../../controller/Navbar/Navbar.php", true);
+    request.send();
+    
+    request.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 try {
                     const responseData = JSON.parse(this.responseText);
@@ -44,12 +44,12 @@ const GetCookie = async () => {
 };
 
 async function Navbar(url) {
-    try {
-        await GetCookie();
-        if (connect.connect) {
-            return `
+  try {
+    await GetCookie();
+    if (connect.connect) {
+      return `
                 <nav> 
-                    <a href="./accueil.html" class="nav-icon" aria-label="homepage" aria-current="page">
+                    <a href="./accueil.php" class="nav-icon" aria-label="homepage" aria-current="page">
                         <img src="${url}/assets/img/logoMeet&Do.png" alt="logo" id="logo" />
                     </a>
                     <div class="main-navlinks">
@@ -59,22 +59,24 @@ async function Navbar(url) {
                             <span></span>
                         </button>
                         <ul class="nav-links">
-                            <li><a href="./accueil.html">Accueil</a></li>
+                            <li><a href="./accueil.php">Accueil</a></li>
                             <li><a href="./Messagerie.php">Messagerie</a></li>
                         </ul>
                     </div>
                     <div id="navbar-grow"></div>
                     <div class="nav-authentication">
                         <div class="icone1">
-                            <a href="#" class="user-toggler" aria-label="Sign in page">
+                            <a href="./connexion.php" class="user-toggler" aria-label="Sign in page">
                                 <img src="../assets/img/user.svg" alt="user icon" />
                             </a>
                         </div>
                         <div class="sign-btns">
                             ${connect.role == "Administrateur" ? `<div class="annonce"><a href="./TableauBord.php">Administrateur</a></div>` : ""}
+                            ${connect.role == "Meeter" ? `
                             <div class="annonce">
                                 <a href="./CreerActivite.php">Poster une annonce</a>
                             </div>
+` : ""}
                             <a href="./PageCompte.php" class="profil" id="profil">
                                 <div>${connect.firstName} ${connect.lastName}</div>
                                 <img src="${url}/assets/img/profil.png" id="profil-img">
@@ -86,8 +88,8 @@ async function Navbar(url) {
                     </div>
                 </nav>
             `;
-        } else {
-            return `
+    } else {
+      return `
                 <nav> 
                     <a href="./accueil.php" class="nav-icon" aria-label="homepage" aria-current="page">
                         <img src="${url}/assets/img/logoMeet&Do.png" alt="logo" id="logo" />
@@ -120,9 +122,9 @@ async function Navbar(url) {
                     </div>
                 </nav>
             `;
-        }
-    } catch (error) {
-        console.error("Error in Navbar:", error);
-        return `<p>Erreur lors du chargement de la barre de navigation.</p>`;
     }
+  } catch (error) {
+    console.error("Error in Navbar:", error);
+    return `<p>Erreur lors du chargement de la barre de navigation.</p>`;
+  }
 }
