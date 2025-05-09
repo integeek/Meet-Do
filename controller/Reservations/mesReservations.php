@@ -37,8 +37,6 @@ if (!isset($_SESSION['user']['email'])) {
         <h1>Mes Réservations :</h1>
     </header>
     <main>
-
-    
         <?php
             try {
                 $db = new PDO(
@@ -80,7 +78,6 @@ if (!isset($_SESSION['user']['email'])) {
 
 
                     return "
-                    <div class='reservation-list'>
                         <div class='reservation-item'>
                             <div class='reservation-item' id='reservation-item-1'>
                                 <div class='item-header'>
@@ -128,11 +125,13 @@ if (!isset($_SESSION['user']['email'])) {
                         </div>
                     ";
                 }
-                    
+
+
                 if (empty($reservations)) { 
                     include_once '../../view/Page/noReservations.php';
                     exit;
                 } else {
+                    echo "<div class='reservation-list'>";
                     foreach ($reservations as $resa) {
                         echo resaComponent(
                             $resa['titre'],
