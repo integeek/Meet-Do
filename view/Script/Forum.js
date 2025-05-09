@@ -25,7 +25,7 @@ const GetUserId = () => {
         if (this.readyState == 4 && this.status == 200) {
             try {
                 const responseData = JSON.parse(this.responseText);
-                console.log(responseData, "userId");
+                console.log(responseData);
                 if (responseData.success) {
                     userId = responseData.user.id;
                     userName = responseData.user.prenom + " " + responseData.user.nom;
