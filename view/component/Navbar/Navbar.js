@@ -77,7 +77,7 @@ async function Navbar(url) {
                                 : ""
                             }
                             ${
-                              connect.role == "Meeter"
+                              connect.role == "Meeter" || connect.role == "Administrateur"
                                 ? `
                             <div class="annonce">
                                 <a href="./CreerActivite.php">Poster une annonce</a>

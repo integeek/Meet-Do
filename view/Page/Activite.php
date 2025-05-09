@@ -98,7 +98,7 @@
                         </div>
                         <div class="popup-buttons">
                           <div id="bouton-rouge" onclick="closePopUp('popup')"></div>
-                          <div id="boutonBleuPop"></div>
+                          <div id="boutonBleuPop" onclick="closePopUp('popup')"></div>
                         </div>
                       </div>            
                         <script src="../component/BoutonRouge.js"></script>
