@@ -62,3 +62,39 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
+const btn = document.getElementById("boutonBleuPop");
+let connected = false;
+
+const UserInfo = () => {
+    var request = new XMLHttpRequest();
+    request.open("GET", "./../../controller/Navbar/Navbar.php", true);
+    request.send();
+
+    request.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            try {
+                const responseData = JSON.parse(this.responseText);
+                console.log(responseData, "test");
+                if (responseData.success) {
+                    console.log("connecté");
+                    connected = true;
+                } else {
+                    console.error("Error:", responseData.message);
+                }
+            } catch (error) {
+                console.error("Error parsing JSON response:", error);
+            }
+        } else if (this.readyState == 4) {
+            console.error("Error: Unable to fetch data. Status:", this.status);
+        }
+    };
+}
+
+UserInfo();
+
+btn.addEventListener("click", () => {
+    if (!connected) {
+        window.location.href = "./../../view/Page/Connexion.php";
+    } 
+})

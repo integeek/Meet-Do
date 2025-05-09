@@ -23,7 +23,7 @@ if (!isset($_SESSION['user'])) {
     <link rel="stylesheet" type="text/css" href="../component/BoutonRouge.css">
     <link rel="stylesheet" type="text/css" href="../component/SideBarAdmin/SideBarAdmin.css">
     <link rel="stylesheet" type="text/css" href="../component/Pagination/Pagination.css">
-    <link rel="stylesheet" href="../Style/Messagerie.css">
+    <link rel="stylesheet" href="../Style/SignalementUser.css">
 </head>
 
 <body>
@@ -33,7 +33,7 @@ if (!isset($_SESSION['user'])) {
     <main>
         <div class="flexbox-container">
             <div id="sidebar-container" class="sidebar-container"></div>
-            <div class="">
+            <div class="test">
                 <h1>Gestion des utilisateurs signalés</h1>
 
                 <div class="searchBarAdmin-container" id="searchBarAdmin-container"></div>

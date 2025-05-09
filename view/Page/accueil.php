@@ -1,3 +1,7 @@
+
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,6 +14,7 @@
     <link rel="stylesheet" href="../component/ActivityCard/ActivityCard.css">
     <!--<script src="activityCard.js" defer></script>-->
     <link rel="stylesheet" type="text/css" href="../component/Footer/Footer.css">
+    <link rel="stylesheet" href="../Style/Accueil.css">
 </head>
 
 <body>
@@ -23,6 +28,11 @@
         </script>
     </header>
     <main>
+    <?php if (isset($_SESSION['user'])): ?>
+        <h1 class="message-bienvenue">Ravi de vous revoir sur Meet&Do <?= htmlspecialchars($_SESSION['user']['prenom']) ?> !</h1>
+    <?php else: ?>
+        <h1 class="message-bienvenue">Bienvenue sur Meet&Do !</h1>
+    <?php endif; ?>
         <div id="search-bar"></div>
         <script src="../component/SearchBar/SearchBar.js"></script>
         <script>

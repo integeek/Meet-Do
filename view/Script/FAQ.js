@@ -3,7 +3,33 @@ const themes = ["Theme", "comptes", "reservations", "reglements", "bugs"];
 const container = document.querySelector('.collapse-container');
 const newQeustion = document.querySelector('#new-question-button');
 let theme = "";
+let role = "";
 
+const GetUserId = () => {
+  var request = new XMLHttpRequest();
+  request.open("GET", "./../../controller/Navbar/Navbar.php", true);
+  request.send();
+
+  request.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+          try {
+              const responseData = JSON.parse(this.responseText);
+              console.log(responseData, "userId");
+              if (responseData.success) {
+                  role = responseData.user.role;
+              } else {
+                  console.error("Error:", responseData.message);
+              }
+          } catch (error) {
+              console.error("Error parsing JSON response:", error);
+          }
+      } else if (this.readyState == 4) {
+          console.error("Error: Unable to fetch data. Status:", this.status);
+      }
+  };
+};
+
+GetUserId();
 
 const Refresh = () => {
   var request = new XMLHttpRequest();
@@ -73,7 +99,6 @@ const ThemeSelected = () => {
 }
 
 const renderFaqContent = () => {
-  console.log(data, "data");
   container.innerHTML = data
     .map((item, index) => {
       return `
@@ -81,10 +106,12 @@ const renderFaqContent = () => {
           <button type="button" class="collapse-title alone" id="${item.id}btn">
               <h3>${item.question}</h3>
               <div class="grow"></div>
+        ${role == "Administrateur" ?  `
               <image onclick="openPopUp1()" class="pen" src="../assets/img/pen.png" id="${item.id
         }img-pen"></image>
               <image class="trash" src="../assets/img/trash.png" id="${item.id
-        }img-trash"></image>
+        }img-trash"></image> `
+        : ""}
               <image class="chevron" src="../assets/img/chevron.png" id="${item.id
         }img"></image>
           </button>

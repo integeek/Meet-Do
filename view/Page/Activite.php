@@ -1,7 +1,3 @@
-<script>
-    const isLoggedIn = <?= json_encode(isset($_SESSION['user'])) ?>;
-</script>
-
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -232,6 +228,71 @@
     <script>
         document.getElementById('boutonContact').innerHTML = BoutonBleu("Contactez moi");
     </script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", async () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id');
+
+        if (!id) {
+            alert("ID de l'activité manquant dans l'URL.");
+            return;
+        }
+
+        try {
+            const response = await fetch(`../../controller/Activite/ActiviteViewerController.php?id=${id}`);
+            const data = await response.json();
+
+            if (data.error) {
+                alert(data.error);
+                return;
+            }
+
+            // Remplissage dynamique de la page
+            document.querySelector(".titre-activite").textContent = data.titre;
+            document.querySelector(".adresse-activite").innerHTML = `<img src="../assets/img/icons/position-icon.svg" alt=""> ${data.adresse}`;
+            document.querySelector(".groupe-activite").innerHTML = `<img src="../assets/img/icons/group.svg" alt=""> Groupe de ${data.tailleGroupe}`;
+            document.querySelector(".prix-activite").innerHTML = `<img src="../assets/img/icons/price.svg" alt=""> Prix : ${data.prix}€`;
+            document.querySelector(".description-activite p").textContent = data.description;
+            document.querySelector(".nom-organisateur").innerHTML = `<img src="../assets/img/icons/user.svg" alt=""> ${data.meeterDescription}`;
+            document.querySelector(".note-organisateur").innerHTML = `<img src="../assets/img/icons/etoile.svg" alt=""> ${data.moyenneAvis ?? "Pas encore de note"} / 5`;
+
+            const imagesContainer = document.querySelector(".images-activite");
+
+            if (data.images && data.images.length > 0) {
+                imagesContainer.innerHTML = data.images.map(src => `
+                    <img src="${src}" alt="Image de l'activité" class="image-activite">
+                `).join('');
+            } else {
+                imagesContainer.innerHTML = `
+                    <p>Aucune image disponible</p>
+                    <img src="../../view/assets/img/placeholder.png" alt="Aucune image disponible" class="image-activite">
+                `;
+            }
+
+
+            const avisContainer = document.querySelector(".avis-container");
+            if (data.avis.length > 0) {
+                avisContainer.innerHTML = `
+                    <h2><img src="../assets/img/icons/megaphone.svg" alt=""> Avis (${data.nombreAvis})</h2>
+                    ${data.avis.map(a => `
+                        <div class="avis">
+                            <p><strong>Utilisateur</strong> <img src="../assets/img/icons/etoile.svg" alt=""> ${a.note}</p>
+                            <p>${a.commentaire}</p>
+                        </div>
+                    `).join("")}
+                `;
+            } else {
+                avisContainer.innerHTML = `<h2><img src="../assets/img/icons/megaphone.svg" alt=""> Aucun avis pour le moment</h2>`;
+            }
+
+        } catch (err) {
+            console.error("Erreur lors du chargement de l'activité :", err);
+            document.body.innerHTML = "<h1>Erreur lors du chargement de l'activité</h1>";
+        }
+    });
+</script>
+
 </body>
 
 </html>

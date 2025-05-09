@@ -40,7 +40,7 @@ if(!isset($_SESSION['user'])) {
             <div class="message">
                 <div class="message-content">
                 </div>
-                <div class="message-input">
+                <div class="message-input invisible">
                     <input type="text" id="message" placeholder="Ecrire un message..." />
                     <input type="file" id="attachment" style="display: none;" />
                     <label id="send-attachment" for="attachment"><img src="../assets/img/icons/attachFile.svg"
