@@ -11,9 +11,9 @@ function NavbarCompte(url) {
                             <span></span>
                         </button>
                         <ul class="nav-links">
-                            <li><a href="../../view/Page/PageCompte.php#">Mes informations</a></li>
-                            <li><a href="../../view/Page/Messagerie.php#">Mes discussions</a></li>
-                            <li><a href="../../controller/Reservations/mesReservations.php#">Mes réservations</a></li>
+                            <li><a href="../../view/Page/PageCompte.php">Mes informations</a></li>
+                            <li><a href="../../view/Page/Messagerie.php">Mes discussions</a></li>
+                            <li><a href="#">Mes réservations</a></li>
                             <li><a href="#">Mes activités</a></li>
 
                         </ul>
@@ -27,7 +27,7 @@ function NavbarCompte(url) {
                         </div>
                         <div class="sign-btns">
                             <div class="annonce">
-                                <a href="../../view/Page/accueil.html">Retour à l’accueil</a>
+                                <a href="./CreerActivite.php">Retour à l’accueil</a>
                             </div>
                         </div>
                     </div>

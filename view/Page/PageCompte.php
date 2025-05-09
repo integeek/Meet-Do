@@ -31,10 +31,10 @@ $email = $_SESSION['user']['email'];
 <body>
   <header>
     <div class="navbar-container" id="navbar-container"></div>
-    <script src="../component/Navbar/NavbarCompte.js"></script>
+    <script src="../component/Navbar/Navbar.js"></script>
     <script>
       (async () => {
-        document.getElementById('navbar-container').innerHTML = await NavbarCompte("..");
+        document.getElementById('navbar-container').innerHTML = await Navbar("..");
       })();
     </script>
     <h1>Mes Informations :</h1>
