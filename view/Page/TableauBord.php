@@ -43,11 +43,11 @@ if(!isset($_SESSION['user'])) {
                 <h1>Tableau de bord</h1>
                 <div id="statisqtiques-container">
                     <div id="nb-clients">
-                        <p>Utilisateur enregistrer </p>
+                        <p>Utilisateurs enregistrés </p>
                         <h2 id="client-container-content">80</h2>
                     </div>
                     <div id="nb-activity">
-                        <p>Nombres d'activités quotidients</p>
+                        <p>Nombres d'activités quotidiennes</p>
                         <h2 id="activity-container-content">200</h2>
                     </div>
                 </div>

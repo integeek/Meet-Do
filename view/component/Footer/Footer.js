@@ -6,7 +6,7 @@ function Footer(url) {
 
                 <li><a href="./Formulaire.html">Nous contacter</a></li>
                 <li><a href="./MentionLegales.php">Mentions légales</a></li>
-                <li><a href="./CGU.html">CGU</a></li>
+                <li><a href="./CGU.php">CGU</a></li>
                 <li><a href="./Forum.php">Forum</a></li>
             </ul>
         </div>
