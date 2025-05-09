@@ -1,6 +1,8 @@
 <?php
 
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
 if(!isset($_SESSION['user'])) {
     header('Location: Connexion.php');
     exit;
@@ -22,18 +24,8 @@ if(!isset($_SESSION['user'])) {
 </head>
 
 <body>
-  <header>
-    <div class="navbar-container" id="navbar-container"></div>
-    <script src="../component/Navbar/Navbar.js"></script>
-    <script>
-      (async () => {
-        document.getElementById('navbar-container').innerHTML = await Navbar("..");
-      })();
-    </script>
-    <h1>Mes Réservations :</h1>
-  </header>
   <main>
-    <img src="../assets/img/icons/warning-icon.svg" alt="warning-icon" id="warning-icon" />
+    <img src="../../view/assets/img/icons/warning-icon.svg" alt="warning-icon" id="warning-icon" />
     <h2 id="warning-text">Aucune réservation trouvée.</h2>
     <p id="warning-subtext">Vous n'avez pas encore de réservation.</p>
     <script src="../component/BoutonBleu.js"></script>
@@ -45,9 +37,9 @@ if(!isset($_SESSION['user'])) {
     </script>
   </main>
   <footer id="footer-container" class="footer-container">
-    <script src="../component/Footer/Footer.js"></script>
+    <script src="../../view/component/Footer/Footer.js"></script>
     <script>
-      document.getElementById("footer-container").innerHTML = Footer("..");
+      document.getElementById("footer-container").innerHTML = Footer("../../view");
     </script>
   </footer>
 </body>

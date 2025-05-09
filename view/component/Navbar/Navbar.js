@@ -7,12 +7,12 @@ let connect = {
 }
 
 const GetCookie = async () => {
-    return new Promise((resolve, reject) => {
-        var request = new XMLHttpRequest();
-        request.open("GET", "./../../controller/Navbar/Navbar.php", true);
-        request.send();
-
-        request.onreadystatechange = function () {
+  return new Promise((resolve, reject) => {
+    var request = new XMLHttpRequest();
+    request.open("GET", "./../../controller/Navbar/Navbar.php", true);
+    request.send();
+    
+    request.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 try {
                     const responseData = JSON.parse(this.responseText);
@@ -44,10 +44,10 @@ const GetCookie = async () => {
 };
 
 async function Navbar(url) {
-    try {
-        await GetCookie();
-        if (connect.connect) {
-            return `
+  try {
+    await GetCookie();
+    if (connect.connect) {
+      return `
                 <nav> 
                     <a href="./accueil.php" class="nav-icon" aria-label="homepage" aria-current="page">
                         <img src="${url}/assets/img/logoMeet&Do.png" alt="logo" id="logo" />
@@ -88,8 +88,8 @@ async function Navbar(url) {
                     </div>
                 </nav>
             `;
-        } else {
-            return `
+    } else {
+      return `
                 <nav> 
                     <a href="./accueil.php" class="nav-icon" aria-label="homepage" aria-current="page">
                         <img src="${url}/assets/img/logoMeet&Do.png" alt="logo" id="logo" />
@@ -122,9 +122,9 @@ async function Navbar(url) {
                     </div>
                 </nav>
             `;
-        }
-    } catch (error) {
-        console.error("Error in Navbar:", error);
-        return `<p>Erreur lors du chargement de la barre de navigation.</p>`;
     }
+  } catch (error) {
+    console.error("Error in Navbar:", error);
+    return `<p>Erreur lors du chargement de la barre de navigation.</p>`;
+  }
 }
