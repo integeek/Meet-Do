@@ -6,7 +6,7 @@ const themes = [
     "Bug"
 ];
 
-const newQuestion = document.querySelector('#new-question-button');
+//const newQuestion = document.querySelector('#new-question-button');
 const buttonSend = document.querySelector('.collapse-add-button');
 const container = document.querySelector('.collapse-container');
 const search = document.querySelector('.search');
@@ -15,6 +15,7 @@ let searchValue = "";
 let response = "";
 let userId = -1;
 let userName = "";
+let role = "";
 
 const GetUserId = () => {
     var request = new XMLHttpRequest();
@@ -29,6 +30,7 @@ const GetUserId = () => {
                 if (responseData.success) {
                     userId = responseData.user.id;
                     userName = responseData.user.prenom + " " + responseData.user.nom;
+                    role = responseData.user.role;
                 } else {
                     console.error("Error:", responseData.message);
                 }
@@ -172,10 +174,6 @@ search?.addEventListener('input', (e) => {
     Refresh();
 });
 
-newQuestion.addEventListener('click', () => {
-    console.log("Ajout d'une nouvelle question");
-});
-
 const renderForumContent = () => {
     container.innerHTML = data.map((item, index) => {
         return `
@@ -218,7 +216,7 @@ const renderForumContent = () => {
                         </div>
                     `
             }).join('')}
-            ${userId !== -1 ? `
+            ${role !== "Administrateur" || "Client" ? `
                 <div class="collapse-add">
                     <button type="button" class="collapse-add-button" id="${item.id}add">
                         <p>Répondre</p>
