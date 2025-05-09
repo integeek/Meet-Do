@@ -91,14 +91,14 @@ const RefreshMessage = () => {
             `;
     messageContent.innerHTML += MessageData.map(message => {
         return `
-                    <div class="message-message ${talkID == message.senderId ? "" : "message-message-own"}">
-                        <p class="message-date">${message.date + " " + message.time}</p>
-                        <div class="message-text">
-                            ${message.attachment ? `<img src="../assets/img/macaron1.jpeg" alt="attachment" class="attachment" />` : `<p>${message.content}</p>`}
-                            
-                        </div>
-                    </div>
-                `;
+            <div class="message-message ${talkID == message.senderId ? "" : "message-message-own"}">
+            <p class="message-date">${message.date + " " + new Date(new Date("1970-01-01T" + message.time + "Z").getTime() + 1 * 60 * 60 * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}</p>
+            <div class="message-text">
+            ${message.attachment ? `<img src="../assets/img/macaron1.jpeg" alt="attachment" class="attachment" />` : `<p>${message.content}</p>`}
+            
+            </div>
+            </div>
+            `;
     }).join('');
     messageContent.scrollTop = messageContent.scrollHeight - messageContent.clientHeight;
 };
@@ -131,6 +131,7 @@ const renderSideBar = () => {
             setTimeout(() => {
                 messageContent.style = "animation: none;";
             }, 500);
+            document.querySelector('.message-input').classList.remove('invisible');
         }, 500);
     })
 }

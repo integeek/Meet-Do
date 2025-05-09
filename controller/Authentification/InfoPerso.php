@@ -98,7 +98,7 @@ if (isset($_GET["id"], $_GET["cle"]) && !empty($_GET["id"]) && !empty($_GET["cle
                     echo "L'email n'a pas pu être envoyé.";
                 }
 
-                header("Location: ../Page/FAQ.php");
+                header("Location: ../Page/accueil.php");
                 exit;
             } else {
                 $_SESSION["erreur"] = "Erreur : tous les champs doivent être complétés (nom et prénom obligatoires)";
