@@ -14,7 +14,7 @@ class ActivityCard {
 
       card.innerHTML = `
           <div class="card">
-              <img src="${this.data.chemin ?? 'view/assets/img/logoMeet&Do.png'}" alt="Image de l'activité" class="card-img">
+              <img src="${this.data.chemin ?? '../../view/assets/img/placeholder.png'}" alt="Image de l'activité" class="card-img">
               <div class="card-content">
                   <h2 class="card-title">${this.data.titre}</h2>
                   <p><strong>Lieu :</strong> ${this.data.adresse}</p>
