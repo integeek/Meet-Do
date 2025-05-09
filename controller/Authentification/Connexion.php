@@ -41,7 +41,7 @@ if(!empty($_POST)){
             "role" => $user["role"],
 
         ];
-        header("Location: ../../view/Page/accueil.html");
+        header("Location: ../../view/Page/accueil.php");
 
     } else {
         $_SESSION["erreur"] = "Le formulaire est incomplet.";
