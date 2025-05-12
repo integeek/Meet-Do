@@ -27,7 +27,7 @@ function NavbarCompte(url) {
                     </div>
                     <div class="sign-btns">
                         <div class="annonce">
-                            <a href="./CreerActivite.php">Retour à l’accueil</a>
+                            <a href="../../view/Page/accueil.php">Retour à l’accueil</a>
                         </div>
                     </div>
                 </div>
