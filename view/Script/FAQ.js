@@ -11,21 +11,21 @@ const GetUserId = () => {
   request.send();
 
   request.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-          try {
-              const responseData = JSON.parse(this.responseText);
-              console.log(responseData, "userId");
-              if (responseData.success) {
-                  role = responseData.user.role;
-              } else {
-                  console.error("Error:", responseData.message);
-              }
-          } catch (error) {
-              console.error("Error parsing JSON response:", error);
-          }
-      } else if (this.readyState == 4) {
-          console.error("Error: Unable to fetch data. Status:", this.status);
+    if (this.readyState == 4 && this.status == 200) {
+      try {
+        const responseData = JSON.parse(this.responseText);
+        console.log(responseData, "userId");
+        if (responseData.success) {
+          role = responseData.user.role;
+        } else {
+          console.error("Error:", responseData.message);
+        }
+      } catch (error) {
+        console.error("Error parsing JSON response:", error);
       }
+    } else if (this.readyState == 4) {
+      console.error("Error: Unable to fetch data. Status:", this.status);
+    }
   };
 };
 
@@ -106,12 +106,12 @@ const renderFaqContent = () => {
           <button type="button" class="collapse-title alone" id="${item.id}btn">
               <h3>${item.question}</h3>
               <div class="grow"></div>
-        ${role == "Administrateur" ?  `
+        ${role == "Administrateur" ? `
               <image onclick="openPopUp1()" class="pen" src="../assets/img/pen.png" id="${item.id
-        }img-pen"></image>
+          }img-pen"></image>
               <image class="trash" src="../assets/img/trash.png" id="${item.id
-        }img-trash"></image> `
-        : ""}
+          }img-trash"></image> `
+          : ""}
               <image class="chevron" src="../assets/img/chevron.png" id="${item.id
         }img"></image>
           </button>
@@ -122,7 +122,6 @@ const renderFaqContent = () => {
       `;
     })
     .join("");
-
   attachEventListeners();
 };
 
@@ -131,36 +130,39 @@ const attachEventListeners = () => {
     const button = document.getElementById(`${item.id}btn`);
     const content = document.getElementById(`${item.id}p`);
     const chevron = document.getElementById(`${item.id}img`);
-    const pen = document.getElementById(`${item.id}img-pen`);
-    const trash = document.getElementById(`${item.id}img-trash`);
+
+    if (role == "Administrateur") {
+      const pen = document.getElementById(`${item.id}img-pen`);
+      const trash = document.getElementById(`${item.id}img-trash`);
+
+      trash.addEventListener("click", () => {
+        if (confirm("Voulez-vous vraiment supprimer cette question ?")) {
+          console.log("Suppression de la question" + item.id);
+        } else {
+          console.log("Annulation de la suppression");
+        }
+        content.classList.toggle("hidden");
+        button.classList.toggle("alone");
+        chevron.style.transform =
+          (chevron.style.transform === "") |
+            (chevron.style.transform === "rotate(0deg)")
+            ? "rotate(180deg)"
+            : "rotate(0deg)";
+      });
+
+      pen.addEventListener("click", () => {
+        console.log("Modification de la question" + item.id);
+        content.classList.toggle("hidden");
+        button.classList.toggle("alone");
+        chevron.style.transform =
+          (chevron.style.transform === "") |
+            (chevron.style.transform === "rotate(0deg)")
+            ? "rotate(180deg)"
+            : "rotate(0deg)";
+      });
+    }
 
     button.addEventListener("click", () => {
-      content.classList.toggle("hidden");
-      button.classList.toggle("alone");
-      chevron.style.transform =
-        (chevron.style.transform === "") |
-          (chevron.style.transform === "rotate(0deg)")
-          ? "rotate(180deg)"
-          : "rotate(0deg)";
-    });
-
-    trash.addEventListener("click", () => {
-      if (confirm("Voulez-vous vraiment supprimer cette question ?")) {
-        console.log("Suppression de la question" + item.id);
-      } else {
-        console.log("Annulation de la suppression");
-      }
-      content.classList.toggle("hidden");
-      button.classList.toggle("alone");
-      chevron.style.transform =
-        (chevron.style.transform === "") |
-          (chevron.style.transform === "rotate(0deg)")
-          ? "rotate(180deg)"
-          : "rotate(0deg)";
-    });
-
-    pen.addEventListener("click", () => {
-      console.log("Modification de la question" + item.id);
       content.classList.toggle("hidden");
       button.classList.toggle("alone");
       chevron.style.transform =
