@@ -245,3 +245,7 @@ fieldset {
         transform: translateY(0px);
     }
 }
+
+.invisible {
+    visibility: hidden;
+}

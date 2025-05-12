@@ -14,10 +14,11 @@
       <div class="navbar-container" id="navbar-container"></div>
       <script src="../component/Navbar/Navbar.js"></script>
       <script>
-        document.getElementById("navbar-container").innerHTML = Navbar(
-          true,
-          ".."
-        );
+        (async () => {
+          document.getElementById("navbar-container").innerHTML = await Navbar(
+            ".."
+          );
+        })();
       </script>
       <h1>Demande pour devenir Meeter</h1>
     </header>

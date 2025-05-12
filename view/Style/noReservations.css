@@ -1,0 +1,18 @@
+h1 {
+    font-size: 2.5rem;
+    margin-left: 50px;
+}
+
+main {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#warning-icon {
+    width: 200px;
+    height: 200px;
+}

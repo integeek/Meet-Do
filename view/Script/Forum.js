@@ -1,66 +1,128 @@
-const data = [
-    {
-        id: 1,
-        userName: "Jean Soleil",
-        date: "2023-10-01",
-        question: "Comment fonctionne le système de points ?",
-        theme: "Connexion",
-        answer: [
-            {
-                userName: "Jean Soleil",
-                date: "2023-10-01",
-                answer: "Le système de points fonctionne en attribuant des points aux utilisateurs en fonction de leur activité sur la plateforme. Plus vous êtes actif, plus vous gagnez de points."
-            },
-            {
-                userName: "Marie Dupont",
-                date: "2023-10-02",
-                answer: "Merci pour l'info !"
-            }
-        ]
-    },
-    {
-        id: 2,
-        userName: "Marie Dupont",
-        date: "2023-10-02",
-        question: "Comment changer mon mot de passe ?",
-        theme: "Connexion",
-        answer: [
-            {
-                userName: "Jean Soleil",
-                date: "2023-10-01",
-                answer: "Pour changer votre mot de passe, allez dans les paramètres de votre compte."
-            }
-        ]
-    },
-    {
-        id: 3,
-        userName: "Pierre Martin",
-        date: "2023-10-03",
-        question: "Comment signaler un utilisateur ?",
-        theme: "Groupe",
-        answer: [
-            {
-                userName: "Marie Dupont",
-                date: "2023-10-02",
-                answer: "Pour signaler un utilisateur, cliquez sur le bouton 'Signaler' sur son profil."
-            }
-        ]
-    }
-]
-
-
 const themes = [
     "Themes",
-    "Connexion",
-    "Groupe",
-    "Profil",
-    "Paramètres"
+    "Compte",
+    "Réservation",
+    "Règlement",
+    "Bug"
 ];
 
 const newQuestion = document.querySelector('#new-question-button');
 const buttonSend = document.querySelector('.collapse-add-button');
 const container = document.querySelector('.collapse-container');
+const search = document.querySelector('.search');
 let theme = "";
+let searchValue = "";
+let response = "";
+let userId = -1;
+let userName = "";
+let role = "";
+
+const GetUserId = () => {
+    var request = new XMLHttpRequest();
+    request.open("GET", "./../../controller/Navbar/Navbar.php", true);
+    request.send();
+
+    request.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            try {
+                const responseData = JSON.parse(this.responseText);
+                console.log(responseData);
+                if (responseData.success) {
+                    userId = responseData.user.id;
+                    userName = responseData.user.prenom + " " + responseData.user.nom;
+                    role = responseData.user.role;
+                } else {
+                    console.error("Error:", responseData.message);
+                }
+            } catch (error) {
+                console.error("Error parsing JSON response:", error);
+            }
+        } else if (this.readyState == 4) {
+            console.error("Error: Unable to fetch data. Status:", this.status);
+        }
+    };
+};
+
+GetUserId();
+
+const Post = (idForum) => {
+    var request = new XMLHttpRequest();
+    request.open("POST", "./../../controller/Forum/AddResponse.php", true);
+    request.setRequestHeader("Content-Type", "application/json");
+
+    const body = JSON.stringify({
+        idMessage: idForum,
+        idUser: userId,
+        message: response
+    });
+    
+    request.send(body);
+
+    request.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            try {
+                const responseData = JSON.parse(this.responseText);
+                console.log(responseData);
+                if (responseData.success) {
+                    console.log("Message ajouté avec succès !");
+                } else {
+                    console.error("Erreur :", responseData.message);
+                }
+            } catch (error) {
+                console.error("Error parsing JSON response:", error);
+            }
+        } else if (this.readyState == 4) {
+            console.error("Error: Unable to fetch data. Status:", this.status);
+        }
+    };
+    setTimeout(() => {
+        const content = document.getElementById(`${idForum}content`);
+        const newElement = document.createElement('div');
+        newElement.className = 'collapse-content-answer';
+        newElement.innerHTML = `
+            <img src="../assets/img/return.png" alt="return icon" class="collapse-return" />
+            <div class="collapse-header">
+            <img src="../assets/img/profil.png" alt="profil icon" class="collapse-profil" />
+            <p>${userName}</p>
+            <div class="grow"></div>
+            <p>${new Date().toLocaleString()}</p>
+            <img src="../assets/img/more.png" alt="more icon" class="collapse-more" />
+            </div>
+            <div></div>
+            <div class="collapse-question">${response}</div>
+        `;
+        const addButton = content.querySelector('.collapse-add');
+        content.insertBefore(newElement, addButton);
+    }, 500);
+}
+
+const Refresh = () => {
+    var request = new XMLHttpRequest();
+    request.open("GET", `../../controller/Forum/Forum.php?selectBy=${theme}&search=${searchValue}`, true);
+    request.send();
+
+    request.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            try {
+                // Parse the JSON response
+                const responseData = JSON.parse(this.responseText);
+                console.log(responseData); // Log the parsed data
+
+                // Replace the existing data with the new data
+                data = responseData;
+
+                // Re-render the container with the new data
+                renderForumContent();
+            } catch (error) {
+                console.error("Error parsing JSON response:", error);
+            }
+        } else if (this.readyState == 4) {
+            console.error("Error: Unable to fetch data. Status:", this.status);
+        }
+    };
+}
+
+Refresh();
 
 const Theme = () => {
     select.innerHTML = themes.map((item, index) => {
@@ -85,6 +147,7 @@ const Selector = () => {
         const selectedText = document.querySelector('#selected-text');
         theme = e.target.value;
         selectedText.innerHTML = theme;
+        Refresh();
         ThemeSelected();
     });
 }
@@ -102,15 +165,18 @@ const ThemeSelected = () => {
         theme = "";
         Theme();
         Selector();
+        Refresh();
     });
 }
 
-newQuestion.addEventListener('click', () => {
-    console.log("Ajout d'une nouvelle question");
+search?.addEventListener('input', (e) => {
+    searchValue = e.target.value;
+    Refresh();
 });
 
-container.innerHTML = data.map((item, index) => {
-    return `
+const renderForumContent = () => {
+    container.innerHTML = data.map((item, index) => {
+        return `
             <div class="collapse-right">
                 <button type="button" class="collapse-title alone" id="${item.id}btn">
                     <div class="collapse-header">
@@ -123,19 +189,19 @@ container.innerHTML = data.map((item, index) => {
                     <div class="collapse-question">
                         <p>${item.question}</p>
                         ${item.answer.length > 0 ?
-                        `    
+                `    
                             <div class="grow"></div>
                             <p>${item.answer.length}</p>
                             <img src="../assets/img/icons/message-square.svg" alt="message" class="message" />
                         `
-                        : ""
-                        }
+                : ""
+            }
                     </div>
                 </button>
             </div>
             <div class="collapse-content hidden" id="${item.id}content">
                 ${item.answer.map((answer, index) => {
-            return `
+                return `
                         <div class="collapse-content-answer">
                             <img src="../assets/img/return.png" alt="return icon" class="collapse-return" />
                             <div class="collapse-header">
@@ -149,57 +215,71 @@ container.innerHTML = data.map((item, index) => {
                             <div class="collapse-question">${answer.answer}</div>
                         </div>
                     `
-        }).join('')}
+            }).join('')}
+            ${role === "Administrateur" || role === "Client" ? `
                 <div class="collapse-add">
                     <button type="button" class="collapse-add-button" id="${item.id}add">
                         <p>Répondre</p>
                         <img src="../assets/img/message.png" alt="message icon" id="message-icon" />
                     </button>
                 </div>
+            ` : ""}
             </div>
         </div>
     `;
-}).join('');
+    }).join('');
+    attachEventListeners();
+}
 
-data.forEach((item) => {
-    const button = document.getElementById(`${item.id}btn`);
-    const more = document.getElementById(`${item.id}more`);
-    const add = document.getElementById(`${item.id}add`);
+const attachEventListeners = () => {
+    data.forEach((item) => {
+        const button = document.getElementById(`${item.id}btn`);
 
-    add.addEventListener('click', () => {
-        if (document.getElementById(`${item.id}texte`)) {
-            document.getElementById(`${item.id}texte`).style = 'animation: send 1s forwards;';
-            add.style = 'scale: 1.2';
-            setTimeout(() => {
-                add.style = 'scale:1';
-            }, [200]);
-            setTimeout(() => {
-                document.getElementById(`${item.id}texte`).remove();
-                add.style = 'animation: buttonLeft 1s forwards;';
-                add.innerHTML = `
+        if (userId !== -1) {
+            const more = document.getElementById(`${item.id}more`);
+            const add = document.getElementById(`${item.id}add`);
+
+            add.addEventListener('click', () => {
+                if (document.getElementById(`${item.id}texte`)) {
+                    Post(item.id);
+                    document.getElementById(`${item.id}texte`).style = 'animation: send 1s forwards;';
+                    add.style = 'scale: 1.2';
+                    setTimeout(() => {
+                        add.style = 'scale:1';
+                    }, [200]);
+                    setTimeout(() => {
+                        document.getElementById(`${item.id}texte`).remove();
+                        add.style = 'animation: buttonLeft 1s forwards;';
+                        add.innerHTML = `
                 <p>Répondre</p>
                 <img src="../assets/img/message.png" alt="message icon" id="message-icon" />
             `
-            }, [800]);
-        } else {
-            add.insertAdjacentHTML("beforeBegin", `
-                <textarea class="collapse-add-answer" placeholder="Répondre" id="${item.id}texte"></textarea>
-            `);
-            add.style = 'animation: buttonRight 1s forwards;';
-            add.innerHTML = `
-                <p>Envoyer</p>
-                <img src="../assets/img/message.png" alt="message icon" id="message-icon" />
-            `
+                    }, [800]);
+                } else {
+                    add.insertAdjacentHTML("beforeBegin",
+                        `
+                    <textarea class="collapse-add-answer" placeholder="Répondre" id="${item.id}texte"></textarea>
+                `);
+                    add.style = 'animation: buttonRight 1s forwards;';
+                    add.innerHTML = `
+                    <p>Envoyer</p>
+                    <img src="../assets/img/message.png" alt="message icon" id="message-icon" />
+                `;
+                    document.getElementById(`${item.id}texte`).addEventListener('input', (e) => {
+                        response = e.target.value;
+                    });
+                }
+            })
         }
-    })
 
-    button.addEventListener('click', () => {
-        const content = document.getElementById(`${item.id}content`);
-        if (content.style.animation === '0.5s forwards show') {
-            content.style = 'animation: hidden 0.5s forwards;';
-        } else {
-            content.style = 'animation: show 0.5s forwards;';
-        }
-        button.classList.toggle('alone');
+        button.addEventListener('click', () => {
+            const content = document.getElementById(`${item.id}content`);
+            if (content.style.animation === '0.5s ease 0s 1 normal forwards running show') {
+                content.style = 'animation: hidden 0.5s forwards;';
+            } else {
+                content.style = 'animation: show 0.5s forwards;';
+            }
+            button.classList.toggle('alone');
+        });
     });
-});
+}

@@ -1,166 +1,3 @@
-const data = [
-    {
-        id : 1,
-        name : "Jean Bernard",
-        messages : [
-            {
-                id : 1,
-                sender : "Jean Bernard",
-                date : "2023-10-01",
-                time : "12:00",
-                content : "Bonjour, comment ça va ?",
-                attachment : false
-            },
-            {
-                id : 2,
-                sender : "Moi",
-                date : "2023-10-01",
-                time : "12:05",
-                content : "Salut, ça va bien et toi ?",
-                attachment : false
-            },
-            {
-                id : 3,
-                sender : "Jean Bernard",
-                date : "2023-10-01",
-                time : "12:10",
-                content : "Je vais bien aussi, merci !",
-                attachment : false
-            },
-            {
-                id : 4,
-                sender : "Jean Bernard",
-                date : "2023-10-01",
-                time : "12:15",
-                content : "Tu veux qu'on se voit ce soir ?",
-                attachment : false
-            },
-            {
-                id : 5,
-                sender : "Moi",
-                date : "2023-10-01",
-                time : "12:20",
-                content : "Oui, avec plaisir !",
-                attachment : false
-            },
-            {
-                id : 6,
-                sender : "Jean Bernard",
-                date : "2023-10-01",
-                time : "12:25",
-                content : "Super ! À quelle heure ?",
-                attachment : false
-            },
-            {
-                id : 7,
-                sender : "Moi",
-                date : "2023-10-01",
-                time : "12:30",
-                content : "Vers 19h ?",
-                attachment : false
-            }
-        ]
-    },
-    {
-        id : 2,
-        name : "Marie Dupont",
-        messages : [
-            {
-                id : 1,
-                sender : "Marie Dupont",
-                date : "2023-10-01",
-                time : "13:00",
-                content : "Salut, tu es dispo pour le projet ?",
-                attachment : false
-            },
-            {
-                id : 2,
-                sender : "Moi",
-                date : "2023-10-01",
-                time : "13:05",
-                content : "Oui, je suis là !",
-                attachment : false
-            },
-            {
-                id : 3,
-                sender : "Marie Dupont",
-                date : "2023-10-01",
-                time : "13:10",
-                content : "Super, on peut se voir à la bibliothèque ?",
-                attachment : false
-            },
-            {
-                id : 4,
-                sender : "Moi",
-                date : "2023-10-01",
-                time : "13:15",
-                content : "Oui, bonne idée ! À tout de suite.",
-                attachment : false
-            }
-        ]
-    },
-    {
-        id: 3,
-        name: 'Paul Martin',
-        messages: [
-            {
-                id: 1,
-                sender: 'Paul Martin',
-                date: '2023-10-02',
-                time: '14:00',
-                content: 'lien',
-                attachment: true
-            },
-            {
-                id: 2,
-                sender: 'Moi',
-                date: '2023-10-02',
-                time: '14:05',
-                content: 'Oui, merci ! Je vais le lire.',
-                attachment: false
-            },
-            {
-                id: 3,
-                sender: 'Paul Martin',
-                date: '2023-10-02',
-                time: '14:10',
-                content: 'Parfait, dis-moi ce que tu en penses.',
-                attachment: false
-            }
-        ]
-    },
-    {
-        id: 4,
-        name: 'Sophie Durand',
-        messages: [
-            {
-                id: 1,
-                sender: 'Sophie Durand',
-                date: '2023-10-03',
-                time: '15:00',
-                content: 'Salut, tu as reçu le document ?',
-                attachment: true
-            },
-            {
-                id: 2,
-                sender: 'Moi',
-                date: '2023-10-03',
-                time: '15:05',
-                content: 'Oui, je l\'ai bien reçu. Merci !',
-                attachment: false
-            },
-            {
-                id: 3,
-                sender: 'Sophie Durand',
-                date: '2023-10-03',
-                time: '15:10',
-                content: 'Super, on peut en discuter demain ?',
-                attachment: false
-            }
-        ]
-    }
-]
-
 const userFields = document.getElementById('fieldset');
 const attachmentInput = document.getElementById('attachment');
 const messageContent = document.getElementsByClassName('message-content')[0];
@@ -169,36 +6,108 @@ const sendText = document.getElementById('message');
 let file = null;
 let talkID = 0;
 
-const RefreshMessage = (id) => {
-    data.forEach(user => {
-        if (user.id == id) {
-            messageContent.innerHTML = `
+const Refresh = () => {
+    var request = new XMLHttpRequest();
+    request.open("GET", `../../controller/Messagerie/GetUser.php`, true);
+    request.send();
+
+    request.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            try {
+                // Parse the JSON response
+                const responseData = JSON.parse(this.responseText);
+                Sidedata = responseData;
+
+                renderSideBar();
+
+            } catch (error) {
+                console.error("Error parsing JSON response:", error);
+            }
+        } else if (this.readyState == 4) {
+            console.error("Error: Unable to fetch data. Status:", this.status);
+        }
+    };
+}
+
+Refresh();
+
+const Refresh2 = () => {
+    var request = new XMLHttpRequest();
+    request.open("GET", `../../controller/Messagerie/GetMessage.php?id=${talkID}`, true);
+    request.send();
+
+    request.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            try {
+                // Parse the JSON response
+                const responseData = JSON.parse(this.responseText);
+                MessageData = responseData;
+                RefreshMessage();
+
+            } catch (error) {
+                console.error("Error parsing JSON response:", error);
+            }
+        } else if (this.readyState == 4) {
+            console.error("Error: Unable to fetch data. Status:", this.status);
+        }
+    };
+}
+
+const sendMessageFunction = (message) => {
+    var request = new XMLHttpRequest();
+    request.open("POST", "./../../controller/Messagerie/SendMessage.php", true);
+    request.setRequestHeader("Content-Type", "application/json");
+
+    const body = JSON.stringify({
+        content: message.content,
+        idRecepteur: message.idRecepteur,
+        file: message.attachment
+    });
+
+    request.send(body);
+
+    request.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            try {
+                const responseData = JSON.parse(this.responseText);
+                console.log(responseData);
+                if (responseData.success) {
+                    console.log("Message ajouté avec succès !");
+                } else {
+                    console.error("Erreur :", responseData.message);
+                }
+            } catch (error) {
+                console.error("Error parsing JSON response:", error);
+            }
+        } else if (this.readyState == 4) {
+            console.error("Error: Unable to fetch data. Status:", this.status);
+        }
+    };
+}
+
+const RefreshMessage = () => {
+    messageContent.innerHTML = `
                 <div class="grow"></div>
             `;
-            messageContent.innerHTML += user.messages.map(message => {
-                return `
-                    <div class="message-message ${message.sender === user.name ? "" : "message-message-own"}">
-                        <p class="message-date">${message.date + " " + message.time}</p>
-                        <div class="message-text">
-                            ${message.attachment ? `<img src="../assets/img/macaron1.jpeg" alt="attachment" class="attachment" />` : `<p>${message.content}</p>`}
-                            
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-    });
+    messageContent.innerHTML += MessageData.map(message => {
+        return `
+            <div class="message-message ${talkID == message.senderId ? "" : "message-message-own"}">
+            <p class="message-date">${message.date + " " + new Date(new Date("1970-01-01T" + message.time + "Z").getTime() + 1 * 60 * 60 * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}</p>
+            <div class="message-text">
+            ${message.attachment ? `<img src="../assets/img/macaron1.jpeg" alt="attachment" class="attachment" />` : `<p>${message.content}</p>`}
+            
+            </div>
+            </div>
+            `;
+    }).join('');
     messageContent.scrollTop = messageContent.scrollHeight - messageContent.clientHeight;
 };
 
-talkID = data[0].id;
-RefreshMessage(talkID);
-
-
-userFields.innerHTML = data.map((user, index) => {
-    return `
+const renderSideBar = () => {
+    userFields.innerHTML = Sidedata.map((user) => {
+        return `
                 <div class="user">
-                    <input type="radio" id="${user.name}" name="user" value="${user.id}" ${index === 0 ? "checked" : ""} />
+                    <input type="radio" id="${user.name}" name="user" value="${user.idClient}" />
                     <label for="${user.name}">
                         <div class="select-user">
                             <img src="../assets/img/profil.png" alt="avatar" class="avatar" />
@@ -206,25 +115,30 @@ userFields.innerHTML = data.map((user, index) => {
                             <div class="grow"></div>
                             <img src="../assets/img/more.png" alt="more" class="more" />
                         </div>
-                        <p class="user-message">${user.messages[user.messages.length-1].content}</p>
+                        <p class="user-message">${user.last_message}</p>
                     </label>
                 </div>
     `;
-}).join('');
+    }).join('');
 
-userFields.addEventListener('change', (event) => {
-    console.log(messageContent)
-    messageContent.style = "animation: out 0.5s forwards;";
-    setTimeout(() => {
-        RefreshMessage(event.target.value);
-        talkID = event.target.value;
-        messageContent.style = "animation: in 0.5s forwards;";
+    userFields.addEventListener('change', (event) => {
+        messageContent.style = "animation: out 0.5s forwards;";
         setTimeout(() => {
-            messageContent.style = "animation: none;";
+            //RefreshMessage(event.target.value);
+            talkID = event.target.value;
+            messageContent.style = "animation: in 0.5s forwards;";
+            Refresh2();
+            setTimeout(() => {
+                messageContent.style = "animation: none;";
+            }, 500);
+            document.querySelector('.message-input').classList.remove('invisible');
         }, 500);
-    }, 500);
-
-})
+        setInterval(() => {
+            Refresh2();
+            RefreshMessage();
+        }, 5000);
+    })
+}
 
 attachmentInput.addEventListener('change', () => {
     file = event.target;
@@ -244,35 +158,32 @@ attachmentInput.addEventListener('change', () => {
 
 sendMessage.addEventListener('click', () => {
     if (sendText.value !== "" || file?.files.length > 0) {
-        const message = {
-            id: data[data.length - 1].messages.length + 1,
-            sender: "Moi",
-            date: new Date().toLocaleDateString(),
-            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-            content: file?.files.length > 0 ? file.files[0].name : sendText.value,
-            attachment: file?.files.length > 0
-        };
+        // const message = {
+        //     id: data[data.length - 1].messages.length + 1,
+        //     sender: "Moi",
+        //     date: new Date().toLocaleDateString(),
+        //     time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        //     content: file?.files.length > 0 ? file.files[0].name : sendText.value,
+        //     attachment: file?.files.length > 0
+        // };
+        sendMessageFunction({ content: file?.files.length > 0 ? file.files[0].name : sendText.value, attachment: file?.files.length > 0, idRecepteur: talkID });
         const attachmentLabel = document.getElementById('send-attachment');
         if (sendText.value !== "") {
             sendText.style = "animation: send 1s forwards;"
         } else {
             attachmentLabel.style = "animation: send 1s forwards;"
-        }  
+        }
         setTimeout(() => {
             sendText.value = "";
         }, 1000);
-        file = null;
-        attachmentInput.value = null;
-        attachmentLabel.innerHTML = `<img src="../assets/img/icons/attachFile.svg" alt="file">`;
-        data.forEach(user => {
-            if (user.id == talkID) {
-                user.messages.push(message);
-            }
-        });
-        RefreshMessage(talkID);
+        // file = null;
+        // attachmentInput.value = null;
+        // attachmentLabel.innerHTML = `<img src="../assets/img/icons/attachFile.svg" alt="file">`;
+
         setTimeout(() => {
             sendText.style = "animation: none;"
             attachmentLabel.style = "animation: none;"
+            Refresh2();
         }, 1000);
     }
 });

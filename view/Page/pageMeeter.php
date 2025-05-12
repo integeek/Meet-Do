@@ -1,0 +1,105 @@
+<?php
+session_start();
+?>
+<!DOCTYPE html>
+<html lang="eng">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Meeter</title>
+    <link rel="stylesheet" href="../Style/Meeter.css">
+    <link rel="stylesheet" type="text/css" href="../component/Footer.css">
+    <link rel="stylesheet" type="text/css" href="../component/Navbar.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <div id="navbar-container" class="navbar-container"></div>
+    <script src="../component/Navbar.js"></script>
+    <script>
+        (async () => {
+            document.getElementById('navbar-container').innerHTML = await Navbar("..");
+        })();
+    </script>
+
+    <!-- Contenu principal -->
+    <main class="profile-container">
+        <!-- Section Profil -->
+        <section class="profile-info">
+            <h1>Dupont Jean</h1>
+            <p>Issy-les-Moulineaux, 92130</p>
+            <p>Meeter depuis 4 ans</p>
+            <h2>Description :</h2>
+            <p>Passionné par la découverte de nouvelles expériences...</p>
+        </section>
+
+        <!-- Section Activités -->
+        <section class="activities">
+            <h2>Ses activités :</h2>
+            <div class="activity-list">
+                <div class="activity-card">
+                    <img src="atelier-macaron.jpg" alt="Atelier Macaron">
+                    <div class="content">
+                        <h3>Atelier Macaron</h3>
+                        <p>Avec Michel Dupuis</p>
+                    </div>
+                </div>
+
+                <div class="activity-card">
+                    <img src="escalade.jpg" alt="Escalade en salle">
+                    <div class="content">
+                        <h3>Escalade en salle</h3>
+                        <p>Avec Kevin Bernard</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Avis -->
+        <section class="reviews">
+            <h2>Les avis de ses activités : 4.8/5</h2>
+            <div class="review-list">
+                <div class="review-card">
+                    <h3>Michel Dupuis</h3>
+                    <div class="rating">★★★★★</div>
+                    <p>Un super moment !</p>
+                </div>
+
+                <div class="review-card">
+                    <h3>Kevin Bernard</h3>
+                    <div class="rating">★☆☆☆☆</div>
+                    <p>Une expérience décevante...</p>
+                </div>
+
+                <div class="review-card">
+                    <h3>Client</h3>
+                    <div class="rating">★★★☆☆</div>
+                    <p>Cette activité m'a aidé à me détendre.</p>
+                </div>
+        </section>
+
+        <!-- Section Contact -->
+        <section class="contact">
+            <h2>Une question ?</h2>
+            <p>Contactez Jean Dupont</p>
+            <button class="btn-bleu">Envoyer un message</button>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer"></footer>
+
+    <script src="Navbar.js"></script>
+    <script src="Footer.js"></script>
+    <!-- Footer -->
+    <footer id="footer-container" class="footer-container">
+        <script src="../component/Footer.js"></script>
+        <script>
+            document.getElementById('footer-container').innerHTML = Footer("..");
+        </script>
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<?php
+session_start();
+$messageErreur = $_SESSION["erreur"] ?? "";
+unset($_SESSION["erreur"]);
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum</title>
+    <link rel="stylesheet" type="text/css" href="../component/Footer/Footer.css">
+    <link rel="stylesheet" type="text/css" href="../component/Navbar/Navbar.css">
+    <link rel="stylesheet" type="text/css" href="../style/Forum.css">
+    <script src="../Script/Forum.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <div id="navbar-container" class="navbar-container"></div>
+        <script src="../component/Navbar/Navbar.js"></script>
+        <script>
+            (async () => {
+                document.getElementById('navbar-container').innerHTML = await Navbar("..");
+            })();
+        </script>
+        <script src="../component/Navbar/navAction.js"></script>
+
+    </header>
+    <main>
+        <h1>Forum</h1>
+        <div style="display: flex;">
+            <input type="text" class="search" placeholder="Rechercher">
+            <div id="select-div">
+                <select id="select"></select>
+            </div>
+            <div class="grow"></div>
+            <?php if (isset($_SESSION['user']) && ($_SESSION['user']['role'] === "Administrateur" || $_SESSION['user']['role'] === "Client")): ?>
+                <button type="button" id="new-question-button">
+                    <p>Ajouter une question</p>
+                    <img src="../assets/img/message.png" alt="message icon" id="message-icon" />
+                </button>
+            <?php endif; ?>
+            <!-- <button type="button" id="new-question-button">
+                <p>Ajouter une question</p>
+                <img src="../assets/img/message.png" alt="message icon" id="message-icon" />
+            </button> -->
+        </div>
+        <div class="collapse-container">
+
+        </div>
+    </main>
+    <footer id="footer-container" class="footer-container">
+        <script src="../component/Footer/Footer.js"></script>
+        <script>
+            document.getElementById('footer-container').innerHTML = Footer("..");
+        </script>
+    </footer>
+</body>
+
+</html>

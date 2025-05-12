@@ -16,7 +16,7 @@
     justify-content: space-between;
 }
 
-#nb-clients, #nb-visiteurs {
+#nb-clients, #nb-activity {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
