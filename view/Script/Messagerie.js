@@ -17,8 +17,19 @@ const Refresh = () => {
                 // Parse the JSON response
                 const responseData = JSON.parse(this.responseText);
                 Sidedata = responseData;
+                if (responseData.message === 'La table est vide.') {
+                    document.getElementsByTagName('main')[0].innerHTML = `
+                    <h1>Messagerie</h1>
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; margin-top: 5rem;">
+                        <img src="../../view/assets/img/icons/warning-icon.svg" alt="warning-icon" id="warning-icon" />
+                        <h2 id="warning-text">Aucun message trouvé.</h2>
+                        <p id="warning-subtext">Vous n'avez pas encore de messages.</p>
+                    </div>
+                    `;
+                } else {
+                    renderSideBar();
+                }
 
-                renderSideBar();
 
             } catch (error) {
                 console.error("Error parsing JSON response:", error);
