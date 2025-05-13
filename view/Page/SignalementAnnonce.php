@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 if (!isset($_SESSION['user'])) {
     header('Location: Connexion.php');
@@ -22,8 +22,8 @@ if (!isset($_SESSION['user'])) {
     <link rel="stylesheet" type="text/css" href="../component/BoutonBleu.css">
     <link rel="stylesheet" type="text/css" href="../component/BoutonRouge.css">
     <link rel="stylesheet" type="text/css" href="../component/SideBarAdmin/SideBarAdmin.css">
-    <link rel="stylesheet" type="text/css" href="../component/Pagination/Pagination.css">
     <link rel="stylesheet" href="../Style/SignalementAnnonce.css">
+    <script src="../Script/SignalementAnnonce.js" defer></script>
 </head>
 
 <body>
@@ -33,7 +33,7 @@ if (!isset($_SESSION['user'])) {
     <main>
         <div class="flexbox-container">
             <div id="sidebar-container" class="sidebar-container"></div>
-            <div class="">
+            <div class="center">
                 <h1>Gestion des annonces signalées</h1>
 
                 <div class="searchBarAdmin-container" id="searchBarAdmin-container"></div>
@@ -50,31 +50,18 @@ if (!isset($_SESSION['user'])) {
                             </tr>
                         </thead>
                         <tbody id="tableauCorps">
-                            <tr>
-                                <td>Dupont</td>
-                                <td>Jean</td>
-                                <td>10/10/2010</td>
-                                <td><img src="../assets/img/icons/openFilled-icon.svg" alt=""></td>
-                                <td>
-                                    <div class="icon-actions"><img src="../assets/img/icons/eye-open-icon.svg"
-                                            alt=""><img src="../assets/img/icons/icon-trash.svg" alt=""></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Dupuis</td>
-                                <td>Kevin</td>
-                                <td>12/10/2020</td>
-                                <td><img src="../assets/img/icons/openFilled-icon.svg" alt=""></td>
-                                <td>
-                                    <div class="icon-actions"><img src="../assets/img/icons/eye-open-icon.svg"
-                                            alt=""><img src="../assets/img/icons/icon-trash.svg" alt=""></div>
-                                </td>
-                            </tr>
-
                         </tbody>
                     </table>
-
-                    <div class="pagination-container" id="pagination-container"></div>
+                    <div class="custom-pagination">
+                        <button class="pagination-arrow" id="prev-page" aria-label="Page précédente">
+                            <img src="../assets/img/icons/arrow-icon.svg" alt="Précédent">
+                        </button>
+                        <span class="pagination-pages">
+                        </span>
+                        <button class="pagination-arrow" id="next-page" aria-label="Page suivante">
+                            <img src="../assets/img/icons/arrow-icon.svg" alt="Suivant">
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -96,14 +83,6 @@ if (!isset($_SESSION['user'])) {
         <script>
             document.getElementById('searchBarAdmin-container').innerHTML = SearchBarAdmin("signalements");
         </script>
-
-        <script src="../component/Pagination/Pagination.js"></script>
-        <script>
-            document.getElementById('pagination-container').innerHTML = Pagination();
-        </script>
-        <script src="../Script/PaginationChange.js"></script>
-
-
     </main>
 
     <footer id="footer-container" class="footer-container">
