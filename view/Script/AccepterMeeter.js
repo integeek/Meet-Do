@@ -11,7 +11,7 @@ let search = "";
 
 const Refresh = () => {
     var request = new XMLHttpRequest();
-    request.open("GET", `../../controller/Admin/Messagerie.php?search=${search}`, true);
+    request.open("GET", `../../controller/Admin/DemandeMeeter.php?search=${search}`, true);
     request.send();
 
     request.onreadystatechange = function () {
@@ -91,9 +91,8 @@ const renderTable = () => {
         row.innerHTML = `
             <td>${message.nom}</td>
             <td>${message.prenom}</td>
-            <td>${message.email}</td>
-            <td>${message.sujet}</td>
-            <td>${message.dateEnvoie}</td>
+            <td>${message.date}</td>
+            <td style="text-align: center;"><img src="../assets/img/icons/openFilled-icon.svg" alt="open" style="margin: 0 auto;"></td>
             <td>
                 <div class="icon-actions">
                     <img src="../assets/img/icons/eye-open-icon.svg" alt="">

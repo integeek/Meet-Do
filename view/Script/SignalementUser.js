@@ -11,7 +11,7 @@ let search = "";
 
 const Refresh = () => {
     var request = new XMLHttpRequest();
-    request.open("GET", `../../controller/Admin/Messagerie.php?search=${search}`, true);
+    request.open("GET", `../../controller/Admin/SignalementUtilisateur.php?search=${search}`, true);
     request.send();
 
     request.onreadystatechange = function () {
@@ -89,12 +89,11 @@ const renderTable = () => {
     pageData[page - 1].forEach((message) => {
         const row = document.createElement("tr");
         row.innerHTML = `
-            <td>${message.nom}</td>
-            <td>${message.prenom}</td>
-            <td>${message.email}</td>
-            <td>${message.sujet}</td>
-            <td>${message.dateEnvoie}</td>
-            <td>
+            <td style="text-align: center;">${message.nom}</td>
+            <td style="text-align: center;">${message.prenom}</td>
+            <td style="text-align: center;">${message.dateSignalement}</td>
+            <td style="text-align: center;"><img src="../assets/img/icons/openFilled-icon.svg" alt="open" style="margin: 0 auto;"></td>
+            <td style="text-align: center;">
                 <div class="icon-actions">
                     <img src="../assets/img/icons/eye-open-icon.svg" alt="">
                     <img src="../assets/img/icons/edit-icon.svg" alt="">

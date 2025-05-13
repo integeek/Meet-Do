@@ -5,9 +5,9 @@ require_once("../../model/bdd.php");
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $search = $_GET["search"];
         if ($search != "") {
-                $sql = "SELECT Client.nom, Client.prenom, Client.email, FormulaireContact.sujet, FormulaireContact.message, FormulaireContact.dateEnvoie FROM `FormulaireContact` INNER JOIN Client ON FormulaireContact.idClient = Client.idClient WHERE nom LIKE '%$search%' OR prenom LIKE '%$search%'OR email LIKE '%$search%' OR sujet LIKE '%$search%' OR message LIKE '%$search%'";
+                $sql = "SELECT FormulaireContact.idFormulaireContact AS 'id', Client.nom, Client.prenom, Client.email, FormulaireContact.sujet, FormulaireContact.message, FormulaireContact.dateEnvoie FROM `FormulaireContact` INNER JOIN Client ON FormulaireContact.idClient = Client.idClient WHERE nom LIKE '%$search%' OR prenom LIKE '%$search%' OR email LIKE '%$search%' OR sujet LIKE '%$search%' OR message LIKE '%$search%'";
         } else {
-                $sql = "SELECT Client.nom, Client.prenom, Client.email, FormulaireContact.sujet, FormulaireContact.message, FormulaireContact.dateEnvoie FROM `FormulaireContact` INNER JOIN Client ON FormulaireContact.idClient = Client.idClient";
+                $sql = "SELECT FormulaireContact.idFormulaireContact AS 'id', Client.nom, Client.prenom, Client.email, FormulaireContact.sujet, FormulaireContact.message, FormulaireContact.dateEnvoie FROM `FormulaireContact` INNER JOIN Client ON FormulaireContact.idClient = Client.idClient";
         }
         $query = $db->prepare($sql);
         $query->execute();
