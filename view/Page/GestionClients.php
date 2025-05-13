@@ -51,7 +51,6 @@ if (!isset($_SESSION['user'])) {
 
                     </tbody>
                 </table>
-                    <div class="pagination-container" id="pagination-container"></div>
                 </div>
                 <div class="custom-pagination">
                     <button class="pagination-arrow" id="prev-page" aria-label="Page précédente">
