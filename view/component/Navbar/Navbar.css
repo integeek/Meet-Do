@@ -241,6 +241,11 @@ nav {
     transform: translate(-0%);
   }
 
+  .nav-links.open {
+  transform: translate(0%);
+}
+
+
   .nav-links a {
     font-size: 18px;
     margin: 10px 0px;

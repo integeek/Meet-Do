@@ -1,19 +1,17 @@
 <?php
 session_start();
+require_once("../../model/Bdd.php");
 
-$host = "144.76.54.100";
-$dbname = "test";
-$username = "root";
-$password = "";
 
-try {
+
+// try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
+// } catch (PDOException $e) {
     $_SESSION["erreur_contact"] = "Erreur de connexion à la base de données.";
     header("Location: ../../view/Contact.php");
     exit;
-}
+// }
 
 $nom     = htmlspecialchars(trim($_POST['nom'] ?? ''));
 $prenom  = htmlspecialchars(trim($_POST['prenom'] ?? ''));
