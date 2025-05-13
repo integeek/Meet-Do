@@ -32,3 +32,21 @@
     margin-left: auto;
     padding-right: 20px;
 }
+
+.select-search {
+  width: 8rem;
+  background-color: #d9d9d9;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  padding: 12px;
+  font-family: "Inter";
+  font-size: 1rem;
+  outline: none;
+  border: none;
+  margin-right: 1rem;
+}
+
+.grow {
+  flex-grow: 1;
+}

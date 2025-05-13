@@ -1,6 +1,5 @@
 .flexbox-container {
     display: flex;
-    column-gap: 280px;
 }
 
 #content-container {

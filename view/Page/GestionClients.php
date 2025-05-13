@@ -1,5 +1,6 @@
 <?php 
-require_once("../../controller/Admin/GestionClients.php");
+session_start();
+
 if (!isset($_SESSION['user'])) {
     header('Location: Connexion.php');
     exit;
@@ -20,8 +21,8 @@ if (!isset($_SESSION['user'])) {
     <link rel="stylesheet" type="text/css" href="../component/BoutonBleu.css">
     <link rel="stylesheet" type="text/css" href="../component/BoutonRouge.css">
     <link rel="stylesheet" type="text/css" href="../component/SideBarAdmin/SideBarAdmin.css">
-    <link rel="stylesheet" type="text/css" href="../component/Pagination/Pagination.css">
     <link rel="stylesheet" href="../Style/GestionClients.css">
+    <script src="../Script/GestionClient.js" defer></script>
 </head>
 <body>
     <header>
@@ -30,7 +31,7 @@ if (!isset($_SESSION['user'])) {
     <main>
         <div class="flexbox-container">
             <div id="sidebar-container" class="sidebar-container"></div>
-            <div class="">
+            <div class="center">
                 <h1>Gestion des clients</h1>
 
                 <div class="searchBarAdmin-container" id="searchBarAdmin-container"></div>
@@ -47,25 +48,20 @@ if (!isset($_SESSION['user'])) {
                         </tr>
                     </thead>
                     <tbody id="tableauCorps">
-                        <?php foreach ($users as $user): ?>
-                            <tr>
-                                <td><?= htmlspecialchars($user['nom']) ?></td>
-                                <td><?= htmlspecialchars($user['prenom']) ?></td>
-                                <td><?= htmlspecialchars($user['email']) ?></td>
-                                <td><?= htmlspecialchars($user['role']) ?></td>
-                                <td>
-                                    <div class="icon-actions">
-                                        <img src="../assets/img/icons/eye-open-icon.svg" alt="">
-                                        <img src="../assets/img/icons/edit-icon.svg" alt="">
-                                        <img src="../assets/img/icons/icon-trash.svg" alt="">
-                                    </div>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
+
                     </tbody>
                 </table>
-
                     <div class="pagination-container" id="pagination-container"></div>
+                </div>
+                <div class="custom-pagination">
+                    <button class="pagination-arrow" id="prev-page" aria-label="Page précédente">
+                        <img src="../assets/img/icons/arrow-icon.svg" alt="Précédent">
+                    </button>
+                    <span class="pagination-pages">
+                    </span>
+                    <button class="pagination-arrow" id="next-page" aria-label="Page suivante">
+                        <img src="../assets/img/icons/arrow-icon.svg" alt="Suivant">
+                    </button>
                 </div>
             </div>
         </div>
@@ -86,15 +82,7 @@ if (!isset($_SESSION['user'])) {
         <script src="../component/SearchBarAdmin/SearchBarAdmin.js"></script>
         <script>
             document.getElementById('searchBarAdmin-container').innerHTML = SearchBarAdmin("client");
-        </script> 
-
-        <script src="../component/Pagination/Pagination.js"></script>
-        <script>
-            document.getElementById('pagination-container').innerHTML = Pagination();
-        </script> 
-        <script src="../Script/PaginationChange.js"></script>
-
-        
+        </script>       
     </main>
     
     <footer id="footer-container" class="footer-container">
