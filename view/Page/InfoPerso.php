@@ -41,7 +41,7 @@ unset($_SESSION["erreur"]);
                 <input class="textbox" type="text" name="prenom" required>
                 <p>Adresse (optionnelle)</p>
                 <div id="containerAdresse">
-                    <input class="textbox" type="text" name="adresse" id="adresse" required>
+                    <input class="textbox" type="text" name="adresse" id="adresse">
                     <img id="iconAdresse" src="../assets/img/pin.png" alt="Adresse">
                 </div>
                 <div class="erreur" style="color: red; margin-bottom: 1rem;">

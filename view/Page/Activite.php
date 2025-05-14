@@ -86,7 +86,7 @@
                         <div class="popup-main">
                           <div class="form-section">
                             <p>Nombre de participants</p>
-                            <input class="textbox" type="text" name="nbParticipant" required>
+                            <input class="textbox" type="text" name="nbParticipant" id="nbPlace" required>
                             <p>Choisissez votre date</p>
                             <input type="text" id="datepicker" placeholder="Choisissez une date disponible">
                           </div>
@@ -98,7 +98,7 @@
                         </div>
                         <div class="popup-buttons">
                           <div id="bouton-rouge" onclick="closePopUp('popup')"></div>
-                          <div id="boutonBleuPop" onclick="closePopUp('popup')"></div>
+                          <div id="boutonBleuPop"></div>
                         </div>
                       </div>            
                         <script src="../component/BoutonRouge.js"></script>
