@@ -93,13 +93,6 @@ const renderTable = () => {
             <td>${message.prenom}</td>
             <td>${message.date}</td>
             <td style="text-align: center;"><img src="../assets/img/icons/openFilled-icon.svg" alt="open" style="margin: 0 auto;"></td>
-            <td>
-                <div class="icon-actions">
-                    <img src="../assets/img/icons/eye-open-icon.svg" alt="">
-                    <img src="../assets/img/icons/edit-icon.svg" alt="">
-                    <img src="../assets/img/icons/icon-trash.svg" alt="">
-                </div>
-            </td>
         `;
         table.appendChild(row);
     });

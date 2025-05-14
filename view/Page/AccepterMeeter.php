@@ -46,7 +46,6 @@ if (!isset($_SESSION['user'])) {
                                 <th>Prénom</th>
                                 <th>Date de la demande</th>
                                 <th>Demande</th>
-                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody id="tableauCorps">

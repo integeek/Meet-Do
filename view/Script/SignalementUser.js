@@ -82,6 +82,26 @@ const Back = () => {
     }
 }
 
+const deleteMessage = (id) => {
+    var request = new XMLHttpRequest();
+    request.open("DELETE", `../../controller/Admin/DeleteSignalement.php?id=${id}`, true);
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send();
+
+    request.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            try {
+                const responseData = JSON.parse(this.responseText);
+                console.log(responseData, "response");
+            } catch (error) {
+                console.error("Error parsing JSON response:", error);
+            }
+        } else if (this.readyState == 4) {
+            console.error("Error: Unable to fetch data. Status:", this.status);
+        }
+    };
+}
+
 Refresh();
 
 const renderTable = () => {
@@ -93,13 +113,6 @@ const renderTable = () => {
             <td style="text-align: center;">${message.prenom}</td>
             <td style="text-align: center;">${message.dateSignalement}</td>
             <td style="text-align: center;"><img src="../assets/img/icons/openFilled-icon.svg" alt="open" style="margin: 0 auto;"></td>
-            <td style="text-align: center;">
-                <div class="icon-actions">
-                    <img src="../assets/img/icons/eye-open-icon.svg" alt="">
-                    <img src="../assets/img/icons/edit-icon.svg" alt="">
-                    <img src="../assets/img/icons/icon-trash.svg" alt="">
-                </div>
-            </td>
         `;
         table.appendChild(row);
     });

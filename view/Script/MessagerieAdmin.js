@@ -82,6 +82,27 @@ const Back = () => {
     }
 }
 
+const deleteMessage = (id) => {
+    var request = new XMLHttpRequest();
+    request.open("DELETE", `../../controller/Admin/DeleteMessage.php?id=${id}`, true);
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send();
+
+    request.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            try {
+                const responseData = JSON.parse(this.responseText);
+                console.log(responseData, "responseData");
+                Refresh();
+            } catch (error) {
+                console.error("Error parsing JSON response:", error);
+            }
+        } else if (this.readyState == 4) {
+            console.error("Error: Unable to fetch data. Status:", this.status);
+        }
+    };
+}
+
 Refresh();
 
 const renderTable = () => {
@@ -97,12 +118,18 @@ const renderTable = () => {
             <td>
                 <div class="icon-actions">
                     <img src="../assets/img/icons/eye-open-icon.svg" alt="">
-                    <img src="../assets/img/icons/edit-icon.svg" alt="">
-                    <img src="../assets/img/icons/icon-trash.svg" alt="">
+                    <img src="../assets/img/icons/icon-trash.svg" alt="" id="delete-${message.id}">
                 </div>
             </td>
         `;
         table.appendChild(row);
+        document.getElementById(`delete-${message.id}`).addEventListener("click", () => {
+            const confirmDelete = confirm(`Êtes-vous sûr de vouloir supprimer ce message de contact de ${message.nom} ${message.prenom}?`);
+            if (confirmDelete) {
+                deleteMessage(message.id);
+                Refresh();
+            }
+        });
     });
 }
 

@@ -96,13 +96,27 @@ const renderTable = () => {
             <td>${client.role}</td>
             <td>
                 <div class="icon-actions">
-                    <img src="../assets/img/icons/eye-open-icon.svg" alt="">
-                    <img src="../assets/img/icons/edit-icon.svg" alt="">
-                    <img src="../assets/img/icons/icon-trash.svg" alt="">
+                    <img src="../assets/img/icons/edit-icon.svg" alt="" id="edit-${client.id}">
+                    <img src="../assets/img/icons/icon-trash.svg" alt="" id="delete-${client.id}">
                 </div>
             </td>
         `;
         table.appendChild(row);
+        document.getElementById(`delete-${client.id}`).addEventListener("click", () => {
+            const confirmDelete = confirm(`Êtes-vous sûr de vouloir supprimer ce ${client.nom} ${client.prenom} ?`);
+            if (confirmDelete) {
+                var request = new XMLHttpRequest();
+                request.open("DELETE", `../../controller/Admin/DeleteClient.php?id=${client.id}`, true);
+                request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                request.send(`id=${client.id}`);
+
+                request.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        Refresh();
+                    }
+                };
+            }
+        });
     });
 }
 
