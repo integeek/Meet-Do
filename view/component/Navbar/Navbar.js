@@ -86,7 +86,7 @@ async function Navbar(url) {
                                 : ""
                             }
                             <a href="./PageCompte.php" class="profil" id="profil">
-                                <div>${connect.firstName} ${connect.lastName
+                                <div class="text-overflow">${connect.firstName} ${connect.lastName
                     }</div>
                                 <img src="${url}/assets/img/profil.png" id="profil-img">
                             </a>
