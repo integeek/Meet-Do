@@ -1,5 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
-    fetch("../../controller/Activite/Activite.php?idActivite=7")
+    const params = new URLSearchParams(window.location.search);
+    const idActivite = params.get("id");
+
+    if (!idActivite) {
+        console.error("Aucun id fourni dans l'URL.");
+        return;
+    }
+
+    fetch(`../../controller/Activite/Activite.php?idActivite=${idActivite}`)
         .then(res => res.json())
         .then(data => {
             const datesDisponibles = data.datesDisponibles;
