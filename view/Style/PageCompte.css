@@ -3,6 +3,27 @@ h1 {
   margin-left: 50px;
 }
 
+hr {
+  width: 90%;
+  margin: 0 auto;
+  margin: 20px 0;
+}
+
+.global-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.infos-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 50px auto;
+  padding: 20px;
+  border: #000000 solid 2px;
+  border-radius: 10px;
+}
+
 .profile-container {
   display: flex;
   align-items: center;
@@ -10,16 +31,14 @@ h1 {
 }
 
 #profile-icon {
-  width: 150px;
-  height: 150px;
-  margin-left: 70px;
+  width: 100px;
+  height: 100px;
 }
 
 form {
   display: flex;
   flex-direction: column;
   margin-top: 2%;
-  margin-left: 70px;
   gap: 20px;
 }
 

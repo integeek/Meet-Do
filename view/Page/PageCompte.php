@@ -40,7 +40,9 @@ $email = $_SESSION['user']['email'];
     <h1>Mes Informations :</h1>
   </header>
   <main>
-    <div class="profile-container">
+    <div class="global-container">
+      <div class="infos-container">
+        <div class="profile-container">
       <img src="../assets/img/icons/profile-icon.svg" alt="profile-icon" id="profile-icon" />
       <div id="boutonContainer"></div>
       <script>
@@ -49,6 +51,7 @@ $email = $_SESSION['user']['email'];
         );
       </script>
     </div>
+        <hr>
     <form>
       <div class="firstname-container">
         <div class="input-firstname">
@@ -69,16 +72,17 @@ $email = $_SESSION['user']['email'];
           <label for="email">Email :</label>
           <input type="email" id="email" value="<?php echo $email;?>" readonly/>
         </div>
-        <img src="../assets/img/icons/edit-icon.svg" alt="edit-icon" class="edit-icon" onclick="openPopUp('edit-email-popup')"/>
+        <!-- <img src="../assets/img/icons/edit-icon.svg" alt="edit-icon" class="edit-icon" onclick="openPopUp('edit-email-popup')"/> -->
       </div>
       <div class="password-container">
         <div class="input-password">
           <label for="password">Mot de passe :</label>
           <input type="password" id="password" value="Mot de passe" readonly/>
         </div>
-        <img src="../assets/img/icons/edit-icon.svg" alt="edit-icon" class="edit-icon" />
+        <!-- <img src="../assets/img/icons/edit-icon.svg" alt="edit-icon" class="edit-icon" /> -->
       </div>
     </form>
+    </div>
     <div class="become-meeter">
       <h2>Devenir meeter</h2>
       <div class="meeter-container">
@@ -93,6 +97,7 @@ $email = $_SESSION['user']['email'];
           );
         </script>
       </div>
+    </div>
     </div>
   </main>
   <footer id="footer-container" class="footer-container"></footer>
