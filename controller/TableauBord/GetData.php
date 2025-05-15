@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $query->execute();
     $nombreClient = $query->fetchAll(PDO::FETCH_ASSOC);
 
-    $sql2 = "SELECT COUNT(*) AS 'number' FROM `Activite`;";
+    $sql2 = "SELECT COUNT(*) AS 'number' FROM `Activite` WHERE DAY(Activite.dateCreation) = DAY(NOW());";
     $query = $db->prepare($sql2);
     $query->execute();
     $nombreActivite = $query->fetchAll(PDO::FETCH_ASSOC);

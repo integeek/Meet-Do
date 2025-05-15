@@ -4,6 +4,10 @@ const back = document.getElementById("prev-page");
 const select = document.getElementsByClassName("select-search")[0];
 const nombreClient = document.getElementById("clientNumber");
 const searchInput = document.getElementsByClassName("search-input")[0];
+const close = document.getElementById("closeModal");
+const modal = document.getElementsByClassName("modal")[0];
+const buttonUpdate = document.getElementById("submitBtn");
+let idClient = 0;
 let page = 1;
 let ligneMax = 5;
 let pageData = [];
@@ -83,6 +87,49 @@ const Back = () => {
     }
 }
 
+const UpdateClient = () => {
+    const nom = document.getElementById("nom");
+    const prenom = document.getElementById("prenom");
+    const role = document.getElementById("role");
+
+    var request = new XMLHttpRequest();
+    request.open("POST", `../../controller/Admin/UpdateClient.php`, true);
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    const body = JSON.stringify({
+        idClient: idClient,
+        nom: nom.value,
+        prenom: prenom.value,
+        role: role.value
+    });
+
+    request.send(body);
+};
+
+const setModal = (client) => {
+    const nom = document.getElementById("nom");
+    const prenom = document.getElementById("prenom");
+    const email = document.getElementById("email");
+    const role = document.getElementById("role");
+
+    nom.value = client.nom;
+    prenom.value = client.prenom;
+    email.value = client.email;
+    role.value = client.role;
+    idClient = client.id;
+}
+
+buttonUpdate.addEventListener("click", (e) => {
+    e.preventDefault();
+    UpdateClient();
+    modal.style = "animation: close 0.2s forwards;"
+    setTimeout(() => {
+        modal.classList.add("hidden");
+    }, 200);
+    Refresh();
+
+});
+
 Refresh();
 
 const renderTable = () => {
@@ -96,8 +143,8 @@ const renderTable = () => {
             <td>${client.role}</td>
             <td>
                 <div class="icon-actions">
-                    <img src="../assets/img/icons/edit-icon.svg" alt="" id="edit-${client.id}">
-                    <img src="../assets/img/icons/icon-trash.svg" alt="" id="delete-${client.id}">
+                    <img src="../assets/img/icons/edit-icon.svg" alt="" id="edit-${client.id}" class="actions-icons">
+                    <img src="../assets/img/icons/icon-trash.svg" alt="" id="delete-${client.id}" class="actions-icons">
                 </div>
             </td>
         `;
@@ -117,6 +164,11 @@ const renderTable = () => {
                 };
             }
         });
+        document.getElementById(`edit-${client.id}`).addEventListener("click", () => {
+            setModal(client);
+            modal.classList.remove("hidden");
+            modal.style = "animation: show 0.2s forwards;"
+        });
     });
 }
 
@@ -130,4 +182,11 @@ searchInput.addEventListener("input", (e) => {
     search = e.target.value;
     page = 1;
     Refresh();
+});
+
+close.addEventListener("click", () => {
+    modal.style = "animation: close 0.2s forwards;"
+    setTimeout(() => {
+        modal.classList.add("hidden");
+    }, 200);
 });

@@ -61,7 +61,7 @@ td .icon-actions img {
     appearance: none;
     outline: none;
     border: none;
-    background-color:#d9d9d9;
+    background-color: #d9d9d9;
 }
 
 .pagination-pages button:hover {
@@ -84,10 +84,110 @@ td .icon-actions img {
     appearance: none;
     outline: none;
     border: none;
-    background-color:#d9d9d9;
+    background-color: #d9d9d9;
 }
 
 .pagination-arrow:hover {
     background-color: #F9F4F4;
+    cursor: pointer;
+}
+
+.modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30%;
+    height: 60%;
+    z-index: 10;
+    overflow: auto;
+    border: #D9D9D9 solid 1px;
+    background-color: #d9d9d9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    padding: 1rem;
+}
+
+.hidden {
+    display: none;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    height: 60%;
+    justify-content: space-around;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+form button {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #64a0fb;
+    color: white;
+    font-family: "Inter";
+    font-size: 1rem;
+    outline: none;
+    border: none;
+    font-family: "Inter";
+    border-radius: 10px;
+    padding: 12px;
+}
+
+form input {
+    display: block;
+    height: 1rem;
+    border-radius: 10px;
+    outline: none;
+    border: 1px solid black;
+    padding: 8px;
+    font-family: "Inter";
+}
+
+form select {
+    display: block;
+    background-color: #f3f3f3;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    padding: 15px;
+    font-family: "Inter";
+    font-size: 1rem;
+    outline: none;
+    border: none;
+}
+
+@keyframes show {
+    0% {
+        opacity: 0;
+        scale: 0.6;
+    }
+    100% {
+        opacity: 1;
+        scale: 1;
+    }
+}
+
+@keyframes close {
+    0% {
+        opacity: 1;
+        scale: 1;
+    }
+    100% {
+        opacity: 0;
+        scale: 0.6;
+    }
+}
+
+.actions-icons, #submitBtn {
     cursor: pointer;
 }
