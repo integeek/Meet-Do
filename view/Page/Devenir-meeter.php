@@ -1,3 +1,17 @@
+<?php 
+session_start();
+if(!isset($_SESSION['user'])) {
+    header('Location: Connexion.php');
+    exit;
+}
+
+$prenom = $_SESSION['user']['prenom'];
+$nom = $_SESSION['user']['nom'];
+$email = $_SESSION['user']['email'];
+$idClient = $_SESSION['user']['id'];
+
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
   <head>
