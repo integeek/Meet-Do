@@ -102,7 +102,7 @@ $idClient = $_SESSION['user']['id'];
           Vous souhaitez organiser vos propres activités ? Devenez un meeter
           maintenant.
         </p>
-        <a href="Devenir-meeter.html"><div id="boutonContainer1" ></div></a>
+        <a href="../../view/Page/Devenir-meeter.php"><div id="boutonContainer1" ></div></a>
         <script>
           document.getElementById("boutonContainer1").innerHTML = BoutonBleu(
             "Devenir Meeter !"

@@ -107,3 +107,13 @@ input[type="checkbox"]::after {
 input[type="checkbox"]:checked::after {
   display: block;
 }
+
+.success {
+  color: green;
+  font-size: 1.5rem;
+}
+
+.error {
+  color: red;
+  font-size: 1.5rem;
+}
