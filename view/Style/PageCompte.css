@@ -35,6 +35,16 @@ hr {
   height: 100px;
 }
 
+.success {
+  color: green;
+  font-size: 1.5rem;
+}
+
+.error {
+  color: red;
+  font-size: 1.5rem;
+}
+
 form {
   display: flex;
   flex-direction: column;
@@ -87,8 +97,8 @@ form {
 }
 
 .edit-icon {
-  width: 35px;
-  height: 35px;
+  width: 50px;
+  height: 50px;
   cursor: pointer;
 }
 
@@ -97,9 +107,9 @@ form label {
 }
 
 form input {
-  width: 200px;
-  height: 30px;
-  font-size: 1.2rem;
+  width: 500px;
+  height: 50px;
+  font-size: 1.5rem;
   border: #000000 solid 2px;
   border-radius: 10px;
   background: #f9f4f4;
@@ -164,4 +174,15 @@ h2 {
   align-items: center;
   justify-content: space-around;
   margin-top: 50px;
+}
+
+.buttonRo {
+  background-color: #ff4646;
+  color: white;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 10px;
 }

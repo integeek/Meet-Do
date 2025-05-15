@@ -8,6 +8,7 @@ if(!isset($_SESSION['user'])) {
 $prenom = $_SESSION['user']['prenom'];
 $nom = $_SESSION['user']['nom'];
 $email = $_SESSION['user']['email'];
+$idClient = $_SESSION['user']['id'];
 
 ?>
 
@@ -52,6 +53,17 @@ $email = $_SESSION['user']['email'];
       </script>
     </div>
         <hr>
+        <?php if (isset($_SESSION['success']) || isset($_SESSION['error'])): ?>
+                    <div class="alert">
+                      <?php if (isset($_SESSION['success'])): ?>
+                        <p class="success"><?php echo $_SESSION['success']; ?></p>
+                        <?php unset($_SESSION['success']); ?>
+                      <?php elseif (isset($_SESSION['error'])): ?>
+                        <p class="error"><?php echo $_SESSION['error']; ?></p>
+                        <?php unset($_SESSION['error']); ?>
+                      <?php endif; ?>
+                    </div>
+                  <?php endif; ?>
     <form>
       <div class="firstname-container">
         <div class="input-firstname">
@@ -111,21 +123,20 @@ $email = $_SESSION['user']['email'];
               <div class="edit-header">
                 <h3>Modifiez votre Prénom</h3>
               </div>
-              <div class="edit-main">
-                <input type="text" id="edited-input" placeholder="<?php echo $prenom; ?>" />
-              </div>
-              <div class="edit-footer">
-                <div id="bouton-rouge1" onclick="closePopUp('edit-firstname-popup')"></div>
-                  <script>
-                    document.getElementById("bouton-rouge1").innerHTML =
-                    BoutonRouge("Annuler");
-                  </script>
-                <div id="bouton-bleue1"></div>
-                  <script>
-                    document.getElementById("bouton-bleue1").innerHTML =
-                    BoutonBleu("Valider");
-                  </script>
-              </div>
+              <form action="../../controller/Compte/ModifierPrenom.php" method="POST" id="edit-firstname-form">
+                <div class="edit-main">
+                  <input type="text" name="edit-firstname" id="edited-input" placeholder="<?php echo $prenom; ?>" />
+                  <input type="hidden" name="idClient" value="<?php echo $idClient; ?>" />
+                </div>
+                <div class="edit-footer">
+                    <button type="button" onclick="closePopUp('edit-firstname-popup')" class="buttonRo" >Annuler</button>
+                  <div onclick="document.getElementById('edit-firstname-form').submit()" id="bouton-bleue1"></div>
+                    <script>
+                      document.getElementById("bouton-bleue1").innerHTML =
+                      BoutonBleu("Valider");
+                    </script>
+                </div>
+              </form>
             </div>
           </div>
 
@@ -134,21 +145,20 @@ $email = $_SESSION['user']['email'];
               <div class="edit-header">
                 <h3>Modifiez votre Nom</h3>
               </div>
+            <form action="../../controller/Compte/ModifierNom.php" method="POST" id="edit-lastname-form">
               <div class="edit-main">
-                <input type="text" id="edited-input" placeholder="<?php echo $nom; ?>" />
+                  <input type="text" name="edit-lastname" id="edited-input" placeholder="<?php echo $nom; ?>" />
+                  <input type="hidden" name="idClient" value="<?php echo $idClient; ?>" />
               </div>
               <div class="edit-footer">
-                <div id="bouton-rouge2" onclick="closePopUp('edit-lastname-popup')"></div>
-                  <script>
-                    document.getElementById("bouton-rouge2").innerHTML =
-                    BoutonRouge("Annuler");
-                  </script>
-                <div id="bouton-bleue2"></div>
+                  <button type="button" onclick="closePopUp('edit-lastname-popup')" class="buttonRo" >Annuler</button>
+                <div onclick="document.getElementById('edit-lastname-form').submit()" id="bouton-bleue2"></div>
                   <script>
                     document.getElementById("bouton-bleue2").innerHTML =
                     BoutonBleu("Valider");
                   </script>
               </div>
+            </form>
             </div>
           </div>
 
