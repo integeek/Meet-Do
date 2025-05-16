@@ -1,12 +1,12 @@
-<?php 
+<?php
 include("../../controller/Compte/meeterButton.php");
 
 if (session_status() === PHP_SESSION_NONE) {
   session_start();
-  if(!isset($_SESSION['user'])) {
+  if (!isset($_SESSION['user'])) {
     header('Location: Connexion.php');
     exit;
-}
+  }
 }
 
 $prenom = $_SESSION['user']['prenom'];
@@ -48,147 +48,174 @@ $idClient = $_SESSION['user']['id'];
     <div class="global-container">
       <div class="infos-container">
         <div class="profile-container">
-      <img src="../assets/img/icons/profile-icon.svg" alt="profile-icon" id="profile-icon" />
-      <div id="boutonContainer"></div>
-      <script>
-        document.getElementById("boutonContainer").innerHTML = BoutonBleu(
-          "Modifier photo de profil"
-        );
-      </script>
-    </div>
+          <img src="../assets/img/icons/profile-icon.svg" alt="profile-icon" id="profile-icon" />
+          <div id="boutonContainer"></div>
+          <script>
+            document.getElementById("boutonContainer").innerHTML = BoutonBleu(
+              "Modifier photo de profil"
+            );
+          </script>
+        </div>
         <hr>
         <?php if (isset($_SESSION['success']) || isset($_SESSION['error'])): ?>
-                    <div class="alert">
-                      <?php if (isset($_SESSION['success'])): ?>
-                        <p class="success"><?php echo $_SESSION['success']; ?></p>
-                        <?php unset($_SESSION['success']); ?>
-                      <?php elseif (isset($_SESSION['error'])): ?>
-                        <p class="error"><?php echo $_SESSION['error']; ?></p>
-                        <?php unset($_SESSION['error']); ?>
-                      <?php endif; ?>
-                    </div>
-                  <?php endif; ?>
-    <form>
-      <div class="firstname-container">
-        <div class="input-firstname">
-          <label for="firstname">Prénom :</label>
-          <input type="text" id="firstname" value="<?php echo $prenom;?>" readonly/>
+          <div class="alert">
+            <?php if (isset($_SESSION['success'])): ?>
+              <p class="success"><?php echo $_SESSION['success']; ?></p>
+              <?php unset($_SESSION['success']); ?>
+            <?php elseif (isset($_SESSION['error'])): ?>
+              <p class="error"><?php echo $_SESSION['error']; ?></p>
+              <?php unset($_SESSION['error']); ?>
+            <?php endif; ?>
+          </div>
+        <?php endif; ?>
+        <form>
+          <div class="firstname-container">
+            <div class="input-firstname">
+              <label for="firstname">Prénom :</label>
+              <input type="text" id="firstname" value="<?php echo $prenom; ?>" readonly />
+            </div>
+            <img src="../assets/img/icons/edit-icon.svg" alt="edit-icon" class="edit-icon"
+              onclick="openPopUp('edit-firstname-popup')" />
+          </div>
+          <div class="lastname-container">
+            <div class="input-lastname">
+              <label for="lastname">Nom :</label>
+              <input type="text" id="lastname" value="<?php echo $nom; ?>" readonly />
+            </div>
+            <img src="../assets/img/icons/edit-icon.svg" alt="edit-icon" class="edit-icon"
+              onclick="openPopUp('edit-lastname-popup')" />
+          </div>
+          <div class="email-container">
+            <div class="input-email">
+              <label for="email">Email :</label>
+              <input type="email" id="email" value="<?php echo $email; ?>" readonly />
+            </div>
+            <!-- <img src="../assets/img/icons/edit-icon.svg" alt="edit-icon" class="edit-icon" onclick="openPopUp('edit-email-popup')"/> -->
+          </div>
+          <div class="password-container">
+            <div class="input-password">
+              <label for="password">Mot de passe :</label>
+              <input type="password" id="password" value="Mot de passe" readonly />
+            </div>
+            <img src="../assets/img/icons/edit-icon.svg" alt="edit-icon" class="edit-icon" id="editIcon">
+          </div>
+
+          <script>
+             const UpdateClient = () => {
+
+              const email = "<?php echo $_SESSION['user']['email']; ?>";
+
+                var request = new XMLHttpRequest();
+                request.open("POST", `../../controller/Authentification/AskResetPass.php`, true);
+                request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                const body = new URLSearchParams({ emailSend: email }).toString();
+                request.send(body);
+              };
+
+            console.log('test')
+            const editIcon = document.getElementById('editIcon');
+            console.log(editIcon);
+            editIcon.addEventListener('click', function () {
+              console.log('Edit icon clicked');
+              alert('Un mail pour changer votre mot de passe a été envoyé à votre adresse email.');
+              UpdateClient();
+            });
+          </script>
+
+        </form>
+      </div>
+      <div class="become-meeter">
+        <?php echo $hideDiv ?>
+        <h2>Devenir meeter</h2>
+        <div class="meeter-container">
+          <p>
+            Vous souhaitez organiser vos propres activités ? Devenez un meeter
+            maintenant.
+          </p>
+          <a href="../../view/Page/Devenir-meeter.php">
+            <div id="boutonContainer1"></div>
+          </a>
+          <script>
+            document.getElementById("boutonContainer1").innerHTML = BoutonBleu(
+              "Devenir Meeter !"
+            );
+          </script>
         </div>
-        <img src="../assets/img/icons/edit-icon.svg" alt="edit-icon" class="edit-icon" onclick="openPopUp('edit-firstname-popup')"/>
       </div>
-      <div class="lastname-container">
-        <div class="input-lastname">
-          <label for="lastname">Nom :</label>
-          <input type="text" id="lastname" value="<?php echo $nom;?>" readonly/>
-        </div>
-        <img src="../assets/img/icons/edit-icon.svg" alt="edit-icon" class="edit-icon" onclick="openPopUp('edit-lastname-popup')"/>
-      </div>
-      <div class="email-container">
-        <div class="input-email">
-          <label for="email">Email :</label>
-          <input type="email" id="email" value="<?php echo $email;?>" readonly/>
-        </div>
-        <!-- <img src="../assets/img/icons/edit-icon.svg" alt="edit-icon" class="edit-icon" onclick="openPopUp('edit-email-popup')"/> -->
-      </div>
-      <div class="password-container">
-        <div class="input-password">
-          <label for="password">Mot de passe :</label>
-          <input type="password" id="password" value="Mot de passe" readonly/>
-        </div>
-        <!-- <img src="../assets/img/icons/edit-icon.svg" alt="edit-icon" class="edit-icon" /> -->
-      </div>
-    </form>
-    </div>
-    <div class="become-meeter">
-      <?php echo $hideDiv ?>
-      <h2>Devenir meeter</h2>
-      <div class="meeter-container">
-        <p>
-          Vous souhaitez organiser vos propres activités ? Devenez un meeter
-          maintenant.
-        </p>
-        <a href="../../view/Page/Devenir-meeter.php"><div id="boutonContainer1" ></div></a>
-        <script>
-          document.getElementById("boutonContainer1").innerHTML = BoutonBleu(
-            "Devenir Meeter !"
-          );
-        </script>
-      </div>
-    </div>
     </div>
   </main>
   <footer id="footer-container" class="footer-container"></footer>
   <script src="../component/Footer/Footer.js"></script>
+  <script>
+    document.getElementById('footer-container').innerHTML = Footer("..");
+  </script>
+
+  <div class="edit-container" id="edit-firstname-popup">
+    <div class="edit-content">
+      <div class="edit-header">
+        <h3>Modifiez votre Prénom</h3>
+      </div>
+      <form action="../../controller/Compte/ModifierPrenom.php" method="POST" id="edit-firstname-form">
+        <div class="edit-main">
+          <input type="text" name="edit-firstname" id="edited-input" placeholder="<?php echo $prenom; ?>" />
+          <input type="hidden" name="idClient" value="<?php echo $idClient; ?>" />
+        </div>
+        <div class="edit-footer">
+          <button type="button" onclick="closePopUp('edit-firstname-popup')" class="buttonRo">Annuler</button>
+          <div onclick="document.getElementById('edit-firstname-form').submit()" id="bouton-bleue1"></div>
+          <script>
+            document.getElementById("bouton-bleue1").innerHTML =
+              BoutonBleu("Valider");
+          </script>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="edit-container" id="edit-lastname-popup">
+    <div class="edit-content">
+      <div class="edit-header">
+        <h3>Modifiez votre Nom</h3>
+      </div>
+      <form action="../../controller/Compte/ModifierNom.php" method="POST" id="edit-lastname-form">
+        <div class="edit-main">
+          <input type="text" name="edit-lastname" id="edited-input" placeholder="<?php echo $nom; ?>" />
+          <input type="hidden" name="idClient" value="<?php echo $idClient; ?>" />
+        </div>
+        <div class="edit-footer">
+          <button type="button" onclick="closePopUp('edit-lastname-popup')" class="buttonRo">Annuler</button>
+          <div onclick="document.getElementById('edit-lastname-form').submit()" id="bouton-bleue2"></div>
+          <script>
+            document.getElementById("bouton-bleue2").innerHTML =
+              BoutonBleu("Valider");
+          </script>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="edit-container" id="edit-email-popup">
+    <div class="edit-content">
+      <div class="edit-header">
+        <h3>Modifiez votre Email</h3>
+      </div>
+      <div class="edit-main">
+        <input type="text" id="edited-input" placeholder="<?php echo $email; ?>" />
+      </div>
+      <div class="edit-footer">
+        <div id="bouton-rouge3" onclick="closePopUp('edit-email-popup')"></div>
         <script>
-            document.getElementById('footer-container').innerHTML = Footer("..");
+          document.getElementById("bouton-rouge3").innerHTML =
+            BoutonRouge("Annuler");
         </script>
-
-          <div class="edit-container" id="edit-firstname-popup">
-            <div class="edit-content">
-              <div class="edit-header">
-                <h3>Modifiez votre Prénom</h3>
-              </div>
-              <form action="../../controller/Compte/ModifierPrenom.php" method="POST" id="edit-firstname-form">
-                <div class="edit-main">
-                  <input type="text" name="edit-firstname" id="edited-input" placeholder="<?php echo $prenom; ?>" />
-                  <input type="hidden" name="idClient" value="<?php echo $idClient; ?>" />
-                </div>
-                <div class="edit-footer">
-                    <button type="button" onclick="closePopUp('edit-firstname-popup')" class="buttonRo" >Annuler</button>
-                  <div onclick="document.getElementById('edit-firstname-form').submit()" id="bouton-bleue1"></div>
-                    <script>
-                      document.getElementById("bouton-bleue1").innerHTML =
-                      BoutonBleu("Valider");
-                    </script>
-                </div>
-              </form>
-            </div>
-          </div>
-
-          <div class="edit-container" id="edit-lastname-popup">
-            <div class="edit-content">
-              <div class="edit-header">
-                <h3>Modifiez votre Nom</h3>
-              </div>
-            <form action="../../controller/Compte/ModifierNom.php" method="POST" id="edit-lastname-form">
-              <div class="edit-main">
-                  <input type="text" name="edit-lastname" id="edited-input" placeholder="<?php echo $nom; ?>" />
-                  <input type="hidden" name="idClient" value="<?php echo $idClient; ?>" />
-              </div>
-              <div class="edit-footer">
-                  <button type="button" onclick="closePopUp('edit-lastname-popup')" class="buttonRo" >Annuler</button>
-                <div onclick="document.getElementById('edit-lastname-form').submit()" id="bouton-bleue2"></div>
-                  <script>
-                    document.getElementById("bouton-bleue2").innerHTML =
-                    BoutonBleu("Valider");
-                  </script>
-              </div>
-            </form>
-            </div>
-          </div>
-
-          <div class="edit-container" id="edit-email-popup">
-            <div class="edit-content">
-              <div class="edit-header">
-                <h3>Modifiez votre Email</h3>
-              </div>
-              <div class="edit-main">
-                <input type="text" id="edited-input" placeholder="<?php echo $email; ?>" />
-              </div>
-              <div class="edit-footer">
-                <div id="bouton-rouge3" onclick="closePopUp('edit-email-popup')"></div>
-                  <script>
-                    document.getElementById("bouton-rouge3").innerHTML =
-                    BoutonRouge("Annuler");
-                  </script>
-                <div id="bouton-bleue3"></div>
-                  <script>
-                    document.getElementById("bouton-bleue3").innerHTML =
-                    BoutonBleu("Valider");
-                  </script>
-              </div>
-            </div>
-          </div>
+        <div id="bouton-bleue3"></div>
+        <script>
+          document.getElementById("bouton-bleue3").innerHTML =
+            BoutonBleu("Valider");
+        </script>
+      </div>
+    </div>
+  </div>
 
 </body>
 
