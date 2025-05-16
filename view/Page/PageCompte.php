@@ -1,8 +1,12 @@
 <?php 
-session_start();
-if(!isset($_SESSION['user'])) {
+include("../../controller/Compte/meeterButton.php");
+
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+  if(!isset($_SESSION['user'])) {
     header('Location: Connexion.php');
     exit;
+}
 }
 
 $prenom = $_SESSION['user']['prenom'];
@@ -96,6 +100,7 @@ $idClient = $_SESSION['user']['id'];
     </form>
     </div>
     <div class="become-meeter">
+      <?php echo $hideDiv ?>
       <h2>Devenir meeter</h2>
       <div class="meeter-container">
         <p>
