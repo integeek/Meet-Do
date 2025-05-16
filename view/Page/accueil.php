@@ -1,4 +1,8 @@
-
+<?php
+session_start();
+$messageErreur = $_session["erreur"] ?? "";
+unset($_SESSION["erreur"]);
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -30,7 +34,10 @@
         <script>
             document.getElementById('search-bar').innerHTML = SearchBar("..")
         </script>
-        <div id="activities-container"></div>
+                <div id="activities-container"></div>
+        <div id="loader" style="text-align:center; margin: 20px; display: none;">
+            <img src="../../view/assets/img/loader.gif" alt="Chargement..." width="50">
+        </div>
         <script src="../component/ActivityCard/ActivityCard.js"></script>
     </main>
     <footer id="footer-container" class="footer-container">

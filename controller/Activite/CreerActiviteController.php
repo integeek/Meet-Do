@@ -34,7 +34,7 @@ try {
 
         // Récupérer dynamiquement l'id du meeter via la session
         session_start();
-        $idMeeter = $_SESSION['idMeeter'] ?? 1; // Valeur par défaut si non défini
+        $idMeeter = $_SESSION['idMeeter'] ?? 4; // Valeur par défaut si non défini
 
         if (!$titre || !$description || !$adresse) {
             http_response_code(400);
@@ -81,7 +81,7 @@ try {
                 move_uploaded_file($tmpName, $destination);
 
                 $stmt = $pdo->prepare("INSERT INTO ImageActivite (chemin, idActivite) VALUES (?, ?)");
-                $stmt->execute(["assets/img/$filename", $idActivite]);
+                $stmt->execute(["../assets/img/$filename", $idActivite]);
             }
         }
 

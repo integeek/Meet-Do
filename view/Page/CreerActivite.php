@@ -184,6 +184,52 @@ async function fetchCategories() {
         document.getElementById("mapPopup").classList.add("hidden");
     });
 
+
+    // Gestion de l'affichage et de la suppression des images sélectionnées
+    const uploadInput = document.getElementById('uploadInput');
+    const imagePreview = document.getElementById('imagePreview');
+    let selectedFiles = [];
+
+    uploadInput.addEventListener('change', function (e) {
+        const files = Array.from(e.target.files);
+        // Limite à 5 images
+        if (selectedFiles.length + files.length > 5) {
+            alert("Vous pouvez sélectionner jusqu'à 5 images maximum.");
+            uploadInput.value = "";
+            return;
+        }
+        files.forEach(file => {
+            selectedFiles.push(file);
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                const imgDiv = document.createElement('div');
+                imgDiv.classList.add('img-preview-item');
+                imgDiv.innerHTML = `
+                    <img src="${event.target.result}" alt="Image" />
+                    <button type="button" class="remove-img-btn">✖</button>
+                `;
+                imgDiv.querySelector('.remove-img-btn').onclick = function () {
+                    const idx = Array.from(imagePreview.children).indexOf(imgDiv);
+                    selectedFiles.splice(idx, 1);
+                    imgDiv.remove();
+                    // Met à jour le FileList de l'input
+                    updateInputFiles();
+                };
+                imagePreview.appendChild(imgDiv);
+            };
+            reader.readAsDataURL(file);
+        });
+        // Met à jour le FileList de l'input
+        updateInputFiles();
+    });
+
+    // Fonction pour mettre à jour le FileList de l'input avec les fichiers sélectionnés
+    function updateInputFiles() {
+        const dataTransfer = new DataTransfer();
+        selectedFiles.forEach(file => dataTransfer.items.add(file));
+        uploadInput.files = dataTransfer.files;
+    }
+
     // Fonction pour envoyer les données au backend
     async function submitActivityData() {
         try {
@@ -213,7 +259,6 @@ async function fetchCategories() {
 
             if (response.ok) {
                 alert("Activité créée avec succès.");
-                window.location.reload(); // Recharge la page après succès
                 window.location.href = '../Page/accueil.php';
             } else {
                 const errorText = await response.text();
