@@ -141,6 +141,7 @@
                         <h1>Signaler un utilisateur</h1>
                         <p>Raison du signalement<p></p>
                         <form action="../../controller/Signalement/SignalementUser.php" method="POST">
+                        <input type="hidden" name="idActivite" value="<?= $_GET['id'] ?>">
                         <div class="container">
                             <p ><input type="radio" name="raison" value="Manque de respect">Manque de respect</p>
                             <p ><input type="radio" name="raison" value="Publicité déguisée">Publicité déguisée</p>
