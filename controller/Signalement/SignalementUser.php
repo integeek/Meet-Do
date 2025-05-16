@@ -7,6 +7,8 @@ if(!empty($_POST)){
         $raison = $_POST["raison"];
         $commentaire = $_POST["Commentaire"] ?? null;
         $idClient = $_SESSION['user']['id'];
+        
+
         $sql = "INSERT INTO Signalement (type, enumSignalementUtilisateur, description, dateSignalement, idSignaleur, idSignaler) VALUES ('Client', :raison, :description, NOW(), :idSignaleur, :idSignaler)";
         $query = $db->prepare($sql);
         $query -> bindValue(":raison", $raison);

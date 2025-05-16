@@ -173,6 +173,7 @@
                         <h1>Signaler une activité</h1>
                         <p>Raison du signalement<p></p>
                         <form action="../../controller/Signalement/SignalementActivite.php" method="POST">
+                        <input type="hidden" name="idActivite" value="<?= $_GET['id'] ?>">
                         <div class="container">
                             <p ><input type="radio" name="raison" value="Activité dangereuse">Activité dangereuse</p>
                             <p ><input type="radio" name="raison" value="Publicité déguisée">Publicité déguisée</p>
