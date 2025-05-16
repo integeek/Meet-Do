@@ -1,5 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
-    fetch("../../controller/Activite/Activite.php?idActivite=7")
+    const params = new URLSearchParams(window.location.search);
+    const idActivite = params.get("id");
+
+    if (!idActivite) {
+        console.error("Aucun id fourni dans l'URL.");
+        return;
+    }
+
+    fetch(`../../controller/Activite/Activite.php?idActivite=${idActivite}`)
         .then(res => res.json())
         .then(data => {
             const datesDisponibles = data.datesDisponibles;
@@ -96,5 +104,48 @@ UserInfo();
 btn.addEventListener("click", () => {
     if (!connected) {
         window.location.href = "./../../view/Page/Connexion.php";
+        return;
     } 
+    const nbPlace = document.getElementById("nbPlace").value;
+    const date = document.getElementById("datepicker").value;
+    const creneau = document.querySelector(".creneau-btn.selected");
+    if (!nbPlace || !date || !creneau) {
+        alert("Veuillez remplir tous les champs.");
+        return;
+    }
+    const heure = creneau.querySelector(".creneau-time").textContent;
+  fetch("../../controller/Activite/Reservation.php", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    credentials: "include",
+    body: JSON.stringify({
+        nbPlace: nbPlace,
+        date: date,
+        heure: heure
+    })
+})
+.then(res => res.text()) 
+.then(text => {
+    console.log("Réponse brute du serveur :", text);
+    try {
+        const data = JSON.parse(text);
+        if (data.success) {
+            alert("Réservation réussie !");
+            window.location.href = "./../../view/Page/PageCompte.php";
+        } else {
+            alert("Erreur lors de la réservation : " + data.message);
+        }
+    } catch (e) {
+        console.error("Erreur de parsing JSON :", e);
+        console.error("Réponse reçue :", text);
+        alert("Erreur technique. Réponse inattendue du serveur.");
+    }
+})
+.catch(err => {
+    console.error("Erreur fetch :", err);
+    alert("Erreur réseau ou serveur.");
+});
+
 })

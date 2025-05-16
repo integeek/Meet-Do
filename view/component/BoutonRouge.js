@@ -1,5 +1,5 @@
 function BoutonRouge(texte) {
     return `
-        <button type="submit" class="buttonRo" >${texte}</button>
+        <button type="button" class="buttonRo" >${texte}</button>
 `;
 };
