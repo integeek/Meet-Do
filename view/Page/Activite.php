@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../component/BoutonRouge.css">
     <link rel="stylesheet" type="text/css" href="../Style/ActiviteViewer.css">
     <link rel="stylesheet" type="text/css" href="../component/LoadActivite.css">
+    <link rel="stylesheet" type="text/css" href="../Style/laisserunavis.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
@@ -198,6 +199,36 @@
                             </script>
                     </div>
                 </div>
+                <!-- Pop up pour laisser un avis -->
+                <div class="popup-overlay" id="popup-avis">
+                    <div class="popup-content">
+                    <h1>Laisser un avis</h1>
+                    <div class="popup-rating">
+                        <p>Quelle note donneriez-vous à votre expérience ?</p>
+                    </div>
+                    <div class="popup-comment">
+                        <p>Avez-vous un commentaire à ajouter ? Racontez-nous !</p>
+                        <div class="comment-box">
+                        <textarea
+                         name="commentaire"
+                         id="comment"
+                         spellcheck="true"
+                        ></textarea>
+                            </div>
+                    </div>
+                    <div class="popup-buttons">
+                        <div id="bouton-rouge" onclick="closePopUp()"></div>
+                    <script>
+                      document.getElementById("bouton-rouge").innerHTML =
+                        BoutonRouge("Annuler");
+                    </script>
+                    <div id="bouton-bleue"></div>
+                    <script>
+                      document.getElementById("bouton-bleue").innerHTML =
+                       BoutonBleu("Valider");
+                    </script>
+                    </div>
+                </div>
                   
         </div>
     </main>
@@ -218,15 +249,20 @@
 
     <script src="../Script/PopUp.js"></script>
     <script>
-        document.getElementById('boutonParticiper').innerHTML = BoutonBleu("Participer");
+        document.getElementById('boutonParticiper').innerHTML = BoutonBleu("ParticKJHIUGYFUIILiper");
         const bouton = document.querySelector('#boutonParticiper button');
         console.log(bouton);
         bouton.addEventListener('click', () => openPopUp("popup"));
     </script>
 
+    <script src="../Script/PopUp.js"></script>
     <script>
         document.getElementById('boutonAvis').innerHTML = BoutonBleu("Laisser un avis");
+        const bouton = document.querySelector('#boutonAvis button');
+        console.log(bouton);
+        bouton.addEventListener('click', () => openPopUp("popup-avis"));
     </script>
+    
     <script>
         document.getElementById('boutonContact').innerHTML = BoutonBleu("Contactez moi");
     </script>
