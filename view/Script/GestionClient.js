@@ -37,56 +37,6 @@ const Refresh = () => {
     };
 }
 
-const Pagination = (data) => {
-    pageData = [];
-    for (let i = 0; i < data.length; i += ligneMax) {
-        pageData.push(data.slice(i, i + ligneMax));
-    }
-    RenderPagination();
-}
-
-const RenderPagination = () => {
-    const paginationContainer = document.getElementsByClassName("pagination-pages")[0];
-    paginationContainer.innerHTML = "";
-    for (let i = 1; i <= pageData.length; i++) {
-        const btn = document.createElement("button");
-        btn.className = "pagination-page" + (i === page ? " active" : "");
-        btn.id = `btn-${i}`;
-        btn.textContent = i;
-        btn.addEventListener("click", () => {
-            page = i;
-            renderTable();
-            RenderPagination();
-        });
-        paginationContainer.appendChild(btn);
-    }
-}
-
-next.addEventListener("click", () => {
-    console.log("next");
-    Next();
-});
-
-back.addEventListener("click", () => {
-    Back();
-});
-
-const Next = () => {
-    if (page < pageData.length) {
-        page++;
-        renderTable();
-        RenderPagination();
-    }
-}
-
-const Back = () => {
-    if (page > 1) {
-        page--;
-        renderTable();
-        RenderPagination();
-    }
-}
-
 const UpdateClient = () => {
     const nom = document.getElementById("nom");
     const prenom = document.getElementById("prenom");
@@ -106,6 +56,23 @@ const UpdateClient = () => {
     request.send(body);
 };
 
+const RenderPagination = () => {
+    const paginationContainer = document.getElementsByClassName("pagination-pages")[0];
+    paginationContainer.innerHTML = "";
+    for (let i = 1; i <= pageData.length; i++) {
+        const btn = document.createElement("button");
+        btn.className = "pagination-page" + (i === page ? " active" : "");
+        btn.id = `btn-${i}`;
+        btn.textContent = i;
+        btn.addEventListener("click", () => {
+            page = i;
+            renderTable();
+            RenderPagination();
+        });
+        paginationContainer.appendChild(btn);
+    }
+}
+
 const setModal = (client) => {
     const nom = document.getElementById("nom");
     const prenom = document.getElementById("prenom");
@@ -119,17 +86,29 @@ const setModal = (client) => {
     idClient = client.id;
 }
 
-buttonUpdate.addEventListener("click", (e) => {
-    e.preventDefault();
-    UpdateClient();
-    modal.style = "animation: close 0.2s forwards;"
-    setTimeout(() => {
-        modal.classList.add("hidden");
-        Refresh();
-    }, 200);
-});
+const Pagination = (data) => {
+    pageData = [];
+    for (let i = 0; i < data.length; i += ligneMax) {
+        pageData.push(data.slice(i, i + ligneMax));
+    }
+    RenderPagination();
+}
 
-Refresh();
+const Next = () => {
+    if (page < pageData.length) {
+        page++;
+        renderTable();
+        RenderPagination();
+    }
+}
+
+const Back = () => {
+    if (page > 1) {
+        page--;
+        renderTable();
+        RenderPagination();
+    }
+}
 
 const renderTable = () => {
     table.innerHTML = "";
@@ -171,6 +150,25 @@ const renderTable = () => {
     });
 }
 
+next.addEventListener("click", () => {
+    console.log("next");
+    Next();
+});
+
+back.addEventListener("click", () => {
+    Back();
+});
+
+buttonUpdate.addEventListener("click", (e) => {
+    e.preventDefault();
+    UpdateClient();
+    modal.style = "animation: close 0.2s forwards;"
+    setTimeout(() => {
+        modal.classList.add("hidden");
+        Refresh();
+    }, 200);
+});
+
 select.addEventListener("change", (e) => {
     ligneMax = parseInt(e.target.value);
     page = 1;
@@ -189,3 +187,5 @@ close.addEventListener("click", () => {
         modal.classList.add("hidden");
     }, 200);
 });
+
+Refresh();

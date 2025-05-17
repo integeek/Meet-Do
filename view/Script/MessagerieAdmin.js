@@ -38,56 +38,6 @@ const Refresh = () => {
     };
 }
 
-const Pagination = (data) => {
-    pageData = [];
-    for (let i = 0; i < data.length; i += ligneMax) {
-        pageData.push(data.slice(i, i + ligneMax));
-    }
-    RenderPagination();
-}
-
-const RenderPagination = () => {
-    const paginationContainer = document.getElementsByClassName("pagination-pages")[0];
-    paginationContainer.innerHTML = "";
-    for (let i = 1; i <= pageData.length; i++) {
-        const btn = document.createElement("button");
-        btn.className = "pagination-page" + (i === page ? " active" : "");
-        btn.id = `btn-${i}`;
-        btn.textContent = i;
-        btn.addEventListener("click", () => {
-            page = i;
-            renderTable();
-            RenderPagination();
-        });
-        paginationContainer.appendChild(btn);
-    }
-}
-
-next.addEventListener("click", () => {
-    console.log("next");
-    Next();
-});
-
-back.addEventListener("click", () => {
-    Back();
-});
-
-const Next = () => {
-    if (page < pageData.length) {
-        page++;
-        renderTable();
-        RenderPagination();
-    }
-}
-
-const Back = () => {
-    if (page > 1) {
-        page--;
-        renderTable();
-        RenderPagination();
-    }
-}
-
 const deleteMessage = (id) => {
     var request = new XMLHttpRequest();
     request.open("DELETE", `../../controller/Admin/DeleteMessage.php?id=${id}`, true);
@@ -185,7 +135,22 @@ const setModal = (message) => {
     });
 }
 
-Refresh();
+const RenderPagination = () => {
+    const paginationContainer = document.getElementsByClassName("pagination-pages")[0];
+    paginationContainer.innerHTML = "";
+    for (let i = 1; i <= pageData.length; i++) {
+        const btn = document.createElement("button");
+        btn.className = "pagination-page" + (i === page ? " active" : "");
+        btn.id = `btn-${i}`;
+        btn.textContent = i;
+        btn.addEventListener("click", () => {
+            page = i;
+            renderTable();
+            RenderPagination();
+        });
+        paginationContainer.appendChild(btn);
+    }
+}
 
 const renderTable = () => {
     table.innerHTML = "";
@@ -207,6 +172,39 @@ const renderTable = () => {
         });
     });
 }
+
+const Pagination = (data) => {
+    pageData = [];
+    for (let i = 0; i < data.length; i += ligneMax) {
+        pageData.push(data.slice(i, i + ligneMax));
+    }
+    RenderPagination();
+}
+
+const Next = () => {
+    if (page < pageData.length) {
+        page++;
+        renderTable();
+        RenderPagination();
+    }
+}
+
+const Back = () => {
+    if (page > 1) {
+        page--;
+        renderTable();
+        RenderPagination();
+    }
+}
+
+next.addEventListener("click", () => {
+    console.log("next");
+    Next();
+});
+
+back.addEventListener("click", () => {
+    Back();
+});
 
 select.addEventListener("change", (e) => {
     ligneMax = parseInt(e.target.value);
@@ -230,3 +228,5 @@ Array.from(close).forEach((el) => {
         });
     });
 });
+
+Refresh();

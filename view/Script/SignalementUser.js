@@ -38,56 +38,6 @@ const Refresh = () => {
     };
 }
 
-const Pagination = (data) => {
-    pageData = [];
-    for (let i = 0; i < data.length; i += ligneMax) {
-        pageData.push(data.slice(i, i + ligneMax));
-    }
-    RenderPagination();
-}
-
-const RenderPagination = () => {
-    const paginationContainer = document.getElementsByClassName("pagination-pages")[0];
-    paginationContainer.innerHTML = "";
-    for (let i = 1; i <= pageData.length; i++) {
-        const btn = document.createElement("button");
-        btn.className = "pagination-page" + (i === page ? " active" : "");
-        btn.id = `btn-${i}`;
-        btn.textContent = i;
-        btn.addEventListener("click", () => {
-            page = i;
-            renderTable();
-            RenderPagination();
-        });
-        paginationContainer.appendChild(btn);
-    }
-}
-
-next.addEventListener("click", () => {
-    console.log("next");
-    Next();
-});
-
-back.addEventListener("click", () => {
-    Back();
-});
-
-const Next = () => {
-    if (page < pageData.length) {
-        page++;
-        renderTable();
-        RenderPagination();
-    }
-}
-
-const Back = () => {
-    if (page > 1) {
-        page--;
-        renderTable();
-        RenderPagination();
-    }
-}
-
 const deleteMessage = (id) => {
     var request = new XMLHttpRequest();
     request.open("DELETE", `../../controller/Admin/DeleteSignalement.php?id=${id}`, true);
@@ -120,41 +70,22 @@ const BlockAnnonce = () => {
     request.send(body);
 };
 
-
-buttonBlock.addEventListener("click", (e) => {
-    e.preventDefault();
-    BlockAnnonce();
-    modal.style = "animation: close 0.2s forwards;"
-    setTimeout(() => {
-        modal.classList.add("hidden");
-        Refresh();
-    }, 200);
-});
-
-buttonDelete.addEventListener("click", (e) => {
-    e.preventDefault();
-    deleteMessage(idSignalement);
-    modal.style = "animation: close 0.2s forwards;"
-    setTimeout(() => {
-        modal.classList.add("hidden");
-        Refresh();
-    }, 200);
-});
-
-const setModal = (message) => {
-    const modalTitle = document.getElementById("titleAnnonce");
-    const modalMotif = document.getElementById("motifAnnonce");
-    const modalReason = document.getElementsByClassName("reason-box")[0];
-    console.log(modalTitle, modalMotif, modalReason);
-
-    modalTitle.innerHTML = `<strong>Client: </strong>${message.nom} ${message.prenom}`;
-    modalMotif.innerHTML = `<strong>Motif: </strong>${message.motif}`;
-    modalReason.innerHTML = `<p>${message.raison}</p>`;
-    idClient = message.idClient;
-    idSignalement = message.id;
+const RenderPagination = () => {
+    const paginationContainer = document.getElementsByClassName("pagination-pages")[0];
+    paginationContainer.innerHTML = "";
+    for (let i = 1; i <= pageData.length; i++) {
+        const btn = document.createElement("button");
+        btn.className = "pagination-page" + (i === page ? " active" : "");
+        btn.id = `btn-${i}`;
+        btn.textContent = i;
+        btn.addEventListener("click", () => {
+            page = i;
+            renderTable();
+            RenderPagination();
+        });
+        paginationContainer.appendChild(btn);
+    }
 }
-
-Refresh();
 
 const renderTable = () => {
     table.innerHTML = "";
@@ -176,6 +107,72 @@ const renderTable = () => {
     });
 }
 
+const setModal = (message) => {
+    const modalTitle = document.getElementById("titleAnnonce");
+    const modalMotif = document.getElementById("motifAnnonce");
+    const modalReason = document.getElementsByClassName("reason-box")[0];
+    console.log(modalTitle, modalMotif, modalReason);
+
+    modalTitle.innerHTML = `<strong>Client: </strong>${message.nom} ${message.prenom}`;
+    modalMotif.innerHTML = `<strong>Motif: </strong>${message.motif}`;
+    modalReason.innerHTML = `<p>${message.raison}</p>`;
+    idClient = message.idClient;
+    idSignalement = message.id;
+}
+
+const Pagination = (data) => {
+    pageData = [];
+    for (let i = 0; i < data.length; i += ligneMax) {
+        pageData.push(data.slice(i, i + ligneMax));
+    }
+    RenderPagination();
+}
+
+const Next = () => {
+    if (page < pageData.length) {
+        page++;
+        renderTable();
+        RenderPagination();
+    }
+}
+
+const Back = () => {
+    if (page > 1) {
+        page--;
+        renderTable();
+        RenderPagination();
+    }
+}
+
+next.addEventListener("click", () => {
+    console.log("next");
+    Next();
+});
+
+back.addEventListener("click", () => {
+    Back();
+});
+
+buttonBlock.addEventListener("click", (e) => {
+    e.preventDefault();
+    BlockAnnonce();
+    modal.style = "animation: close 0.2s forwards;"
+    setTimeout(() => {
+        modal.classList.add("hidden");
+        Refresh();
+    }, 200);
+});
+
+buttonDelete.addEventListener("click", (e) => {
+    e.preventDefault();
+    deleteMessage(idSignalement);
+    modal.style = "animation: close 0.2s forwards;"
+    setTimeout(() => {
+        modal.classList.add("hidden");
+        Refresh();
+    }, 200);
+});
+
 select.addEventListener("change", (e) => {
     ligneMax = parseInt(e.target.value);
     page = 1;
@@ -194,3 +191,6 @@ close.addEventListener("click", () => {
         modal.classList.add("hidden");
     }, 200);
 });
+
+
+Refresh();

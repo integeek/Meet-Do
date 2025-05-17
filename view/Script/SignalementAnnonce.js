@@ -38,55 +38,6 @@ const Refresh = () => {
     };
 }
 
-const Pagination = (data) => {
-    pageData = [];
-    for (let i = 0; i < data.length; i += ligneMax) {
-        pageData.push(data.slice(i, i + ligneMax));
-    }
-    RenderPagination();
-}
-
-const RenderPagination = () => {
-    const paginationContainer = document.getElementsByClassName("pagination-pages")[0];
-    paginationContainer.innerHTML = "";
-    for (let i = 1; i <= pageData.length; i++) {
-        const btn = document.createElement("button");
-        btn.className = "pagination-page" + (i === page ? " active" : "");
-        btn.id = `btn-${i}`;
-        btn.textContent = i;
-        btn.addEventListener("click", () => {
-            page = i;
-            renderTable();
-            RenderPagination();
-        });
-        paginationContainer.appendChild(btn);
-    }
-}
-
-next.addEventListener("click", () => {
-    Next();
-});
-
-back.addEventListener("click", () => {
-    Back();
-});
-
-const Next = () => {
-    if (page < pageData.length) {
-        page++;
-        renderTable();
-        RenderPagination();
-    }
-}
-
-const Back = () => {
-    if (page > 1) {
-        page--;
-        renderTable();
-        RenderPagination();
-    }
-}
-
 const deleteMessage = (id) => {
     var request = new XMLHttpRequest();
     request.open("DELETE", `../../controller/Admin/DeleteSignalement.php?id=${idSignalement}`, true);
@@ -120,6 +71,86 @@ const BlockAnnonce = () => {
     request.send(body);
 };
 
+const RenderPagination = () => {
+    const paginationContainer = document.getElementsByClassName("pagination-pages")[0];
+    paginationContainer.innerHTML = "";
+    for (let i = 1; i <= pageData.length; i++) {
+        const btn = document.createElement("button");
+        btn.className = "pagination-page" + (i === page ? " active" : "");
+        btn.id = `btn-${i}`;
+        btn.textContent = i;
+        btn.addEventListener("click", () => {
+            page = i;
+            renderTable();
+            RenderPagination();
+        });
+        paginationContainer.appendChild(btn);
+    }
+}
+
+const setModal = (message) => {
+    const modalTitle = document.getElementById("titleAnnonce");
+    const modalMotif = document.getElementById("motifAnnonce");
+    const modalReason = document.getElementsByClassName("reason-box")[0];
+
+
+    modalTitle.innerHTML = `<strong>Activité: </strong>${message.titre}`;
+    modalMotif.innerHTML = `<strong>Motif: </strong>${message.motif}`;
+    modalReason.innerHTML = `<p>${message.raison}</p>`;
+    idActivite = message.idActivite;
+    idSignalement = message.id;
+}
+
+const renderTable = () => {
+    table.innerHTML = "";
+    pageData[page - 1].forEach((message) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td style="text-align: center;">${message.titre}</td>
+            <td style="text-align: center;">${message.motif}</td>
+            <td style="text-align: center;">${message.dateSignalement}</td>
+            <td style="text-align: center;" id="open-${message.id}"><img src="../assets/img/icons/openFilled-icon.svg" alt="open" style="margin: 0 auto;" class="actions-icons"></td>
+        `;
+        table.appendChild(row);
+        document.getElementById(`open-${message.id}`).addEventListener("click", () => {
+            setModal(message);
+            modal.classList.remove("hidden");
+            modal.style = "animation: show 0.2s forwards;"
+        });
+    });
+}
+
+const Pagination = (data) => {
+    pageData = [];
+    for (let i = 0; i < data.length; i += ligneMax) {
+        pageData.push(data.slice(i, i + ligneMax));
+    }
+    RenderPagination();
+}
+
+const Next = () => {
+    if (page < pageData.length) {
+        page++;
+        renderTable();
+        RenderPagination();
+    }
+}
+
+const Back = () => {
+    if (page > 1) {
+        page--;
+        renderTable();
+        RenderPagination();
+    }
+}
+
+next.addEventListener("click", () => {
+    Next();
+});
+
+back.addEventListener("click", () => {
+    Back();
+});
 
 buttonBlock.addEventListener("click", (e) => {
     e.preventDefault();
@@ -141,40 +172,6 @@ buttonDelete.addEventListener("click", (e) => {
     }, 200);
 });
 
-const setModal = (message) => {
-    const modalTitle = document.getElementById("titleAnnonce");
-    const modalMotif = document.getElementById("motifAnnonce");
-    const modalReason = document.getElementsByClassName("reason-box")[0];
-
-
-    modalTitle.innerHTML = `<strong>Activité: </strong>${message.titre}`;
-    modalMotif.innerHTML = `<strong>Motif: </strong>${message.motif}`;
-    modalReason.innerHTML = `<p>${message.raison}</p>`;
-    idActivite = message.idActivite;
-    idSignalement = message.id;
-}
-
-Refresh();
-
-const renderTable = () => {
-    table.innerHTML = "";
-    pageData[page - 1].forEach((message) => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-            <td style="text-align: center;">${message.titre}</td>
-            <td style="text-align: center;">${message.motif}</td>
-            <td style="text-align: center;">${message.dateSignalement}</td>
-            <td style="text-align: center;" id="open-${message.id}"><img src="../assets/img/icons/openFilled-icon.svg" alt="open" style="margin: 0 auto;" class="actions-icons"></td>
-        `;
-        table.appendChild(row);
-        document.getElementById(`open-${message.id}`).addEventListener("click", () => {
-            setModal(message);
-            modal.classList.remove("hidden");
-            modal.style = "animation: show 0.2s forwards;"
-        });
-    });
-}
-
 select.addEventListener("change", (e) => {
     ligneMax = parseInt(e.target.value);
     page = 1;
@@ -193,3 +190,5 @@ close.addEventListener("click", () => {
         modal.classList.add("hidden");
     }, 200);
 });
+
+Refresh();

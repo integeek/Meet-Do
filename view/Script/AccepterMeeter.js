@@ -39,14 +39,6 @@ const Refresh = () => {
     };
 }
 
-const Pagination = (data) => {
-    pageData = [];
-    for (let i = 0; i < data.length; i += ligneMax) {
-        pageData.push(data.slice(i, i + ligneMax));
-    }
-    RenderPagination();
-}
-
 const RenderPagination = () => {
     const paginationContainer = document.getElementsByClassName("pagination-pages")[0];
     paginationContainer.innerHTML = "";
@@ -61,31 +53,6 @@ const RenderPagination = () => {
             RenderPagination();
         });
         paginationContainer.appendChild(btn);
-    }
-}
-
-next.addEventListener("click", () => {
-    console.log("next");
-    Next();
-});
-
-back.addEventListener("click", () => {
-    Back();
-});
-
-const Next = () => {
-    if (page < pageData.length) {
-        page++;
-        renderTable();
-        RenderPagination();
-    }
-}
-
-const Back = () => {
-    if (page > 1) {
-        page--;
-        renderTable();
-        RenderPagination();
     }
 }
 
@@ -117,6 +84,72 @@ const AcceptMeeter = () => {
     request.send(body);
 };
 
+const setModal = (message) => {
+    const userName = document.getElementById("userName");
+    const userAdress = document.getElementById("userAdress");
+    const description = document.getElementById("description");
+    const userPhone = document.getElementById("userPhone");
+
+    userName.innerHTML = message.nom + " " + message.prenom;
+    userAdress.innerHTML = message.adresse;
+    userPhone.innerHTML = message.telephone;
+    description.innerHTML = message.description;
+    idMeeter = message.id;
+    idClient = message.idClient;
+    Meeter = message;
+}
+
+const renderTable = () => {
+    table.innerHTML = "";
+    pageData[page - 1].forEach((message) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${message.nom}</td>
+            <td>${message.prenom}</td>
+            <td>${message.date}</td>
+            <td style="text-align: center;" id="open-${message.id}"><img src="../assets/img/icons/openFilled-icon.svg" alt="open" style="margin: 0 auto;" class="actions-icons"></td>
+        `;
+        table.appendChild(row);
+        document.getElementById(`open-${message.id}`).addEventListener("click", () => {
+            setModal(message);
+            modal.classList.remove("hidden");
+            modal.style = "animation: show 0.2s forwards;"
+        });
+    });
+}
+
+const Next = () => {
+    if (page < pageData.length) {
+        page++;
+        renderTable();
+        RenderPagination();
+    }
+}
+
+const Back = () => {
+    if (page > 1) {
+        page--;
+        renderTable();
+        RenderPagination();
+    }
+}
+
+const Pagination = (data) => {
+    pageData = [];
+    for (let i = 0; i < data.length; i += ligneMax) {
+        pageData.push(data.slice(i, i + ligneMax));
+    }
+    RenderPagination();
+}
+
+next.addEventListener("click", () => {
+    console.log("next");
+    Next();
+});
+
+back.addEventListener("click", () => {
+    Back();
+});
 
 buttonBlock.addEventListener("click", (e) => {
     e.preventDefault();
@@ -138,42 +171,6 @@ buttonDelete.addEventListener("click", (e) => {
     }, 200);
 });
 
-const setModal = (message) => {
-    const userName = document.getElementById("userName");
-    const userAdress = document.getElementById("userAdress");
-    const description = document.getElementById("description");
-    const userPhone = document.getElementById("userPhone");
-
-    userName.innerHTML = message.nom + " " + message.prenom;
-    userAdress.innerHTML = message.adresse;
-    userPhone.innerHTML = message.telephone;
-    description.innerHTML = message.description;
-    idMeeter = message.id;
-    idClient = message.idClient;
-    Meeter = message;
-}
-
-Refresh();
-
-const renderTable = () => {
-    table.innerHTML = "";
-    pageData[page - 1].forEach((message) => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-            <td>${message.nom}</td>
-            <td>${message.prenom}</td>
-            <td>${message.date}</td>
-            <td style="text-align: center;" id="open-${message.id}"><img src="../assets/img/icons/openFilled-icon.svg" alt="open" style="margin: 0 auto;" class="actions-icons"></td>
-        `;
-        table.appendChild(row);
-        document.getElementById(`open-${message.id}`).addEventListener("click", () => {
-            setModal(message);
-            modal.classList.remove("hidden");
-            modal.style = "animation: show 0.2s forwards;"
-        });
-    });
-}
-
 select.addEventListener("change", (e) => {
     ligneMax = parseInt(e.target.value);
     page = 1;
@@ -192,3 +189,5 @@ close.addEventListener("click", () => {
         modal.classList.add("hidden");
     }, 200);
 });
+
+Refresh();
