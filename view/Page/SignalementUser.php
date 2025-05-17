@@ -64,29 +64,29 @@ if (!isset($_SESSION['user'])) {
                         <img src="../assets/img/icons/arrow-icon.svg" alt="Suivant">
                     </button>
                 </div>
-                    <div class="modal hidden">
-                        <img src="../assets/img/icons/close-icon.svg" alt="Close" class="close" id="closeModal">
-                        <h3 id="modalTitle">Raison du signalement</h3>
-                        <form>
-                            <div style="display:flex; flex-direction:column; gap:10px;">
-                                <p id="titleAnnonce">
-                                    <strong>Activité: </strong>XXXX
-                                </p>
-                            </div>
-                            <div style="display:flex; flex-direction:column; gap:10px;">
-                                <p id="motifAnnonce">
-                                    <strong>Motif: </strong><span>XXXX</span>
-                                </p>
-                            </div>
-                            <div class="reason-box">
-                                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit esse soluta unde quibusdam nesciunt accusantium, voluptate eius! Quasi nesciunt beatae commodi minima aspernatur recusandae, quia dolore voluptate sit culpa sequi!</p>
-                            </div>
-                            <div class="button">
-                                <button type="submit" id="deleteBtn" class="btn btn-primary">Enlever le signalement</button>
-                                <button type="button" id="blockBtn" class="btn btn-danger">Bloquer l'annonce</button>
-                            </div>
-                        </form>
-                    </div>
+                <div class="modal hidden">
+                    <img src="../assets/img/icons/close-icon.svg" alt="Close" class="close" id="closeModal">
+                    <h3 id="modalTitle">Raison du signalement</h3>
+                    <form>
+                        <div style="display:flex; flex-direction:column; gap:10px;">
+                            <p id="titleAnnonce">
+                                <strong>Activité: </strong>XXXX
+                            </p>
+                        </div>
+                        <div style="display:flex; flex-direction:column; gap:10px;">
+                            <p id="motifAnnonce">
+                                <strong>Motif: </strong><span>XXXX</span>
+                            </p>
+                        </div>
+                        <div class="reason-box">
+                            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit esse soluta unde quibusdam nesciunt accusantium, voluptate eius! Quasi nesciunt beatae commodi minima aspernatur recusandae, quia dolore voluptate sit culpa sequi!</p>
+                        </div>
+                        <div class="button">
+                            <button type="submit" id="deleteBtn" class="btn btn-primary">Enlever le signalement</button>
+                            <button type="button" id="blockBtn" class="btn btn-danger">Bloquer l'annonce</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
         </div>
