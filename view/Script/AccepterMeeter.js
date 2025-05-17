@@ -163,7 +163,7 @@ const renderTable = () => {
             <td>${message.nom}</td>
             <td>${message.prenom}</td>
             <td>${message.date}</td>
-            <td style="text-align: center;" id="open-${message.id}"><img src="../assets/img/icons/openFilled-icon.svg" alt="open" style="margin: 0 auto;"></td>
+            <td style="text-align: center;" id="open-${message.id}"><img src="../assets/img/icons/openFilled-icon.svg" alt="open" style="margin: 0 auto;" class="actions-icons"></td>
         `;
         table.appendChild(row);
         document.getElementById(`open-${message.id}`).addEventListener("click", () => {

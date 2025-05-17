@@ -165,7 +165,7 @@ const renderTable = () => {
             <td style="text-align: center;">${message.prenom}</td>
             <td style="text-align: center;">${message.motif}</td>
             <td style="text-align: center;">${message.dateSignalement}</td>
-            <td style="text-align: center;" id="open-${message.id}"><img src="../assets/img/icons/openFilled-icon.svg" alt="open" style="margin: 0 auto;"></td>
+            <td style="text-align: center;" id="open-${message.id}"><img src="../assets/img/icons/openFilled-icon.svg" alt="open" style="margin: 0 auto;" class="actions-icons"></td>
         `;
         table.appendChild(row);
         document.getElementById(`open-${message.id}`).addEventListener("click", () => {

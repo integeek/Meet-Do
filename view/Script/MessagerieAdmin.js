@@ -4,6 +4,12 @@ const back = document.getElementById("prev-page");
 const select = document.getElementsByClassName("select-search")[0];
 const nombreClient = document.getElementById("clientNumber");
 const searchInput = document.getElementsByClassName("search-input")[0];
+const close = document.getElementsByClassName("close");
+const modal = document.getElementsByClassName("modal");
+const deleteBtn = document.getElementById("deleteBtn");
+const answerBtn = document.getElementById("answerBtn");
+const cancelBtn = document.getElementById("cancelBtn");
+const sendBtn = document.getElementById("sendBtn");
 let page = 1;
 let ligneMax = 5;
 let pageData = [];
@@ -103,6 +109,82 @@ const deleteMessage = (id) => {
     };
 }
 
+const sendMessage = (message) => {
+    var request = new XMLHttpRequest();
+    request.open("POST", `../../controller/Admin/SendForumaire.php`, true);
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send(JSON.stringify(message));
+}
+
+const setModal2 = (message) => {
+    const message2 = document.getElementById("message");
+    const answerMessage = document.getElementById("answerMessage");
+    answerMessage.innerHTML = "";
+    message2.innerHTML = message.message;
+
+    cancelBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        modal[1].style = "animation: close 0.2s forwards;";
+        setTimeout(() => {
+            modal[1].classList.add("hidden");
+            modal[0].classList.remove("hidden");
+            modal[0].style = "animation: show 0.2s forwards;"
+        }, 200);
+    });
+
+    sendBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        sendMessage({
+            message: answerMessage.value,
+            userName: `${message.nom} ${message.prenom}`,
+            sujet: message.sujet,
+            email: message.email,
+            id: message.id
+        });
+        modal[1].style = "animation: close 0.2s forwards;";
+        setTimeout(() => {
+            modal[1].classList.add("hidden");
+            answerMessage.value = "";
+            Refresh();
+        }, 200);
+    });
+}
+
+const setModal = (message) => {
+    const userMessage = document.getElementById("userMessage");
+    const userName = document.getElementById("userName");
+    const userEmail = document.getElementById("userEmail");
+    const userTitle = document.getElementById("userTitle");
+
+    userMessage.innerHTML = message.message;
+    userName.innerHTML = `${message.nom} ${message.prenom}`;
+    userEmail.innerHTML = message.email;
+    userTitle.innerHTML = message.sujet;
+
+    deleteBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        deleteMessage(message.id);
+        modal[0].style = "animation: close 0.2s forwards;";
+        setTimeout(() => {
+            Array.from(modal).forEach((el2) => {
+                el2.classList.add("hidden");
+            });
+            Refresh();
+        }, 200);
+    });
+
+    answerBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        modal[0].style = "animation: close 0.1s forwards;";
+        setModal2(message);
+        setTimeout(() => {
+            modal[0].classList.add("hidden");
+            modal[1].classList.remove("hidden");
+            modal[1].style = "animation: show 0.1s forwards;"
+        }, 200);
+    });
+}
+
 Refresh();
 
 const renderTable = () => {
@@ -115,20 +197,13 @@ const renderTable = () => {
             <td>${message.email}</td>
             <td>${message.sujet}</td>
             <td>${message.dateEnvoie}</td>
-            <td>
-                <div class="icon-actions">
-                    <img src="../assets/img/icons/eye-open-icon.svg" alt="">
-                    <img src="../assets/img/icons/icon-trash.svg" alt="" id="delete-${message.id}">
-                </div>
-            </td>
+            <td style="text-align: center;" id="open-${message.id}"><img src="../assets/img/icons/openFilled-icon.svg" alt="open" style="margin: 0 auto;" class="actions-icons"></td>
         `;
         table.appendChild(row);
-        document.getElementById(`delete-${message.id}`).addEventListener("click", () => {
-            const confirmDelete = confirm(`Êtes-vous sûr de vouloir supprimer ce message de contact de ${message.nom} ${message.prenom}?`);
-            if (confirmDelete) {
-                deleteMessage(message.id);
-                Refresh();
-            }
+        document.getElementById(`open-${message.id}`).addEventListener("click", () => {
+            setModal(message);
+            modal[0].classList.remove("hidden");
+            modal[0].style = "animation: show 0.2s forwards;"
         });
     });
 }
@@ -143,4 +218,15 @@ searchInput.addEventListener("input", (e) => {
     search = e.target.value;
     page = 1;
     Refresh();
+});
+
+Array.from(close).forEach((el) => {
+    el.addEventListener("click", () => {
+        Array.from(modal).forEach((el2) => {
+            el2.style = "animation: close 0.2s forwards;";
+            setTimeout(() => {
+                el2.classList.add("hidden");
+            }, 200);
+        });
+    });
 });
