@@ -6,9 +6,9 @@ require_once("../../model/bdd.php");
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $search = $_GET["search"];
         if ($search != "") {
-                $sql = "SELECT Signalement.idSignalement AS 'id', Client.nom, Client.prenom, Signalement.dateSignalement FROM `Signalement` INNER JOIN Client ON Signalement.idSignaler = Client.idClient WHERE Signalement.type = 'Activité' AND nom LIKE '%$search%' OR prenom LIKE '%$search%' OR dateSignalement LIKE '%$search%'";
+                $sql = "SELECT Signalement.idSignalement AS 'id', Signalement.idActivite AS 'idActivite', Activite.titre, Signalement.enumSignalementActivité AS 'motif', Signalement.description AS 'raison', Signalement.dateSignalement FROM `Signalement` INNER JOIN Activite ON Activite.idActivite = Signalement.idActivite WHERE Signalement.type = 'Activité' AND titre LIKE '%$search%' OR motif LIKE '%$search%'";
         } else {
-                $sql = "SELECT Signalement.idSignalement AS 'id', Client.nom, Client.prenom, Signalement.dateSignalement FROM `Signalement` INNER JOIN Client ON Signalement.idSignaler = Client.idClient WHERE Signalement.type = 'Activité'";
+                $sql = "SELECT Signalement.idSignalement AS 'id', Signalement.idActivite AS 'idActivite', Activite.titre, Signalement.enumSignalementActivité AS 'motif', Signalement.description AS 'raison', Signalement.dateSignalement FROM `Signalement` INNER JOIN Activite ON Activite.idActivite = Signalement.idActivite WHERE Signalement.type = 'Activité';";
         }
         $query = $db->prepare($sql);
         $query->execute();

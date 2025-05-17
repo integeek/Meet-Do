@@ -61,7 +61,7 @@ td .icon-actions img {
     appearance: none;
     outline: none;
     border: none;
-    background-color:#d9d9d9;
+    background-color: #d9d9d9;
 }
 
 .pagination-pages button:hover {
@@ -84,7 +84,7 @@ td .icon-actions img {
     appearance: none;
     outline: none;
     border: none;
-    background-color:#d9d9d9;
+    background-color: #d9d9d9;
 }
 
 .pagination-arrow:hover {
@@ -92,6 +92,139 @@ td .icon-actions img {
     cursor: pointer;
 }
 
-main {
-    color: #000;
+.modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30%;
+    height: 65%;
+    z-index: 10;
+    overflow: auto;
+    border: #D9D9D9 solid 1px;
+    background-color: #d9d9d9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    padding: 1rem;
+}
+
+.hidden {
+    display: none;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 2rem;
+    /* Ajoute un espace de 16px entre les éléments enfants */
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+form .button {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    width: 90%;
+    justify-content: space-between;
+}
+
+form button {
+    color: white;
+    font-family: "Inter";
+    font-size: 1rem;
+    outline: none;
+    border: none;
+    font-family: "Inter";
+    border-radius: 10px;
+    padding: 12px;
+    margin: 0 1rem;
+}
+
+#deleteBtn {
+    background-color: #ff4d4d;
+}
+
+#blockBtn {
+    background-color: #64a0fb;
+}
+
+form input {
+    display: block;
+    height: 1rem;
+    border-radius: 10px;
+    outline: none;
+    border: 1px solid black;
+    padding: 8px;
+    font-family: "Inter";
+}
+
+form select {
+    display: block;
+    background-color: #f3f3f3;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    padding: 15px;
+    font-family: "Inter";
+    font-size: 1rem;
+    outline: none;
+    border: none;
+}
+
+@keyframes show {
+    0% {
+        opacity: 0;
+        scale: 0.6;
+    }
+
+    100% {
+        opacity: 1;
+        scale: 1;
+    }
+}
+
+@keyframes close {
+    0% {
+        opacity: 1;
+        scale: 1;
+    }
+
+    100% {
+        opacity: 0;
+        scale: 0.6;
+    }
+}
+
+.actions-icons,
+#submitBtn,
+#blockBtn,
+#deleteBtn {
+    cursor: pointer;
+}
+
+.box {
+    display: block;
+    background-color: #f3f3f3;
+    border: black solid 1px;
+    border-radius: 10px;
+    padding: 1rem;
+    overflow-y: scroll;
+}
+
+p {
+    margin: 0;
+}
+
+.icon {
+    width: 4rem;
+    height: 4rem;
 }
