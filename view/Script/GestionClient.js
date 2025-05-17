@@ -125,9 +125,8 @@ buttonUpdate.addEventListener("click", (e) => {
     modal.style = "animation: close 0.2s forwards;"
     setTimeout(() => {
         modal.classList.add("hidden");
+        Refresh();
     }, 200);
-    Refresh();
-
 });
 
 Refresh();

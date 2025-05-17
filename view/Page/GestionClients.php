@@ -90,7 +90,6 @@ if (!isset($_SESSION['user'])) {
                         </div>
                         <button type="submit" id="submitBtn" class="btn btn-primary">Modifier</button>
                     </form>
-
                 </div>
             </div>
         </div>

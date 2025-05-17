@@ -4,8 +4,8 @@ require_once("../../model/bdd.php");
 
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
         $id = $_GET["id"];
+        
         $sql = "DELETE FROM Signalement WHERE idSignalement = $id";
-        echo $sql;
         $query = $db->prepare($sql);
         $query->execute();
         $jsonData = $query->fetchAll(PDO::FETCH_ASSOC);

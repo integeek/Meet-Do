@@ -4,6 +4,12 @@ const back = document.getElementById("prev-page");
 const select = document.getElementsByClassName("select-search")[0];
 const nombreClient = document.getElementById("clientNumber");
 const searchInput = document.getElementsByClassName("search-input")[0];
+const close = document.getElementById("closeModal");
+const modal = document.getElementsByClassName("modal")[0];
+const buttonBlock = document.getElementById("blockBtn");
+const buttonDelete = document.getElementById("deleteBtn");
+let idActivite = 0;
+let idSignalement = 0;
 let page = 1;
 let ligneMax = 5;
 let pageData = [];
@@ -58,7 +64,6 @@ const RenderPagination = () => {
 }
 
 next.addEventListener("click", () => {
-    console.log("next");
     Next();
 });
 
@@ -84,7 +89,7 @@ const Back = () => {
 
 const deleteMessage = (id) => {
     var request = new XMLHttpRequest();
-    request.open("DELETE", `../../controller/Admin/DeleteSignalement.php?id=${id}`, true);
+    request.open("DELETE", `../../controller/Admin/DeleteSignalement.php?id=${idSignalement}`, true);
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     request.send();
 
@@ -103,6 +108,52 @@ const deleteMessage = (id) => {
     };
 }
 
+const BlockAnnonce = () => {
+    var request = new XMLHttpRequest();
+    request.open("POST", `../../controller/Admin/BlockActivite.php`, true);
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    const body = JSON.stringify({
+        idActivite: idActivite
+    });
+
+    request.send(body);
+};
+
+
+buttonBlock.addEventListener("click", (e) => {
+    e.preventDefault();
+    BlockAnnonce();
+    modal.style = "animation: close 0.2s forwards;"
+    setTimeout(() => {
+        modal.classList.add("hidden");
+        Refresh();
+    }, 200);
+});
+
+buttonDelete.addEventListener("click", (e) => {
+    e.preventDefault();
+    deleteMessage(idActivite);
+    modal.style = "animation: close 0.2s forwards;"
+    setTimeout(() => {
+        modal.classList.add("hidden");
+        Refresh();
+    }, 200);
+});
+
+const setModal = (message) => {
+    const modalTitle = document.getElementById("titleAnnonce");
+    const modalMotif = document.getElementById("motifAnnonce");
+    const modalReason = document.getElementsByClassName("reason-box")[0];
+
+
+    modalTitle.innerHTML = `<strong>Activité: </strong>${message.titre}`;
+    modalMotif.innerHTML = `<strong>Motif: </strong>${message.motif}`;
+    modalReason.innerHTML = `<p>${message.raison}</p>`;
+    idActivite = message.idActivite;
+    idSignalement = message.id;
+}
+
 Refresh();
 
 const renderTable = () => {
@@ -110,12 +161,17 @@ const renderTable = () => {
     pageData[page - 1].forEach((message) => {
         const row = document.createElement("tr");
         row.innerHTML = `
-            <td style="text-align: center;">${message.nom}</td>
-            <td style="text-align: center;">${message.prenom}</td>
+            <td style="text-align: center;">${message.titre}</td>
+            <td style="text-align: center;">${message.motif}</td>
             <td style="text-align: center;">${message.dateSignalement}</td>
-            <td style="text-align: center;"><img src="../assets/img/icons/openFilled-icon.svg" alt="open" style="margin: 0 auto;"></td>
+            <td style="text-align: center;" id="open-${message.id}"><img src="../assets/img/icons/openFilled-icon.svg" alt="open" style="margin: 0 auto;"></td>
         `;
         table.appendChild(row);
+        document.getElementById(`open-${message.id}`).addEventListener("click", () => {
+            setModal(message);
+            modal.classList.remove("hidden");
+            modal.style = "animation: show 0.2s forwards;"
+        });
     });
 }
 
@@ -129,4 +185,11 @@ searchInput.addEventListener("input", (e) => {
     search = e.target.value;
     page = 1;
     Refresh();
+});
+
+close.addEventListener("click", () => {
+    modal.style = "animation: close 0.2s forwards;"
+    setTimeout(() => {
+        modal.classList.add("hidden");
+    }, 200);
 });
