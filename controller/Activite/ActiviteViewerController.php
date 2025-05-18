@@ -25,7 +25,7 @@ $sqlActivite = "
         a.idMeeter,
         m.description AS meeterDescription
     FROM Activite a
-    INNER JOIN Meeter m ON a.idMeeter = m.idMeeter
+    INNER JOIN Client m ON a.idMeeter = m.idClient
     WHERE a.idActivite = :id
       AND a.isVisible = 1
       AND (a.isDisabled IS NULL OR a.isDisabled = 0)
