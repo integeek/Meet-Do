@@ -55,7 +55,7 @@
 .validator-criters {
     padding: 10px 3px;
     margin: auto;
-    display: none;
+    display: hidden;
   }
   
 .validator-criters span {

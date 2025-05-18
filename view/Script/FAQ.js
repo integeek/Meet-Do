@@ -1,9 +1,58 @@
-const themes = ["Theme", "comptes", "reservations", "reglements", "bugs"];
-
 const container = document.querySelector('.collapse-container');
 const newQeustion = document.querySelector('#new-question-button');
 let theme = "";
+let role = "";
 
+const GetTheme = () => {
+    var request = new XMLHttpRequest();
+    request.open("GET", `../../controller/Faq/Theme.php`, true);
+    request.send();
+
+    request.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            try {
+                // Parse the JSON response
+                const responseData = JSON.parse(this.responseText);
+                themes = responseData;
+                console.log(themes, "themes");
+                Theme();
+                Selector();
+            } catch (error) {
+                console.error("Error parsing JSON response:", error);
+            }
+        } else if (this.readyState == 4) {
+            console.error("Error: Unable to fetch data. Status:", this.status);
+        }
+    };
+}
+
+GetTheme();
+
+const GetUserId = () => {
+  var request = new XMLHttpRequest();
+  request.open("GET", "./../../controller/Navbar/Navbar.php", true);
+  request.send();
+
+  request.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      try {
+        const responseData = JSON.parse(this.responseText);
+        console.log(responseData, "userId");
+        if (responseData.success) {
+          role = responseData.user.role;
+        } else {
+          console.error("Error:", responseData.message);
+        }
+      } catch (error) {
+        console.error("Error parsing JSON response:", error);
+      }
+    } else if (this.readyState == 4) {
+      console.error("Error: Unable to fetch data. Status:", this.status);
+    }
+  };
+};
+
+GetUserId();
 
 const Refresh = () => {
   var request = new XMLHttpRequest();
@@ -29,14 +78,15 @@ const Refresh = () => {
 Refresh();
 
 const Theme = () => {
-  select.innerHTML = themes.map((item, index) => {
+  select.innerHTML = `
+    <option value="" disabled selected>Thème</option>
+  `;
+  select.innerHTML += themes.map((item) => {
     return `
-      <option value="${item}" ${index === 0 ? "disabled selected" : ""}>${item}</option>
+      <option value="${item.Theme}">${item.Theme}</option>
       `;
   }).join('');
 }
-
-Theme();
 
 const Selector = () => {
   const select = document.querySelector('#select');
@@ -55,8 +105,6 @@ const Selector = () => {
   });
 }
 
-Selector();
-
 const ThemeSelected = () => {
   const croixselected = document.querySelector('#croix-selected');
   croixselected?.addEventListener('click', () => {
@@ -73,7 +121,6 @@ const ThemeSelected = () => {
 }
 
 const renderFaqContent = () => {
-  console.log(data, "data");
   container.innerHTML = data
     .map((item, index) => {
       return `
@@ -81,10 +128,12 @@ const renderFaqContent = () => {
           <button type="button" class="collapse-title alone" id="${item.id}btn">
               <h3>${item.question}</h3>
               <div class="grow"></div>
+        ${role == "Administrateur" ? `
               <image onclick="openPopUp1()" class="pen" src="../assets/img/pen.png" id="${item.id
-        }img-pen"></image>
+          }img-pen"></image>
               <image class="trash" src="../assets/img/trash.png" id="${item.id
-        }img-trash"></image>
+          }img-trash"></image> `
+          : ""}
               <image class="chevron" src="../assets/img/chevron.png" id="${item.id
         }img"></image>
           </button>
@@ -95,7 +144,6 @@ const renderFaqContent = () => {
       `;
     })
     .join("");
-
   attachEventListeners();
 };
 
@@ -104,36 +152,39 @@ const attachEventListeners = () => {
     const button = document.getElementById(`${item.id}btn`);
     const content = document.getElementById(`${item.id}p`);
     const chevron = document.getElementById(`${item.id}img`);
-    const pen = document.getElementById(`${item.id}img-pen`);
-    const trash = document.getElementById(`${item.id}img-trash`);
+
+    if (role == "Administrateur") {
+      const pen = document.getElementById(`${item.id}img-pen`);
+      const trash = document.getElementById(`${item.id}img-trash`);
+
+      trash.addEventListener("click", () => {
+        if (confirm("Voulez-vous vraiment supprimer cette question ?")) {
+          console.log("Suppression de la question" + item.id);
+        } else {
+          console.log("Annulation de la suppression");
+        }
+        content.classList.toggle("hidden");
+        button.classList.toggle("alone");
+        chevron.style.transform =
+          (chevron.style.transform === "") |
+            (chevron.style.transform === "rotate(0deg)")
+            ? "rotate(180deg)"
+            : "rotate(0deg)";
+      });
+
+      pen.addEventListener("click", () => {
+        console.log("Modification de la question" + item.id);
+        content.classList.toggle("hidden");
+        button.classList.toggle("alone");
+        chevron.style.transform =
+          (chevron.style.transform === "") |
+            (chevron.style.transform === "rotate(0deg)")
+            ? "rotate(180deg)"
+            : "rotate(0deg)";
+      });
+    }
 
     button.addEventListener("click", () => {
-      content.classList.toggle("hidden");
-      button.classList.toggle("alone");
-      chevron.style.transform =
-        (chevron.style.transform === "") |
-          (chevron.style.transform === "rotate(0deg)")
-          ? "rotate(180deg)"
-          : "rotate(0deg)";
-    });
-
-    trash.addEventListener("click", () => {
-      if (confirm("Voulez-vous vraiment supprimer cette question ?")) {
-        console.log("Suppression de la question" + item.id);
-      } else {
-        console.log("Annulation de la suppression");
-      }
-      content.classList.toggle("hidden");
-      button.classList.toggle("alone");
-      chevron.style.transform =
-        (chevron.style.transform === "") |
-          (chevron.style.transform === "rotate(0deg)")
-          ? "rotate(180deg)"
-          : "rotate(0deg)";
-    });
-
-    pen.addEventListener("click", () => {
-      console.log("Modification de la question" + item.id);
       content.classList.toggle("hidden");
       button.classList.toggle("alone");
       chevron.style.transform =

@@ -33,7 +33,7 @@ unset($_SESSION["erreur"]);
                         <input class="textbox" type="password" id="password" name="password" required>
                         <img class="togglePassword" src="../assets/img/ouvert.png" alt="Afficher/Masquer" >
                     </div>
-                    <p onclick="openPopUp()">Mot de passe oublié ?</p>
+                    <p onclick="openPopUp('popup')">Mot de passe oublié ?</p>
                     <div>
                         <p id="pasCompte">Pas de compte ?</p> <a  id="sinscire" href="Inscription.php">S'inscrire</a>
                     </div>
@@ -58,12 +58,12 @@ unset($_SESSION["erreur"]);
                     <p>Email</p>
                     <input class="textbox" type="text" name="emailSend" required>
                     <div class="popup-buttons">
-                        <div id="bouton-rouge" onclick="closePopUp()"></div>
+                        <div id="bouton-rouge" onclick="closePopUp('popup')"></div>
                         <div id="bouton-bleue"></div>
                     </div>
                 </form>
                 <script src="../component/BoutonRouge.js"></script>
-                <div id="bouton-rouge" onclick="closePopUp()"></div>
+                <div id="bouton-rouge" onclick="closePopUp('popup')"></div>
                 <script>
                     document.getElementById('bouton-rouge').innerHTML = BoutonRouge("Annuler");
                 </script>

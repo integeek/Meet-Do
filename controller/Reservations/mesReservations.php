@@ -1,12 +1,25 @@
+<?php
+
+session_start();
+
+if (!isset($_SESSION['user']['email'])) {
+    header("Location: ../../view/page/Connexion.php");
+    exit;
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../view/Style/fondReservations.css">
+    <link rel="stylesheet" href="../../view/Style/mesReservations.css">
     <link rel="stylesheet" href="../../view/component/Navbar/Navbar.css" />
     <link rel="stylesheet" href="../../view/component/Footer/Footer.css" />
     <link rel="stylesheet" href="../../view/component/BoutonBleu.css" />
+    <link rel="stylesheet" href="../../view/Style/noReservations.css">
     <link rel="stylesheet" type="text/css" href="../../view/component/BoutonRouge.css">
     <script src="../../view/component/BoutonBleu.js"></script>
     <script src="../../view/component/BoutonRouge.js"></script>
@@ -15,36 +28,26 @@
 <body>
     <header>
         <div class="navbar-container" id="navbar-container"></div>
-        <script src="../../view/component/Navbar/Navbar.js"></script>
+        <script src="../../view/component/Navbar/NavbarCompte.js"></script>
         <script>
-            document.getElementById("navbar-container").innerHTML = Navbar(
-            true,
+            document.getElementById("navbar-container").innerHTML = NavbarCompte(
             "../../view"
             );
         </script>
         <h1>Mes Réservations :</h1>
     </header>
     <main>
-    <div class="reservation-list">
         <?php
-            session_start();
-
-            if (!isset($_SESSION['user']['email'])) {
-                header("Location: ../../view/page/Connexion.php");
-                exit;
-            }
-
-            $host = '127.0.0.1';
-            $dbname = 'test_meetdo1';
-            $user = 'root';
-            $pass = '';
-
             try {
-                $pdo = new PDO("mysql:host=$host;port=3306;dbname=$dbname;charset=utf8", $user, $pass);
-                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $db = new PDO(
+                    "mysql:host=144.76.54.100;dbname=MeetDo;charset=utf8",
+                    "meetndodatabase",
+                    "AppG10-D",
+                    [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
+                );
                 $email = $_SESSION['user']['email'];
                 $sql = "SELECT idClient FROM Client WHERE email = :email";
-                $stmt = $pdo->prepare($sql);
+                $stmt = $db->prepare($sql);
                 $stmt->bindValue(':email', $email, PDO::PARAM_STR);
                 $stmt->execute();
 
@@ -57,12 +60,12 @@
                 }
 
 
-                $stmt =  $pdo->prepare("
-                    SELECT activite.titre, activite.adresse, activite.prix, evenement.dateEvenement, reservation.nbPlace, reservation.idReservation
-                    FROM reservation
-                    INNER JOIN evenement ON reservation.idEvenement = evenement.idEvenement
-                    INNER JOIN activite ON evenement.idActivite = activite.idActivite
-                    WHERE reservation.idClient = :idClient
+                $stmt =  $db->prepare("
+                    SELECT Activite.titre, Activite.adresse, Activite.prix, Evenement.dateEvenement, Reservation.nbPlace, Reservation.idReservation
+                    FROM Reservation
+                    INNER JOIN Evenement ON Reservation.idEvenement = Evenement.idEvenement
+                    INNER JOIN Activite ON Evenement.idActivite = Activite.idActivite
+                    WHERE Reservation.idClient = :idClient
                 ");
 
                 $stmt->execute([':idClient' => $idClient]);
@@ -123,20 +126,22 @@
                     ";
                 }
 
-                if (empty($reservations)) {
+
+                if (empty($reservations)) { 
                     include_once '../../view/Page/noReservations.php';
                     exit;
-                }
-                    
-                foreach ($reservations as $resa) {
-                    echo resaComponent(
-                        $resa['titre'],
-                        $resa['adresse'],
-                        $resa['dateEvenement'],
-                        $resa['nbPlace'],
-                        $resa['prix'],
-                        $resa['idReservation']
-                    );
+                } else {
+                    echo "<div class='reservation-list'>";
+                    foreach ($reservations as $resa) {
+                        echo resaComponent(
+                            $resa['titre'],
+                            $resa['adresse'],
+                            $resa['dateEvenement'],
+                            $resa['nbPlace'],
+                            $resa['prix'],
+                            $resa['idReservation']
+                        );
+                    }
                 }
 
             } catch (PDOException $e) {

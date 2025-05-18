@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 $messageErreur = $_SESSION["erreur"] ?? "";
 unset($_SESSION["erreur"]);
@@ -37,10 +37,16 @@ unset($_SESSION["erreur"]);
                 <select id="select"></select>
             </div>
             <div class="grow"></div>
-            <button type="button" id="new-question-button">
+            <?php if (isset($_SESSION['user']) && ($_SESSION['user']['role'] === "Administrateur" || $_SESSION['user']['role'] === "Client")): ?>
+                <button type="button" id="new-question-button">
+                    <p>Ajouter une question</p>
+                    <img src="../assets/img/message.png" alt="message icon" id="message-icon" />
+                </button>
+            <?php endif; ?>
+            <!-- <button type="button" id="new-question-button">
                 <p>Ajouter une question</p>
                 <img src="../assets/img/message.png" alt="message icon" id="message-icon" />
-            </button>
+            </button> -->
         </div>
         <div class="collapse-container">
 

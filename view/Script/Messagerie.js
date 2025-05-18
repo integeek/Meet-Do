@@ -17,8 +17,19 @@ const Refresh = () => {
                 // Parse the JSON response
                 const responseData = JSON.parse(this.responseText);
                 Sidedata = responseData;
+                if (responseData.message === 'La table est vide.') {
+                    document.getElementsByTagName('main')[0].innerHTML = `
+                    <h1>Messagerie</h1>
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; margin-top: 5rem;">
+                        <img src="../../view/assets/img/icons/warning-icon.svg" alt="warning-icon" id="warning-icon" />
+                        <h2 id="warning-text">Aucun message trouvé.</h2>
+                        <p id="warning-subtext">Vous n'avez pas encore de messages.</p>
+                    </div>
+                    `;
+                } else {
+                    renderSideBar();
+                }
 
-                renderSideBar();
 
             } catch (error) {
                 console.error("Error parsing JSON response:", error);
@@ -63,7 +74,7 @@ const sendMessageFunction = (message) => {
         idRecepteur: message.idRecepteur,
         file: message.attachment
     });
-    
+
     request.send(body);
 
     request.onreadystatechange = function () {
@@ -91,14 +102,14 @@ const RefreshMessage = () => {
             `;
     messageContent.innerHTML += MessageData.map(message => {
         return `
-                    <div class="message-message ${talkID == message.senderId ? "" : "message-message-own"}">
-                        <p class="message-date">${message.date + " " + message.time}</p>
-                        <div class="message-text">
-                            ${message.attachment ? `<img src="../assets/img/macaron1.jpeg" alt="attachment" class="attachment" />` : `<p>${message.content}</p>`}
-                            
-                        </div>
-                    </div>
-                `;
+            <div class="message-message ${talkID == message.senderId ? "" : "message-message-own"}">
+            <p class="message-date">${message.date + " " + new Date(new Date("1970-01-01T" + message.time + "Z").getTime() + 1 * 60 * 60 * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}</p>
+            <div class="message-text">
+            ${message.attachment ? `<img src="../assets/img/macaron1.jpeg" alt="attachment" class="attachment" />` : `<p>${message.content}</p>`}
+            
+            </div>
+            </div>
+            `;
     }).join('');
     messageContent.scrollTop = messageContent.scrollHeight - messageContent.clientHeight;
 };
@@ -131,7 +142,12 @@ const renderSideBar = () => {
             setTimeout(() => {
                 messageContent.style = "animation: none;";
             }, 500);
+            document.querySelector('.message-input').classList.remove('invisible');
         }, 500);
+        setInterval(() => {
+            Refresh2();
+            RefreshMessage();
+        }, 5000);
     })
 }
 
@@ -161,10 +177,10 @@ sendMessage.addEventListener('click', () => {
         //     content: file?.files.length > 0 ? file.files[0].name : sendText.value,
         //     attachment: file?.files.length > 0
         // };
-        sendMessageFunction({content: file?.files.length > 0 ? file.files[0].name : sendText.value, attachment: file?.files.length > 0, idRecepteur : talkID});
+        sendMessageFunction({ content: file?.files.length > 0 ? file.files[0].name : sendText.value, attachment: file?.files.length > 0, idRecepteur: talkID });
         const attachmentLabel = document.getElementById('send-attachment');
         if (sendText.value !== "") {
-             sendText.style = "animation: send 1s forwards;"
+            sendText.style = "animation: send 1s forwards;"
         } else {
             attachmentLabel.style = "animation: send 1s forwards;"
         }
@@ -174,7 +190,7 @@ sendMessage.addEventListener('click', () => {
         // file = null;
         // attachmentInput.value = null;
         // attachmentLabel.innerHTML = `<img src="../assets/img/icons/attachFile.svg" alt="file">`;
-        
+
         setTimeout(() => {
             sendText.style = "animation: none;"
             attachmentLabel.style = "animation: none;"

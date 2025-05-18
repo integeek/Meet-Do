@@ -1,8 +1,4 @@
-<?php
-session_start();
-$messageErreur = $_session["erreur"] ?? "";
-unset($_SESSION["erreur"]);
-?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,6 +12,7 @@ unset($_SESSION["erreur"]);
     <link rel="stylesheet" href="../component/ActivityCard/ActivityCard.css">
     <!--<script src="activityCard.js" defer></script>-->
     <link rel="stylesheet" type="text/css" href="../component/Footer/Footer.css">
+    <link rel="stylesheet" href="../Style/Accueil.css">
 </head>
 
 <body>
@@ -29,6 +26,11 @@ unset($_SESSION["erreur"]);
         </script>
     </header>
     <main>
+    <?php if (isset($_SESSION['user'])): ?>
+        <h1 class="message-bienvenue">Ravi de vous revoir sur Meet&Do <span style="color: #004AAD;"><?= htmlspecialchars($_SESSION['user']['prenom']) ?></span> !</h1>
+    <?php else: ?>
+        <h1 class="message-bienvenue">Bienvenue sur Meet&Do !</h1>
+    <?php endif; ?>
         <div id="search-bar"></div>
         <script src="../component/SearchBar/SearchBar.js"></script>
         <script>

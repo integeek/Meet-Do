@@ -21,7 +21,7 @@ $query = $db -> prepare($sql);
         die("token expired");
     }
 
-    $password = $_POST["pass1"];
+    $password = $_POST["password"];
     $password2 = $_POST["pass2"];
     if($password != $password2){
         die("Les mots de passe ne correspondent pas");
@@ -61,6 +61,8 @@ $query = $db -> prepare($sql);
                     "password" => $pass,
                     "id" => $result["idClient"],
                 ]);
-        
+
+        header("Location: ../../view/Page/Connexion.php");
+
         echo "Mot de passe mis à jour avec succès !";
 ?>

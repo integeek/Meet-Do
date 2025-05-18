@@ -6,18 +6,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $query->execute();
     $nombreClient = $query->fetchAll(PDO::FETCH_ASSOC);
 
-    $sql2 = "SELECT COUNT(*) AS 'number' FROM `Activite`;";
+    $sql2 = "SELECT COUNT(*) AS 'number' FROM `Activite` WHERE DAY(Activite.dateCreation) = DAY(NOW());";
     $query = $db->prepare($sql2);
     $query->execute();
     $nombreActivite = $query->fetchAll(PDO::FETCH_ASSOC);
 
-    $sql3 = "SELECT enumActivites AS 'activity', COUNT(*) AS 'number'  FROM Activite GROUP BY enumActivites;";
+    $sql3 = "SELECT Categorie.nom AS 'activity', COUNT(*) AS 'number' FROM Activite INNER JOIN Categorie ON Categorie.idCategorie = Activite.theme GROUP BY Categorie.nom;";
     $query = $db->prepare($sql3);
     $query->execute();
     $nombreActiviteTheme = $query->fetchAll(PDO::FETCH_ASSOC);
 
     $sql4 = "
-                SELECT    
+        SELECT    
             SUM(CASE MONTH(dateCreation) WHEN 1 THEN 1 ELSE 0 END) AS 'janvier',
             SUM(CASE MONTH(dateCreation) WHEN 1 THEN 1 ELSE 0 END) AS 'fevrier',
             SUM(CASE MONTH(dateCreation) WHEN 1 THEN 1 ELSE 0 END) AS 'mars',
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             SUM(CASE MONTH(dateCreation) WHEN 1 THEN 1 ELSE 0 END) AS 'octobre',
             SUM(CASE MONTH(dateCreation) WHEN 1 THEN 1 ELSE 0 END) AS 'novembre',
             SUM(CASE MONTH(dateCreation) WHEN 1 THEN 1 ELSE 0 END) AS 'decembre'
-            FROM Activite;";
+        FROM Activite;";
     $query = $db->prepare($sql4);
     $query->execute();
     $nombreActiviteMois = $query->fetchAll(PDO::FETCH_ASSOC);
