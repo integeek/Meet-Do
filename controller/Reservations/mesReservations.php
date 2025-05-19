@@ -23,7 +23,7 @@ if (!isset($_SESSION['user']['email'])) {
     <link rel="stylesheet" type="text/css" href="../../view/component/BoutonRouge.css">
     <script src="../../view/component/BoutonBleu.js"></script>
     <script src="../../view/component/BoutonRouge.js"></script>
-    <title>Document</title>
+    <title>Mes Réservations | Meet&Do</title>
 </head>
 <body>
     <header>
