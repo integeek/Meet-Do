@@ -1,4 +1,13 @@
 <?php
+session_start();
+if (!isset($_SESSION['user'])) {
+    header('Location: Connexion.php');
+    exit;
+} else if ($_SESSION['user']['role'] !== "Administrateur" ?? $_SESSION['user']['role'] !== "Meeter") {
+    $_SESSION['erreur'] = "Vous n'avez pas les droits d'accès à cette page.";
+    header('Location: ../Page/accueil.html');
+    exit;
+}
 
 require_once '../../Model/Bdd.php';
 
@@ -34,7 +43,7 @@ try {
 
         // Récupérer dynamiquement l'id du meeter via la session
         session_start();
-        $idMeeter = $_SESSION['idMeeter'] ?? 4; // Valeur par défaut si non défini
+        $idMeeter = $_SESSION['idMeeter'] ?? innerHTML("<h1>Erreur : Non connecté."); // Valeur par défaut si non défini
 
         if (!$titre || !$description || !$adresse) {
             http_response_code(400);
