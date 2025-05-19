@@ -238,7 +238,8 @@
         const id = urlParams.get('id');
 
         if (!id) {
-            alert("ID de l'activité manquant dans l'URL.");
+            console("ID de l'activité manquant dans l'URL.");
+            document.body.innerHTML = "<h1>ID de l'activité manquant dans l'URL.</h1>";
             return;
         }
 
@@ -257,11 +258,10 @@
             document.querySelector(".groupe-activite").innerHTML = `<img src="../assets/img/icons/group.svg" alt=""> Groupe de ${data.tailleGroupe}`;
             document.querySelector(".prix-activite").innerHTML = `<img src="../assets/img/icons/price.svg" alt=""> Prix : ${data.prix}€`;
             document.querySelector(".description-activite p").textContent = data.description;
-            document.querySelector(".nom-organisateur").innerHTML = `<img src="../assets/img/icons/user.svg" alt=""> ${data.meeterDescription}`;
+            document.querySelector(".nom-organisateur").innerHTML = `<img src="../assets/img/icons/user.svg" alt=""> ${data.prenom} ${data.nom}`;
             document.querySelector(".note-organisateur").innerHTML = `<img src="../assets/img/icons/etoile.svg" alt=""> ${data.moyenneAvis ?? "Pas encore de note"} / 5`;
 
             const imagesContainer = document.querySelector(".images-activite");
-
             if (data.images && data.images.length > 0) {
                 imagesContainer.innerHTML = data.images.map(src => `
                     <img src="${src}" alt="Image de l'activité" class="image-activite">
