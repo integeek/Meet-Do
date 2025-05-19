@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../component/BoutonRouge.css">
     <link rel="stylesheet" type="text/css" href="../Style/ActiviteViewer.css">
     <link rel="stylesheet" type="text/css" href="../component/LoadActivite.css">
+    <link rel="stylesheet" type="text/css" href="../Style/star.css">
     <link rel="stylesheet" type="text/css" href="../Style/laisserunavis.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -216,6 +217,44 @@
                         ></textarea>
                             </div>
                     </div>
+                    <div class="star-rating">
+                    <input type="radio" name="star-rating" id="star5" value="5" />
+                    <label for="star5">
+                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                    </svg>
+                    </label>
+
+                    <input type="radio" name="star-rating" id="star4" value="4" />
+                     <label for="star4">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                    </svg>
+                 </label>
+
+                <input type="radio" name="star-rating" id="star3" value="3" />
+                <label for="star3">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                    </svg>
+                </label>
+
+                <input type="radio" name="star-rating" id="star2" value="2" />
+                <label for="star2">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                    </svg>
+                </label>
+
+                 <input type="radio" name="star-rating" id="star1" value="1" />
+                <label for="star1">
+                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                 </svg>
+                </label>
+                </div>
+
+
                     <div class="popup-buttons">
                         <div id="bouton-rouge" onclick="closePopUp()"></div>
                     <script>
@@ -228,8 +267,7 @@
                        BoutonBleu("Valider");
                     </script>
                     </div>
-                </div>
-                  
+                </div>                  
         </div>
     </main>
 

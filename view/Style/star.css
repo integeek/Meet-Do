@@ -1,0 +1,33 @@
+.star-rating {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  width: 300px;
+}
+
+.star-rating input {
+  display: none;
+}
+
+.star-rating label {
+  cursor: pointer;
+}
+
+.star-rating label svg {
+  width: 60px;
+  height: 60px;
+  transition: 0.3s all ease-in-out;
+}
+
+.star-rating label svg path {
+  stroke: #000;
+  fill: transparent;
+  transition: 0.3s all ease-in-out;
+}
+
+.star-rating input:checked ~ label svg path,
+.star-rating label:hover svg path,
+.star-rating label:hover ~ label svg path {
+  stroke: gold;
+  fill: gold;
+}
