@@ -238,7 +238,7 @@
         const id = urlParams.get('id');
 
         if (!id) {
-            console("ID de l'activité manquant dans l'URL.");
+            console.error("ID de l'activité manquant dans l'URL.");
             document.body.innerHTML = "<h1>ID de l'activité manquant dans l'URL.</h1>";
             return;
         }

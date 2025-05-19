@@ -46,6 +46,23 @@ if (!$activity) {
     exit;
 }
 
+// Requête pour les evenements associés à l'activité
+$sqlEvenement = "
+    SELECT 
+        idEvenement,
+        dateEvenement
+    FROM Evenement
+    WHERE idActivite = :id
+    ORDER BY dateEvenement
+";
+$queryEvenement = $db->prepare($sqlEvenement);
+$queryEvenement->bindValue(':id', $id, PDO::PARAM_INT);
+$queryEvenement->execute();
+
+$evenements = $queryEvenement->fetchAll(PDO::FETCH_ASSOC);
+$activity["evenements"] = $evenements ?: [];
+
+
 // Requête pour toutes les images associées à l'activité
 $sqlImages = "
     SELECT chemin
