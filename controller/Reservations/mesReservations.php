@@ -6,7 +6,6 @@ if (!isset($_SESSION['user']['email'])) {
     header("Location: ../../view/page/Connexion.php");
     exit;
 }
-
 ?>
 
 
@@ -61,7 +60,7 @@ if (!isset($_SESSION['user']['email'])) {
 
 
                 $stmt =  $db->prepare("
-                    SELECT Activite.titre, Activite.adresse, Activite.prix, Evenement.dateEvenement, Reservation.nbPlace, Reservation.idReservation
+                    SELECT Activite.idActivite, Activite.titre, Activite.adresse, Activite.prix, Evenement.dateEvenement, Reservation.nbPlace, Reservation.idReservation
                     FROM Reservation
                     INNER JOIN Evenement ON Reservation.idEvenement = Evenement.idEvenement
                     INNER JOIN Activite ON Evenement.idActivite = Activite.idActivite
@@ -71,7 +70,7 @@ if (!isset($_SESSION['user']['email'])) {
                 $stmt->execute([':idClient' => $idClient]);
                 $reservations = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                function resaComponent($title, $place, $date, $people, $price, $index) {
+                function resaComponent($idActivite, $title, $place, $date, $people, $price, $index) {
                     $boutonbleu = "boutonbleu" . $index;
                     $boutonbleu1 = "boutonbleu1" . $index;
                     $boutonrouge = "boutonrouge" . $index;
@@ -108,6 +107,9 @@ if (!isset($_SESSION['user']['email'])) {
                                         document.getElementById('$boutonbleu').innerHTML = BoutonBleu(
                                             'Voir l\'activité'
                                         );
+                                        document.getElementById('$boutonbleu').onclick = function() {
+                                            window.location.href = '../../view/Page/Activite.php?id=$idActivite';
+                                        };
                                     </script>
                                     <div id='$boutonbleu1'></div>
                                     <script>
@@ -134,6 +136,7 @@ if (!isset($_SESSION['user']['email'])) {
                     echo "<div class='reservation-list'>";
                     foreach ($reservations as $resa) {
                         echo resaComponent(
+                            $resa['idActivite'],
                             $resa['titre'],
                             $resa['adresse'],
                             $resa['dateEvenement'],
@@ -149,6 +152,9 @@ if (!isset($_SESSION['user']['email'])) {
             }
         ?>
     </div>
+    <script>
+        window.activite = {idActivite: "<?php echo htmlspecialchars($idActivite, ENT_QUOTES, 'UTF-8'); ?>"};
+    </script>
     </main>
     <footer id="footer-container" class="footer-container">
         <script src="../../view/component/Footer/Footer.js"></script>
