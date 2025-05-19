@@ -11,7 +11,7 @@ if (!isset($_GET['id'])) {
 
 $id = intval($_GET['id']);
 
-// Requête principale pour l'activité + description du meeter
+// Requête principale sans filtre de visibilité ou désactivation
 $sqlActivite = "
     SELECT 
         a.idActivite,
@@ -21,19 +21,18 @@ $sqlActivite = "
         a.adresse,
         a.theme,
         a.tailleGroupe,
+        a.isVisible,
+        a.isDisabled,
         a.dateCreation,
         a.prix,
         a.idMeeter,
-        m.description AS description,
-        m.nom AS nom,
-        m.prenom AS prenom
+        m.description AS meeterDescription
     FROM Activite a
-    INNER JOIN Client m ON a.idMeeter = m.idClient
+    INNER JOIN Meeter m ON a.idMeeter = m.idMeeter
     WHERE a.idActivite = :id
-      AND a.isVisible = 1
-      AND (a.isDisabled IS NULL OR a.isDisabled = 0)
     LIMIT 1
 ";
+
 $query = $db->prepare($sqlActivite);
 $query->bindValue(':id', $id, PDO::PARAM_INT);
 $query->execute();
@@ -42,11 +41,11 @@ $activity = $query->fetch(PDO::FETCH_ASSOC);
 
 if (!$activity) {
     http_response_code(404);
-    echo json_encode(["error" => "Activité non trouvée ou masquée."]);
+    echo json_encode(["error" => "Activité introuvable."]);
     exit;
 }
 
-// Requête pour toutes les images associées à l'activité
+// Requête pour les images associées
 $sqlImages = "
     SELECT chemin
     FROM ImageActivite
