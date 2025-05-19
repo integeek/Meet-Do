@@ -1,8 +1,7 @@
 <?php 
-
 require_once("../../model/Bdd.php");
 if(!empty($_POST)){
-    $email = $_POST["emailSend"];
+    $email = $_POST["emailSend"] ?? $_SESSION["user"]["email"];
     $token = bin2hex(random_bytes(16));
     $token_hash = hash("sha256", $token);
     $expiricy = date("Y-m-d H:i:s", time() + 60*30);//30 minutes
