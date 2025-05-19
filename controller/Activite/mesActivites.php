@@ -18,7 +18,7 @@ if ($role !== 'Meeter' && $role !== 'Administrateur') {
     exit;
 }
 
-$sql = "SELECT Activite.titre, Activite.adresse, Activite.prix, Activite.idMeeter, Evenement.dateEvenement, Reservation.nbPlace, Reservation.idReservation
+$sql = "SELECT Activite.idActivite, Activite.titre, Activite.adresse, Activite.prix, Activite.idMeeter, Evenement.dateEvenement, Reservation.nbPlace, Reservation.idReservation
         FROM Reservation
         INNER JOIN Evenement ON Reservation.idEvenement = Evenement.idEvenement
         INNER JOIN Activite ON Evenement.idActivite = Activite.idActivite

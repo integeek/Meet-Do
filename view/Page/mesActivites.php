@@ -38,7 +38,7 @@ if (session_status() === PHP_SESSION_NONE) {
     </header>
     <main>
       <?php
-        function resaComponent($title, $place, $date, $people, $price, $index) {
+        function resaComponent($idActivite, $title, $place, $date, $people, $price, $index) {
                     $boutonbleu = "boutonbleu" . $index;
                     $boutonbleu1 = "boutonbleu1" . $index;
                     $boutonrouge = "boutonrouge" . $index;
@@ -75,6 +75,9 @@ if (session_status() === PHP_SESSION_NONE) {
                                         document.getElementById('$boutonbleu').innerHTML = BoutonBleu(
                                             'Voir l\'activité'
                                         );
+                                        document.getElementById('$boutonbleu').onclick = function() {
+                                            window.location.href = '../../view/Page/Activite.php?id=$idActivite';
+                                        };
                                     </script>
                                     <div id='$boutonbleu1'></div>
                                     <script>
@@ -100,6 +103,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     echo "<div class='reservation-list'>";
                     foreach ($reservations as $resa) {
                         echo resaComponent(
+                            $resa['idActivite'],
                             $resa['titre'],
                             $resa['adresse'],
                             $resa['dateEvenement'],
