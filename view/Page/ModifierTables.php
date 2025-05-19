@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 if (!isset($_SESSION['user'])) {
     header('Location: Connexion.php');
@@ -33,50 +33,30 @@ if (!isset($_SESSION['user'])) {
     <main>
         <div class="flexbox-container">
             <div id="sidebar-container" class="sidebar-container"></div>
-            <div class="">
+            <div class="center">
                 <h1>Modifier les tables</h1>
                 <div class="column-container">
-                    <p>Thèmes activités</p>
+                    <h3>Thèmes activités</h3>
                     <div class="selection-theme">
-                        <input id="themeInput" class="textbox" type="text" placeholder="Thème">
-                        <button class="buttonAjouter" onclick="ajouterTheme('themeInput', 'themeC')">Ajouter</button>
+                        <input id="InputActivity" class="textbox" type="text" placeholder="Thème">
+                        <button class="buttonAjouter" id="AddActivityTheme">Ajouter</button>
                     </div>
-                    <div id="themeC"></div>
+                    <div class="themes" id="ActivitesThemes">
+                        <div class="theme-box">Theme 1</div>
+                        <div class="theme-box">Theme 2</div>
+                        <div class="theme-box">Theme 3</div>
+                    </div>
 
-                    <p>Thèmes FAQ</p>
+                    <h3>Thèmes forum</h3>
                     <div class="selection-theme">
-                        <input id="FaqInput" class="textbox" type="text" placeholder="Thème">
-                        <button class="buttonAjouter" onclick="ajouterTheme('FaqInput','FaqC')">Ajouter</button>
+                        <input id="InputForumTheme" class="textbox" type="text" placeholder="Thème">
+                        <button class="buttonAjouter" id="AddForumTheme">Ajouter</button>
                     </div>
-                    <div id="FaqC"></div>
-
-                    <p>Thèmes FAQ</p>
-                    <div class="selection-theme">
-                        <input id="FaqInput" class="textbox" type="text" placeholder="Thème">
-                        <button class="buttonAjouter" onclick="ajouterTheme('FaqInput','FaqC')">Ajouter</button>
+                    <div class="themes" id="ForumThemes">
+                        <div class="theme-box">Theme 1</div>
+                        <div class="theme-box">Theme 2</div>
+                        <div class="theme-box">Theme 3</div>
                     </div>
-                    <div id="FaqC"></div>
-
-                    <p>Thèmes Forum</p>
-                    <div class="selection-theme">
-                        <input id="ForumInput" class="textbox" type="text" placeholder="Thème">
-                        <button class="buttonAjouter" onclick="ajouterTheme('ForumInput','ForumC')">Ajouter</button>
-                    </div>
-                    <div id="ForumC"></div>
-
-                    <p>Thèmes signalement utilisateur</p>
-                    <div class="selection-theme">
-                        <input id="UserInput" class="textbox" type="text" placeholder="Thème">
-                        <button class="buttonAjouter" onclick="ajouterTheme('UserInput','UserC')">Ajouter</button>
-                    </div>
-                    <div id="UserC"></div>
-
-                    <p>Thèmes signalement activité</p>
-                    <div class="selection-theme">
-                        <input id="ActiInput" class="textbox" type="text" placeholder="Thème">
-                        <button class="buttonAjouter" onclick="ajouterTheme('ActiInput','ActiC')">Ajouter</button>
-                    </div>
-                    <div id="ActiC"></div>
 
 
                 </div>
