@@ -2,17 +2,6 @@
 session_start();
 require_once("../../model/Bdd.php");
 
-
-
-// try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-// } catch (PDOException $e) {
-    $_SESSION["erreur_contact"] = "Erreur de connexion à la base de données.";
-    header("Location: ../../view/Contact.php");
-    exit;
-// }
-
 $nom     = htmlspecialchars(trim($_POST['nom'] ?? ''));
 $prenom  = htmlspecialchars(trim($_POST['prenom'] ?? ''));
 $email   = filter_var(trim($_POST['email'] ?? ''), FILTER_SANITIZE_EMAIL);
@@ -26,18 +15,16 @@ if (empty($nom) || empty($prenom) || empty($email) || empty($objet) || empty($me
     exit;
 }
 
-
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $_SESSION["erreur_contact"] = "Adresse e-mail invalide.";
     header("Location: ../../view/Contact.php");
     exit;
 }
 
-
 try {
-    $sql = "INSERT INTO test (nom, prenom, email, objet, message)
-            VALUES (:nom, :prenom, :email, :objet, :message)";
-    $stmt = $pdo->prepare($sql);
+    $sql = "INSERT INTO FormulaireContact (nom, prenom, email, sujet, message, dateEnvoie)
+            VALUES (:nom, :prenom, :email, :objet, :message, NOW())";
+    $stmt = $db->prepare($sql);
     $stmt->execute([
         ':nom' => $nom,
         ':prenom' => $prenom,
@@ -51,7 +38,7 @@ try {
     exit;
 } catch (PDOException $e) {
     $_SESSION["erreur_contact"] = "Erreur lors de l'envoi du message.";
-    header("Location: ../../view/Contact.php");
+    header("Location: ../../view/formulaire.php");
     exit;
 }
 ?>
