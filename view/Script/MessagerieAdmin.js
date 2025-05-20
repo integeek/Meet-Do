@@ -17,7 +17,7 @@ let search = "";
 
 const Refresh = () => {
     var request = new XMLHttpRequest();
-    request.open("GET", `../../controller/Admin/Messagerie.php?search=${search}`, true);
+    request.open("GET", `../../controller/Admin/MessagerieAdminControlleur.php?search=${search}`, true);
     request.send();
 
     request.onreadystatechange = function () {
@@ -40,7 +40,7 @@ const Refresh = () => {
 
 const deleteMessage = (id) => {
     var request = new XMLHttpRequest();
-    request.open("DELETE", `../../controller/Admin/DeleteMessage.php?id=${id}`, true);
+    request.open("DELETE", `../../controller/Admin/MessagerieAdminControlleur.php?id=${id}`, true);
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     request.send();
 
@@ -61,7 +61,7 @@ const deleteMessage = (id) => {
 
 const sendMessage = (message) => {
     var request = new XMLHttpRequest();
-    request.open("POST", `../../controller/Admin/SendForumaire.php`, true);
+    request.open("POST", `../../controller/Admin/MessagerieAdminControlleur.php`, true);
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     request.send(JSON.stringify(message));
 }
