@@ -16,7 +16,7 @@ let search = "";
 
 const Refresh = () => {
     var request = new XMLHttpRequest();
-    request.open("GET", `../../controller/Admin/GestionClients.php?search=${search}`, true);
+    request.open("GET", `../../controller/Admin/ClientControlleur.php?search=${search}`, true);
     request.send();
 
     request.onreadystatechange = function () {
@@ -43,7 +43,7 @@ const UpdateClient = () => {
     const role = document.getElementById("role");
 
     var request = new XMLHttpRequest();
-    request.open("POST", `../../controller/Admin/UpdateClient.php`, true);
+    request.open("POST", `../../controller/Admin/ClientControlleur.php`, true);
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
     const body = JSON.stringify({
@@ -131,7 +131,7 @@ const renderTable = () => {
             const confirmDelete = confirm(`Êtes-vous sûr de vouloir supprimer ce ${client.nom} ${client.prenom} ?`);
             if (confirmDelete) {
                 var request = new XMLHttpRequest();
-                request.open("DELETE", `../../controller/Admin/DeleteClient.php?id=${client.id}`, true);
+                request.open("DELETE", `../../controller/Admin/ClientControlleur.php?id=${client.id}`, true);
                 request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 request.send(`id=${client.id}`);
 

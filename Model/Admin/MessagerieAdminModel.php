@@ -1,40 +1,46 @@
 <?php
-session_start();
-require_once("../../model/bdd.php");
+require_once(__DIR__ . "/../Bdd.php");
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $data = json_decode(file_get_contents('php://input'), true);
+class MessagerieAdminModel {
+    private $db;
+    public function __construct($db) {
+        $this->db = $db;
+    }
 
-    $messageReponse = $data['message'];
-    $userName = $data['userName'];
-    $email = $data['email'];
-    $sujet = $data['sujet'];
-    $id = $data['id'];
+    public function getMessages($search = "") {
+        if ($search !== "") {
+            $sql = "SELECT idFormulaireContact AS id, nom, prenom, email, sujet, message, dateEnvoie
+                    FROM FormulaireContact
+                    WHERE nom LIKE :search OR prenom LIKE :search OR email LIKE :search OR sujet LIKE :search OR message LIKE :search";
+            $query = $this->db->prepare($sql);
+            $like = "%$search%";
+            $query->bindParam(':search', $like, PDO::PARAM_STR);
+        } else {
+            $sql = "SELECT idFormulaireContact AS id, nom, prenom, email, sujet, message, dateEnvoie FROM FormulaireContact";
+            $query = $this->db->prepare($sql);
+        }
+        $query->execute();
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
 
-    echo json_encode($data);
-//Envoie du mail
+    public function deleteMessage($id) {
+        $sql = "DELETE FROM FormulaireContact WHERE idFormulaireContact = :id";
+        $query = $this->db->prepare($sql);
+        return $query->execute(['id' => $id]);
+    }
 
+    public function sendResponse($id, $messageReponse, $userName, $email, $sujet) {
         $destinataire = $email;
-        $sujet = "Réponse à votre message sur Meet&Do";
+        $sujetMail = "Réponse à votre message sur Meet&Do";
         $message = "<html><body style=\"margin: 0;\">";
         $message .= '
-        <style>
-            @import url(\'https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap\');
-        </style>
         <div style="width: 100%; background-color: #004AAD; height: 5rem; display: flex;"><h1 style="margin: auto auto auto auto;  font-family: Inter, sans-serif;">Meet&DO</h1></div>
         <div style="font-family: Inter;">
             <h3 style="margin: 2rem auto 0 auto; text-align: center; font-family: Inter;">Merci pour votre message</h3>
             <section style="margin: 0 2rem 0 2rem; font-family: Inter;">
                 <p style="font-family: Inter;">Bonjour,</p>
                 <p style="font-family: Inter;">Nous vous remercions d\'avoir pris le temps de poster un message sur notre plateforme Meet&Do. Voici la réponse de notre administrateur.</p>
-                
-                <p style="font-family: Inter;">
-                    <?php echo htmlspecialchars($messageReponse, ENT_QUOTES, UTF-8); ?>
-                </p>
-
-                <p style="padding:1rem;border:1px solid #ccc;background:#f9f9f9;">
-                    ' . nl2br(htmlspecialchars($messageReponse, ENT_QUOTES, 'UTF-8')) . '
-                </p>
+                <p style="padding:1rem;border:1px solid #ccc;background:#f9f9f9;">' . nl2br(htmlspecialchars($messageReponse, ENT_QUOTES, 'UTF-8')) . '</p>
                 <p style="font-family: Inter;">À très vite sur Meet&Do !  </p>
             </section>
             <div style="display: flex; justify-content: center;">
@@ -66,25 +72,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $headers .= "MIME-Version: 1.0\r\n";
         $headers .= "Content-type: text/html; charset=UTF-8\r\n";
 
-        if (mail($destinataire, $sujet, $message, $headers)) {
-            echo "L'email a été envoyé avec succès.";
-        } else {
-            echo "L'email n'a pas pu être envoyé.";
-        }
+        mail($destinataire, $sujetMail, $message, $headers);
 
-    $sql = "DELETE FROM `FormulaireContact` WHERE `idFormulaireContact` = :id;";
-    $query = $db->prepare($sql);
-    $query->execute(
-        [
-            "id" => $id
-        ]
-    );
-
-    if ($query->rowCount() > 0) {
-        echo json_encode(["message" => "Réponse envoyée avec succès."]);
-    } else {
-        echo json_encode(["message" => "Erreur lors de la suppression du signalement."]);
+        $sql = "DELETE FROM FormulaireContact WHERE idFormulaireContact = :id";
+        $query = $this->db->prepare($sql);
+        return $query->execute(['id' => $id]);
     }
-
 }
 ?>
