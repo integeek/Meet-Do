@@ -108,12 +108,15 @@ if(!empty($_POST)){
         $headers .= "Content-type: text/html; charset=UTF-8\r\n";
 
         if (mail($destinataire, $sujet, $message, $headers)) {
-            echo "L'email a été envoyé avec succès.";
+            $_SESSION["success"] = "L'email a été envoyé avec succès.";
+            header("Location: ../../view/Page/Inscription.php");
+            exit;
+
         } else {
-            echo "L'email n'a pas pu être envoyé.";
+            $_SESSION["erreur"] = "L'email n'a pas pu être envoyé.";
+            header("Location: ../../view/Page/Inscription.php");
+            exit;
         }
-
-
     } else {
         $_SESSION["erreur"] = "le formulaire est incomplet";
         header("Location: ../../view/Page/Inscription.php");

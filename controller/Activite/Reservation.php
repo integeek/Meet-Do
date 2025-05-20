@@ -1,5 +1,6 @@
 <?php 
 require_once("../../Model/Reservation.php");
+require_once("../../Model/Evenement.php");
 session_start();
 
 header('Content-Type: application/json');
@@ -18,13 +19,18 @@ $nbPlace = intval($data["nbPlace"]);
 
 list($heureDebut, ) = explode("-", $heure);
 
-$idEvenement = Reservation::selectEvenement($date, $heureDebut);
+$idEvenement = Evenement::selectEvenement($date, $heureDebut);
 
 if (!$idEvenement) {
     echo json_encode(["success" => false, "message" => "Créneau introuvable"]);
     exit;
 }
 Reservation::makeReservation($nbPlace, $idClient, $idEvenement);
+$result = Evenement::updatePlacePrise($idEvenement, $nbPlace);
+if (!$result) {
+    error_log("Erreur lors de la mise à jour placePrise pour l'événement $idEvenement");
+}
+
 
 echo json_encode(["success" => true]);
 exit;

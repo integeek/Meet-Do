@@ -1,13 +1,9 @@
 <?php 
+require_once("../../Model/Evenement.php");
 
-require_once("../../model/Bdd.php");
 $idActivite = $_GET['idActivite'] ?? 7;
 
-$sql = "SELECT dateEvenement FROM Evenement WHERE idActivite = :id";
-$query = $db->prepare($sql);
-$query->bindValue(':id', $idActivite, PDO::PARAM_INT);
-$query->execute();
-$rows = $query->fetchAll(PDO::FETCH_COLUMN);
+$rows = Evenement::selectDateEvenement($idActivite);
 
 $datesDisponibles = [];
 $horairesList = [];
@@ -23,7 +19,7 @@ foreach ($rows as $datetime) {
     $horairesList[] = [
         'dateEvenement' => $date,
         'heure' => $heure,
-        'inscrits' => 0,
+        'inscrits' => int($rows[$datetime]['placePrise'] ?? 0),
         'max' => 10
     ];
 }
