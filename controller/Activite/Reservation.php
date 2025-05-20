@@ -1,5 +1,5 @@
 <?php 
-require_once("../../model/Bdd.php");
+require_once("../../Model/Reservation.php");
 session_start();
 
 header('Content-Type: application/json');
@@ -16,28 +16,15 @@ $date = $data["date"];
 $heure = $data["heure"];
 $nbPlace = intval($data["nbPlace"]);
 
-$sql = "SELECT idEvenement FROM Evenement WHERE DATE(dateEvenement) = :date AND HOUR(dateEvenement) = :heure";
-$query = $db->prepare($sql);
 list($heureDebut, ) = explode("-", $heure);
-$query->bindValue(':date', $date);
-$query->bindValue(':heure', intval(explode(":", $heureDebut)[0]));
-$query->execute();
-$idEvenement = $query->fetchColumn();
+
+$idEvenement = Reservation::selectEvenement($date, $heureDebut);
 
 if (!$idEvenement) {
     echo json_encode(["success" => false, "message" => "Créneau introuvable"]);
     exit;
 }
-
-$sql = "INSERT INTO Reservation (dateReservation, nbPlace, listeAttente, placement, idClient, idEvenement) 
-        VALUES (NOW(), :nbPlace, :listeAttente, 0, :idClient, :idEvenement)";
-$query = $db->prepare($sql);
-$query->execute([
-    ':nbPlace' => $nbPlace,
-    ':listeAttente' => 0,
-    ':idClient' => $idClient,
-    ':idEvenement' => $idEvenement
-]);
+Reservation::makeReservation($nbPlace, $idClient, $idEvenement);
 
 echo json_encode(["success" => true]);
 exit;
