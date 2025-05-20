@@ -1,7 +1,6 @@
 <?php 
 session_start();
-
-require_once("../../model/Bdd.php");
+require_once("../../Model/Client.php");
 
 if(!empty($_POST)){
     if(isset($_POST["email"],$_POST["password"]) && !empty(($_POST["email"]) && !empty($_POST["password"]))) {
@@ -11,12 +10,7 @@ if(!empty($_POST)){
             exit;
         }
 
-        $sql = "SELECT * FROM Client WHERE email = :email";
-        $query = $db -> prepare($sql);
-        $query -> bindValue(":email", $_POST["email"], PDO::PARAM_STR);
-        $query -> execute();
-
-        $user = $query -> fetch();
+        $user = Client::connexion($_POST["email"]);
         
         if(!$user){
             $_SESSION["erreur"] = "L'utilisateur et/ou le mot de passe n'existe pas";
