@@ -201,63 +201,79 @@
                     </div>
                 </div>
                 <!-- Pop up pour laisser un avis -->
-                 <form method="POST" action="traitement_avis.php">
-                <div class="popup-overlay" id="popup-avis">
+                 <div class="popup-overlay" id="popup-avis">
                     <div class="containerPopUp">
-                    <div class="close-cross" onclick="closePopUp('popup-report')">✕</div>
-                    <div class="popup-content">
-                    <h1>Laisser un avis</h1>
-                    <div class="popup-rating">
-                        <p>Quelle note donneriez-vous à votre expérience ?</p>
+                        <div class="close-cross" onclick="closePopUp('popup-avis')">✕</div>
+                        <div class="popup-content">
+                         <h1>Laisser un avis</h1>
+                            <form method="POST" action="traitement_avis.php">
+                         <div class="popup-rating">
+                              <p>Quelle note donneriez-vous à votre expérience ?</p>
+                             <div class="star-rating">
+                              <input type="radio" name="star-rating" id="star5" value="5" />
+                             <label for="star5">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                     d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2
+                                      9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                                </svg>
+                                </label>
+
+                                <input type="radio" name="star-rating" id="star4" value="4" />
+                                <label for="star4">
+                                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                     d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2
+                                            9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                                </svg>
+                             </label>
+
+                                 <input type="radio" name="star-rating" id="star3" value="3" />
+                                <label for="star3">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                 <path stroke-linecap="round" stroke-linejoin="round"
+                                   d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2
+                                      9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                                </svg>
+                              </label>
+
+                                 <input type="radio" name="star-rating" id="star2" value="2" />
+                                 <label for="star2">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                 <path stroke-linecap="round" stroke-linejoin="round"
+                                      d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2
+                                     9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                                 </svg>
+                                </label>
+
+                               <input type="radio" name="star-rating" id="star1" value="1" />
+                               <label for="star1">
+                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                   <path stroke-linecap="round" stroke-linejoin="round"
+                                         d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2
+                                    9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                             </svg>
+                               </label>
+                             </div>
+                           </div>
+
+                           <div class="popup-comment">
+                         <p>Avez-vous un commentaire à ajouter ? Racontez-nous !</p>
+                         <div class="comment-box">
+                               <textarea name="commentaire" id="comment" spellcheck="true"></textarea>
+                             </div>
+                           </div>
+
+                           <button type="submit">Envoyer</button>
+                         </form>
+                        </div>
+
+                        <div class="popup-buttons">
+                         <div id="bouton-rouge" onclick="closePopUp('popup-avis')"></div>
+                         <div id="bouton-bleue"></div>
+                     </div>
                     </div>
-                    <div class="popup-comment">
-                        <p>Avez-vous un commentaire à ajouter ? Racontez-nous !</p>
-                        <div class="comment-box">
-                        <textarea
-                         name="commentaire"
-                         id="comment"
-                         spellcheck="true"
-                        ></textarea>
-                            </div>
                     </div>
-                    <div class="star-rating">
-                    <input type="radio" name="star-rating" id="star5" value="5" />
-                    <label for="star5">
-                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-                    </svg>
-                    </label>
-
-                    <input type="radio" name="star-rating" id="star4" value="4" />
-                     <label for="star4">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-                    </svg>
-                 </label>
-
-                <input type="radio" name="star-rating" id="star3" value="3" />
-                <label for="star3">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-                    </svg>
-                </label>
-
-                <input type="radio" name="star-rating" id="star2" value="2" />
-                <label for="star2">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-                    </svg>
-                </label>
-
-                 <input type="radio" name="star-rating" id="star1" value="1" />
-                <label for="star1">
-                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-                 </svg>
-                </label>
-                </div>
-                    <button type="submit">Envoyer</button>
-                </form>
                 
 
 
