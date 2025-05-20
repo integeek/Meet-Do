@@ -25,7 +25,13 @@
   transition: 0.3s all ease-in-out;
 }
 
-.star-rating input:checked ~ label svg path,
+/* Remplit les étoiles sélectionnées */
+.star-rating input:checked ~ label svg path {
+  stroke: gold;
+  fill: gold;
+}
+
+/* Remplit les étoiles au survol */
 .star-rating label:hover svg path,
 .star-rating label:hover ~ label svg path {
   stroke: gold;

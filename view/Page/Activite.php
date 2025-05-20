@@ -201,7 +201,10 @@
                     </div>
                 </div>
                 <!-- Pop up pour laisser un avis -->
+                 <form method="POST" action="traitement_avis.php">
                 <div class="popup-overlay" id="popup-avis">
+                    <div class="containerPopUp">
+                    <div class="close-cross" onclick="closePopUp('popup-report')">✕</div>
                     <div class="popup-content">
                     <h1>Laisser un avis</h1>
                     <div class="popup-rating">
@@ -253,6 +256,9 @@
                  </svg>
                 </label>
                 </div>
+                    <button type="submit">Envoyer</button>
+                </form>
+                
 
 
                     <div class="popup-buttons">
