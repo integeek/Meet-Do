@@ -87,7 +87,9 @@ if (isset($_GET["id"], $_GET["cle"]) && !empty($_GET["id"]) && !empty($_GET["cle
                 if (mail($destinataire, $sujet, $message, $headers)) {
                     echo "L'email a été envoyé avec succès.";
                 } else {
-                    echo "L'email n'a pas pu être envoyé.";
+                    $_SESSION["erreur"] = "L'email n'a pas pu être envoyé.";
+                        header("Location: ../../view/Page/Inscription.php");
+                exit;
                 }
 
                 header("Location: ../Page/accueil.php");
