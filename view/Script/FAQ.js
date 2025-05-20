@@ -5,7 +5,7 @@ let role = "";
 
 const GetTheme = () => {
   var request = new XMLHttpRequest();
-  request.open("GET", `../../controller/Faq/Theme.php`, true);
+  request.open("GET", `../../controller/Faq/FaqControlleur.php?action=themes`, true);
   request.send();
 
   request.onreadystatechange = function () {
@@ -56,7 +56,7 @@ GetUserId();
 
 const Refresh = () => {
   var request = new XMLHttpRequest();
-  request.open("GET", `../../controller/Faq/Faq.php?sortBy=${theme}`, true);
+  request.open("GET", `../../controller/Faq/FaqControlleur.php?sortBy=${theme}&action=questions`, true);
   request.send();
 
   request.onreadystatechange = function () {
