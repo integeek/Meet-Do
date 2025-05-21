@@ -58,16 +58,9 @@ $idClient = $_SESSION['user']['id'];
             fetch('../../controller/Compte/PhotoController.php', { method: 'GET' })
               .then(response => response.json())
               .then(data => {
-                const img = document.getElementById('profile-icon');
-                if (data.photo && data.photo !== "null" && data.photo !== "") {
-                  img.src = data.photo;
-                } else {
-                  img.src = "../assets/img/icons/profile-icon.svg";
+                if (data.photo && data.photo !== "") {
+                  document.getElementById('profile-icon').src = data.photo;
                 }
-              })
-              .catch(() => {
-                // En cas d'erreur réseau, on affiche aussi l'icône par défaut
-                document.getElementById('profile-icon').src = "../assets/img/icons/profile-icon.svg";
               });
           </script>
         </div>
@@ -248,12 +241,36 @@ $idClient = $_SESSION['user']['id'];
     </div>
   </div>
 
-  <script type="module">
-    import { chargerPhotoProfil, setupPhotoProfilPopup } from '../Script/PhotoProfil.js';
-    window.addEventListener('DOMContentLoaded', () => {
-      chargerPhotoProfil();
-      setupPhotoProfilPopup();
-    });
-  </script>
+  <script>
+  // Ouvre le pop-up à l'ouverture du bouton
+  document.getElementById("boutonContainer").onclick = function () {
+    openPopUp('edit-photo-popup');
+  };
+
+  // Upload automatique dès qu'un fichier est choisi
+  document.getElementById("input-pdp").addEventListener("change", function () {
+    const file = this.files[0];
+    if (!file) return;
+    const formData = new FormData();
+    formData.append("photo", file);
+
+    fetch("../../controller/Compte/PhotoController.php", {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.text())
+      .then(() => {
+        closePopUp('edit-photo-popup');
+        window.location.reload();
+      })
+      .catch(() => {
+        alert("Erreur lors de l'upload de la photo.");
+        closePopUp('edit-photo-popup');
+        window.location.reload();
+      });
+  });
+</script>
+
 </body>
+
 </html>
