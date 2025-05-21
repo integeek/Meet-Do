@@ -54,6 +54,14 @@ $idClient = $_SESSION['user']['id'];
             document.getElementById("boutonContainer").innerHTML = BoutonBleu(
               "Modifier photo de profil"
             );
+            // Affichage dynamique de la photo de profil
+            fetch('../../controller/Compte/PhotoController.php', { method: 'GET' })
+              .then(response => response.json())
+              .then(data => {
+                if (data.photo && data.photo !== "") {
+                  document.getElementById('profile-icon').src = data.photo;
+                }
+              });
           </script>
         </div>
         <hr>
