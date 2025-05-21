@@ -118,7 +118,7 @@ if (!isset($_SESSION['user']['email'])) {
                                             'Modifier ma réservation'
                                         );
                                     </script>
-                                    <div id='$boutonrouge' onclick='closePopUp()'></div>
+                                    <div id='$boutonrouge'></div>
                                     <script>
                                         document.getElementById('$boutonrouge').innerHTML = BoutonRouge('Annuler ma réservation');
                                     </script>
@@ -164,7 +164,7 @@ if (!isset($_SESSION['user']['email'])) {
         </script>
     </footer>
 
-    <div class="edit-container" id="edit-lastname-popup">
+    <div class="popup-container" id="edit-lastname-popup">
       <div class="edit-content">
         <div class="edit-header">
           <h3>Modifiez votre Nom</h3>
@@ -179,6 +179,28 @@ if (!isset($_SESSION['user']['email'])) {
               <div onclick="document.getElementById('edit-lastname-form').submit()" id="bouton-bleue2"></div>
           <script>
             document.getElementById("bouton-bleue2").innerHTML =
+              BoutonBleu("Valider");
+          </script>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="popup-container" id="cancel-popup">
+      <div class="edit-content">
+        <div class="edit-header">
+          <h3>Voulez-vous vraiment annuler ?</h3>
+        </div>
+        <form action="../../controller/Reservations/mesReservations.php" method="POST" id="cancel-form">
+          <div class="edit-main">
+            <input type="text" name="cancel" id="cancel-input" placeholder="ANNULER" />
+            <input type="hidden" name="idResa" value="<?php echo $resa['idReservation'] ?>" />
+          </div>
+          <div class="edit-footer">
+            <button type="button" onclick="closePopUp('cancel-popup')" class="buttonRo">Annuler</button>
+              <div onclick="document.getElementById('cancel-form').submit()" id="bouton-bleue3"></div>
+          <script>
+            document.getElementById("bouton-bleue3").innerHTML =
               BoutonBleu("Valider");
           </script>
         </div>

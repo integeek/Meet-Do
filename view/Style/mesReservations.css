@@ -62,7 +62,7 @@ h1 {
   justify-content: space-around;
 }
 
-#edit-lastname-popup {
+.popup-container {
   display: none;
   position: fixed;
   top: 0;
