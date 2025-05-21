@@ -3,29 +3,24 @@ session_start();
 if (!isset($_SESSION['user'])) {
     header('Location: Connexion.php');
     exit;
-} else if ($_SESSION['user']['role'] !== "Administrateur" ?? $_SESSION['user']['role'] !== "Meeter") {
+} elseif ($_SESSION['user']['role'] !== "Administrateur" && $_SESSION['user']['role'] !== "Meeter") {
     $_SESSION['erreur'] = "Vous n'avez pas les droits d'accès à cette page.";
-    header('Location: ../Page/accueil.html');
+    header('Location: ../../view/Page/accueil.php');
     exit;
 }
 
-require_once '../../Model/Bdd.php';
+require_once '../../Model/Activite/activiteCreationModel.php';
 
 try {
-    $pdo = $db;
     $method = $_SERVER['REQUEST_METHOD'];
 
     if ($method === 'GET') {
         try {
-            $stmt = $pdo->prepare("SELECT idCategorie, nom FROM Categorie");
-            $stmt->execute();
-            $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+            $categories = ActiviteCreationModel::getCategories();
             header('Content-Type: application/json');
             echo json_encode($categories);
         } catch (Exception $e) {
             http_response_code(500);
-            header('Content-Type: application/json');
             echo json_encode(['error' => 'Erreur lors de la récupération des catégories : ' . $e->getMessage()]);
         }
         exit;
@@ -36,61 +31,68 @@ try {
         $description = $_POST['description'] ?? '';
         $mobiliteReduite = isset($_POST['mobiliteReduite']) ? 1 : 0;
         $adresse = $_POST['adresse'] ?? '';
-        $dates = $_POST['dates'] ?? []; // Tableau de dates soumis par l'utilisateur
+        $dates = $_POST['dates'] ?? [];
         $tailleGroupe = $_POST['tailleGroupe'] ?? 0;
         $prix = $_POST['prix'] ?? 0;
         $themes = isset($_POST['themes']) ? json_decode($_POST['themes'], true) : [];
 
-        // Récupérer dynamiquement l'id du meeter via la session
-        session_start();
-        $idMeeter = $_SESSION['idMeeter'] ?? innerHTML("<h1>Erreur : Non connecté."); // Valeur par défaut si non défini
+        $idMeeter = $_SESSION['user']['idClient'] ?? 4;
 
-        if (!$titre || !$description || !$adresse) {
+        if (!$titre || !$description || !$adresse || !$idMeeter) {
             http_response_code(400);
             echo "Champs requis manquants.";
             exit;
         }
 
-        // Enregistrer l'activité avec la date de création
-        $dateCreation = date('Y-m-d H:i:s'); // La date actuelle de la création de l'activité
-        $stmt = $pdo->prepare("
-            INSERT INTO Activite (titre, description, mobiliteReduite, adresse, dateCreation, tailleGroupe, prix, idMeeter)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-        ");
-        $stmt->execute([$titre, $description, $mobiliteReduite, $adresse, $dateCreation, $tailleGroupe, $prix, $idMeeter]);
+        $data = [
+            'titre' => $titre,
+            'description' => $description,
+            'mobiliteReduite' => $mobiliteReduite,
+            'adresse' => $adresse,
+            'dateCreation' => date('Y-m-d H:i:s'),
+            'tailleGroupe' => $tailleGroupe,
+            'prix' => $prix
+        ];
 
-        // Récupérer l'ID de l'activité insérée immédiatement après l'insertion
-        $idActivite = $pdo->lastInsertId();
+        $idActivite = ActiviteCreationModel::insererActivite($data, $idMeeter);
 
-        // Récupérer les idCategorie correspondants aux noms des catégories
-        $stmt = $pdo->prepare("SELECT idCategorie, nom FROM Categorie WHERE nom IN (?)");
-        $stmt->execute([implode(',', $themes)]);
-        $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        // Insérer les relations dans CategorieActivite
-        $stmt = $pdo->prepare("INSERT INTO CategorieActivite (idActivite, idCategorie) VALUES (?, ?)");
+        // Catégories
+        $categories = ActiviteCreationModel::getCategoriesByNoms($themes);
         foreach ($categories as $categorie) {
-            $stmt->execute([$idActivite, $categorie['idCategorie']]);
+            ActiviteCreationModel::lierCategorieActivite($idActivite, $categorie['idCategorie']);
         }
 
-        // Ajouter les événements (dates) dans la table Evenement
-        if (!empty($dates)) {
-            $stmt = $pdo->prepare("INSERT INTO Evenement (idActivite, dateEvenement) VALUES (?, ?)");
-            foreach ($dates as $dateEvenement) {
-                $stmt->execute([$idActivite, $dateEvenement]);
-            }
+        // Dates
+        foreach ($dates as $date) {
+            ActiviteCreationModel::ajouterEvenement($idActivite, $date);
         }
 
-        // Gérer l'upload des images
+        // Upload des images
         $uploadDir = '../../view/assets/img/';
-        foreach ($_FILES['images']['tmp_name'] as $index => $tmpName) {
-            if (is_uploaded_file($tmpName)) {
-                $filename = uniqid() . '_' . basename($_FILES['images']['name'][$index]);
-                $destination = $uploadDir . $filename;
-                move_uploaded_file($tmpName, $destination);
-
-                $stmt = $pdo->prepare("INSERT INTO ImageActivite (chemin, idActivite) VALUES (?, ?)");
-                $stmt->execute(["../assets/img/$filename", $idActivite]);
+        if (isset($_FILES['images'])) {
+            $files = $_FILES['images'];
+            error_log('$_FILES : ' . print_r($_FILES, true));
+            // Si plusieurs fichiers
+            if (is_array($files['name'])) {
+                $fileCount = count($files['name']);
+                for ($i = 0; $i < $fileCount; $i++) {
+                    if (!empty($files['tmp_name'][$i]) && is_uploaded_file($files['tmp_name'][$i])) {
+                        $filename = uniqid() . '_' . basename($files['name'][$i]);
+                        $destination = $uploadDir . $filename;
+                        if (move_uploaded_file($files['tmp_name'][$i], $destination)) {
+                            ActiviteCreationModel::ajouterImage($idActivite, "../assets/img/$filename");
+                        }
+                    }
+                }
+            } else {
+                // Cas d'un seul fichier
+                if (!empty($files['tmp_name']) && is_uploaded_file($files['tmp_name'])) {
+                    $filename = uniqid() . '_' . basename($files['name']);
+                    $destination = $uploadDir . $filename;
+                    if (move_uploaded_file($files['tmp_name'], $destination)) {
+                        ActiviteCreationModel::ajouterImage($idActivite, "../assets/img/$filename");
+                    }
+                }
             }
         }
 

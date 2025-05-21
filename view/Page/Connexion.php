@@ -2,6 +2,9 @@
 session_start();
 $messageErreur = $_SESSION["erreur"] ?? "";
 unset($_SESSION["erreur"]);
+
+$messageSucces = $_SESSION["success"] ?? "";
+unset($_SESSION["success"]);
 ?>
 
 <!DOCTYPE html>
@@ -39,6 +42,9 @@ unset($_SESSION["erreur"]);
                     </div>
                     <div class="erreur" style="color: red; margin-bottom: 1rem;">
                         <?= htmlspecialchars($messageErreur) ?>
+                    </div>
+                    <div class="success" style="color: black; margin-bottom: 1rem; font-weight: bold;">
+                        <?= htmlspecialchars($messageSucces) ?>
                     </div>
                     
                     <div id="boutonContainer"></div>

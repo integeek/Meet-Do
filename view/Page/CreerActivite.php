@@ -115,25 +115,31 @@ async function fetchCategories() {
     document.getElementById('ajouterTheme').addEventListener('click', function() {
         const select = document.getElementById('themeSelect');
         const selectedThemeId = select.value;
-        if (selectedThemeId) {
-            const themeName = select.options[select.selectedIndex].text;
+        if (!selectedThemeId) return; // Ne rien faire si aucun thème sélectionné
 
-            const themeBadge = document.createElement('span');
-            themeBadge.classList.add('theme-badge');
-            themeBadge.textContent = themeName;
+        // Vérifie si le thème est déjà ajouté
+        const exists = Array.from(document.querySelectorAll('#themesAjoutes .theme-badge'))
+            .some(badge => badge.dataset.id === selectedThemeId);
+        if (exists) return;
 
-            const removeBtn = document.createElement('button');
-            removeBtn.textContent = "✖";
-            removeBtn.classList.add('remove-theme');
-            removeBtn.onclick = function() {
-                themeBadge.remove();
-            };
+        const themeName = select.options[select.selectedIndex].text;
 
-            themeBadge.appendChild(removeBtn);
-            document.getElementById('themesAjoutes').appendChild(themeBadge);
+        const themeBadge = document.createElement('span');
+        themeBadge.classList.add('theme-badge');
+        themeBadge.textContent = themeName;
+        themeBadge.dataset.id = selectedThemeId;
 
-            select.value = "";
-        }
+        const removeBtn = document.createElement('button');
+        removeBtn.textContent = "✖";
+        removeBtn.classList.add('remove-theme');
+        removeBtn.onclick = function() {
+            themeBadge.remove();
+        };
+
+        themeBadge.appendChild(removeBtn);
+        document.getElementById('themesAjoutes').appendChild(themeBadge);
+
+        select.value = "";
     });
 
     // Sélection des dates avec Flatpickr
@@ -242,31 +248,37 @@ async function fetchCategories() {
             formData.append('tailleGroupe', document.getElementById('nbPersonnes').value);
             formData.append('prix', document.getElementById('prix').value);
 
-            // Récupérer les thèmes sélectionnés
-            const themes = Array.from(document.querySelectorAll('#themesAjoutes .theme-badge')).map(badge => badge.textContent);
+            // Récupérer les thèmes sélectionnés (IDs)
+            const themes = Array.from(document.querySelectorAll('#themesAjoutes .theme-badge')).map(badge => badge.dataset.id);
+            console.log("IDs des thèmes envoyés :", themes);
             formData.append('themes', JSON.stringify(themes));
 
             // Ajouter les images
             const imageInputs = document.getElementById('uploadInput').files;
             for (const file of imageInputs) {
                 formData.append('images[]', file);
+                console.log("Image ajoutée : " + file.name);
             }
 
             const response = await fetch('../../controller/Activite/CreerActiviteController.php', {
                 method: 'POST',
                 body: formData
             });
+            const sqlQuery = response.headers.get('X-SQL-Query');
+const sqlError = response.headers.get('X-SQL-Error');
+if (sqlQuery) console.log("SQL exécutée :", sqlQuery);
+if (sqlError) console.error("Erreur SQL :", sqlError);
 
             if (response.ok) {
-                alert("Activité créée avec succès.");
-                window.location.href = '../Page/accueil.php';
+                console.log("Activité créée avec succès.");
+                //window.location.href = '../Page/accueil.php';
             } else {
                 const errorText = await response.text();
-                alert("Erreur lors de la création de l'activité : " + errorText);
+                console.log("Erreur lors de la création de l'activité : " + errorText);
             }
         } catch (error) {
             console.error(error);
-            alert("Une erreur est survenue lors de l'envoi des données.");
+            console.log("Une erreur est survenue lors de l'envoi des données.");
         }
     }
 

@@ -7,7 +7,7 @@ const ForumThemes = document.getElementById("ForumThemes");
 
 const Refresh = () => {
     var request = new XMLHttpRequest();
-    request.open("GET", `../../controller/Admin/GetTheme.php`, true);
+    request.open("GET", `../../controller/Admin/ModifierTablesControlleur.php`, true);
     request.send();
     request.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -27,7 +27,7 @@ const Refresh = () => {
 
 const AddThemeActivity = (theme) => {
     var request = new XMLHttpRequest();
-    request.open("POST", `../../controller/Admin/AddThemeActivite.php`, true);
+    request.open("POST", `../../controller/Admin/ModifierTablesControlleur.php?type=activite`, true);
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
     const body = JSON.stringify({
@@ -39,7 +39,7 @@ const AddThemeActivity = (theme) => {
 
 const AddThemeForum = (theme) => {
     var request = new XMLHttpRequest();
-    request.open("POST", `../../controller/Admin/AddThemeForum.php`, true);
+    request.open("POST", `../../controller/Admin/ModifierTablesControlleur.php?type=forum`, true);
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
     const body = JSON.stringify({
