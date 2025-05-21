@@ -106,4 +106,16 @@ class ActiviteModel
         $query->execute();
         return $query->fetch(PDO::FETCH_ASSOC);
     }
+
+    public static function getInfoActivity ($idClient) {
+        $sql = "SELECT Activite.idActivite, Activite.titre, Activite.adresse, Activite.prix, Activite.idMeeter, Evenement.dateEvenement, Reservation.nbPlace, Reservation.idReservation
+        FROM Reservation
+        INNER JOIN Evenement ON Reservation.idEvenement = Evenement.idEvenement
+        INNER JOIN Activite ON Evenement.idActivite = Activite.idActivite
+        WHERE Activite.idMeeter = :idClient";
+
+            $stmt = $db->prepare($sql);
+            $stmt->execute([':idClient' => $idClient]);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
