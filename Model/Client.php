@@ -88,6 +88,17 @@ Class Client {
                     "id" => $id,
                 ]);
     }
+
+    public static function modifierPrenom($newFirstName, $idClient) {
+        $db = Bdd::getInstance();
+        $sql = "UPDATE Client SET prenom = :newFirstName WHERE idClient = :idClient";
+        $stmt = $db->prepare($sql);
+        $stmt->execute([
+            ':newFirstName' => $newFirstName,
+            ':idClient' => $idClient
+        ]);
+        return $stmt->rowCount() > 0;
+    }
 }
 
 ?>
