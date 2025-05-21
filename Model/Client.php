@@ -99,6 +99,17 @@ Class Client {
         ]);
         return $stmt->rowCount() > 0;
     }
+    
+    public static function editLastName($idClient, $newLastName) {
+        $db = Bdd::getInstance();
+        $sql = "UPDATE Client SET nom = :nom WHERE idClient = :id";
+        $stmt = $db->prepare($sql);
+        $stmt->execute([
+            ':nom' => $newLastName,
+            ':id' => $idClient
+        ]);
+        return $stmt->rowCount() > 0;
+    }
 }
 
 ?>

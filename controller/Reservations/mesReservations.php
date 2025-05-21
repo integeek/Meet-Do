@@ -1,6 +1,7 @@
 <?php
-
 session_start();
+require_once("../../model/Reservation.php");
+
 
 if (!isset($_SESSION['user']['email'])) {
     header("Location: ../../view/page/Connexion.php");
@@ -37,39 +38,10 @@ if (!isset($_SESSION['user']['email'])) {
         <h1>Mes Réservations :</h1>
     </header>
     <main>
-        <?php
-            try {
-                $db = new PDO(
-                    "mysql:host=144.76.54.100;dbname=MeetDo;charset=utf8",
-                    "meetndodatabase",
-                    "AppG10-D",
-                    [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
-                );
-                $email = $_SESSION['user']['email'];
-                $sql = "SELECT idClient FROM Client WHERE email = :email";
-                $stmt = $db->prepare($sql);
-                $stmt->bindValue(':email', $email, PDO::PARAM_STR);
-                $stmt->execute();
+        <?php 
+                $idClient = $_SESSION['user']['id'];
 
-                $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                if ($result && isset($result['idClient'])) {
-                    $idClient = $result['idClient'];
-                } else {
-                    echo "<p>Aucun client trouvé pour l'email $email</p>";
-                }
-
-
-                $stmt =  $db->prepare("
-                    SELECT Activite.idActivite, Activite.titre, Activite.adresse, Activite.prix, Evenement.dateEvenement, Reservation.nbPlace, Reservation.idReservation
-                    FROM Reservation
-                    INNER JOIN Evenement ON Reservation.idEvenement = Evenement.idEvenement
-                    INNER JOIN Activite ON Evenement.idActivite = Activite.idActivite
-                    WHERE Reservation.idClient = :idClient
-                ");
-
-                $stmt->execute([':idClient' => $idClient]);
-                $reservations = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                $reservations = Reservation::getInfoReservation($idClient);
 
                 function resaComponent($idActivite, $title, $place, $date, $people, $price, $index) {
                     $boutonbleu = "boutonbleu" . $index;
@@ -148,9 +120,21 @@ if (!isset($_SESSION['user']['email'])) {
                     }
                 }
 
-            } catch (PDOException $e) {
-                echo "Erreur de connexion à la base de données : " . $e->getMessage();
-            }
+                if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cancel'])) {
+                    $cancelConfirmation = $_POST['cancel'];
+
+                    if ($cancelConfirmation === "ANNULER") {
+                        $idResa = $_POST['idResa'];
+                        Reservation::cancelReservation($idResa);
+                        echo "<script>alert('Réservation annulée avec succès.');</script>";
+                    } else if ($cancelConfirmation !== "ANNULER") {
+                        echo "<script>alert('Erreur lors de l\'annulation de la réservation.');</script>";
+                    } else if (empty($cancelConfirmation)) {
+                        echo "<script>alert('Veuillez entrer le mot ANNULER pour confirmer.');</script>";
+                    }
+                }
+
+
         ?>
     </div>
     <script>
