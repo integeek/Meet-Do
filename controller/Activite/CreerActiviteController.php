@@ -68,7 +68,27 @@ try {
         }
 
         // Upload des images
-        $uploadDir = '../../view/assets/img/';
+        $uploadDir = '../../view/assets/uploads/activites/';
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0777, true);
+        }
+        // Vérification de l'upload
+        if (!is_writable($uploadDir)) {
+            http_response_code(500);
+            echo "Le répertoire de destination n'est pas accessible en écriture.";
+            exit;
+        }
+        // Vérification de la taille maximale
+        $maxFileSize = 5 * 1024 * 1024; // 5 Mo
+        if (isset($_FILES['images']) && is_array($_FILES['images']['name'])) {
+            foreach ($_FILES['images']['size'] as $size) {
+                if ($size > $maxFileSize) {
+                    http_response_code(400);
+                    echo "Un ou plusieurs fichiers dépassent la taille maximale autorisée.";
+                    exit;
+                }
+            }
+        }
         if (isset($_FILES['images'])) {
             $files = $_FILES['images'];
             error_log('$_FILES : ' . print_r($_FILES, true));
@@ -80,7 +100,7 @@ try {
                         $filename = uniqid() . '_' . basename($files['name'][$i]);
                         $destination = $uploadDir . $filename;
                         if (move_uploaded_file($files['tmp_name'][$i], $destination)) {
-                            ActiviteCreationModel::ajouterImage($idActivite, "../assets/img/$filename");
+                            ActiviteCreationModel::ajouterImage($idActivite, $uploadDir . $filename);
                         }
                     }
                 }
@@ -90,7 +110,7 @@ try {
                     $filename = uniqid() . '_' . basename($files['name']);
                     $destination = $uploadDir . $filename;
                     if (move_uploaded_file($files['tmp_name'], $destination)) {
-                        ActiviteCreationModel::ajouterImage($idActivite, "../assets/img/$filename");
+                        ActiviteCreationModel::ajouterImage($idActivite, $uploadDir . $filename);
                     }
                 }
             }
