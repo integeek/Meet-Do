@@ -18,7 +18,7 @@ let search = "";
 
 const Refresh = () => {
     var request = new XMLHttpRequest();
-    request.open("GET", `../../controller/Admin/DemandeMeeter.php?search=${search}`, true);
+    request.open("GET", `../../controller/Admin/MeeterControlleur.php?search=${search}`, true);
     request.send();
 
     request.onreadystatechange = function () {
@@ -58,7 +58,7 @@ const RenderPagination = () => {
 
 const RefuseMeeter = () => {
     var request = new XMLHttpRequest();
-    request.open("DELETE", `../../controller/Admin/DeleteNewMeeter.php`, true);
+    request.open("DELETE", `../../controller/Admin/MeeterControlleur.php.php`, true);
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
     const body = JSON.stringify({
@@ -70,7 +70,7 @@ const RefuseMeeter = () => {
 
 const AcceptMeeter = () => {
     var request = new XMLHttpRequest();
-    request.open("POST", `../../controller/Admin/NewMeeter.php`, true);
+    request.open("POST", `../../controller/Admin/MeeterControlleur.php`, true);
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
     const body = JSON.stringify({

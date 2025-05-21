@@ -6,109 +6,11 @@ unset($_SESSION["erreur_contact"]);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us</title>
+    <title>Nous contacter</title>
     <link rel="stylesheet" type="text/css" href="../component/Footer/Footer.css">
     <link rel="stylesheet" type="text/css" href="../component/Navbar/Navbar.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #fff;
-        }
-
-        .container {
-            display: flex;
-            justify-content: space-between;
-            gap: 40px;
-            padding: 40px;
-            max-width: 1200px;
-            margin: auto;
-            flex-wrap: wrap;
-        }
-
-        /* Section Contact */
-        .contact,
-        .forume {
-            flex: 1 1 400px;
-            background-color: #fff;
-            min-width: 300px;
-        }
-
-        .contact h2,
-        .forume h2 {
-            font-size: 28px;
-            margin-bottom: 20px;
-            font-weight: bold;
-        }
-
-        .contact-info p {
-            display: flex;
-            align-items: center;
-            margin: 10px 0;
-            font-size: 16px;
-        }
-
-        .contact-info img {
-            width: 20px;
-            margin-right: 10px;
-        }
-
-        .social-icons {
-            margin-top: 20px;
-        }
-
-        .social-icons img {
-            width: 30px;
-            margin-right: 15px;
-            cursor: pointer;
-        }
-
-        /* Section Formulaire */
-        .forume form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-row {
-            display: flex;
-            flex-direction: row;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-
-        .form-row input {
-            flex: 1;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        input,
-        textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: 14px;
-        }
-
-        textarea {
-            resize: vertical;
-        }
-
-        .btn-submit {
-            padding: 12px;
-            background-color: #6cb4ff;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s ease;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="../component/BoutonBleu.css">
+    <link rel="stylesheet" type="text/css" href="../Style/Formulaire.css">
 </head>
 
 
@@ -129,7 +31,7 @@ unset($_SESSION["erreur_contact"]);
             <div class="contact-info">
                 <p><img src="../assets/img/pin.png" alt="Adresse"> 28 rue Notre Dame des Champs, 75006 Paris</p>
                 <p><img src="../assets/img/telephone.png" alt="Téléphone"> +33 06 06 06 06 06</p>
-                <p><img src="../assets/img/icons/icon-mail.svg" alt="Email"> meet.do@gmail.com</p>
+                <p><img src="../assets/img/icons/icon-mail.svg" alt="Email"> meetdosav@gmail.com</p>
             </div>
             <div class="social-icons">
                 <img src="../assets/img/b.webp" alt="Facebook">
@@ -155,8 +57,13 @@ unset($_SESSION["erreur_contact"]);
                 <div class="form-group">
                     <textarea name="message" rows="4" placeholder="Message" required></textarea>
                 <div class="erreur"><?= htmlspecialchars($messageErreur) ?></div>
-                <button type="submit" class="btn-submit">Envoyer</button>
+                <div id="boutonContainer"></div>
+                </div>
             </form>
+            <script src="../component/BoutonBleu.js?v=1.2"></script>
+            <script>
+                document.getElementById('boutonContainer').innerHTML = BoutonBleu("Envoyer");
+            </script>
         </div>
     </div>
 

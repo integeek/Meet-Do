@@ -17,7 +17,7 @@ let search = "";
 
 const Refresh = () => {
     var request = new XMLHttpRequest();
-    request.open("GET", `../../controller/Admin/SignalementUtilisateur.php?search=${search}`, true);
+    request.open("GET", `../../controller/Admin/SignalementUtilisateurControlleur.php?search=${search}`, true);
     request.send();
 
     request.onreadystatechange = function () {
@@ -40,7 +40,7 @@ const Refresh = () => {
 
 const deleteMessage = (id) => {
     var request = new XMLHttpRequest();
-    request.open("DELETE", `../../controller/Admin/DeleteSignalement.php?id=${id}`, true);
+    request.open("DELETE", `../../controller/Admin/SignalementUtilisateurControlleur.php?id=${id}`, true);
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     request.send();
 
@@ -60,7 +60,7 @@ const deleteMessage = (id) => {
 
 const BlockAnnonce = () => {
     var request = new XMLHttpRequest();
-    request.open("POST", `../../controller/Admin/BlockUser.php`, true);
+    request.open("POST", `../../controller/Admin/SignalementUtilisateurControlleur.php`, true);
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
     const body = JSON.stringify({

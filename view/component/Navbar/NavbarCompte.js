@@ -14,7 +14,7 @@ function NavbarCompte(url) {
                         <li><a href="../../view/Page/PageCompte.php">Mes informations</a></li>
                         <li><a href="../../view/Page/Messagerie.php">Mes discussions</a></li>
                         <li><a href="../../controller/Reservations/mesReservations.php">Mes réservations</a></li>
-                        <li><a href="#">Mes activités</a></li>
+                        <li><a href="../../view/Page/mesActivites.php">Mes activités</a></li>
 
                     </ul>
                 </div>

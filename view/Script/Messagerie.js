@@ -8,7 +8,7 @@ let talkID = 0;
 
 const Refresh = () => {
     var request = new XMLHttpRequest();
-    request.open("GET", `../../controller/Messagerie/GetUser.php`, true);
+    request.open("GET", `../../controller/Messagerie/MessagerieControlleur.php?action=users`, true);
     request.send();
 
     request.onreadystatechange = function () {
@@ -44,7 +44,7 @@ Refresh();
 
 const Refresh2 = () => {
     var request = new XMLHttpRequest();
-    request.open("GET", `../../controller/Messagerie/GetMessage.php?id=${talkID}`, true);
+    request.open("GET", `../../controller/Messagerie/MessagerieControlleur.php?id=${talkID}&action=messages`, true);
     request.send();
 
     request.onreadystatechange = function () {
@@ -66,7 +66,7 @@ const Refresh2 = () => {
 
 const sendMessageFunction = (message) => {
     var request = new XMLHttpRequest();
-    request.open("POST", "./../../controller/Messagerie/SendMessage.php", true);
+    request.open("POST", "./../../controller/Messagerie/MessagerieControlleur.php?action=send", true);
     request.setRequestHeader("Content-Type", "application/json");
 
     const body = JSON.stringify({

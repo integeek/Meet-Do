@@ -6,7 +6,6 @@ if (!isset($_SESSION['user']['email'])) {
     header("Location: ../../view/page/Connexion.php");
     exit;
 }
-
 ?>
 
 
@@ -23,7 +22,8 @@ if (!isset($_SESSION['user']['email'])) {
     <link rel="stylesheet" type="text/css" href="../../view/component/BoutonRouge.css">
     <script src="../../view/component/BoutonBleu.js"></script>
     <script src="../../view/component/BoutonRouge.js"></script>
-    <title>Document</title>
+    <script src="../../view/Script/PopUp.js" defer></script>
+    <title>Mes Réservations | Meet&Do</title>
 </head>
 <body>
     <header>
@@ -61,7 +61,7 @@ if (!isset($_SESSION['user']['email'])) {
 
 
                 $stmt =  $db->prepare("
-                    SELECT Activite.titre, Activite.adresse, Activite.prix, Evenement.dateEvenement, Reservation.nbPlace, Reservation.idReservation
+                    SELECT Activite.idActivite, Activite.titre, Activite.adresse, Activite.prix, Evenement.dateEvenement, Reservation.nbPlace, Reservation.idReservation
                     FROM Reservation
                     INNER JOIN Evenement ON Reservation.idEvenement = Evenement.idEvenement
                     INNER JOIN Activite ON Evenement.idActivite = Activite.idActivite
@@ -71,7 +71,7 @@ if (!isset($_SESSION['user']['email'])) {
                 $stmt->execute([':idClient' => $idClient]);
                 $reservations = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                function resaComponent($title, $place, $date, $people, $price, $index) {
+                function resaComponent($idActivite, $title, $place, $date, $people, $price, $index) {
                     $boutonbleu = "boutonbleu" . $index;
                     $boutonbleu1 = "boutonbleu1" . $index;
                     $boutonrouge = "boutonrouge" . $index;
@@ -108,6 +108,9 @@ if (!isset($_SESSION['user']['email'])) {
                                         document.getElementById('$boutonbleu').innerHTML = BoutonBleu(
                                             'Voir l\'activité'
                                         );
+                                        document.getElementById('$boutonbleu').onclick = function() {
+                                            window.location.href = '../../view/Page/Activite.php?id=$idActivite';
+                                        };
                                     </script>
                                     <div id='$boutonbleu1'></div>
                                     <script>
@@ -134,6 +137,7 @@ if (!isset($_SESSION['user']['email'])) {
                     echo "<div class='reservation-list'>";
                     foreach ($reservations as $resa) {
                         echo resaComponent(
+                            $resa['idActivite'],
                             $resa['titre'],
                             $resa['adresse'],
                             $resa['dateEvenement'],
@@ -149,6 +153,9 @@ if (!isset($_SESSION['user']['email'])) {
             }
         ?>
     </div>
+    <script>
+        window.activite = {idActivite: "<?php echo htmlspecialchars($idActivite, ENT_QUOTES, 'UTF-8'); ?>"};
+    </script>
     </main>
     <footer id="footer-container" class="footer-container">
         <script src="../../view/component/Footer/Footer.js"></script>
@@ -156,6 +163,29 @@ if (!isset($_SESSION['user']['email'])) {
             document.getElementById("footer-container").innerHTML = Footer("../../view");
         </script>
     </footer>
+
+    <div class="edit-container" id="edit-lastname-popup">
+      <div class="edit-content">
+        <div class="edit-header">
+          <h3>Modifiez votre Nom</h3>
+        </div>
+        <form action="../../controller/Compte/ModifierNom.php" method="POST" id="edit-lastname-form">
+          <div class="edit-main">
+            <input type="text" name="edit-lastname" id="edited-input" />
+            <input type="hidden" name="idClient" />
+          </div>
+          <div class="edit-footer">
+            <button type="button" onclick="closePopUp('edit-lastname-popup')" class="buttonRo">Annuler</button>
+              <div onclick="document.getElementById('edit-lastname-form').submit()" id="bouton-bleue2"></div>
+          <script>
+            document.getElementById("bouton-bleue2").innerHTML =
+              BoutonBleu("Valider");
+          </script>
+        </div>
+      </form>
+    </div>
+  </div>
+
 </body>
 </html>
 

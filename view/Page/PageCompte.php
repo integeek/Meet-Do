@@ -30,7 +30,7 @@ $idClient = $_SESSION['user']['id'];
   <script src="../component/BoutonBleu.js"></script>
   <script src="../component/BoutonRouge.js"></script>
   <script src="../Script/PopUp.js" defer></script>
-  <title>Mon Compte</title>
+  <title>Mon Compte | Meet&Do</title>
 </head>
 
 <body>
