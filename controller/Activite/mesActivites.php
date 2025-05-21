@@ -15,4 +15,6 @@ if ($role !== 'Meeter' && $role !== 'Administrateur') {
     header("Location: ../../view/Page/Devenir-meeter.php");
     exit;
 }
+
+$activites = activiteModel::getInfoActivity($idClient);
 ?>

@@ -108,14 +108,18 @@ class ActiviteModel
     }
 
     public static function getInfoActivity ($idClient) {
-        $sql = "SELECT Activite.idActivite, Activite.titre, Activite.adresse, Activite.prix, Activite.idMeeter, Evenement.dateEvenement, Reservation.nbPlace, Reservation.idReservation
-        FROM Reservation
-        INNER JOIN Evenement ON Reservation.idEvenement = Evenement.idEvenement
-        INNER JOIN Activite ON Evenement.idActivite = Activite.idActivite
-        WHERE Activite.idMeeter = :idClient";
-
-            $stmt = $db->prepare($sql);
+        $db = Bdd::getInstance();
+        $stmt = $db->prepare("SELECT idActivite, titre, adresse, prix, idMeeter, tailleGroupe, mobiliteReduite
+        FROM Activite
+        WHERE idMeeter = :idClient");
             $stmt->execute([':idClient' => $idClient]);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function deleteActivity($idActivite) {
+        $db = Bdd::getInstance();
+        $stmt = $db->prepare("DELETE FROM Activite WHERE idActivite = :idActivite");
+        $stmt->bindParam(':idActivite', $idActivite);
+        return $stmt->execute();
     }
 }
