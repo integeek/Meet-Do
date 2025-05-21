@@ -12,7 +12,7 @@ class PhotoModel
     public static function getPhotoProfil($idUser)
     {
         $db = self::getDb();
-        $stmt = $db->prepare("SELECT photoProfil FROM User WHERE idClient = ?");
+        $stmt = $db->prepare("SELECT photoProfil FROM Client WHERE idClient = ?");
         $stmt->execute([$idUser]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result ? $result['photoProfil'] : null;
@@ -22,7 +22,7 @@ class PhotoModel
     public static function setPhotoProfil($idUser, $chemin)
     {
         $db = self::getDb();
-        $stmt = $db->prepare("UPDATE User SET photoProfil = ? WHERE idClient = ?");
+        $stmt = $db->prepare("UPDATE Client SET photoProfil = ? WHERE idClient = ?");
         $stmt->execute([$chemin, $idUser]);
     }
 }

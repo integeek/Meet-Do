@@ -58,9 +58,16 @@ $idClient = $_SESSION['user']['id'];
             fetch('../../controller/Compte/PhotoController.php', { method: 'GET' })
               .then(response => response.json())
               .then(data => {
-                if (data.photo && data.photo !== "") {
-                  document.getElementById('profile-icon').src = data.photo;
+                const img = document.getElementById('profile-icon');
+                if (data.photo && data.photo !== "null" && data.photo !== "") {
+                  img.src = data.photo;
+                } else {
+                  img.src = "../assets/img/icons/profile-icon.svg";
                 }
+              })
+              .catch(() => {
+                // En cas d'erreur réseau, on affiche aussi l'icône par défaut
+                document.getElementById('profile-icon').src = "../assets/img/icons/profile-icon.svg";
               });
           </script>
         </div>
@@ -225,6 +232,28 @@ $idClient = $_SESSION['user']['id'];
     </div>
   </div>
 
-</body>
+  <div class="edit-container" id="edit-photo-popup" style="display:none;">
+    <div class="edit-content">
+      <div class="edit-header">
+        <h3>Changer la photo de profil</h3>
+      </div>
+      <form id="edit-photo-form" enctype="multipart/form-data">
+        <div class="edit-main">
+          <input type="file" name="photo" id="input-pdp" accept="image/*" required />
+        </div>
+        <div class="edit-footer">
+          <button type="button" onclick="closePopUp('edit-photo-popup')" class="buttonRo">Annuler</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
+  <script type="module">
+    import { chargerPhotoProfil, setupPhotoProfilPopup } from '../Script/PhotoProfil.js';
+    window.addEventListener('DOMContentLoaded', () => {
+      chargerPhotoProfil();
+      setupPhotoProfilPopup();
+    });
+  </script>
+</body>
 </html>
