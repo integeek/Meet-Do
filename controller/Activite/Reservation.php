@@ -16,6 +16,7 @@ if (!$idClient || !isset($data['date'], $data['heure'], $data['nbPlace'])) {
 $date = $data["date"];
 $heure = $data["heure"];
 $nbPlace = intval($data["nbPlace"]);
+$isFileAttente = isset($data['fileAttente']) && $data['fileAttente'] === true;
 
 list($heureDebut, ) = explode("-", $heure);
 
@@ -25,10 +26,12 @@ if (!$idEvenement) {
     echo json_encode(["success" => false, "message" => "Créneau introuvable"]);
     exit;
 }
-Reservation::makeReservation($nbPlace, $idClient, $idEvenement);
-$result = Evenement::updatePlacePrise($idEvenement, $nbPlace);
-if (!$result) {
-    error_log("Erreur lors de la mise à jour placePrise pour l'événement $idEvenement");
+Reservation::makeReservation($nbPlace, $idClient, $idEvenement,  $isFileAttente ? 1 : 0);
+if (!$isFileAttente) {
+    $result = Evenement::updatePlacePrise($idEvenement, $nbPlace);
+    if (!$result) {
+        error_log("Erreur lors de la mise à jour placePrise pour l'événement $idEvenement");
+    }
 }
 
 

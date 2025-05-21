@@ -27,7 +27,8 @@ Class Evenement {
         $query = $db->prepare($sql);
         $query->bindValue(':id', $idActivite, PDO::PARAM_INT);
         $query->execute();
-        return $query->fetchAll(PDO::FETCH_COLUMN);
-    }
+        return $query->fetchAll(PDO::FETCH_ASSOC); // 🔁 On récupère chaque ligne sous forme de tableau associatif
+}
+
 }
 ?>

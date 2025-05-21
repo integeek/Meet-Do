@@ -23,8 +23,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     max: parseInt(e.max)
                 });
             });
-            console.log(data);
 
+            console.log(data);
 
             flatpickr("#datepicker", {
                 enable: datesDisponibles,
@@ -33,12 +33,17 @@ document.addEventListener("DOMContentLoaded", () => {
                     afficherCreneaux(dateStr, horairesParDate);
                 }
             });
+        })
+        .catch(err => {
+            console.error("Erreur lors de la récupération des données :", err);
         });
 
     function afficherCreneaux(date, horairesParDate) {
         const creneaux = horairesParDate[date] || [];
         const container = document.getElementById("creneaux-container");
         container.innerHTML = "";
+
+        document.getElementById("boutonBleuPop").innerHTML = BoutonBleu("Valider");
 
         if (creneaux.length === 0) {
             container.innerHTML = "<p>Aucun créneau disponible pour cette date.</p>";
@@ -58,18 +63,24 @@ document.addEventListener("DOMContentLoaded", () => {
                 <span class="creneau-capacity">${c.inscrits}/${c.max} personnes</span>
             `;
 
-            if (c.inscrits < c.max) {
-                btn.addEventListener("click", () => {
-                    document.querySelectorAll(".creneau-btn").forEach(el => el.classList.remove("selected"));
-                    btn.classList.add("selected");
-                    console.log("Créneau sélectionné :", c.heure);
-                });
-            }
+            btn.addEventListener("click", () => {
+                document.querySelectorAll(".creneau-btn").forEach(el => el.classList.remove("selected"));
+                btn.classList.add("selected");
+
+                if (c.inscrits >= c.max) {
+                    document.getElementById("boutonBleuPop").innerHTML = BoutonBleu("S'inscrire à la file d'attente");
+                } else {
+                    document.getElementById("boutonBleuPop").innerHTML = BoutonBleu("Valider");
+                }
+
+                console.log("Créneau sélectionné :", c.heure);
+            });
 
             container.appendChild(btn);
         });
     }
 });
+
 
 const btn = document.getElementById("boutonBleuPop");
 let connected = false;
@@ -114,6 +125,8 @@ btn.addEventListener("click", () => {
         return;
     }
     const heure = creneau.querySelector(".creneau-time").textContent;
+    const isFileAttente = document.getElementById("boutonBleuPop").innerText.includes("file d'attente");
+
   fetch("../../controller/Activite/Reservation.php", {
     method: "POST",
     headers: {
@@ -123,7 +136,8 @@ btn.addEventListener("click", () => {
     body: JSON.stringify({
         nbPlace: nbPlace,
         date: date,
-        heure: heure
+        heure: heure,
+        fileAttente: isFileAttente,
     })
 })
 .then(res => res.text()) 
@@ -132,7 +146,7 @@ btn.addEventListener("click", () => {
     try {
         const data = JSON.parse(text);
         if (data.success) {
-            alert("Réservation réussie !");
+            alert(isFileAttente ? "Inscription en file d'attente réussie !" : "Réservation réussie !");
             window.location.href = "./../../view/Page/PageCompte.php";
         } else {
             alert("Erreur lors de la réservation : " + data.message);

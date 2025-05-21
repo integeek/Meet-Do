@@ -8,7 +8,8 @@ $rows = Evenement::selectDateEvenement($idActivite);
 $datesDisponibles = [];
 $horairesList = [];
 
-foreach ($rows as $datetime) {
+foreach ($rows as $row) {
+    $datetime = $row['dateEvenement'];
     $date = date('Y-m-d', strtotime($datetime));
     $heure = date('H:i', strtotime($datetime)) . '-' . date('H:i', strtotime($datetime . ' +1 hour'));
 
@@ -19,7 +20,7 @@ foreach ($rows as $datetime) {
     $horairesList[] = [
         'dateEvenement' => $date,
         'heure' => $heure,
-        'inscrits' => int($rows[$datetime]['placePrise'] ?? 0),
+        'inscrits' => (int)($row['placePrise'] ?? 0),
         'max' => 10
     ];
 }
