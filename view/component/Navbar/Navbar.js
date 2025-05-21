@@ -44,9 +44,27 @@ const GetCookie = async () => {
 };
 
 async function Navbar(url) {
+    console.log("Navbar appelée avec url :", url);
     try {
         await GetCookie();
+        let photoProfil = `${url}/assets/img/profil.png`; // Valeur par défaut
+
         if (connect.connect) {
+            // Récupère la photo de profil via une requête synchrone
+            try {
+                console.log("Tentative de fetch photo de profil...");
+                const response = await fetch('../../controller/Compte/PhotoController.php', { method: 'GET' });
+                console.log("Réponse fetch reçue :", response);
+                const data = await response.json();
+                if (data.photo && data.photo !== "null" && data.photo !== "") {
+                    photoProfil = data.photo;
+                }
+            } catch (e) {
+                console.error("Impossible de charger la photo de profil dans la NavBar : ", e);
+            }
+
+            console.log("Photo de profil utilisée dans la navbar :", photoProfil);
+
             return `
                 <nav> 
                     <a href="./accueil.php" class="nav-icon" aria-label="homepage" aria-current="page">
@@ -86,9 +104,8 @@ async function Navbar(url) {
                                 : ""
                             }
                             <a href="./PageCompte.php" class="profil" id="profil">
-                                <div class="text-overflow">${connect.firstName} ${connect.lastName
-                    }</div>
-                                <img src="${url}/assets/img/profil.png" id="profil-img">
+                                <div class="text-overflow">${connect.firstName} ${connect.lastName}</div>
+                                <img src="${photoProfil}" id="navbar-profile-icon" style="object-fit:cover;width:40px;height:40px;border-radius:50%;">
                             </a>
                             <div class="deconnexion">
                                 <a id="logout-btn" href="../../../controller/Authentification/Deconnexion.php">Se déconnecter</a>

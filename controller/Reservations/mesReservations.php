@@ -22,6 +22,7 @@ if (!isset($_SESSION['user']['email'])) {
     <link rel="stylesheet" type="text/css" href="../../view/component/BoutonRouge.css">
     <script src="../../view/component/BoutonBleu.js"></script>
     <script src="../../view/component/BoutonRouge.js"></script>
+    <script src="../../view/Script/PopUp.js" defer></script>
     <title>Mes Réservations | Meet&Do</title>
 </head>
 <body>
@@ -162,6 +163,29 @@ if (!isset($_SESSION['user']['email'])) {
             document.getElementById("footer-container").innerHTML = Footer("../../view");
         </script>
     </footer>
+
+    <div class="edit-container" id="edit-lastname-popup">
+      <div class="edit-content">
+        <div class="edit-header">
+          <h3>Modifiez votre Nom</h3>
+        </div>
+        <form action="../../controller/Compte/ModifierNom.php" method="POST" id="edit-lastname-form">
+          <div class="edit-main">
+            <input type="text" name="edit-lastname" id="edited-input" />
+            <input type="hidden" name="idClient" />
+          </div>
+          <div class="edit-footer">
+            <button type="button" onclick="closePopUp('edit-lastname-popup')" class="buttonRo">Annuler</button>
+              <div onclick="document.getElementById('edit-lastname-form').submit()" id="bouton-bleue2"></div>
+          <script>
+            document.getElementById("bouton-bleue2").innerHTML =
+              BoutonBleu("Valider");
+          </script>
+        </div>
+      </form>
+    </div>
+  </div>
+
 </body>
 </html>
 
