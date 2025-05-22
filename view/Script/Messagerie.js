@@ -8,7 +8,7 @@ let talkID = 0;
 
 const Refresh = () => {
     var request = new XMLHttpRequest();
-    request.open("GET", `../../controller/Messagerie/GetUser.php`, true);
+    request.open("GET", `../../controller/Messagerie/MessagerieControlleur.php?action=users`, true);
     request.send();
 
     request.onreadystatechange = function () {
@@ -17,8 +17,19 @@ const Refresh = () => {
                 // Parse the JSON response
                 const responseData = JSON.parse(this.responseText);
                 Sidedata = responseData;
+                if (responseData.message === 'La table est vide.') {
+                    document.getElementsByTagName('main')[0].innerHTML = `
+                    <h1>Messagerie</h1>
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; margin-top: 5rem;">
+                        <img src="../../view/assets/img/icons/warning-icon.svg" alt="warning-icon" id="warning-icon" />
+                        <h2 id="warning-text">Aucun message trouvé.</h2>
+                        <p id="warning-subtext">Vous n'avez pas encore de messages.</p>
+                    </div>
+                    `;
+                } else {
+                    renderSideBar();
+                }
 
-                renderSideBar();
 
             } catch (error) {
                 console.error("Error parsing JSON response:", error);
@@ -33,7 +44,7 @@ Refresh();
 
 const Refresh2 = () => {
     var request = new XMLHttpRequest();
-    request.open("GET", `../../controller/Messagerie/GetMessage.php?id=${talkID}`, true);
+    request.open("GET", `../../controller/Messagerie/MessagerieControlleur.php?id=${talkID}&action=messages`, true);
     request.send();
 
     request.onreadystatechange = function () {
@@ -55,7 +66,7 @@ const Refresh2 = () => {
 
 const sendMessageFunction = (message) => {
     var request = new XMLHttpRequest();
-    request.open("POST", "./../../controller/Messagerie/SendMessage.php", true);
+    request.open("POST", "./../../controller/Messagerie/MessagerieControlleur.php?action=send", true);
     request.setRequestHeader("Content-Type", "application/json");
 
     const body = JSON.stringify({

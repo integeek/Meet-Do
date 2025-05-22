@@ -2,6 +2,9 @@
 session_start();
 $messageErreur = $_SESSION["erreur"] ?? "";
 unset($_SESSION["erreur"]);
+
+$messageSucces = $_SESSION["success"] ?? "";
+unset($_SESSION["success"]);
 ?>
 
 
@@ -27,12 +30,39 @@ unset($_SESSION["erreur"]);
     <header>
         <div id="navbar-container" class="navbar-container"></div>
         <script src="../component/Navbar/Navbar.js"></script>
-        <script>
-            (async () => {
-                document.getElementById('navbar-container').innerHTML = await Navbar("..");
-            })();
-        </script>
-        <script src="../component/Navbar/navAction.js"></script>
+<script>
+    (async () => {
+        const navHTML = await Navbar("..");
+        document.getElementById('navbar-container').innerHTML = navHTML;
+
+        // Interaction : ne doit se faire qu'après que le HTML soit injecté
+        const toggler = document.querySelector(".hamburger");
+        const navLinksContainer = document.querySelector(".nav-links");
+
+        const toggleNav = (e) => {
+            toggler.classList.toggle("open");
+
+            const ariaToggle =
+                toggler.getAttribute("aria-expanded") === "true" ? "false" : "true";
+            toggler.setAttribute("aria-expanded", ariaToggle);
+
+            navLinksContainer.classList.toggle("open");
+        };
+
+        if (toggler) {
+            toggler.addEventListener("click", toggleNav);
+        }
+
+        new ResizeObserver((entries) => {
+            if (entries[0].contentRect.width <= 900) {
+                navLinksContainer.style.transition = "transform 0.4s ease-out";
+            } else {
+                navLinksContainer.style.transition = "none";
+            }
+        }).observe(document.body);
+    })();
+</script>
+
 
     </header>
 
@@ -70,6 +100,9 @@ unset($_SESSION["erreur"]);
                 </div>
                 <div class="erreur" style="color: red; margin-bottom: 1rem;">
                     <?= htmlspecialchars($messageErreur) ?>
+                </div>
+                <div class="success" style="color: black; margin-bottom: 1rem; font-weight: bold;">
+                    <?= htmlspecialchars($messageSucces) ?>
                 </div>
 
                 <div id="boutonContainer"></div>

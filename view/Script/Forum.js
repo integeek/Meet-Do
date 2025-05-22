@@ -1,11 +1,3 @@
-const themes = [
-    "Themes",
-    "Compte",
-    "Réservation",
-    "Règlement",
-    "Bug"
-];
-
 const newQuestion = document.querySelector('#new-question-button');
 const buttonSend = document.querySelector('.collapse-add-button');
 const container = document.querySelector('.collapse-container');
@@ -16,6 +8,31 @@ let response = "";
 let userId = -1;
 let userName = "";
 let role = "";
+
+const GetTheme = () => {
+    var request = new XMLHttpRequest();
+    request.open("GET", `../../controller/Forum/ForumController.php?action=themes`, true);
+    request.send();
+
+    request.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            try {
+                // Parse the JSON response
+                const responseData = JSON.parse(this.responseText);
+                themes = responseData;
+                console.log(themes, "themes");
+                Theme();
+                Selector();
+            } catch (error) {
+                console.error("Error parsing JSON response:", error);
+            }
+        } else if (this.readyState == 4) {
+            console.error("Error: Unable to fetch data. Status:", this.status);
+        }
+    };
+}
+
+GetTheme();
 
 const GetUserId = () => {
     var request = new XMLHttpRequest();
@@ -47,7 +64,7 @@ GetUserId();
 
 const Post = (idForum) => {
     var request = new XMLHttpRequest();
-    request.open("POST", "./../../controller/Forum/AddResponse.php", true);
+    request.open("POST", "./../../controller/Forum/ForumController.php?action=addResponse", true);
     request.setRequestHeader("Content-Type", "application/json");
 
     const body = JSON.stringify({
@@ -98,7 +115,7 @@ const Post = (idForum) => {
 
 const Refresh = () => {
     var request = new XMLHttpRequest();
-    request.open("GET", `../../controller/Forum/Forum.php?selectBy=${theme}&search=${searchValue}`, true);
+    request.open("GET", `../../controller/Forum/ForumController.php?selectBy=${theme}&search=${searchValue}&action=questions`, true);
     request.send();
 
     request.onreadystatechange = function () {
@@ -125,18 +142,19 @@ const Refresh = () => {
 Refresh();
 
 const Theme = () => {
-    select.innerHTML = themes.map((item, index) => {
-        return `
-        <option value="${item}" ${index === 0 ? "disabled selected" : ""}>${item}</option>
-        `;
-    }).join('');
-}
+  select.innerHTML = `
+    <option value="" disabled selected>Thème</option>
+  `;
+  select.innerHTML += themes.map((item) => {
+    return `
+      <option value="${item.theme}">${item.theme}</option>
+      `;
+  }).join('');
 
-Theme();
+}
 
 const Selector = () => {
     const select = document.querySelector('#select');
-    console.log(select);
     select?.addEventListener('change', (e) => {
         document.getElementById('select-div').innerHTML = `
             <div id="selected" >
@@ -151,8 +169,6 @@ const Selector = () => {
         ThemeSelected();
     });
 }
-
-Selector();
 
 const ThemeSelected = () => {
     const croixselected = document.querySelector('#croix-selected');

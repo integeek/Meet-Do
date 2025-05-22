@@ -86,7 +86,7 @@
                         <div class="popup-main">
                           <div class="form-section">
                             <p>Nombre de participants</p>
-                            <input class="textbox" type="text" name="nbParticipant" required>
+                            <input class="textbox" type="text" name="nbParticipant" id="nbPlace" required>
                             <p>Choisissez votre date</p>
                             <input type="text" id="datepicker" placeholder="Choisissez une date disponible">
                           </div>
@@ -140,23 +140,25 @@
 
                         <h1>Signaler un utilisateur</h1>
                         <p>Raison du signalement<p></p>
-                        </form>
+                        <form action="../../controller/Signalement/SignalementUser.php" method="POST">
+                        <input type="hidden" name="idActivite" value="<?= $_GET['id'] ?>">
                         <div class="container">
-                            <p ><input type="radio" name="genre" value="manque-respect">Manque de respect</p>
-                            <p ><input type="radio" name="genre" value="publicite-deguise">Publicité déguisée</p>
-                            <p ><input type="radio" name="genre" value="probleme-localisation">Problème de localisation</p>
-                            <p ><input type="radio" name="genre" value="texte-inapproprie">Texte inapproprié</p>
-                            <p ><input type="radio" name="genre" value="photo-inappropriee">Photo inappropriée</p>
-                            <p ><input type="radio" name="genre" value="autre">Autre</p>            
+                            <p ><input type="radio" name="raison" value="Manque de respect">Manque de respect</p>
+                            <p ><input type="radio" name="raison" value="Publicité déguisée">Publicité déguisée</p>
+                            <p ><input type="radio" name="raison" value="Problème de localisation">Problème de localisation</p>
+                            <p ><input type="radio" name="raison" value="Texte inapproprié">Texte inapproprié</p>
+                            <p ><input type="radio" name="raison" value="Photo inappropriée">Photo inappropriée</p>
+                            <p ><input type="radio" name="raison" value="Autre">Autre</p>            
                         </div>
-                        <form action="">
+                        
                             <p>Commentaire : (facultatif)</p>
                             <textarea class="textComm" name="Commentaire" rows="4" cols="38"></textarea>
+                            <div class="popup-buttonsReport">
+                                <div id="bouton-rougeUser" onclick="closePopUp('popup-report-user')"></div>
+                                <div id="bouton-bleueUser"></div>
+                            </div>
                         </form>   
-                        <div class="popup-buttonsReport">
-                            <div id="bouton-rougeUser" onclick="closePopUp('popup-report-user')"></div>
-                            <div id="bouton-bleueUser"></div>
-                        </div>
+
                             <script>
                                 document.getElementById('bouton-rougeUser').innerHTML = BoutonRouge("Annuler");
                             </script>
@@ -171,23 +173,24 @@
                         <div class="close-cross" onclick="closePopUp('popup-report-activity')">✕</div>
                         <h1>Signaler une activité</h1>
                         <p>Raison du signalement<p></p>
-                        </form>
+                        <form action="../../controller/Signalement/SignalementActivite.php" method="POST">
+                        <input type="hidden" name="idActivite" value="<?= $_GET['id'] ?>">
                         <div class="container">
-                            <p ><input type="radio" name="genre" value="activite-dangereuse">Activité dangereuse</p>
-                            <p ><input type="radio" name="genre" value="publicite-deguise">Publicité déguisée</p>
-                            <p ><input type="radio" name="genre" value="probleme-localisation">Problème de localisation</p>
-                            <p ><input type="radio" name="genre" value="texte-inapproprie">Texte inapproprié</p>
-                            <p ><input type="radio" name="genre" value="photo-inappropriee">Photo inappropriée</p>
-                            <p ><input type="radio" name="genre" value="autre">Autre</p>            
+                            <p ><input type="radio" name="raison" value="Activité dangereuse">Activité dangereuse</p>
+                            <p ><input type="radio" name="raison" value="Publicité déguisée">Publicité déguisée</p>
+                            <p ><input type="radio" name="raison" value="Problème de localisation">Problème de localisation</p>
+                            <p ><input type="radio" name="raison" value="Texte inapproprié">Texte inapproprié</p>
+                            <p ><input type="radio" name="raison" value="Photo inappropriée">Photo inappropriée</p>
+                            <p ><input type="radio" name="raison" value="Autre">Autre</p>                
                         </div>
-                        <form action="">
                             <p>Commentaire : (facultatif)</p>
                             <textarea class="textComm" name="Commentaire" rows="4" cols="38"></textarea>
-                        </form>   
-                        <div class="popup-buttonsReport">
-                            <div id="bouton-rougeActivity" onclick="closePopUp('popup-report-activity')"></div>
-                            <div id="bouton-bleueActivity"></div>
+                            <div class="popup-buttonsReport">
+                                <div id="bouton-rougeActivity" onclick="closePopUp('popup-report-activity')"></div>
+                                <div id="bouton-bleueActivity"></div>
                         </div>
+                        </form>   
+
                             <script>
                                 document.getElementById('bouton-rougeActivity').innerHTML = BoutonRouge("Annuler");
                             </script>
@@ -235,7 +238,8 @@
         const id = urlParams.get('id');
 
         if (!id) {
-            alert("ID de l'activité manquant dans l'URL.");
+            console.error("ID de l'activité manquant dans l'URL.");
+            document.body.innerHTML = "<h1>ID de l'activité manquant dans l'URL.</h1>";
             return;
         }
 
@@ -254,11 +258,10 @@
             document.querySelector(".groupe-activite").innerHTML = `<img src="../assets/img/icons/group.svg" alt=""> Groupe de ${data.tailleGroupe}`;
             document.querySelector(".prix-activite").innerHTML = `<img src="../assets/img/icons/price.svg" alt=""> Prix : ${data.prix}€`;
             document.querySelector(".description-activite p").textContent = data.description;
-            document.querySelector(".nom-organisateur").innerHTML = `<img src="../assets/img/icons/user.svg" alt=""> ${data.meeterDescription}`;
+            document.querySelector(".nom-organisateur").innerHTML = `<img src="../assets/img/icons/user.svg" alt=""> ${data.prenom} ${data.nom}`;
             document.querySelector(".note-organisateur").innerHTML = `<img src="../assets/img/icons/etoile.svg" alt=""> ${data.moyenneAvis ?? "Pas encore de note"} / 5`;
 
             const imagesContainer = document.querySelector(".images-activite");
-
             if (data.images && data.images.length > 0) {
                 imagesContainer.innerHTML = data.images.map(src => `
                     <img src="${src}" alt="Image de l'activité" class="image-activite">

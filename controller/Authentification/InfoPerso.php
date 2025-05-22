@@ -1,16 +1,14 @@
 <?php
-require_once("../../model/Bdd.php");
-
+require_once("../../Model/Client.php");
 
 if (isset($_GET["id"], $_GET["cle"]) && !empty($_GET["id"]) && !empty($_GET["cle"])) {
     $getid = $_GET["id"];
     $getcle = $_GET["cle"];
 
-    $recupUser = $db->prepare("SELECT id, email, password FROM user WHERE id = ? AND cle = ?");
-    $recupUser->execute([$getid, $getcle]);
+    $userInfo = Client::recupUser($getid, $getcle);
 
-    if ($recupUser->rowCount() > 0) {
-        $userInfo = $recupUser->fetch();
+
+    if ($userInfo) {
 
         if (!empty($_POST)) {
             if (
@@ -22,19 +20,13 @@ if (isset($_GET["id"], $_GET["cle"]) && !empty($_GET["id"]) && !empty($_GET["cle
                 $prenom = strip_tags($_POST["prenom"]);
                 $adresse = strip_tags($_POST["adresse"]);
 
-                $insertUser = $db->prepare("
-                    INSERT INTO Client (email, password, nom, prenom, localisation)
-                    VALUES (:email, :password, :nom, :prenom, :adresse)
-                ");
-                $insertUser->execute([
-                    "email" => $userInfo["email"],
-                    "password" => $userInfo["password"],
-                    "nom" => $nom,
-                    "prenom" => $prenom,
-                    "adresse" => $adresse
-                ]);
-
-                $id = $db->lastInsertId();
+                $id = Client::insertUser(
+                    $userInfo["email"],
+                    $userInfo["password"],
+                    $nom,
+                    $prenom,
+                    $adresse
+                );
 
                 $_SESSION["user"] = [
                     "id" => $id,
@@ -95,7 +87,9 @@ if (isset($_GET["id"], $_GET["cle"]) && !empty($_GET["id"]) && !empty($_GET["cle
                 if (mail($destinataire, $sujet, $message, $headers)) {
                     echo "L'email a été envoyé avec succès.";
                 } else {
-                    echo "L'email n'a pas pu être envoyé.";
+                    $_SESSION["erreur"] = "L'email n'a pas pu être envoyé.";
+                        header("Location: ../../view/Page/Inscription.php");
+                exit;
                 }
 
                 header("Location: ../Page/accueil.php");
@@ -103,16 +97,19 @@ if (isset($_GET["id"], $_GET["cle"]) && !empty($_GET["id"]) && !empty($_GET["cle
             } else {
                 $_SESSION["erreur"] = "Erreur : tous les champs doivent être complétés (nom et prénom obligatoires)";
                 header("Location: ../../view/Page/Inscription.php");
+                exit;
             }
         }
 
     } else {
             $_SESSION["erreur"] = "Erreur : identifiant ou clé de sécurité incorrecte";
             header("Location: ../../view/Page/Inscription.php");
+            exit;
     }
 
 } else {
             $_SESSION["erreur"] = "Erreur : identifiant ou clé de sécurité manquante";
             header("Location: ../../view/Page/Inscription.php");
+            exit;
 }
 ?>

@@ -1,5 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
-    fetch("../../controller/Activite/Activite.php?idActivite=7")
+    const params = new URLSearchParams(window.location.search);
+    const idActivite = params.get("id");
+
+    if (!idActivite) {
+        console.error("Aucun id fourni dans l'URL.");
+        return;
+    }
+
+    fetch(`../../controller/Activite/Activite.php?idActivite=${idActivite}`)
         .then(res => res.json())
         .then(data => {
             const datesDisponibles = data.datesDisponibles;
@@ -15,8 +23,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     max: parseInt(e.max)
                 });
             });
-            console.log(data);
 
+            console.log(data);
 
             flatpickr("#datepicker", {
                 enable: datesDisponibles,
@@ -25,12 +33,17 @@ document.addEventListener("DOMContentLoaded", () => {
                     afficherCreneaux(dateStr, horairesParDate);
                 }
             });
+        })
+        .catch(err => {
+            console.error("Erreur lors de la récupération des données :", err);
         });
 
     function afficherCreneaux(date, horairesParDate) {
         const creneaux = horairesParDate[date] || [];
         const container = document.getElementById("creneaux-container");
         container.innerHTML = "";
+
+        document.getElementById("boutonBleuPop").innerHTML = BoutonBleu("Valider");
 
         if (creneaux.length === 0) {
             container.innerHTML = "<p>Aucun créneau disponible pour cette date.</p>";
@@ -50,18 +63,24 @@ document.addEventListener("DOMContentLoaded", () => {
                 <span class="creneau-capacity">${c.inscrits}/${c.max} personnes</span>
             `;
 
-            if (c.inscrits < c.max) {
-                btn.addEventListener("click", () => {
-                    document.querySelectorAll(".creneau-btn").forEach(el => el.classList.remove("selected"));
-                    btn.classList.add("selected");
-                    console.log("Créneau sélectionné :", c.heure);
-                });
-            }
+            btn.addEventListener("click", () => {
+                document.querySelectorAll(".creneau-btn").forEach(el => el.classList.remove("selected"));
+                btn.classList.add("selected");
+
+                if (c.inscrits >= c.max) {
+                    document.getElementById("boutonBleuPop").innerHTML = BoutonBleu("S'inscrire à la file d'attente");
+                } else {
+                    document.getElementById("boutonBleuPop").innerHTML = BoutonBleu("Valider");
+                }
+
+                console.log("Créneau sélectionné :", c.heure);
+            });
 
             container.appendChild(btn);
         });
     }
 });
+
 
 const btn = document.getElementById("boutonBleuPop");
 let connected = false;
@@ -96,5 +115,51 @@ UserInfo();
 btn.addEventListener("click", () => {
     if (!connected) {
         window.location.href = "./../../view/Page/Connexion.php";
+        return;
     } 
+    const nbPlace = document.getElementById("nbPlace").value;
+    const date = document.getElementById("datepicker").value;
+    const creneau = document.querySelector(".creneau-btn.selected");
+    if (!nbPlace || !date || !creneau) {
+        alert("Veuillez remplir tous les champs.");
+        return;
+    }
+    const heure = creneau.querySelector(".creneau-time").textContent;
+    const isFileAttente = document.getElementById("boutonBleuPop").innerText.includes("file d'attente");
+
+  fetch("../../controller/Activite/Reservation.php", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    credentials: "include",
+    body: JSON.stringify({
+        nbPlace: nbPlace,
+        date: date,
+        heure: heure,
+        fileAttente: isFileAttente,
+    })
+})
+.then(res => res.text()) 
+.then(text => {
+    console.log("Réponse brute du serveur :", text);
+    try {
+        const data = JSON.parse(text);
+        if (data.success) {
+            alert(isFileAttente ? "Inscription en file d'attente réussie !" : "Réservation réussie !");
+            window.location.href = "./../../view/Page/PageCompte.php";
+        } else {
+            alert("Erreur lors de la réservation : " + data.message);
+        }
+    } catch (e) {
+        console.error("Erreur de parsing JSON :", e);
+        console.error("Réponse reçue :", text);
+        alert("Erreur technique. Réponse inattendue du serveur.");
+    }
+})
+.catch(err => {
+    console.error("Erreur fetch :", err);
+    alert("Erreur réseau ou serveur.");
+});
+
 })

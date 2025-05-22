@@ -11,10 +11,10 @@ function NavbarCompte(url) {
                         <span></span>
                     </button>
                     <ul class="nav-links">
-                        <li><a href="./PageCompte.php">Mes informations</a></li>
-                        <li><a href="./Messagerie.php">Mes discussions</a></li>
-                        <li><a href="./noReservation.php">Mes réservations</a></li>
-                        <li><a href="#">Mes activités</a></li>
+                        <li><a href="../../view/Page/PageCompte.php">Mes informations</a></li>
+                        <li><a href="../../view/Page/Messagerie.php">Mes discussions</a></li>
+                        <li><a href="../../view/Page/mesReservations.php">Mes réservations</a></li>
+                        <li><a href="../../view/Page/mesActivites.php">Mes activités</a></li>
 
                     </ul>
                 </div>
@@ -27,7 +27,7 @@ function NavbarCompte(url) {
                     </div>
                     <div class="sign-btns">
                         <div class="annonce">
-                            <a href="./CreerActivite.php">Retour à l’accueil</a>
+                            <a href="../../view/Page/accueil.php">Retour à l’accueil</a>
                         </div>
                     </div>
                 </div>
