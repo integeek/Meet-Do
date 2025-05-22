@@ -1,50 +1,64 @@
 <?php
-require_once('../../model/Bdd.php');
+require_once '../../model/Bdd.php'; 
 
-if (!isset($_GET['id'])) {
-    die("ID du Meeter manquant.");
+$idClient = isset($_GET['id']) ? intval($_GET['id']) : 0;
+
+// Récupération des infos du Client
+$stmt = $db->prepare("
+    SELECT nom, prenom, localisation, photoProfil, description
+    FROM Client
+    WHERE idClient = :id
+");
+$stmt->execute([':id' => $idClient]);
+$profil = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if (!$profil) {
+    die("Profil introuvable.");
 }
 
-$meeterId = intval($_GET['id']);
-
-$sqlUser = "SELECT prenom, nom, ville, code_postal, description,
-                   YEAR(CURDATE()) - YEAR(date_inscription) AS annee_inscription
-            FROM users
-            WHERE id = ?";
-$stmtUser = $db->prepare($sqlUser);
-$stmtUser->execute([$meeterId]);
-$user = $stmtUser->fetch(PDO::FETCH_ASSOC);
-
-if (!$user) {
-    die("Utilisateur introuvable.");
-}
-
-$sqlActivities = "SELECT a.titre, a.image_path, u.prenom AS organisateur
-                  FROM activites a
-                  JOIN users u ON a.organisateur_id = u.id
-                  WHERE a.organisateur_id = ?";
-$stmtActivities = $db->prepare($sqlActivities);
-$stmtActivities->execute([$meeterId]);
-$activities = $stmtActivities->fetchAll(PDO::FETCH_ASSOC);
-
-$sqlReviews = "SELECT av.note AS rating, av.commentaire, u.prenom AS auteur
-               FROM avis av
-               JOIN activites a ON av.activite_id = a.id
-               JOIN users u ON av.auteur_id = u.id
-               WHERE a.organisateur_id = ?";
-$stmtReviews = $db->prepare($sqlReviews);
-$stmtReviews->execute([$meeterId]);
-$reviews = $stmtReviews->fetchAll(PDO::FETCH_ASSOC);
-
-$averageRating = 0;
-if (count($reviews) > 0) {
-    $totalRating = array_sum(array_column($reviews, 'rating'));
-    $averageRating = round($totalRating / count($reviews), 2);
-}
 
 $pageData = [
-    'user' => $user,
-    'activities' => $activities,
-    'reviews' => $reviews,
-    'averageRating' => $averageRating
+    'nom' => $profil['nom'],
+    'prenom' => $profil['prenom'],
+    'localisation' => $profil['localisation'],
+    'photoProfil' => $profil['photoProfil'],
+    'description' => $profil['description'] ?? "Ce profil n'a pas encore ajouté de description.",
+    'anciennete' => 'Non renseignée', 
 ];
+
+
+$stmtAct = $db->prepare("
+    SELECT a.idActivite, a.titre, a.description, ia.chemin AS image
+    FROM Activite a
+    LEFT JOIN ImageActivite ia ON a.idActivite = ia.idActivite
+    WHERE a.idMeeter = :id AND a.isVisible = 1
+");
+$stmtAct->execute([':id' => $idClient]);
+$pageData['activites'] = $stmtAct->fetchAll(PDO::FETCH_ASSOC);
+
+// Avis sur ses activités
+$stmtAvis = $db->prepare("
+    SELECT c.prenom, c.nom, av.note, av.commentaire
+    FROM Avis av
+    JOIN Client c ON av.idClient = c.idClient
+    JOIN Activite a ON av.idActivite = a.idActivite
+    WHERE a.idMeeter = :id
+");
+$stmtAvis->execute([':id' => $idClient]);
+$avisList = $stmtAvis->fetchAll(PDO::FETCH_ASSOC);
+
+$pageData['avis'] = [];
+$noteTotale = 0;
+
+foreach ($avisList as $avis) {
+    $pageData['avis'][] = [
+        'auteur' => $avis['prenom'] . ' ' . $avis['nom'],
+        'note' => $avis['note'],
+        'commentaire' => $avis['commentaire']
+    ];
+    $noteTotale += $avis['note'];
+}
+
+$pageData['moyenneAvis'] = count($avisList) > 0 ? round($noteTotale / count($avisList), 1) : null;
+
+include '../../view/pageMeeter.php'; 
