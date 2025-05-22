@@ -47,13 +47,47 @@ class ForumController
             echo json_encode(["error" => "Erreur lors de l'ajout du message"]);
         }
     }
+
+    public function addQuestion()
+    {
+        $data = json_decode(file_get_contents('php://input'), true);
+        $Theme = $data["theme"] ?? null;
+        $idUser = $data["idUser"] ?? null;
+        $reponse = $data["reponse"] ?? null;
+        $question = $data["question"] ?? null;
+
+        header('Content-Type: application/json');
+        if (!$Theme) {
+            echo json_encode(["error" => "Thème manquant"]);
+            return;
+        }
+
+        $idThemeRow = $this->model->getThemeById($Theme);
+        if (!$idThemeRow) {
+            echo json_encode(["error" => "Thème introuvable"]);
+            return;
+        }
+        $idTheme = $idThemeRow['id'];
+
+        header('Content-Type: application/json');
+        if (!$idUser || !$reponse || !$question) {
+            echo json_encode(["error" => "Données manquantes"]);
+            return;
+        }
+        $success = $this->model->addQuestion($idTheme, $idUser, $reponse , $question);
+        if ($success) {
+            echo json_encode(["success" => true, "message" => "Question ajoutée avec succès."], JSON_UNESCAPED_UNICODE);
+        } else {
+            echo json_encode(["error" => "Erreur lors de l'ajout de la question"]);
+        }
+    }
 }
 
 // ROUTEUR SIMPLE
 $db = Bdd::getInstance();
 $controller = new ForumController($db);
 
-if (isset($_GET['action'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if ($_GET['action'] === 'themes') {
         $controller->getThemes();
     } elseif ($_GET['action'] === 'questions') {
@@ -61,7 +95,13 @@ if (isset($_GET['action'])) {
     } elseif ($_GET['action'] === 'addResponse') {
         $controller->addResponse();
     } else {
-        echo json_encode(["error" => "Action inconnue"]);
+        echo json_encode(["error" => "Action inconnue2"]);
+    }
+} elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if ($_GET['action'] === 'addQuestion') {
+        $controller->addQuestion();
+    } else {
+        echo json_encode(["error" => "Action inconnue4"]);
     }
 } else {
     echo json_encode(["error" => "Aucune action spécifiée"]);

@@ -45,15 +45,9 @@ unset($_SESSION["erreur"]);
       <?php if (isset($_SESSION['user']) && $_SESSION['user']['role'] === "Administrateur"): ?>
         <button type="button" id="new-question-button" onclick="openPopUp('add-question-popup')">
           <p>Ajouter une question</p>
-          <img src="../assets/img/mes sage.png" alt="message icon" id="message-icon" />
+          <img src="../assets/img/message.png" alt="message icon" id="message-icon" />
         </button>
       <?php endif; ?>
-<!-- 
-      <button type="button" id="new-question-button" onclick="openPopUp('add-question-popup')">
-        <p>Ajouter une question</p>
-        <img src="../assets/img/message.png" alt="message icon" id="message-icon" />
-      </button> -->
-
     </div>
     </div>
     <div class="collapse-container"></div>

@@ -1,5 +1,5 @@
 <?php 
-include_once("../../controller/Activite/mesActivites.php");
+include_once("../../controller/Reservations/mesReservations.php");
 
 if (session_status() === PHP_SESSION_NONE) {
   session_start();
@@ -13,21 +13,21 @@ if (session_status() === PHP_SESSION_NONE) {
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../../view/Style/mesActivites.css">
-  <link rel="stylesheet" href="../../view/component/Navbar/Navbar.css" />
-  <link rel="stylesheet" href="../../view/component/Footer/Footer.css" />
-  <link rel="stylesheet" href="../../view/component/BoutonBleu.css" />
-  <link rel="stylesheet" href="../../view/Style/noReservations.css">
-  <link rel="stylesheet" type="text/css" href="../../view/component/BoutonRouge.css">
-  <script src="../../view/component/BoutonRouge.js"></script>
-  <script src="../../view/component/BoutonBleu.js"></script>
-  <script src="../../view/Script/PopUp.js" defer></script>
-  <title>Mes Activités | Meet&Do</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../view/Style/mesReservations.css">
+    <link rel="stylesheet" href="../../view/component/Navbar/Navbar.css" />
+    <link rel="stylesheet" href="../../view/component/Footer/Footer.css" />
+    <link rel="stylesheet" href="../../view/component/BoutonBleu.css" />
+    <link rel="stylesheet" href="../../view/Style/noReservations.css">
+    <link rel="stylesheet" type="text/css" href="../../view/component/BoutonRouge.css">
+    <script src="../../view/component/BoutonBleu.js"></script>
+    <script src="../../view/component/BoutonRouge.js"></script>
+    <script src="../../view/Script/PopUp.js" defer></script>
+    <title>Mes Réservations | Meet&Do</title>
 </head>
 <body>
-  <header>
+    <header>
         <div class="navbar-container" id="navbar-container"></div>
         <script src="../../view/component/Navbar/NavbarCompte.js"></script>
         <script>
@@ -35,14 +35,15 @@ if (session_status() === PHP_SESSION_NONE) {
             "../../view"
             );
         </script>
-        <h1>Mes Activités :</h1>
+        <h1>Mes Réservations :</h1>
     </header>
     <main>
-      <?php
-        function resaComponent($idActivite, $title, $place, $people, $price, $mR) {
-                    $boutonbleu = "boutonbleu" . $idActivite;
-                    $boutonbleu1 = "boutonbleu1" . $idActivite;
-                    $boutonrouge = "boutonrouge" . $idActivite;
+        <?php
+
+                function resaComponent($idActivite, $title, $place, $date, $people, $price, $index) {
+                    $boutonbleu = "boutonbleu" . $index;
+                    $boutonbleu1 = "boutonbleu1" . $index;
+                    $boutonrouge = "boutonrouge" . $index;
 
 
                     return "
@@ -58,8 +59,8 @@ if (session_status() === PHP_SESSION_NONE) {
                                         <p>$place</p>
                                     </div>
                                     <div class='item-date'>
-                                        <img src='../../view/assets/img/icons/pmr-icon.svg' alt='pmr-icon'>
-                                        <p>$mR</p>
+                                        <img src='../../view/assets/img/icons/calendar.svg' alt='calendar-icon'>
+                                        <p>$date</p>
                                     </div>
                                     <div class='item-places'>
                                         <img src='../../view/assets/img/icons/group.svg' alt='group-icon'>
@@ -83,12 +84,12 @@ if (session_status() === PHP_SESSION_NONE) {
                                     <div id='$boutonbleu1'></div>
                                     <script>
                                         document.getElementById('$boutonbleu1').innerHTML = BoutonBleu(
-                                            'Modifier mon activité'
+                                            'Modifier ma réservation'
                                         );
                                     </script>
-                                    <div id='$boutonrouge' onclick='closePopUp()'></div>
+                                    <div id='$boutonrouge'></div>
                                     <script>
-                                        document.getElementById('$boutonrouge').innerHTML = BoutonRouge('Supprimer mon activité');
+                                        document.getElementById('$boutonrouge').innerHTML = BoutonRouge('Annuler ma réservation');
                                     </script>
                                 </div>
                             </div>
@@ -97,38 +98,40 @@ if (session_status() === PHP_SESSION_NONE) {
                     ";
                 }
 
-                if (empty($activites)) { 
+
+                if (empty($reservations)) { 
                     include_once '../../view/Page/noReservations.php';
                     exit;
                 } else {
                     echo "<div class='reservation-list'>";
-                    foreach ($activites as $acti) {
+                    foreach ($reservations as $resa) {
                         echo resaComponent(
-                            $acti['idActivite'],
-                            $acti['titre'],
-                            $acti['adresse'],
-                            $acti['tailleGroupe'],
-                            $acti['prix'],
-                            $acti['mobiliteReduite']
+                            $resa['idActivite'],
+                            $resa['titre'],
+                            $resa['adresse'],
+                            $resa['dateEvenement'],
+                            $resa['nbPlace'],
+                            $resa['prix'],
+                            $resa['idReservation']
                         );
                     }
                 }
 
-                if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
-                    $deleteConfirmation = $_POST['delete'];
+                if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cancel'])) {
+                    $cancelConfirmation = $_POST['cancel'];
 
-                    if ($deleteConfirmation === "SUPPRIMER") {
-                        $idActivite = $_POST['idActivite'];
-                        activiteModel::deleteActivity($idActivite);
-                        echo "<script>alert('L\'activité a été supprimé avec succès.');</script>";
-                    } else if ($deleteConfirmation !== "SUPPRIMER") {
-                        echo "<script>alert('Erreur lors de la suppression de l\'activité.');</script>";
-                    } else if (empty($deleteConfirmation)) {
-                        echo "<script>alert('Veuillez entrer le mot SUPPRIMER pour confirmer.');</script>";
+                    if ($cancelConfirmation === "ANNULER") {
+                        $idResa = $_POST['idResa'];
+                        Reservation::cancelReservation($idResa);
+                        echo "<script>alert('Réservation annulée avec succès.');</script>";
+                    } else if ($cancelConfirmation !== "ANNULER") {
+                        echo "<script>alert('Erreur lors de l\'annulation de la réservation.');</script>";
+                    } else if (empty($cancelConfirmation)) {
+                        echo "<script>alert('Veuillez entrer le mot ANNULER pour confirmer.');</script>";
                     }
                 }
-      ?>
-        </div>
+        ?>
+    </div>
     <script>
         window.activite = {idActivite: "<?php echo htmlspecialchars($idActivite, ENT_QUOTES, 'UTF-8'); ?>"};
     </script>
@@ -140,19 +143,19 @@ if (session_status() === PHP_SESSION_NONE) {
         </script>
     </footer>
 
-    <div class="popup-container" id="edit-activity">
+    <div class="popup-container" id="edit-lastname-popup">
       <div class="edit-content">
         <div class="edit-header">
           <h3>Modifiez votre Nom</h3>
         </div>
-        <form action="../../controller/Compte/ModifierNom.php" method="POST" id="edit-activity-form">
+        <form action="../../controller/Compte/ModifierNom.php" method="POST" id="edit-lastname-form">
           <div class="edit-main">
             <input type="text" name="edit-lastname" id="edited-input" />
             <input type="hidden" name="idClient" />
           </div>
           <div class="edit-footer">
-            <button type="button" onclick="closePopUp('edit-activity')" class="buttonRo">Annuler</button>
-              <div onclick="document.getElementById('edit-activity-form').submit()" id="bouton-bleue2"></div>
+            <button type="button" onclick="closePopUp('edit-lastname-popup')" class="buttonRo">Annuler</button>
+              <div onclick="document.getElementById('edit-lastname-form').submit()" id="bouton-bleue2"></div>
           <script>
             document.getElementById("bouton-bleue2").innerHTML =
               BoutonBleu("Valider");
@@ -162,19 +165,19 @@ if (session_status() === PHP_SESSION_NONE) {
     </div>
   </div>
 
-  <div class="popup-container" id="delete-popup">
+  <div class="popup-container" id="cancel-popup">
       <div class="edit-content">
         <div class="edit-header">
-          <h3>Voulez-vous vraiment supprimer ?</h3>
+          <h3>Voulez-vous vraiment annuler ?</h3>
         </div>
-        <form action="../../view/Page/mesActivites.php" method="POST" id="delete-form">
+        <form action="../../view/Page/mesReservations.php" method="POST" id="cancel-form">
           <div class="edit-main">
-            <input type="text" name="delete" id="delete-input" placeholder="SUPPRIMER" />
-            <input type="hidden" name="idActivite" value="<?php echo $acti['idActivite'] ?>" />
+            <input type="text" name="cancel" id="cancel-input" placeholder="ANNULER" />
+            <input type="hidden" name="idResa" value="<?php echo $resa['idReservation'] ?>" />
           </div>
           <div class="edit-footer">
-            <button type="button" onclick="closePopUp('delete-popup')" class="buttonRo">Annuler</button>
-              <div onclick="document.getElementById('delete-form').submit()" id="bouton-bleue3"></div>
+            <button type="button" onclick="closePopUp('cancel-popup')" class="buttonRo">Annuler</button>
+              <div onclick="document.getElementById('cancel-form').submit()" id="bouton-bleue3"></div>
           <script>
             document.getElementById("bouton-bleue3").innerHTML =
               BoutonBleu("Valider");
@@ -183,5 +186,6 @@ if (session_status() === PHP_SESSION_NONE) {
       </form>
     </div>
   </div>
+
 </body>
 </html>

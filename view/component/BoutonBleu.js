@@ -13,6 +13,12 @@ function BoutonBleu(texte) {
               ${texte}
           </button>
       `;
+   } else if (texte === "Modifier mon activité") {
+      return `
+          <button onclick="openPopUp('edit-activity')" class="buttonCo" type="submit">
+              ${texte}
+          </button>
+      `;
 
   } else {
     return `

@@ -1,12 +1,11 @@
 <?php
 session_start();
+require_once("../../model/Client.php");
 
 if (!isset($_SESSION['user']['email'])) {
     header("Location: ../../view/page/Connexion.php");
     exit;
 }
-
-require_once("../../model/Bdd.php");
 
 if (isset($_POST['idClient'])) {
     $idClient = $_POST['idClient'];
@@ -35,14 +34,9 @@ if ($_SESSION['user']['nom'] === $newLastName) {
     exit;
 }
 
-$sql = "UPDATE Client SET nom = :newLastName WHERE idClient = :idClient";
-$stmt = $db->prepare($sql);
-$stmt->execute([
-    ':newLastName' => $newLastName,
-    ':idClient' => $idClient
-]);
+$editLastName = Client::editLastName($idClient, $newLastName);
 
-if ($stmt->rowCount() > 0) {
+if ($editLastName) {
     $_SESSION['user']['nom'] = $newLastName;
     $_SESSION['success'] = "Le nom a été modifié avec succès.";
 } else {
