@@ -17,6 +17,14 @@ class ForumModel
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getThemeById($theme)
+    {
+        $sql = "SELECT idCategorieForum  AS id FROM CategorieForum WHERE type = :theme";
+        $query = $this->db->prepare($sql);
+        $query->execute(['theme' => $theme]);
+        return $query->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function getQuestions($selectBy = null, $search = null)
     {
         $sqlQuestions = "SELECT
@@ -42,7 +50,6 @@ class ForumModel
         $query->execute();
         $questions = $query->fetchAll(PDO::FETCH_ASSOC);
 
-        // Récupérer les réponses pour chaque question
         foreach ($questions as &$question) {
             $sqlAnswers = "
                 SELECT 
@@ -73,5 +80,26 @@ class ForumModel
             "idMessage" => $idMessage,
             "idUser" => $idUser
         ]);
+    }
+
+    public function addQuestion($idTheme, $idUser, $reponse, $question)
+    {
+        $sql = "INSERT INTO `SujetForum`(`titre`, `description`, `dateCreationl`, `idClient`, `idCategorieForum`) 
+            VALUES (:question, :response, NOW(), :idUser, :idTheme)";
+        $query = $this->db->prepare($sql);
+        $success = $query->execute([
+            "idUser" => $idUser,
+            "idTheme" => $idTheme,
+            "response" => $reponse,
+            "question" => $question
+        ]);
+
+        if ($success) {
+            $sujetId = $this->db->lastInsertId();
+
+            return $this->addResponse($sujetId, $idUser, $reponse);
+        }
+
+        return false;
     }
 }
