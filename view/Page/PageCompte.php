@@ -54,6 +54,14 @@ $idClient = $_SESSION['user']['id'];
             document.getElementById("boutonContainer").innerHTML = BoutonBleu(
               "Modifier photo de profil"
             );
+            // Affichage dynamique de la photo de profil
+            fetch('../../controller/Compte/PhotoController.php', { method: 'GET' })
+              .then(response => response.json())
+              .then(data => {
+                if (data.photo && data.photo !== "") {
+                  document.getElementById('profile-icon').src = data.photo;
+                }
+              });
           </script>
         </div>
         <hr>
@@ -216,6 +224,52 @@ $idClient = $_SESSION['user']['id'];
       </div>
     </div>
   </div>
+
+  <div class="edit-container" id="edit-photo-popup" style="display:none;">
+    <div class="edit-content">
+      <div class="edit-header">
+        <h3>Changer la photo de profil</h3>
+      </div>
+      <form id="edit-photo-form" enctype="multipart/form-data">
+        <div class="edit-main">
+          <input type="file" name="photo" id="input-pdp" accept="image/*" required />
+        </div>
+        <div class="edit-footer">
+          <button type="button" onclick="closePopUp('edit-photo-popup')" class="buttonRo">Annuler</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+  // Ouvre le pop-up à l'ouverture du bouton
+  document.getElementById("boutonContainer").onclick = function () {
+    openPopUp('edit-photo-popup');
+  };
+
+  // Upload automatique dès qu'un fichier est choisi
+  document.getElementById("input-pdp").addEventListener("change", function () {
+    const file = this.files[0];
+    if (!file) return;
+    const formData = new FormData();
+    formData.append("photo", file);
+
+    fetch("../../controller/Compte/PhotoController.php", {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.text())
+      .then(() => {
+        closePopUp('edit-photo-popup');
+        window.location.reload();
+      })
+      .catch(() => {
+        alert("Erreur lors de l'upload de la photo.");
+        closePopUp('edit-photo-popup');
+        window.location.reload();
+      });
+  });
+</script>
 
 </body>
 

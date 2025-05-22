@@ -1,5 +1,6 @@
 <?php 
-require_once("../../model/Bdd.php");
+require_once("../../Model/Reservation.php");
+require_once("../../Model/Evenement.php");
 session_start();
 
 header('Content-Type: application/json');
@@ -15,29 +16,24 @@ if (!$idClient || !isset($data['date'], $data['heure'], $data['nbPlace'])) {
 $date = $data["date"];
 $heure = $data["heure"];
 $nbPlace = intval($data["nbPlace"]);
+$isFileAttente = isset($data['fileAttente']) && $data['fileAttente'] === true;
 
-$sql = "SELECT idEvenement FROM Evenement WHERE DATE(dateEvenement) = :date AND HOUR(dateEvenement) = :heure";
-$query = $db->prepare($sql);
 list($heureDebut, ) = explode("-", $heure);
-$query->bindValue(':date', $date);
-$query->bindValue(':heure', intval(explode(":", $heureDebut)[0]));
-$query->execute();
-$idEvenement = $query->fetchColumn();
+
+$idEvenement = Evenement::selectEvenement($date, $heureDebut);
 
 if (!$idEvenement) {
     echo json_encode(["success" => false, "message" => "Créneau introuvable"]);
     exit;
 }
+Reservation::makeReservation($nbPlace, $idClient, $idEvenement,  $isFileAttente ? 1 : 0);
+if (!$isFileAttente) {
+    $result = Evenement::updatePlacePrise($idEvenement, $nbPlace);
+    if (!$result) {
+        error_log("Erreur lors de la mise à jour placePrise pour l'événement $idEvenement");
+    }
+}
 
-$sql = "INSERT INTO Reservation (dateReservation, nbPlace, listeAttente, placement, idClient, idEvenement) 
-        VALUES (NOW(), :nbPlace, :listeAttente, 0, :idClient, :idEvenement)";
-$query = $db->prepare($sql);
-$query->execute([
-    ':nbPlace' => $nbPlace,
-    ':listeAttente' => 0,
-    ':idClient' => $idClient,
-    ':idEvenement' => $idEvenement
-]);
 
 echo json_encode(["success" => true]);
 exit;

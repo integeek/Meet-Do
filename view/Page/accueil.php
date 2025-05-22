@@ -21,7 +21,7 @@
         <script src="../component/Navbar/Navbar.js"></script>
         <script>
             (async () => {
-                document.getElementById('navbar-container').innerHTML = await Navbar("..");
+                document.getElementById('navbar-container').innerHTML = await Navbar("..")
             })();
         </script>
     </header>

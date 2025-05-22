@@ -6,6 +6,20 @@ function BoutonBleu(texte) {
               ${texte}
           </button>
       `;
+
+  }  else if (texte === "Modifier ma réservation") {
+      return `
+          <button onclick="openPopUp('edit-lastname-popup')" class="buttonCo" type="submit">
+              ${texte}
+          </button>
+      `;
+   } else if (texte === "Modifier mon activité") {
+      return `
+          <button onclick="openPopUp('edit-activity')" class="buttonCo" type="submit">
+              ${texte}
+          </button>
+      `;
+
   } else {
     return `
           <button class="buttonCo" type="submit">

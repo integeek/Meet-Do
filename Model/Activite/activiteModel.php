@@ -106,4 +106,20 @@ class ActiviteModel
         $query->execute();
         return $query->fetch(PDO::FETCH_ASSOC);
     }
+
+    public static function getInfoActivity ($idClient) {
+        $db = Bdd::getInstance();
+        $stmt = $db->prepare("SELECT idActivite, titre, adresse, prix, idMeeter, tailleGroupe, mobiliteReduite
+        FROM Activite
+        WHERE idMeeter = :idClient");
+            $stmt->execute([':idClient' => $idClient]);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function deleteActivity($idActivite) {
+        $db = Bdd::getInstance();
+        $stmt = $db->prepare("DELETE FROM Activite WHERE idActivite = :idActivite");
+        $stmt->bindParam(':idActivite', $idActivite);
+        return $stmt->execute();
+    }
 }

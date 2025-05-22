@@ -1,5 +1,8 @@
 <?php
 $token = isset($_GET["token"]) ? $_GET["token"] : "";
+session_start();
+$messageErreur = $_SESSION["erreur"] ?? "";
+unset($_SESSION["erreur"]);
 ?>
 
 <!DOCTYPE html>
@@ -55,8 +58,9 @@ $token = isset($_GET["token"]) ? $_GET["token"] : "";
                         <input class="textbox" type="password" name="pass2" id="password2" required>
                         <img class="togglePassword" src="../assets/img/ouvert.png" alt="Afficher/Masquer" >
                     </div>
-        
-    
+                    <div class="erreur" style="color: red; margin-bottom: 1rem;">
+                        <?= htmlspecialchars($messageErreur) ?>
+                    </div>
                     <div id="boutonContainer"></div>
                 </form>
                 <script src="../component/BoutonBleu.js"></script>
