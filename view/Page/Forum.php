@@ -43,13 +43,21 @@ unset($_SESSION["erreur"]);
                     <img src="../assets/img/message.png" alt="message icon" id="message-icon" />
                 </button>
             <?php endif; ?>
-            <!-- <button type="button" id="new-question-button">
-                <p>Ajouter une question</p>
-                <img src="../assets/img/message.png" alt="message icon" id="message-icon" />
-            </button> -->
         </div>
         <div class="collapse-container">
 
+        </div>
+        <div class="modal hidden">
+            <img src="../assets/img/icons/close-icon.svg" alt="Close" class="close" id="closeModal">
+            <h2>Ajouter une question</h2>
+            <form>
+                <div id="select-div-2">
+                    <select id="select2"></select>
+                </div>
+                <input type="text" id="question-input" class="input" placeholder="Votre question" required>
+                <textarea id="reponse-input" placeholder="Votre réponse" required></textarea>
+                <button type="submit" id="submit-button">Ajouter la question</button>
+            </form>
         </div>
     </main>
     <footer id="footer-container" class="footer-container">
