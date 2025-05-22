@@ -20,7 +20,7 @@ class ActiviteModel
                 a.dateCreation,
                 a.prix,
                 a.idMeeter,
-                m.description AS description,
+                m.description AS descriptionMeeter,
                 m.nom AS nom,
                 m.prenom AS prenom
             FROM Activite a
