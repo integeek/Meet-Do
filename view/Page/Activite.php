@@ -201,12 +201,22 @@
                     </div>
                 </div>
                 <!-- Pop up pour laisser un avis -->
+                
                  <div class="popup-overlay" id="popup-avis">
                     <div class="containerPopUp">
                         <div class="close-cross" onclick="closePopUp('popup-avis')">✕</div>
                         <div class="popup-content">
                          <h1>Laisser un avis</h1>
-                            <form method="POST" action="traitement_avis.php">
+                        <div class="popup-main">
+                            <form action="../../controller/Avis/AvisController.php" method="POST">
+                            <input type="hidden" name="idActivite" value="<?= $_GET['id'] ?>">
+                            <input type="hidden" name="idMeeter" value="<?= $_GET['idMeeter'] ?>">
+                            <div class="popup-infos">
+                                <p>Commentaire :</p>
+                                <div class="comment-box">
+                                <textarea name="commentaire" id="comment" spellcheck="true"></textarea>
+                                </div>
+                            </div>
                          <div class="popup-rating">
                               <p>Quelle note donneriez-vous à votre expérience ?</p>
                              <div class="star-rating">
@@ -263,35 +273,21 @@
                                <textarea name="commentaire" id="comment" spellcheck="true"></textarea>
                              </div>
                            </div>
+                           <div class="popup-buttons">
+                          <div class="popup-buttons">
+                            <div id="bouton-rouge-avis" onclick="closePopUp('popup-avis')"></div>
+                            <div id="bouton-bleu-avis"></div>
+                    </div>
 
-                           <button type="submit">Envoyer</button>
-                         </form>
-                        </div>
-
-                        <div class="popup-buttons">
-                         <div id="bouton-rouge" onclick="closePopUp('popup-avis')"></div>
-                         <div id="bouton-bleue"></div>
-                     </div>
+                        <script>
+                            document.getElementById('bouton-rouge-avis').innerHTML = BoutonRouge("Annuler");
+                         document.getElementById('bouton-bleu-avis').innerHTML = BoutonBleu("Valider");
+                        </script>
                     </div>
                     </div>
-                
-
-
-                    <div class="popup-buttons">
-                        <div id="bouton-rouge" onclick="closePopUp()"></div>
-                    <script>
-                      document.getElementById("bouton-rouge").innerHTML =
-                        BoutonRouge("Annuler");
-                    </script>
-                    <div id="bouton-bleue"></div>
-                    <script>
-                      document.getElementById("bouton-bleue").innerHTML =
-                       BoutonBleu("Valider");
-                    </script>
-                    </div>
-                </div>                  
-        </div>
-    </main>
+                    </div>  
+                 </div>
+                 </main> 
 
     <footer id="footer-container" class="footer-container">
         <script src="../component/Footer/Footer.js"></script>
@@ -309,7 +305,7 @@
 
     <script src="../Script/PopUp.js"></script>
     <script>
-        document.getElementById('boutonParticiper').innerHTML = BoutonBleu("ParticKJHIUGYFUIILiper");
+        document.getElementById('boutonParticiper').innerHTML = BoutonBleu("Participer");
         const bouton = document.querySelector('#boutonParticiper button');
         console.log(bouton);
         bouton.addEventListener('click', () => openPopUp("popup"));
