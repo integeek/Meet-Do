@@ -182,10 +182,10 @@ sendMessage.addEventListener('click', () => {
         }
         setTimeout(() => {
             sendText.value = "";
+            file = null;
+            attachmentInput.value = null;
+            attachmentLabel.innerHTML = `<img src="../assets/img/icons/attachFile.svg" alt="file">`;
         }, 1000);
-        // file = null;
-        // attachmentInput.value = null;
-        // attachmentLabel.innerHTML = `<img src="../assets/img/icons/attachFile.svg" alt="file">`;
 
         setTimeout(() => {
             sendText.style = "animation: none;"
