@@ -67,15 +67,15 @@ const Refresh2 = () => {
 const sendMessageFunction = (message) => {
     var request = new XMLHttpRequest();
     request.open("POST", "./../../controller/Messagerie/MessagerieControlleur.php?action=send", true);
-    request.setRequestHeader("Content-Type", "application/json");
 
-    const body = JSON.stringify({
-        content: message.content,
-        idRecepteur: message.idRecepteur,
-        file: message.attachment
-    });
+    const formData = new FormData();
+    formData.append('idRecepteur', message.idRecepteur);
+    formData.append('content', message.content);
+    if (message.attachment) {
+        formData.append('file', file.files[0]);
+    }
 
-    request.send(body);
+    request.send(formData);
 
     request.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -105,7 +105,7 @@ const RefreshMessage = () => {
             <div class="message-message ${talkID == message.senderId ? "" : "message-message-own"}">
             <p class="message-date">${message.date + " " + new Date(new Date("1970-01-01T" + message.time + "Z").getTime() + 1 * 60 * 60 * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}</p>
             <div class="message-text">
-            ${message.attachment ? `<img src="../assets/img/macaron1.jpeg" alt="attachment" class="attachment" />` : `<p>${message.content}</p>`}
+            ${message.attachement ? `<img src="../../${message.content}" alt="attachment" class="attachment" />` : `<p>${message.content}</p>`}
             
             </div>
             </div>
@@ -126,7 +126,7 @@ const renderSideBar = () => {
                             <div class="grow"></div>
                             <img src="../assets/img/more.png" alt="more" class="more" />
                         </div>
-                        <p class="user-message">${user.last_message}</p>
+                        <p class="user-message">${user.has_attachement ? "Image" : user.last_message}</p>
                     </label>
                 </div>
     `;
@@ -144,10 +144,6 @@ const renderSideBar = () => {
             }, 500);
             document.querySelector('.message-input').classList.remove('invisible');
         }, 500);
-        setInterval(() => {
-            Refresh2();
-            RefreshMessage();
-        }, 5000);
     })
 }
 
