@@ -77,4 +77,18 @@ class MessagerieModel
             'idRecepteur' => $idRecepteur
         ]);
     }
+
+    public function contact($userId, $meeterId, $activityName)
+    {
+        $sql = "
+            INSERT INTO `Message`(`contenu`, `dateEnvoie`, `isRead`, `attachement`, `idRedacteur`, `idRecepteur`) 
+            VALUES (:content, NOW(), FALSE, 0, :idRedacteur, :idRecepteur)
+        ";
+        $query = $this->db->prepare($sql);
+        return $query->execute([
+            'content' => "Bonjour, je suis intéressé par l'activité $activityName",
+            'idRedacteur' => $userId,
+            'idRecepteur' => $meeterId
+        ]);
+    }
 }

@@ -52,6 +52,22 @@ class MessagerieController
             echo json_encode(["error" => "Erreur lors de l'envoi du message"]);
         }
     }
+
+    public function contact()
+    {
+        $userId = $_SESSION['user']['id'];
+        $meeterId = $_GET['id'] ?? null;
+        $activityName = $_GET['activityName'] ?? null;
+
+        header('Content-Type: application/json');
+
+        $success = $this->model->contact($userId, $meeterId, $activityName);
+        if ($success) {
+            echo json_encode(["success" => true, "redirect" => true]);
+        } else {
+            echo json_encode(["error" => "Erreur lors de l'envoi du message"]);
+        }
+    }
 }
 
 // ROUTEUR SIMPLE
@@ -68,6 +84,8 @@ if (isset($_GET['action'])) {
     } else {
         echo json_encode(["error" => "Action inconnue"]);
     }
+} elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $controller->contact();
 } else {
     echo json_encode(["error" => "Aucune action spécifiée"]);
 }
