@@ -246,6 +246,7 @@
         try {
             const response = await fetch(`../../controller/Activite/ActiviteViewerController.php?id=${id}`);
             const data = await response.json();
+            window.activiteData = data; // Rendez la variable globale pour d'autres fichiers JS
 
             if (data.error) {
                 alert(data.error);

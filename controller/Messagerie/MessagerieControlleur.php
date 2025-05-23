@@ -35,19 +35,61 @@ class MessagerieController
     public function sendMessage()
     {
         $userId = $_SESSION['user']['id'];
-        $data = json_decode(file_get_contents('php://input'), true);
-        $content = $data["content"];
-        $idRecepteur = $data["idRecepteur"];
-        $file = isset($data["file"]) && $data["file"] !== "false" ? $data["file"] : null;
+        $content = $_POST["content"];
+        $idRecepteur = $_POST["idRecepteur"];
+        $file = false;
 
-        header('Content-Type: application/json');
+        if (isset($_FILES["file"])) {
+            $uploadDir = __DIR__ . '/../../view/assets/uploads/messagerie/';
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0777, true);
+            }
+            $extension = strtolower(pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION));
+            $uniqueName = time() . '_' . uniqid() . '.' . $extension;
+            $targetFile = $uploadDir . $uniqueName;
+            $allowedTypes = ['jpg', 'jpeg', 'png'];
+            if (!in_array($extension, $allowedTypes)) {
+                echo json_encode(["error" => "Type de fichier non autorisé"]);
+                exit;
+            }
+            if (move_uploaded_file($_FILES['file']['tmp_name'], $targetFile)) {
+                $relativePath = 'view/assets/uploads/messagerie/' . $uniqueName;
+                $content = $relativePath;
+                $file = true;
+            } else {
+                echo json_encode(["error" => "Erreur lors de l'upload"]);
+            }
+        }
+
+
         if (!$content || !$idRecepteur) {
             echo json_encode(["error" => "Données manquantes"]);
             return;
         }
+
         $success = $this->model->sendMessage($content, $userId, $idRecepteur, $file);
+
+        echo $file;
+        echo $content;
+
         if ($success) {
             echo json_encode(["success" => true, "message" => "Message ajouté avec succès."], JSON_UNESCAPED_UNICODE);
+        } else {
+            echo json_encode(["error" => "Erreur lors de l'envoi du message"]);
+        }
+    }
+
+    public function contact()
+    {
+        $userId = $_SESSION['user']['id'];
+        $meeterId = $_GET['id'] ?? null;
+        $activityName = $_GET['activityName'] ?? null;
+
+        header('Content-Type: application/json');
+
+        $success = $this->model->contact($userId, $meeterId, $activityName);
+        if ($success) {
+            echo json_encode(["success" => true, "redirect" => true]);
         } else {
             echo json_encode(["error" => "Erreur lors de l'envoi du message"]);
         }
@@ -68,6 +110,8 @@ if (isset($_GET['action'])) {
     } else {
         echo json_encode(["error" => "Action inconnue"]);
     }
+} elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $controller->contact();
 } else {
     echo json_encode(["error" => "Aucune action spécifiée"]);
 }
