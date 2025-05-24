@@ -165,14 +165,6 @@ attachmentInput.addEventListener('change', () => {
 
 sendMessage.addEventListener('click', () => {
     if (sendText.value !== "" || file?.files.length > 0) {
-        // const message = {
-        //     id: data[data.length - 1].messages.length + 1,
-        //     sender: "Moi",
-        //     date: new Date().toLocaleDateString(),
-        //     time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        //     content: file?.files.length > 0 ? file.files[0].name : sendText.value,
-        //     attachment: file?.files.length > 0
-        // };
         sendMessageFunction({ content: file?.files.length > 0 ? file.files[0].name : sendText.value, attachment: file?.files.length > 0, idRecepteur: talkID });
         const attachmentLabel = document.getElementById('send-attachment');
         if (sendText.value !== "") {

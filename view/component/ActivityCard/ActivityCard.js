@@ -30,13 +30,15 @@ let offset = 0;
 const limit = 6;
 let loading = false;
 let noMoreData = false;
+const search = document.getElementById("search-input");
+const date = document.getElementById("date");
 
-function loadActivities() {
-    if (loading || noMoreData) return;
+function loadActivities(refresh) {
+    if ((loading || noMoreData) && !refresh ) return;
     loading = true;
     document.getElementById("loader").style.display = "block";
 
-    fetch(`../../controller/Accueil/getActivities.php?offset=${offset}`)
+    fetch(`../../controller/Accueil/getActivities.php?offset=${offset}&search=${search.value}&date=${date.value}`)
         .then(response => response.json())
         .then(activities => {
             if (activities.length === 0) {
@@ -59,10 +61,28 @@ function loadActivities() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    loadActivities();
+    loadActivities(false);
+
+    console.log("Initialisation de la page d'accueil...");
 
     window.addEventListener("scroll", () => {
         const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 300;
-        if (nearBottom) loadActivities();
+        if (nearBottom) loadActivities(false);
     });
+});
+
+search.addEventListener("input", () => {
+    offset = 0;
+    noMoreData = false; 
+    const container = document.getElementById("activities-container");
+    container.innerHTML = ""; 
+    loadActivities(true);
+});
+
+date.addEventListener("change", () => {
+    offset = 0;
+    noMoreData = false; 
+    const container = document.getElementById("activities-container");
+    container.innerHTML = ""; 
+    loadActivities(true);
 });
