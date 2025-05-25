@@ -187,6 +187,32 @@ btn.addEventListener("click", () => {
 
 })
 
+async function initMap(address) {
+    const API_KEY = 'pk.d1e3a3fe1d9a93351d306e093bc54eb2';
+    
+    try {
+        const response = await fetch(`https://eu1.locationiq.com/v1/search.php?key=${API_KEY}&q=${encodeURIComponent(address)}&format=json`);
+        const data = await response.json();
+        
+        if (data && data[0]) {
+            const { lat, lon } = data[0];
+            
+            const map = L.map('map').setView([lat, lon], 15);
+            
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+            
+            L.marker([lat, lon]).addTo(map)
+                .bindPopup(address)
+                .openPopup();
+        }
+    } catch (error) {
+        console.error('Erreur lors de l\'initialisation de la carte:', error);
+    }
+}
+
+
 boutonContact.addEventListener("click", () => {
     if (!connected) {
         window.location.href = "./../../view/Page/Connexion.php";
@@ -200,4 +226,27 @@ boutonContact.addEventListener("click", () => {
 
 meeter.addEventListener("click", () => {
     window.location.href = `./../../view/Page/pageMeeter.php?id=${activiteData.idMeeter}`;
+});
+
+document.addEventListener("DOMContentLoaded", async () => {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+
+    if (!id) {
+        console.error("Aucun id fourni dans l'URL.");
+        return;
+    }
+
+    try {
+        const response = await fetch(`../../controller/Activite/ActiviteViewerController.php?id=${id}`);
+        const data = await response.json();
+        window.activiteData = data;
+
+        if (data.adresse) {
+            initMap(data.adresse);
+        }
+
+    } catch (err) {
+        console.error("Erreur lors du chargement de l'activité :", err);
+    }
 });

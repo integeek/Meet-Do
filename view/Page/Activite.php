@@ -15,6 +15,8 @@
     <link rel="stylesheet" type="text/css" href="../Style/laisserunavis.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
 </head>
 
@@ -63,6 +65,7 @@
                                     <p class="note-organisateur"><img src="../assets/img/icons/etoile.svg" alt=""> 4.89 / 5</p>
                                     <div class="btn-bleu" id="boutonContact"></div>
                                 </div>
+                                <!-- <div id="map" style="height: 400px; width: 100%; margin: 20px 0;"></div> -->
                             </div>
                         </div>
                         <div class="avis-container">
