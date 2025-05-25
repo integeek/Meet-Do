@@ -12,7 +12,6 @@
     <link rel="stylesheet" type="text/css" href="../Style/ActiviteViewer.css">
     <link rel="stylesheet" type="text/css" href="../component/LoadActivite.css">
     <link rel="stylesheet" type="text/css" href="../Style/star.css">
-    <link rel="stylesheet" type="text/css" href="../Style/laisserunavis.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
@@ -53,6 +52,7 @@
                             <div class="description-activite">
                                 <h2><img src="../assets/img/icons/file.svg" alt=""> Description de l’activité</h2>
                                 <p>Rejoignez-nous pour un atelier gourmand et créatif où vous apprendrez à réaliser de délicieux macarons maison. Encadré par un pâtissier expérimenté, vous découvrirez les secrets d'une coque parfaite, la préparation d'une ganache savoureuse et les astuces pour un résultat digne des grands chefs. Que vous soyez débutant ou amateur passionné, cet atelier vous permettra de développer vos compétences culinaires. Repartez avec vos propres créations et émerveillez vos proches !</p>
+                                <div id="map" style="height: 400px; width: 100%; margin: 20px 0;"></div>
                             </div>
                             <div class="actions-container">
                                 <div class="boutonActivite">
@@ -65,7 +65,7 @@
                                     <p class="note-organisateur"><img src="../assets/img/icons/etoile.svg" alt=""> 4.89 / 5</p>
                                     <div class="btn-bleu" id="boutonContact"></div>
                                 </div>
-                                <!-- <div id="map" style="height: 400px; width: 100%; margin: 20px 0;"></div> -->
+
                             </div>
                         </div>
                         <div class="avis-container">
@@ -102,8 +102,8 @@
                           </div>
                         </div>
                         <div class="popup-buttons">
-                          <div id="bouton-rouge" onclick="closePopUp('popup')"></div>
-                          <div id="boutonBleuPop"></div>
+                          <div id="bouton-rouge" class="boutonPar" onclick="closePopUp('popup')"></div>
+                          <div id="boutonBleuPop" class="boutonPar"></div>
                         </div>
                       </div>            
                         <script src="../component/BoutonRouge.js"></script>
@@ -206,81 +206,82 @@
                 </div>
                 <!-- Pop up pour laisser un avis -->
                 <div class="popup-overlay" id="popup-avis">
-                 <div class="containerPopUp">
-                     <div class="close-cross" onclick="closePopUp('popup-avis')">✕</div>
-                    <div class="popup-content">
-                     <h1>Laisser un avis</h1>
-                    <div class="popup-main">
-                      <form action="../../controller/Avis/AvisController.php" method="POST">
-                        <input type="hidden" name="idActivite" value="<?= $_GET['id'] ?>">
-                        <input type="hidden" name="idMeeter" value="<?= $_GET['idMeeter'] ?>">
+                    <div class="popup-content" id="popup-avis-content">
+                        <div class="close-cross" onclick="closePopUp('popup-avis')">✕</div>
+                        <h1>Laisser un avis</h1>
 
-                         <div class="popup-rating">
-                          <p>Qu’avez vous pensé de votre expérience ?</p>
-                         <div class="star-rating">
-                           <input type="radio" name="star-rating" id="star5" value="5" />
-                              <label for="star5">
-                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                 <path stroke-linecap="round" stroke-linejoin="round"
-                                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2
-                                      9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                        <div class="popup-main">
+                        <form action="../../controller/Avis/Avis.php" method="POST">
+                            <input type="hidden" name="idActivite" value="<?= $_GET['id'] ?>">
+                            <input type="hidden" name="idMeeter" value="<?= $_SESSION["user"]["id"]?>">
+
+                            <div class="popup-rating">
+                            <p>Qu’avez-vous pensé de votre expérience ?</p>
+                            <div class="star-rating">
+                                <input type="radio" name="star-rating" id="star5" value="5" />
+                                <label for="star5">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2
+                                        9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
                                 </svg>
                                 </label>
 
                                 <input type="radio" name="star-rating" id="star4" value="4" />
                                 <label for="star4">
-                                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                                     <path stroke-linecap="round" stroke-linejoin="round"
-                                     d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2
-                                            9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                                    d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2
+                                        9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
                                 </svg>
-                             </label>
-
-                                 <input type="radio" name="star-rating" id="star3" value="3" />
-                                <label for="star3">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                 <path stroke-linecap="round" stroke-linejoin="round"
-                                   d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2
-                                      9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                                </svg>
-                              </label>
-
-                                 <input type="radio" name="star-rating" id="star2" value="2" />
-                                 <label for="star2">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                 <path stroke-linecap="round" stroke-linejoin="round"
-                                      d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2
-                                     9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                                 </svg>
                                 </label>
 
-                               <input type="radio" name="star-rating" id="star1" value="1" />
-                               <label for="star1">
-                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                   <path stroke-linecap="round" stroke-linejoin="round"
-                                         d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2
-                                    9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                             </svg>
-                               </label>
-                             </div>
-                           </div>
+                                <input type="radio" name="star-rating" id="star3" value="3" />
+                                <label for="star3">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2
+                                        9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                                </svg>
+                                </label>
+
+                                <input type="radio" name="star-rating" id="star2" value="2" />
+                                <label for="star2">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2
+                                        9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                                </svg>
+                                </label>
+
+                                <input type="radio" name="star-rating" id="star1" value="1" />
+                                <label for="star1">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2
+                                        9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                                </svg>
+                                </label>
+                            </div>
+                            </div>
+
                             <div class="popup-comment">
                             <p>Avez-vous un commentaire à ajouter ? Racontez-nous !</p>
-                             <div class="comment-box">
-                             <textarea name="commentaire" id="comment" spellcheck="true"></textarea>
+                            <div class="comment-box">
+                                <textarea name="commentaire" id="comment" spellcheck="true"></textarea>
                             </div>
-                         <p>Merci pour votre avis, il sera utile pour de futurs participants.</p>
-                        </div>
+                            <p>Merci pour votre avis, il sera utile pour de futurs participants.</p>
+                            </div>
 
-                        <div class="popup-buttons">
-                          <div id="bouton-rouge-avis" onclick="closePopUp('popup-avis')"></div>
-                          <div id="bouton-bleu-avis"></div>
-                         </div>
+                            <div class="popup-buttons">
+                            <div id="bouton-rouge-avis" class="boutonPar" onclick="closePopUp('popup-avis')"></div>
+                            <div id="bouton-bleu-avis" class="boutonPar"></div>
+                        </div>
                         </form>
-                     </div>
-                 </div>
+                        </div>
+                    </div>
                 </div>
-                </div>
+
 
 <script>
   document.getElementById('bouton-rouge-avis').innerHTML = BoutonRouge("Annuler");
@@ -313,9 +314,9 @@
     <script src="../Script/PopUp.js"></script>
     <script>
         document.getElementById('boutonAvis').innerHTML = BoutonBleu("Laisser un avis");
-        const bouton = document.querySelector('#boutonAvis button');
-        console.log(bouton);
-        bouton.addEventListener('click', () => openPopUp("popup-avis"));
+        const bouton1 = document.querySelector('#boutonAvis button');
+        console.log(bouton1);
+        bouton1.addEventListener('click', () => openPopUp("popup-avis"));
     </script>
     
     <script>

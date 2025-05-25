@@ -15,7 +15,7 @@ body {
     gap: 10px;
     margin-top: 10px;
 }
-.price { 
+.price {
     font-size: 18px;
     font-weight: bold;
     margin-top: 10px;
@@ -125,8 +125,6 @@ body {
     font-size: 1.5rem;
     font-weight: bold;
     margin-top: 10px;
-    display: flex;
-    align-items: center;
 }
 
 .organisateur {
@@ -136,18 +134,8 @@ body {
     width: 100%;
 }
 
-.organisateur p {
-    display: flex;
-    align-items: center;
-}
-
 .nom-organisateur {
     font-weight: bold;
-}
-
-.nom-organisateur:hover {
-    text-decoration: underline;
-    cursor: pointer;
 }
 
 .avis-container {
@@ -159,12 +147,12 @@ body {
     padding: 10px 0;
 }
 
-.btn-bleu {
-    width: 200px;
+#map {
+    z-index: -100;
 }
 
-#map {
-    z-index: auto;
+.btn-bleu {
+    width: 200px;
 }
 
 .popup-overlay {
@@ -175,6 +163,10 @@ body {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
+}
+
+#popup-avis-content {    
+    align-items: center;
 }
 
 .popup-content {
@@ -198,7 +190,6 @@ body {
     flex: 1;
     gap: 40px;
     margin-top: 20px;
-    overflow-y: auto;
   }
   
   .form-section {
@@ -208,6 +199,11 @@ body {
   .creneaux-section {
     flex: 1;
   }
+
+  .popup-rating {
+    width: auto;
+    overflow: hidden;
+  }
   
   .popup-buttons {
     display: flex;
@@ -215,6 +211,17 @@ body {
     gap: 20px;
     margin-top: 20px;
   }
+
+  .boutonPar {
+  width: 150px;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
   
 .popup-columns {
     display: flex;
