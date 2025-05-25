@@ -60,5 +60,3 @@ foreach ($avisList as $avis) {
 }
 
 $pageData['moyenneAvis'] = count($avisList) > 0 ? round($noteTotale / count($avisList), 1) : null;
-
-include '../../view/pageMeeter.php'; 
