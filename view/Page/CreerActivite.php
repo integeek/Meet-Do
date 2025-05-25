@@ -55,6 +55,7 @@ unset($_SESSION["erreur"]);
 
         <!-- Sélection de l'adresse -->
         <input type="text" id="adresse" placeholder="Adresse">
+        <ul id="suggestions"></ul> <!-- Liste déroulante des suggestions -->
         <button id="ouvrirCarte">Choisir sur la carte</button>
         <div id="mapPopup" class="popup hidden">
             <div id="map"></div>
@@ -290,6 +291,8 @@ if (sqlError) console.error("Erreur SQL :", sqlError);
     // Fetch categories on page load
     window.onload = fetchCategories;
 </script>
+<script src="../Script/InfoPerso.js"></script>
+
 
 </body>
 </html>

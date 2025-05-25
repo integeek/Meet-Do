@@ -1,4 +1,6 @@
 <?php
+session_start();
+include_once '../../Controller/meeter/meeter.php';
 $nom = $pageData['prenom'] . ' ' . $pageData['nom'];
 $ville = $pageData['localisation'];
 $anciennete = $pageData['anciennete'];

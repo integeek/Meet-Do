@@ -41,9 +41,11 @@ unset($_SESSION["erreur"]);
                 <input class="textbox" type="text" name="prenom" required>
                 <p>Adresse (optionnelle)</p>
                 <div id="containerAdresse">
-                    <input class="textbox" type="text" name="adresse" id="adresse">
+                    <input class="textbox" type="text" name="adresse" id="adresse" placeholder="Entrez une adresse...">
                     <img id="iconAdresse" src="../assets/img/pin.png" alt="Adresse">
+                    <ul id="suggestions"></ul>
                 </div>
+
                 <div class="erreur" style="color: red; margin-bottom: 1rem;">
                     <?= htmlspecialchars($messageErreur) ?>
                 </div>
@@ -55,6 +57,7 @@ unset($_SESSION["erreur"]);
             </script>
 
         </div>
+        <script src="../Script/InfoPerso.js"></script>
     </main>
     <footer id="footer-container" class="footer-container">
         <script src="../component/Footer/Footer.js"></script>
