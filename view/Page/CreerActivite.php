@@ -69,7 +69,7 @@ unset($_SESSION["erreur"]);
         <input type="number" id="nbPersonnes" placeholder="Nombre de personnes">
         <input type="number" id="prix" placeholder="Prix">
 
-        <label><input type="checkbox" id="mobiliteReduite"> Accessible aux personnes à mobilité réduite</label>
+        <label style="display: flex; align-items: center; gap: 10px;"><input type="checkbox" id="mobiliteReduite"> Accessible aux personnes à mobilité réduite</label>
 
         <script src="../component/BoutonBleu.js"></script>
         <div id="boutonContainer"></div>

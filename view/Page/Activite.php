@@ -57,7 +57,7 @@
                                 </div>
                                 <p class="prix-activite"><img src="../assets/img/icons/price.svg" alt=""> Prix : 300€</p>
                                 <div class="organisateur">
-                                    <p class="nom-organisateur"><img src="../assets/img/icons/user.svg" alt=""> Jean Dupont</p>
+                                    <p class="nom-organisateur" id="meeter-page"><img src="../assets/img/icons/user.svg" alt=""> Jean Dupont</p>
                                     <p class="note-organisateur"><img src="../assets/img/icons/etoile.svg" alt=""> 4.89 / 5</p>
                                     <div class="btn-bleu" id="boutonContact"></div>
                                 </div>
