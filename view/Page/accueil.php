@@ -38,7 +38,7 @@
         </script>
                 <div id="activities-container"></div>
         <div id="loader" style="text-align:center; margin: 20px; display: none;">
-            <img src="../../view/assets/img/loader.gif" alt="Chargement..." width="50">
+            <img src="../../view/assets/img/loader.gif" alt="Chargement..." width="200" height="200">
         </div>
         <script src="../component/ActivityCard/ActivityCard.js"></script>
     </main>
