@@ -105,6 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 const btn = document.getElementById("boutonBleuPop");
+const meeter = document.getElementById("meeter-page");
 let connected = false;
 
 const UserInfo = () => {
@@ -195,4 +196,8 @@ boutonContact.addEventListener("click", () => {
     console.log(activiteData.idMeeter, activiteData.titre);
     Contact(activiteData.idMeeter, activiteData.titre);
 
+});
+
+meeter.addEventListener("click", () => {
+    window.location.href = `./../../view/Page/pageMeeter.php?id=${activiteData.idMeeter}`;
 });

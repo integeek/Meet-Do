@@ -36,7 +36,7 @@ try {
         $prix = $_POST['prix'] ?? 0;
         $themes = isset($_POST['themes']) ? json_decode($_POST['themes'], true) : [];
 
-        $idMeeter = $_SESSION['user']['idClient'] ?? 4;
+        $idMeeter = $_SESSION['user']['id'] ?? 4;
 
         if (!$titre || !$description || !$adresse || !$idMeeter) {
             http_response_code(400);
