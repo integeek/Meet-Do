@@ -1,6 +1,6 @@
 <?php 
 session_start(); //METTRE CA SUR TOUTES LES PAGES
-require_once("../../model/Bdd.php");
+require_once("../../Model/Client.php");
 
 if(!empty($_POST)){
     //var_dump(value: $_POST);
@@ -8,6 +8,7 @@ if(!empty($_POST)){
         if(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
             $_SESSION["erreur"] = "L'adresse email est incorrecte";
             header("Location: ../../view/Page/Inscription.php");
+            exit;
         }
 
         $password = $_POST["password"];
@@ -22,6 +23,7 @@ if(!empty($_POST)){
         if(strlen($password) < 8){
             $_SESSION["erreur"] = "Le mot de passe doit contenir au moins 8 caractères";
             header("Location: ../../view/Page/Inscription.php");
+            exit;
         }
 
         if(!preg_match("/[0-9]/", $password)){
@@ -45,30 +47,15 @@ if(!empty($_POST)){
         $pass = password_hash($password, PASSWORD_ARGON2ID);
         $cle = rand(1000000,9000000);
 
-        $checkEmail = $db->prepare("SELECT idClient FROM Client WHERE email = :email");
-        $checkEmail->bindValue(":email", $_POST["email"], PDO::PARAM_STR);
-        $checkEmail->execute();
     
-        if($checkEmail->fetch()){
+        if(Client::checkEmail($_POST["email"]) != null){
             $_SESSION["erreur"] = "Cette adresse email est déjà utilisée";
             header("Location: ../../view/Page/Inscription.php");
             exit;
         }
 
         $expiricy = date("Y-m-d H:i:s", time() + 60 * 60 * 3); // 3 heures
-        $sql = "INSERT INTO user (cle, email, password, token_expires_at) VALUES ('$cle', :email, '$pass', '$expiricy')";
-
-        $query = $db -> prepare($sql);
-        $query -> bindValue(":email", $_POST["email"], PDO::PARAM_STR);
-        $query -> execute();
-
-        $id = $db->lastInsertId();
-
-         
-        // $_SESSION["user"] = [
-        //     "id" => $id,
-        //     "email" => $_POST["email"],
-        // ];
+        $id = Client::createUser($cle, $_POST["email"], $pass, $expiricy);
 
         $lienActivation = "http://localhost/view/page/InfoPerso.php?id=" . $id . "&cle=" . $cle;
 
@@ -121,12 +108,15 @@ if(!empty($_POST)){
         $headers .= "Content-type: text/html; charset=UTF-8\r\n";
 
         if (mail($destinataire, $sujet, $message, $headers)) {
-            echo "L'email a été envoyé avec succès.";
+            $_SESSION["success"] = "L'email a été envoyé avec succès.";
+            header("Location: ../../view/Page/Inscription.php");
+            exit;
+
         } else {
-            echo "L'email n'a pas pu être envoyé.";
+            $_SESSION["erreur"] = "L'email n'a pas pu être envoyé.";
+            header("Location: ../../view/Page/Inscription.php");
+            exit;
         }
-
-
     } else {
         $_SESSION["erreur"] = "le formulaire est incomplet";
         header("Location: ../../view/Page/Inscription.php");

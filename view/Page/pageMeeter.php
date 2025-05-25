@@ -1,9 +1,18 @@
 <?php
 session_start();
+include_once '../../Controller/meeter/meeter.php';
+$nom = $pageData['prenom'] . ' ' . $pageData['nom'];
+$ville = $pageData['localisation'];
+$anciennete = $pageData['anciennete'];
+$description = $pageData['description'];
+$photo = $pageData['photoProfil'];
+$activites = $pageData['activites'];
+$avis = $pageData['avis'];
+$moyenne = $pageData['moyenneAvis'];
 ?>
-<!DOCTYPE html>
-<html lang="eng">
 
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,94 +21,70 @@ session_start();
     <link rel="stylesheet" type="text/css" href="../component/Footer.css">
     <link rel="stylesheet" type="text/css" href="../component/Navbar.css">
 </head>
-
 <body>
-    <!-- Navbar -->
-    <div id="navbar-container" class="navbar-container"></div>
-    <script src="../component/Navbar.js"></script>
-    <script>
-        (async () => {
-            document.getElementById('navbar-container').innerHTML = await Navbar("..");
-        })();
-    </script>
 
-    <!-- Contenu principal -->
-    <main class="profile-container">
-        <!-- Section Profil -->
-        <section class="profile-info">
-            <h1>Dupont Jean</h1>
-            <p>Issy-les-Moulineaux, 92130</p>
-            <p>Meeter depuis 4 ans</p>
-            <h2>Description :</h2>
-            <p>Passionné par la découverte de nouvelles expériences...</p>
-        </section>
+<!-- Navbar -->
+<div id="navbar-container" class="navbar-container"></div>
+<script src="../component/Navbar.js"></script>
+<script>
+    document.getElementById('navbar-container').innerHTML = Navbar(true, "..");
+</script>
 
-        <!-- Section Activités -->
-        <section class="activities">
-            <h2>Ses activités :</h2>
-            <div class="activity-list">
+<main class="profile-container">
+
+    <section class="profile-info">
+        <?php if (!empty($photo)) : ?>
+            <img src="<?php echo htmlspecialchars($photo); ?>" alt="Photo de profil de <?php echo htmlspecialchars($nom); ?>" class="photo-profil">
+        <?php endif; ?>
+        <h1><?php echo htmlspecialchars($nom); ?></h1>
+        <p><?php echo htmlspecialchars($ville); ?></p>
+        <p>Meeter depuis <?php echo htmlspecialchars($anciennete); ?></p>
+        <h2>Description :</h2>
+        <p><?php echo htmlspecialchars($description); ?></p>
+    </section>
+
+    <section class="activities">
+        <h2>Ses activités :</h2>
+        <div class="activity-list">
+            <?php foreach ($activites as $act) : ?>
                 <div class="activity-card">
-                    <img src="atelier-macaron.jpg" alt="Atelier Macaron">
+                    <img src="<?php echo htmlspecialchars($act['image'] ?? '../assets/img/default.jpg'); ?>" 
+                         alt="Image activité" class="activity-image">
                     <div class="content">
-                        <h3>Atelier Macaron</h3>
-                        <p>Avec Michel Dupuis</p>
+                        <h3><?php echo htmlspecialchars($act['titre']); ?></h3>
+                        <p><?php echo htmlspecialchars($act['description']); ?></p>
                     </div>
                 </div>
+            <?php endforeach; ?>
+        </div>
+    </section>
 
-                <div class="activity-card">
-                    <img src="escalade.jpg" alt="Escalade en salle">
-                    <div class="content">
-                        <h3>Escalade en salle</h3>
-                        <p>Avec Kevin Bernard</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section Avis -->
-        <section class="reviews">
-            <h2>Les avis de ses activités : 4.8/5</h2>
-            <div class="review-list">
+    <section class="reviews">
+        <h2>Les avis de ses activités : <?php echo $moyenne ? $moyenne . "/5" : "Aucun avis"; ?></h2>
+        <div class="review-list">
+            <?php foreach ($avis as $a) : ?>
                 <div class="review-card">
-                    <h3>Michel Dupuis</h3>
-                    <div class="rating">★★★★★</div>
-                    <p>Un super moment !</p>
+                    <h3><?php echo htmlspecialchars($a['auteur']); ?></h3>
+                    <div class="rating"><?php echo str_repeat("★", $a['note']) . str_repeat("☆", 5 - $a['note']); ?></div>
+                    <p><?php echo htmlspecialchars($a['commentaire']); ?></p>
                 </div>
+            <?php endforeach; ?>
+        </div>
+    </section>
 
-                <div class="review-card">
-                    <h3>Kevin Bernard</h3>
-                    <div class="rating">★☆☆☆☆</div>
-                    <p>Une expérience décevante...</p>
-                </div>
+    <section class="contact">
+        <h2>Une question ?</h2>
+        <p>Contactez <?php echo htmlspecialchars($nom); ?></p>
+        <button class="btn-bleu">Envoyer un message</button>
+    </section>
 
-                <div class="review-card">
-                    <h3>Client</h3>
-                    <div class="rating">★★★☆☆</div>
-                    <p>Cette activité m'a aidé à me détendre.</p>
-                </div>
-        </section>
+</main>
 
-        <!-- Section Contact -->
-        <section class="contact">
-            <h2>Une question ?</h2>
-            <p>Contactez Jean Dupont</p>
-            <button class="btn-bleu">Envoyer un message</button>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer id="footer"></footer>
-
-    <script src="Navbar.js"></script>
-    <script src="Footer.js"></script>
-    <!-- Footer -->
-    <footer id="footer-container" class="footer-container">
-        <script src="../component/Footer.js"></script>
-        <script>
-            document.getElementById('footer-container').innerHTML = Footer("..");
-        </script>
-    </footer>
+<footer id="footer-container" class="footer-container"></footer>
+<script src="../component/Footer.js"></script>
+<script>
+    document.getElementById('footer-container').innerHTML = Footer("..");
+</script>
 
 </body>
-
 </html>

@@ -4,26 +4,26 @@ let theme = "";
 let role = "";
 
 const GetTheme = () => {
-    var request = new XMLHttpRequest();
-    request.open("GET", `../../controller/Faq/Theme.php`, true);
-    request.send();
+  var request = new XMLHttpRequest();
+  request.open("GET", `../../controller/Faq/FaqControlleur.php?action=themes`, true);
+  request.send();
 
-    request.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            try {
-                // Parse the JSON response
-                const responseData = JSON.parse(this.responseText);
-                themes = responseData;
-                console.log(themes, "themes");
-                Theme();
-                Selector();
-            } catch (error) {
-                console.error("Error parsing JSON response:", error);
-            }
-        } else if (this.readyState == 4) {
-            console.error("Error: Unable to fetch data. Status:", this.status);
-        }
-    };
+  request.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      try {
+        // Parse the JSON response
+        const responseData = JSON.parse(this.responseText);
+        themes = responseData;
+        console.log(themes, "themes");
+        Theme();
+        Selector();
+      } catch (error) {
+        console.error("Error parsing JSON response:", error);
+      }
+    } else if (this.readyState == 4) {
+      console.error("Error: Unable to fetch data. Status:", this.status);
+    }
+  };
 }
 
 GetTheme();
@@ -56,7 +56,7 @@ GetUserId();
 
 const Refresh = () => {
   var request = new XMLHttpRequest();
-  request.open("GET", `../../controller/Faq/Faq.php?sortBy=${theme}`, true);
+  request.open("GET", `../../controller/Faq/FaqControlleur.php?sortBy=${theme}&action=questions`, true);
   request.send();
 
   request.onreadystatechange = function () {
@@ -121,29 +121,32 @@ const ThemeSelected = () => {
 }
 
 const renderFaqContent = () => {
-  container.innerHTML = data
-    .map((item, index) => {
-      return `
+  container.innerHTML = "";
+  if (data.message != "La table est vide.") {
+    container.innerHTML = data
+      .map((item, index) => {
+        return `
       <div class="${index % 2 === 0 ? "collapse-left" : "collapse-right"}">
           <button type="button" class="collapse-title alone" id="${item.id}btn">
               <h3>${item.question}</h3>
               <div class="grow"></div>
         ${role == "Administrateur" ? `
               <image onclick="openPopUp1()" class="pen" src="../assets/img/pen.png" id="${item.id
-          }img-pen"></image>
+            }img-pen"></image>
               <image class="trash" src="../assets/img/trash.png" id="${item.id
-          }img-trash"></image> `
-          : ""}
+            }img-trash"></image> `
+            : ""}
               <image class="chevron" src="../assets/img/chevron.png" id="${item.id
-        }img"></image>
+          }img"></image>
           </button>
           <div class="collapse-content hidden" id="${item.id}p">
               <p>${item.reponse}</p>
           </div>
       </div>
       `;
-    })
-    .join("");
+      })
+      .join("");
+  }
   attachEventListeners();
 };
 

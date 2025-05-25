@@ -78,7 +78,7 @@ const AddGraphic = () => {
 
 const Refresh = () => {
     var request = new XMLHttpRequest();
-    request.open("GET", `../../controller/TableauBord/GetData.php`, true);
+    request.open("GET", `../../controller/TableauBord/TableauBordControlleur.php`, true);
     request.send();
 
     request.onreadystatechange = function () {

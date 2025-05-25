@@ -2,7 +2,13 @@ const newQuestion = document.querySelector('#new-question-button');
 const buttonSend = document.querySelector('.collapse-add-button');
 const container = document.querySelector('.collapse-container');
 const search = document.querySelector('.search');
+const questionInput = document.getElementById('question-input');
+const reponseInput = document.getElementById('reponse-input');
+const submitButton = document.getElementById('submit-button');
+const modal = document.getElementsByClassName('modal');
+const closeModal = document.getElementById('closeModal');
 let theme = "";
+let themeModal = "";
 let searchValue = "";
 let response = "";
 let userId = -1;
@@ -11,21 +17,20 @@ let role = "";
 
 const GetTheme = () => {
     var request = new XMLHttpRequest();
-    request.open("GET", `../../controller/Faq/Theme.php`, true);
+    request.open("GET", `../../controller/Forum/ForumController.php?action=themes`, true);
     request.send();
 
     request.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            try {
+            
                 // Parse the JSON response
                 const responseData = JSON.parse(this.responseText);
                 themes = responseData;
-                console.log(themes, "themes");
                 Theme();
+                ThemeModal();
                 Selector();
-            } catch (error) {
-                console.error("Error parsing JSON response:", error);
-            }
+                SelectorModal();
+
         } else if (this.readyState == 4) {
             console.error("Error: Unable to fetch data. Status:", this.status);
         }
@@ -64,7 +69,7 @@ GetUserId();
 
 const Post = (idForum) => {
     var request = new XMLHttpRequest();
-    request.open("POST", "./../../controller/Forum/AddResponse.php", true);
+    request.open("POST", "./../../controller/Forum/ForumController.php?action=addResponse", true);
     request.setRequestHeader("Content-Type", "application/json");
 
     const body = JSON.stringify({
@@ -72,7 +77,7 @@ const Post = (idForum) => {
         idUser: userId,
         message: response
     });
-    
+
     request.send(body);
 
     request.onreadystatechange = function () {
@@ -115,7 +120,7 @@ const Post = (idForum) => {
 
 const Refresh = () => {
     var request = new XMLHttpRequest();
-    request.open("GET", `../../controller/Forum/Forum.php?selectBy=${theme}&search=${searchValue}`, true);
+    request.open("GET", `../../controller/Forum/ForumController.php?selectBy=${theme}&search=${searchValue}&action=questions`, true);
     request.send();
 
     request.onreadystatechange = function () {
@@ -139,17 +144,32 @@ const Refresh = () => {
     };
 }
 
+const AddQuestion = () => {
+    var request = new XMLHttpRequest();
+    request.open("POST", "./../../controller/Forum/ForumController.php?action=addQuestion", true);
+    request.setRequestHeader("Content-Type", "application/json");
+
+    const body = JSON.stringify({
+        idUser: userId,
+        question: questionInput.value,
+        reponse: reponseInput.value,
+        theme: themeModal
+    });
+
+    request.send(body);
+}
+
 Refresh();
 
 const Theme = () => {
-  select.innerHTML = `
+    select.innerHTML = `
     <option value="" disabled selected>Thème</option>
-  `;
-  select.innerHTML += themes.map((item) => {
-    return `
-      <option value="${item.Theme}">${item.Theme}</option>
+    `;
+    select.innerHTML += themes.map((item) => {
+        return `
+      <option value="${item.theme}">${item.theme}</option>
       `;
-  }).join('');
+    }).join('');
 
 }
 
@@ -185,6 +205,47 @@ const ThemeSelected = () => {
     });
 }
 
+const ThemeModal = () => {
+    select2.innerHTML = `
+    <option value="" disabled selected>Thème</option>
+  `;
+    select2.innerHTML += themes.map((item) => {
+    return `
+        <option value="${item.theme}">${item.theme}</option>
+    `;
+    }).join('');
+}
+
+const SelectorModal = () => {
+    const select2 = document.querySelector('#select2');
+    select2?.addEventListener('change', (e) => {
+        document.getElementById('select-div-2').innerHTML = `
+            <div id="selected2" >
+               <p id="selected-text2"></p>
+                <img src="../assets/img/croix.png" alt="croix icon" id="croix-selected2"/>
+            </div>
+        `;
+        const selectedText = document.querySelector('#selected-text2');
+        themeModal = e.target.value;
+        selectedText.innerHTML = themeModal;
+        ThemeSelectedModal();
+    });
+}
+
+const ThemeSelectedModal = () => {
+    const croixselected = document.querySelector('#croix-selected2');
+    croixselected?.addEventListener('click', () => {
+        document.getElementById('select-div-2').innerHTML = `
+            <select id="select2"></select>
+        `;
+        let select = document.querySelector('#select2');
+        select.selectedIndex = 0;
+        theme = "";
+        ThemeModal();
+        SelectorModal();
+    });
+}
+
 search?.addEventListener('input', (e) => {
     searchValue = e.target.value;
     Refresh();
@@ -216,7 +277,7 @@ const renderForumContent = () => {
                 </button>
             </div>
             <div class="collapse-content hidden" id="${item.id}content">
-                ${item.answer.map((answer, index) => {
+                ${item.answer.map((answer) => {
                 return `
                         <div class="collapse-content-answer">
                             <img src="../assets/img/return.png" alt="return icon" class="collapse-return" />
@@ -299,3 +360,27 @@ const attachEventListeners = () => {
         });
     });
 }
+
+newQuestion?.addEventListener('click', () => {
+    modal[0].style = 'animation: show2 0.2s forwards;';
+    modal[0].classList.remove('hidden');
+});
+
+console.log(closeModal, "closeModal");
+
+closeModal.addEventListener('click', () => {
+    modal[0].style = 'animation: close 0.2s forwards;';
+    modal[0].classList.add('hidden');
+});
+
+submitButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    if (questionInput.value !== "" && reponseInput.value !== "") {
+        AddQuestion();
+        modal[0].style = 'animation: close 0.2s forwards;';
+        modal[0].classList.add('hidden');
+        setTimeout(() => {
+            Refresh();
+        }, 500);
+    }
+})

@@ -242,7 +242,6 @@ body {
 .creneau-btn.full {
     background-color: #aaa;
     color: white;
-    cursor: not-allowed;
 }
 
 .creneau-time {
