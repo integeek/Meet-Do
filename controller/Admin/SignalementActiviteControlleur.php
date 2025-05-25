@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once("../../model/Bdd.php");
-require_once("../../model/Admin/SignalementActiviteModel.php");
+require_once("../../Model/Bdd.php");
+require_once("../../Model/Admin/SignalementActiviteModel.php");
 
 class SignalementActiviteController {
     private $model;

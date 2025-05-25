@@ -6,7 +6,7 @@ if (!isset($_SESSION['user']['email'])) {
     exit;
 }
 
-require_once("../../model/Bdd.php");
+require_once("../../Model/Bdd.php");
 
 $idClient = $_SESSION['user']['id'];
 $sql = "SELECT role FROM Client WHERE idClient = :idClient";

@@ -1,6 +1,6 @@
 <?php
-require_once("../../model/Bdd.php");
-require_once("../../model//Faq/FaqModel.php");
+require_once("../../Model/Bdd.php");
+require_once("../../Model/Faq/FaqModel.php");
 
 class FaqController {
     private $model;
