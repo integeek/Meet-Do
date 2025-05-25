@@ -15,6 +15,7 @@ class MessagerieModel
             SELECT 
                 CONCAT(Client.nom, ' ', Client.prenom) AS 'name', 
                 (SELECT Message.contenu FROM Message WHERE (Message.idRedacteur = :clientId OR Message.idRecepteur = :clientId) AND (Message.idRedacteur = Client.idClient OR Message.idRecepteur = Client.idClient) ORDER BY Message.dateEnvoie DESC LIMIT 1) AS 'last_message',
+                (SELECT Message.attachement FROM Message WHERE (Message.idRedacteur = :clientId OR Message.idRecepteur = :clientId) AND (Message.idRedacteur = Client.idClient OR Message.idRecepteur = Client.idClient) ORDER BY Message.dateEnvoie DESC LIMIT 1) AS 'has_attachement',
                 Client.idClient AS 'idClient'
             FROM `Message`
             INNER JOIN Client ON Client.idClient = Message.idRedacteur OR Client.idClient = Message.idRecepteur
@@ -61,10 +62,8 @@ class MessagerieModel
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function sendMessage($content, $idRedacteur, $idRecepteur, $file = null)
+    public function sendMessage($content, $idRedacteur, $idRecepteur, $file)
     {
-        $attachement = (!empty($file) && $file !== "false" && $file !== false) ? 1 : 0;
-
         $sql = "
         INSERT INTO `Message`(`contenu`, `dateEnvoie`, `isRead`, `attachement`, `idRedacteur`, `idRecepteur`) 
         VALUES (:content, NOW(), FALSE, :attachement, :idRedacteur, :idRecepteur)
@@ -72,9 +71,23 @@ class MessagerieModel
         $query = $this->db->prepare($sql);
         return $query->execute([
             'content' => $content,
-            'attachement' => $attachement,
+            'attachement' => $file ? 1 : 0,
             'idRedacteur' => $idRedacteur,
             'idRecepteur' => $idRecepteur
+        ]);
+    }
+
+    public function contact($userId, $meeterId, $activityName)
+    {
+        $sql = "
+            INSERT INTO `Message`(`contenu`, `dateEnvoie`, `isRead`, `attachement`, `idRedacteur`, `idRecepteur`) 
+            VALUES (:content, NOW(), FALSE, 0, :idRedacteur, :idRecepteur)
+        ";
+        $query = $this->db->prepare($sql);
+        return $query->execute([
+            'content' => "Bonjour, je suis intéressé par l'activité $activityName",
+            'idRedacteur' => $userId,
+            'idRecepteur' => $meeterId
         ]);
     }
 }

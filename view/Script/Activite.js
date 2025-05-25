@@ -1,3 +1,25 @@
+const boutonContact = document.getElementById("boutonContact");
+
+const Contact = (idMeeter, activityName) => {
+    var request = new XMLHttpRequest();
+    request.open("POST", `./../../controller/Messagerie/MessagerieControlleur.php?id=${idMeeter}&activityName=${activityName}`, true);
+    request.setRequestHeader("Content-Type", "application/json");
+    request.send();
+
+    request.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            try {
+                const responseData = JSON.parse(this.responseText);
+                if (responseData.redirect) {
+                    window.location.href = "../../view/Page/Messagerie.php";
+                }
+            } catch (error) {
+                console.error("Error parsing JSON response:", error);
+            }
+        }
+    };
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     const params = new URLSearchParams(window.location.search);
     const idActivite = params.get("id");
@@ -29,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
             flatpickr("#datepicker", {
                 enable: datesDisponibles,
                 dateFormat: "Y-m-d",
-                onChange: function(selectedDates, dateStr) {
+                onChange: function (selectedDates, dateStr) {
                     afficherCreneaux(dateStr, horairesParDate);
                 }
             });
@@ -116,7 +138,7 @@ btn.addEventListener("click", () => {
     if (!connected) {
         window.location.href = "./../../view/Page/Connexion.php";
         return;
-    } 
+    }
     const nbPlace = document.getElementById("nbPlace").value;
     const date = document.getElementById("datepicker").value;
     const creneau = document.querySelector(".creneau-btn.selected");
@@ -127,39 +149,50 @@ btn.addEventListener("click", () => {
     const heure = creneau.querySelector(".creneau-time").textContent;
     const isFileAttente = document.getElementById("boutonBleuPop").innerText.includes("file d'attente");
 
-  fetch("../../controller/Activite/Reservation.php", {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json"
-    },
-    credentials: "include",
-    body: JSON.stringify({
-        nbPlace: nbPlace,
-        date: date,
-        heure: heure,
-        fileAttente: isFileAttente,
+    fetch("../../controller/Activite/Reservation.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        credentials: "include",
+        body: JSON.stringify({
+            nbPlace: nbPlace,
+            date: date,
+            heure: heure,
+            fileAttente: isFileAttente,
+        })
     })
-})
-.then(res => res.text()) 
-.then(text => {
-    console.log("Réponse brute du serveur :", text);
-    try {
-        const data = JSON.parse(text);
-        if (data.success) {
-            alert(isFileAttente ? "Inscription en file d'attente réussie !" : "Réservation réussie !");
-            window.location.href = "./../../view/Page/PageCompte.php";
-        } else {
-            alert("Erreur lors de la réservation : " + data.message);
-        }
-    } catch (e) {
-        console.error("Erreur de parsing JSON :", e);
-        console.error("Réponse reçue :", text);
-        alert("Erreur technique. Réponse inattendue du serveur.");
-    }
-})
-.catch(err => {
-    console.error("Erreur fetch :", err);
-    alert("Erreur réseau ou serveur.");
-});
+        .then(res => res.text())
+        .then(text => {
+            console.log("Réponse brute du serveur :", text);
+            try {
+                const data = JSON.parse(text);
+                if (data.success) {
+                    alert(isFileAttente ? "Inscription en file d'attente réussie !" : "Réservation réussie !");
+                    window.location.href = "./../../view/Page/PageCompte.php";
+                } else {
+                    alert("Erreur lors de la réservation : " + data.message);
+                }
+            } catch (e) {
+                console.error("Erreur de parsing JSON :", e);
+                console.error("Réponse reçue :", text);
+                alert("Erreur technique. Réponse inattendue du serveur.");
+            }
+        })
+        .catch(err => {
+            console.error("Erreur fetch :", err);
+            alert("Erreur réseau ou serveur.");
+        });
 
 })
+
+boutonContact.addEventListener("click", () => {
+    if (!connected) {
+        window.location.href = "./../../view/Page/Connexion.php";
+        return;
+    }
+    console.log("Contact button clicked");
+    console.log(activiteData.idMeeter, activiteData.titre);
+    Contact(activiteData.idMeeter, activiteData.titre);
+
+});
