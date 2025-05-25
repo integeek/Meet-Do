@@ -201,30 +201,25 @@
                     </div>
                 </div>
                 <!-- Pop up pour laisser un avis -->
-                
-                 <div class="popup-overlay" id="popup-avis">
-                    <div class="containerPopUp">
-                        <div class="close-cross" onclick="closePopUp('popup-avis')">✕</div>
-                        <div class="popup-content">
-                         <h1>Laisser un avis</h1>
-                        <div class="popup-main">
-                            <form action="../../controller/Avis/AvisController.php" method="POST">
-                            <input type="hidden" name="idActivite" value="<?= $_GET['id'] ?>">
-                            <input type="hidden" name="idMeeter" value="<?= $_GET['idMeeter'] ?>">
-                            <div class="popup-infos">
-                                <p>Commentaire :</p>
-                                <div class="comment-box">
-                                <textarea name="commentaire" id="comment" spellcheck="true"></textarea>
-                                </div>
-                            </div>
+                <div class="popup-overlay" id="popup-avis">
+                 <div class="containerPopUp">
+                     <div class="close-cross" onclick="closePopUp('popup-avis')">✕</div>
+                    <div class="popup-content">
+                     <h1>Laisser un avis</h1>
+                    <div class="popup-main">
+                      <form action="../../controller/Avis/AvisController.php" method="POST">
+                        <input type="hidden" name="idActivite" value="<?= $_GET['id'] ?>">
+                        <input type="hidden" name="idMeeter" value="<?= $_GET['idMeeter'] ?>">
+
+                         <!-- Section note -->
                          <div class="popup-rating">
-                              <p>Quelle note donneriez-vous à votre expérience ?</p>
-                             <div class="star-rating">
-                              <input type="radio" name="star-rating" id="star5" value="5" />
-                             <label for="star5">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                     d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2
+                          <p>Qu’avez vous pensé de votre expérience ?</p>
+                         <div class="star-rating">
+                           <input type="radio" name="star-rating" id="star5" value="5" />
+                              <label for="star5">
+                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                 <path stroke-linecap="round" stroke-linejoin="round"
+                                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2
                                       9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
                                 </svg>
                                 </label>
@@ -266,28 +261,30 @@
                                </label>
                              </div>
                            </div>
+                            <div class="popup-comment">
+                            <p>Avez-vous un commentaire à ajouter ? Racontez-nous !</p>
+                             <div class="comment-box">
+                             <textarea name="commentaire" id="comment" spellcheck="true"></textarea>
+                            </div>
+                         <p>Merci pour votre avis, il sera utile pour de futurs participants.</p>
+                        </div>
 
-                           <div class="popup-comment">
-                         <p>Avez-vous un commentaire à ajouter ? Racontez-nous !</p>
-                         <div class="comment-box">
-                               <textarea name="commentaire" id="comment" spellcheck="true"></textarea>
-                             </div>
-                           </div>
-                           <div class="popup-buttons">
-                          <div class="popup-buttons">
-                            <div id="bouton-rouge-avis" onclick="closePopUp('popup-avis')"></div>
-                            <div id="bouton-bleu-avis"></div>
-                    </div>
-
-                        <script>
-                            document.getElementById('bouton-rouge-avis').innerHTML = BoutonRouge("Annuler");
-                         document.getElementById('bouton-bleu-avis').innerHTML = BoutonBleu("Valider");
-                        </script>
-                    </div>
-                    </div>
-                    </div>  
+                        <!-- Boutons -->
+                        <div class="popup-buttons">
+                          <div id="bouton-rouge-avis" onclick="closePopUp('popup-avis')"></div>
+                          <div id="bouton-bleu-avis"></div>
+                         </div>
+                        </form>
+                     </div>
                  </div>
-                 </main> 
+                </div>
+                </div>
+
+<script>
+  document.getElementById('bouton-rouge-avis').innerHTML = BoutonRouge("Annuler");
+  document.getElementById('bouton-bleu-avis').innerHTML = BoutonBleu("Publier votre avis");
+</script>
+                        
 
     <footer id="footer-container" class="footer-container">
         <script src="../component/Footer/Footer.js"></script>
