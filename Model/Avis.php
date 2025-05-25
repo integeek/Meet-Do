@@ -1,7 +1,7 @@
 <?php
 require_once("Bdd.php");
 
-Class Formulaire {
+Class Avis {
     public static function create($note, $commentaire, $idActivite, $idClient) {
                 $db = Bdd::getInstance();
                 $sql = "INSERT INTO Avis (note, commentaire, dateAvis, idClient, idActivite) VALUES (:note, :commentaire, NOW(), :idClient, :idActivite)";

@@ -8,13 +8,7 @@ if (!empty($_POST)) {
     $idActivite = isset($_POST['idActivite']) ? intval($_POST['idActivite']) : null;
     $idClient = $_SESSION['user']['id'] ?? null;
 
-    $sql = "INSERT INTO Avis (note, commentaire, dateAvis, idClient, idActivite) VALUES (:note, :commentaire, NOW(), :idClient, :idActivite)";
-        $query = $db->prepare(query: $sql);
-        $query->bindValue(':note', $note);
-        $query->bindValue(':commentaire', $commentaire);
-        $query->bindValue(':idClient', $idClient);
-        $query->bindValue(':idActivite', $idActivite);
-        $query->execute();
+    Avis::create($note, $commentaire, $idActivite, $idClient);
 
         header("Location: ../../view/Page/activite.php?id=$idActivite");
 }

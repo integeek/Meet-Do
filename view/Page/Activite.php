@@ -52,6 +52,7 @@
                             <div class="description-activite">
                                 <h2><img src="../assets/img/icons/file.svg" alt=""> Description de l’activité</h2>
                                 <p>Rejoignez-nous pour un atelier gourmand et créatif où vous apprendrez à réaliser de délicieux macarons maison. Encadré par un pâtissier expérimenté, vous découvrirez les secrets d'une coque parfaite, la préparation d'une ganache savoureuse et les astuces pour un résultat digne des grands chefs. Que vous soyez débutant ou amateur passionné, cet atelier vous permettra de développer vos compétences culinaires. Repartez avec vos propres créations et émerveillez vos proches !</p>
+                                <div id="map" style="height: 400px; width: 100%; margin: 20px 0;"></div>
                             </div>
                             <div class="actions-container">
                                 <div class="boutonActivite">
@@ -64,7 +65,7 @@
                                     <p class="note-organisateur"><img src="../assets/img/icons/etoile.svg" alt=""> 4.89 / 5</p>
                                     <div class="btn-bleu" id="boutonContact"></div>
                                 </div>
-                                <div id="map" style="height: 400px; width: 100%; margin: 20px 0;"></div>
+
                             </div>
                         </div>
                         <div class="avis-container">
@@ -101,8 +102,8 @@
                           </div>
                         </div>
                         <div class="popup-buttons">
-                          <div id="bouton-rouge" onclick="closePopUp('popup')"></div>
-                          <div id="boutonBleuPop"></div>
+                          <div id="bouton-rouge" class="boutonPar" onclick="closePopUp('popup')"></div>
+                          <div id="boutonBleuPop" class="boutonPar"></div>
                         </div>
                       </div>            
                         <script src="../component/BoutonRouge.js"></script>
@@ -205,7 +206,7 @@
                 </div>
                 <!-- Pop up pour laisser un avis -->
                 <div class="popup-overlay" id="popup-avis">
-                    <div class="popup-content">
+                    <div class="popup-content" id="popup-avis-content">
                         <div class="close-cross" onclick="closePopUp('popup-avis')">✕</div>
                         <h1>Laisser un avis</h1>
 
@@ -273,8 +274,8 @@
                             </div>
 
                             <div class="popup-buttons">
-                            <div id="bouton-rouge-avis" onclick="closePopUp('popup-avis')"></div>
-                            <div id="bouton-bleu-avis"></div>
+                            <div id="bouton-rouge-avis" class="boutonPar" onclick="closePopUp('popup-avis')"></div>
+                            <div id="bouton-bleu-avis" class="boutonPar"></div>
                         </div>
                         </form>
                         </div>
