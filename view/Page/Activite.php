@@ -43,9 +43,14 @@
                                 <p onclick="openPopUp('popup-report')" class="report-activite"><img src="../assets/img/icons/report-icon.svg" alt="">Signaler</p>
                             </div>
                         </div>
-                        <div class="images-activite">
-                            <img src="../assets/img/macaron2.jpeg" alt="Image de l'activité" class="image-activite">
-                            <img src="../assets/img/macaron1.jpeg" alt="Image de l'activité" class="image-activite">
+                        <div class="images-activite-carousel">
+                            <button class="carousel-arrow left" id="carouselPrev">&#10094;</button>
+                            <div class="carousel-track-container">
+                                <div class="carousel-track" id="carouselTrack">
+                                    <!-- Les images seront injectées ici dynamiquement -->
+                                </div>
+                            </div>
+                            <button class="carousel-arrow right" id="carouselNext">&#10095;</button>
                         </div>
                         <div class="separator"></div>
                         <div class="description-container">
@@ -353,18 +358,78 @@
             document.querySelector(".nom-organisateur").innerHTML = `<img src="../assets/img/icons/user.svg" alt=""> ${data.prenom} ${data.nom}`;
             document.querySelector(".note-organisateur").innerHTML = `<img src="../assets/img/icons/etoile.svg" alt=""> ${data.moyenneAvis ?? "Pas encore de note"} / 5`;
 
-            const imagesContainer = document.querySelector(".images-activite");
+            const imagesContainer = document.querySelector(".images-activite-carousel #carouselTrack");
+            const prevBtn = document.getElementById("carouselPrev");
+            const nextBtn = document.getElementById("carouselNext");
+
+            let currentIndex = 0;
+            let imagesToShow = window.innerWidth < 800 ? 1 : 2;
+
+            function updateImagesToShow() {
+                imagesToShow = window.innerWidth < 800 ? 1 : 2;
+                updateCarousel();
+            }
+
+            window.addEventListener('resize', updateImagesToShow);
+
+            function updateCarousel() {
+                const total = data.images.length;
+                // Clamp index
+                if (currentIndex < 0) currentIndex = 0;
+                if (currentIndex > total - imagesToShow) currentIndex = total - imagesToShow;
+                if (currentIndex < 0) currentIndex = 0;
+                // Move track
+                const percent = (100 / imagesToShow) * currentIndex;
+                imagesContainer.style.transform = `translateX(-${percent}%)`;
+                // Disable arrows if needed
+                prevBtn.style.visibility = currentIndex === 0 ? "hidden" : "visible";
+                nextBtn.style.visibility = currentIndex >= total - imagesToShow ? "hidden" : "visible";
+            }
+
+            // Inject images
             if (data.images && data.images.length > 0) {
                 imagesContainer.innerHTML = data.images.map(src => `
-                    <img src="${src}" alt="Image de l'activité" class="image-activite">
+                    <img src="${src}" alt="Image de l'activité" class="carousel-img">
                 `).join('');
             } else {
                 imagesContainer.innerHTML = `
-                    <p>Aucune image disponible</p>
-                    <img src="../../view/assets/img/placeholder.png" alt="Aucune image disponible" class="image-activite">
+                    <img src="../../view/assets/img/placeholder.png" alt="Aucune image disponible" class="carousel-img">
                 `;
             }
 
+            updateCarousel();
+
+            prevBtn.onclick = () => { currentIndex--; updateCarousel(); };
+            nextBtn.onclick = () => { currentIndex++; updateCarousel(); };
+
+            // Drag/swipe support
+            let startX = 0, isDown = false, moved = false;
+            imagesContainer.addEventListener('mousedown', e => {
+                isDown = true; startX = e.pageX; moved = false;
+            });
+            imagesContainer.addEventListener('mousemove', e => {
+                if (!isDown) return;
+                let dx = e.pageX - startX;
+                if (Math.abs(dx) > 50) {
+                    if (dx > 0 && currentIndex > 0) { currentIndex--; updateCarousel(); }
+                    if (dx < 0 && currentIndex < data.images.length - imagesToShow) { currentIndex++; updateCarousel(); }
+                    isDown = false;
+                }
+            });
+            imagesContainer.addEventListener('mouseup', () => { isDown = false; });
+            imagesContainer.addEventListener('mouseleave', () => { isDown = false; });
+            // Touch events (mobile)
+            imagesContainer.addEventListener('touchstart', e => { isDown = true; startX = e.touches[0].clientX; });
+            imagesContainer.addEventListener('touchmove', e => {
+                if (!isDown) return;
+                let dx = e.touches[0].clientX - startX;
+                if (Math.abs(dx) > 50) {
+                    if (dx > 0 && currentIndex > 0) { currentIndex--; updateCarousel(); }
+                    if (dx < 0 && currentIndex < data.images.length - imagesToShow) { currentIndex++; updateCarousel(); }
+                    isDown = false;
+                }
+            });
+            imagesContainer.addEventListener('touchend', () => { isDown = false; });
 
             const avisContainer = document.querySelector(".avis-container");
             if (data.avis.length > 0) {
