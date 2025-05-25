@@ -311,6 +311,12 @@
         document.getElementById('boutonAvis').innerHTML = BoutonBleu("Laisser un avis");
         const bouton = document.querySelector('#boutonAvis button');
         console.log(bouton);
+        const openPopUp = (popupId) => {
+            const popup = document.getElementById(popupId);
+            if (popup) {
+                popup.classList.add('active');
+            }
+        };
         bouton.addEventListener('click', () => openPopUp("popup-avis"));
     </script>
     
