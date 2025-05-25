@@ -211,7 +211,6 @@
                         <input type="hidden" name="idActivite" value="<?= $_GET['id'] ?>">
                         <input type="hidden" name="idMeeter" value="<?= $_GET['idMeeter'] ?>">
 
-                         <!-- Section note -->
                          <div class="popup-rating">
                           <p>Qu’avez vous pensé de votre expérience ?</p>
                          <div class="star-rating">
@@ -269,7 +268,6 @@
                          <p>Merci pour votre avis, il sera utile pour de futurs participants.</p>
                         </div>
 
-                        <!-- Boutons -->
                         <div class="popup-buttons">
                           <div id="bouton-rouge-avis" onclick="closePopUp('popup-avis')"></div>
                           <div id="bouton-bleu-avis"></div>
