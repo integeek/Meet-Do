@@ -1,7 +1,7 @@
 <?php
 header('Content-Type: application/json');
 
-require_once("../../model/Bdd.php");
+require_once("../../Model/Bdd.php");
 
 $offset = isset($_GET['offset']) ? intval($_GET['offset']) : 0;
 $search = isset($_GET['search']) ? $_GET['search'] : '';
