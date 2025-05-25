@@ -1,6 +1,6 @@
 <?php
 header('Content-Type: application/json');
-require_once("../../model/Bdd.php");
+require_once("../../Model/Bdd.php");
 
 // Vérifier que les données nécessaires sont envoyées
 $input = json_decode(file_get_contents("php://input"), true);

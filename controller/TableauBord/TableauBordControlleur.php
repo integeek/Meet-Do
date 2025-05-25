@@ -1,6 +1,6 @@
 <?php
-require_once("../../model/Bdd.php");
-require_once("../../model/TableauBord/TableauBordModel.php");
+require_once("../../Model/Bdd.php");
+require_once("../../Model/TableauBord/TableauBordModel.php");
 
 class TableauBordController {
     private $model;

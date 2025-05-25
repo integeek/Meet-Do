@@ -1,5 +1,5 @@
 <?php
-require_once '../../model/Bdd.php'; 
+require_once '../../Model/Bdd.php'; 
 
 $idClient = isset($_GET['id']) ? intval($_GET['id']) : 0;
 

@@ -1,6 +1,6 @@
 <?php
-require_once("../../model/Bdd.php");
-require_once("../../model/Messagerie/MessagerieModel.php");
+require_once("../../Model/Bdd.php");
+require_once("../../Model/Messagerie/MessagerieModel.php");
 session_start();
 
 class MessagerieController
