@@ -125,6 +125,8 @@ body {
     font-size: 1.5rem;
     font-weight: bold;
     margin-top: 10px;
+    display: flex;
+    align-items: center;
 }
 
 .organisateur {
@@ -134,8 +136,18 @@ body {
     width: 100%;
 }
 
+.organisateur p {
+    display: flex;
+    align-items: center;
+}
+
 .nom-organisateur {
     font-weight: bold;
+}
+
+.nom-organisateur:hover {
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 .avis-container {
@@ -149,6 +161,10 @@ body {
 
 .btn-bleu {
     width: 200px;
+}
+
+#map {
+    z-index: auto;
 }
 
 .popup-overlay {

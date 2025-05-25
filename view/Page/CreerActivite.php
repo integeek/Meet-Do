@@ -56,11 +56,6 @@ unset($_SESSION["erreur"]);
         <!-- Sélection de l'adresse -->
         <input type="text" id="adresse" placeholder="Adresse">
         <ul id="suggestions"></ul> <!-- Liste déroulante des suggestions -->
-        <button id="ouvrirCarte">Choisir sur la carte</button>
-        <div id="mapPopup" class="popup hidden">
-            <div id="map"></div>
-            <button id="fermerCarte">Fermer</button>
-        </div>
 
         <!-- Sélection des dates -->
         <input type="text" id="dates" placeholder="Sélectionner des dates" readonly>
@@ -69,7 +64,7 @@ unset($_SESSION["erreur"]);
         <input type="number" id="nbPersonnes" placeholder="Nombre de personnes">
         <input type="number" id="prix" placeholder="Prix">
 
-        <label><input type="checkbox" id="mobiliteReduite"> Accessible aux personnes à mobilité réduite</label>
+        <label style="display: flex; align-items: center; gap: 10px;"><input type="checkbox" id="mobiliteReduite"> Accessible aux personnes à mobilité réduite</label>
 
         <script src="../component/BoutonBleu.js"></script>
         <div id="boutonContainer"></div>
@@ -162,35 +157,6 @@ async function fetchCategories() {
             });
         }
     });
-
-    // Affichage de la carte
-    document.getElementById("ouvrirCarte").addEventListener("click", function() {
-        document.getElementById("mapPopup").classList.remove("hidden");
-
-        // Vérifie si la carte a déjà été initialisée
-        if (!window.map) {
-            window.map = L.map('map').setView([48.8566, 2.3522], 13);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(window.map);
-        } else {
-            setTimeout(() => { 
-                if (window.map) {
-                    window.map.invalidateSize();
-                }
-            }, 300);
-        }
-
-        let marker;
-        window.map.on("click", function(e) {
-            if (marker) marker.remove();
-            marker = L.marker(e.latlng).addTo(window.map);
-            document.getElementById("adresse").value = `Lat: ${e.latlng.lat}, Lng: ${e.latlng.lng}`;
-        });
-    });
-
-    document.getElementById("fermerCarte").addEventListener("click", function() {
-        document.getElementById("mapPopup").classList.add("hidden");
-    });
-
 
     // Gestion de l'affichage et de la suppression des images sélectionnées
     const uploadInput = document.getElementById('uploadInput');
