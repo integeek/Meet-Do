@@ -1,21 +1,12 @@
 <?php 
+require_once("../../Model/Client.php");
 
-require_once("../../model/Bdd.php");
 if(!empty($_POST)){
-    $email = $_POST["emailSend"];
-    $token = bin2hex(random_bytes(16));
-    $token_hash = hash("sha256", $token);
+    $email = $_POST["emailSend"] ?? $_SESSION["user"]["email"];
     $expiricy = date("Y-m-d H:i:s", time() + 60*30);//30 minutes
-    
-    $sql = "UPDATE Client SET reset_token_hash = :reset_token, reset_token_expires_at= :reset_expires WHERE email = :email";
-    $query = $db -> prepare($sql);
-    $query->execute([
-        "email" => $email,
-        "reset_token" => $token_hash,
-        "reset_expires" => $expiricy
-    ]);
+    $token = Client::generateResetToken($email, $expiricy);
 
-    if ($query->rowCount() > 0){
+    if ($token){
         $lienMDP = "http://localhost/view/page/NouveauPass.php?token=$token";
 
         $destinataire = $email;
@@ -64,17 +55,21 @@ if(!empty($_POST)){
         $headers .= "Content-type: text/html; charset=UTF-8\r\n";
 
         if (mail($destinataire, $sujet, $message, $headers)) {
-            echo "L'email a été envoyé avec succès.";
+            $_SESSION["success"] = "L'email a été envoyé avec succès.";
+            header("Location: ../../view/Page/Connexion.php");
+            exit;
+
         } else {
-            echo "L'email n'a pas pu être envoyé.";
+            $_SESSION["erreur"] = "L'email n'a pas pu être envoyé.";
+            header("Location: ../../view/Page/Connexion.php");
+            exit;
         }
 
     }
-
-
 }else {
     $_SESSION["erreur"] = "le formulaire est incomplet";
-    header("Location: ../../view/Page/Inscription.php");
+    header("Location: ../../view/Page/Connexion.php");
+    exit;
 }
 
 ?>

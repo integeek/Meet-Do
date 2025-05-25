@@ -1,7 +1,5 @@
 
-<?php
-session_start();
-?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,7 +21,7 @@ session_start();
         <script src="../component/Navbar/Navbar.js"></script>
         <script>
             (async () => {
-                document.getElementById('navbar-container').innerHTML = await Navbar("..");
+                document.getElementById('navbar-container').innerHTML = await Navbar("..")
             })();
         </script>
     </header>
@@ -38,7 +36,10 @@ session_start();
         <script>
             document.getElementById('search-bar').innerHTML = SearchBar("..")
         </script>
-        <div id="activities-container"></div>
+                <div id="activities-container"></div>
+        <div id="loader" style="text-align:center; margin: 20px; display: none;">
+            <img src="../../view/assets/img/loader.gif" alt="Chargement..." width="50">
+        </div>
         <script src="../component/ActivityCard/ActivityCard.js"></script>
     </main>
     <footer id="footer-container" class="footer-container">
