@@ -40,18 +40,19 @@ if (session_status() === PHP_SESSION_NONE) {
     <main>
         <?php
 
-                function resaComponent($idActivite, $title, $place, $date, $people, $price, $index) {
+                function resaComponent($idActivite, $title, $place, $date, $people, $price, $index, $image) {
                     $boutonbleu = "boutonbleu" . $index;
                     $boutonbleu1 = "boutonbleu1" . $index;
                     $boutonrouge = "boutonrouge" . $index;
 
+                    $imageUrl = $image ? $image : '../../view/assets/img/placeholder.png';
 
                     return "
                         <div class='reservation-item'>
                             <div class='reservation-item' id='reservation-item-1'>
                                 <div class='item-header'>
                                     <h2>$title</h2>
-                                <img src='../../view/assets/img/macaron1.jpeg' alt='photo-reservation' class='photo-reservation'>
+                                    <img src='$imageUrl' alt='$title' class='photo-reservation'>
                                 </div>
                                 <div class='item-main'>
                                     <div class='item-adresse'>
@@ -112,7 +113,9 @@ if (session_status() === PHP_SESSION_NONE) {
                             $resa['dateEvenement'],
                             $resa['nbPlace'],
                             $resa['prix'],
-                            $resa['idReservation']
+                            $resa['idReservation'],
+                            $resa['image_principale']  
+
                         );
                     }
                 }
