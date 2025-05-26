@@ -94,16 +94,15 @@ unset($_SESSION["erreur"]);
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/flatpickr.min.js"></script>
 
+<script src="../component/PopupError.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Fonction pour charger les catégories depuis le backend
     async function fetchCategories() {
         try {
             const response = await fetch('../../controller/Activite/CreerActiviteController.php', { method: 'GET' });
-            console.log('Response:', response); // Ajout pour débogage
             if (!response.ok) throw new Error("Erreur lors du chargement des catégories");
             const categories = await response.json();
-            console.log('Categories:', categories); // Ajout pour débogage
             const selectElement = document.getElementById('themeSelect');
             categories.forEach(category => {
                 const option = document.createElement('option');
@@ -113,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         } catch (error) {
             console.error(error);
-            alert("Impossible de charger les catégories.");
+            showErrorPopup("Impossible de charger les catégories.");
         }
     }
 
@@ -149,29 +148,29 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Sélection des dates avec Flatpickr
-       flatpickr("#dates", {
-            mode: "multiple",
-            enableTime: true,
-            noCalendar: false,
-            dateFormat: "d/m/Y H:i",
-            time_24hr: true,
-            onClose: function(selectedDates, dateStr) {
-                document.getElementById("datesAjoutees").innerHTML = "";
-                dateStr.split(", ").forEach(date => {
-                    let badge = document.createElement("span");
-                    badge.classList.add("theme-badge");
-                    badge.textContent = date;
-                    let removeBtn = document.createElement("button");
-                    removeBtn.textContent = "✖";
-                    removeBtn.classList.add("remove-theme");
-                    removeBtn.onclick = function() {
-                        badge.remove();
-                    };
-                    badge.appendChild(removeBtn);
-                    document.getElementById("datesAjoutees").appendChild(badge);
-                });
-            }
-        });
+    flatpickr("#dates", {
+        mode: "multiple",
+        enableTime: true,
+        noCalendar: false,
+        dateFormat: "d/m/Y H:i",
+        time_24hr: true,
+        onClose: function(selectedDates, dateStr) {
+            document.getElementById("datesAjoutees").innerHTML = "";
+            dateStr.split(", ").forEach(date => {
+                let badge = document.createElement("span");
+                badge.classList.add("theme-badge");
+                badge.textContent = date;
+                let removeBtn = document.createElement("button");
+                removeBtn.textContent = "✖";
+                removeBtn.classList.add("remove-theme");
+                removeBtn.onclick = function() {
+                    badge.remove();
+                };
+                badge.appendChild(removeBtn);
+                document.getElementById("datesAjoutees").appendChild(badge);
+            });
+        }
+    });
 
     // Gestion de l'affichage et de la suppression des images sélectionnées
     const uploadInput = document.getElementById('uploadInput');
@@ -203,7 +202,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('popupUploadInput').onchange = function(e) {
         const files = Array.from(e.target.files);
         if (selectedFiles.length + files.length > 5) {
-            alert("Vous pouvez sélectionner jusqu'à 5 images maximum.");
+            showErrorPopup("Vous pouvez sélectionner jusqu'à 5 images maximum.");
             return;
         }
         files.forEach(file => {
@@ -254,26 +253,26 @@ document.addEventListener('DOMContentLoaded', function() {
     // Ajoute les images à formData lors de l’envoi
     async function submitActivityData() {
         try {
+            showLoader();
             const formData = new FormData();
             formData.append('titre', document.getElementById('nom').value);
             formData.append('description', document.getElementById('description').value);
             formData.append('mobiliteReduite', document.getElementById('mobiliteReduite').checked ? 1 : 0);
             formData.append('adresse', document.getElementById('adresse').value);
-                formData.append(
-                    'dates',
-                    Array.from(document.querySelectorAll('#datesAjoutees .theme-badge'))
-                    .map(badge => badge.textContent.replace('✖', '').trim())
-                    .join(', ')
-                );
+            formData.append(
+                'dates',
+                Array.from(document.querySelectorAll('#datesAjoutees .theme-badge'))
+                .map(badge => badge.textContent.replace('✖', '').trim())
+                .join(', ')
+            );
             formData.append('tailleGroupe', document.getElementById('nbPersonnes').value);
             formData.append('prix', document.getElementById('prix').value);
 
             // Récupérer les thèmes sélectionnés (IDs)
             const themes = Array.from(document.querySelectorAll('#themesAjoutes .theme-badge')).map(badge => badge.dataset.id);
-            console.log("IDs des thèmes envoyés :", themes);
-                if (themes.length > 0) {
-                    formData.append('theme', themes[0]);
-                }
+            if (themes.length > 0) {
+                formData.append('theme', themes[0]);
+            }
 
             // Ajouter les images
             for (const file of selectedFiles) {
@@ -284,31 +283,28 @@ document.addEventListener('DOMContentLoaded', function() {
                 method: 'POST',
                 body: formData
             });
-            const sqlQuery = response.headers.get('X-SQL-Query');
-            const sqlError = response.headers.get('X-SQL-Error');
-            if (sqlQuery) console.log("SQL exécutée :", sqlQuery);
-            if (sqlError) console.error("Erreur SQL :", sqlError);
+
+            hideLoader();
 
             if (response.ok) {
-                console.log("Activité créée avec succès.");
                 window.location.href = '../Page/accueil.php';
             } else {
                 const errorText = await response.text();
-                console.log("Erreur lors de la création de l'activité : " + errorText);
+                showErrorPopup(errorText);
             }
         } catch (error) {
-            console.error(error);
-            console.log("Une erreur est survenue lors de l'envoi des données.");
+            hideLoader();
+            showErrorPopup("Une erreur est survenue lors de l'envoi des données.");
         }
     }
 
     // Ajout d'un event listener pour le bouton de création de l'activité
     document.getElementById('boutonContainer').addEventListener('click', function() {
-            const themes = Array.from(document.querySelectorAll('#themesAjoutes .theme-badge'));
-            if (themes.length === 0) {
-                alert("Veuillez sélectionner au moins un thème pour l'activité.");
-                return; // Bloque l'envoi
-            }
+        const themes = Array.from(document.querySelectorAll('#themesAjoutes .theme-badge'));
+        if (themes.length === 0) {
+            showErrorPopup("Veuillez sélectionner au moins un thème pour l'activité.");
+            return; // Bloque l'envoi
+        }
         submitActivityData();
     });
 
@@ -331,6 +327,17 @@ document.addEventListener('DOMContentLoaded', function() {
     <button type="button" id="closeImagePopup" class="close-popup-btn">Valider</button>
 </div>
 
+<div id="loader" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:9999;background:rgba(255,255,255,0.7);justify-content:center;align-items:center;">
+    <img src="../assets/loader.gif" alt="Chargement..." style="width:80px;height:80px;">
+</div>
 
+<script>
+function showLoader() {
+    document.getElementById('loader').style.display = 'flex';
+}
+function hideLoader() {
+    document.getElementById('loader').style.display = 'none';
+}
+</script>
 </body>
 </html>
