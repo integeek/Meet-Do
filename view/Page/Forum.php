@@ -37,7 +37,6 @@ unset($_SESSION["erreur"]);
         }
     })();
 </script>
-
     </header>
     <main>
         <h1>Forum</h1>
