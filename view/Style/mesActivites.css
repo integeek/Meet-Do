@@ -109,3 +109,27 @@ h1 {
   justify-content: space-around;
   margin-top: 50px;
 }
+
+@media (max-width: 1417px) {
+  .item-main {
+    display: none;
+  }
+}
+
+@media (max-width: 1300px) {
+  .reservation-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .reservation-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .item-footer {
+    gap: 10px;
+  }
+}
