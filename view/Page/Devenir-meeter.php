@@ -63,7 +63,7 @@ $idClient = $_SESSION['user']['id'];
           />
         </div>
       </div>
-      <h2>Adresse :*</h2>
+      <h2 id="adress-title">Adresse :*</h2>
       <form action="../../controller/Compte/formMeeter.php" method="POST" id="form-meeter">
       <div class="adress-container">
         <div class="input-adress">
