@@ -144,6 +144,11 @@ body {
     gap: 10px;
 }
 
+.nom-organisateur:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 .avis-container {
     margin-top: 20px;
 }

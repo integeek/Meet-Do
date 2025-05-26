@@ -27,7 +27,6 @@ unset($_SESSION["erreur"]);
             })();
         </script>
         <script src="../component/Navbar/navAction.js"></script>
-
     </header>
     <main>
         <h1>Forum</h1>
