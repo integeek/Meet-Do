@@ -19,8 +19,8 @@ if (session_status() === PHP_SESSION_NONE) {
   <link rel="stylesheet" href="../../view/component/Navbar/Navbar.css" />
   <link rel="stylesheet" href="../../view/component/Footer/Footer.css" />
   <link rel="stylesheet" href="../../view/component/BoutonBleu.css" />
-  <link rel="stylesheet" href="../../view/Style/noReservations.css">
-  <link rel="stylesheet" type="text/css" href="../../view/component/BoutonRouge.css">
+  <link rel="stylesheet" href="../../view/Style/noActivites.css">
+  <link rel="stylesheet" href="../../view/component/BoutonRouge.css">
   <script src="../../view/component/BoutonRouge.js"></script>
   <script src="../../view/component/BoutonBleu.js"></script>
   <script src="../../view/Script/PopUp.js" defer></script>
@@ -98,7 +98,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 }
 
                 if (empty($activites)) { 
-                    include_once '../../view/Page/noReservations.php';
+                    include_once '../../view/Page/noActivites.php';
                     exit;
                 } else {
                     echo "<div class='reservation-list'>";
