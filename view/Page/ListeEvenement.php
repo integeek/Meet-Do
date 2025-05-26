@@ -1,3 +1,14 @@
+<?php
+session_start();
+if (!isset($_SESSION['user'])) {
+    header('Location: Connexion');
+    exit;
+} else if ($_SESSION['user']['role'] !== "Administrateur" && $_SESSION['user']['role'] !== "Meeter") {
+    header('Location: ../Page/accueil');
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,13 +25,12 @@
 <body>
     <header>
         <div id="navbar-container" class="navbar-container"></div>
-        <script src="../component/Navbar/Navbar.js"></script>
+        <script src="../component/Navbar/NavbarCompte.js"></script>
         <script>
             (async () => {
-                document.getElementById('navbar-container').innerHTML = await Navbar("..");
+                document.getElementById('navbar-container').innerHTML = await NavbarCompte("../../view");
             })();
         </script>
-        <script src="../component/Navbar/navAction.js"></script>
     </header>
 
     <main>
