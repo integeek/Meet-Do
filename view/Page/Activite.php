@@ -65,7 +65,7 @@
                                     <p class="note-organisateur"><img src="../assets/img/icons/etoile.svg" alt=""> 4.89 / 5</p>
                                     <div class="btn-bleu" id="boutonContact"></div>
                                 </div>
-                                <!-- <div id="map" style="height: 400px; width: 100%; margin: 20px 0;"></div> -->
+                                <div id="map" style="height: 400px; width: 100%; margin: 20px 0;"></div>
                             </div>
                         </div>
                         <div class="avis-container">
@@ -313,7 +313,7 @@
     <script src="../Script/PopUp.js"></script>
     <script>
         document.getElementById('boutonAvis').innerHTML = BoutonBleu("Laisser un avis");
-        const bouton = document.querySelector('#boutonAvis button');
+        //const bouton = document.querySelector('#boutonAvis button');
         console.log(bouton);
         bouton.addEventListener('click', () => openPopUp("popup-avis"));
     </script>
@@ -371,7 +371,7 @@
                     <h2><img src="../assets/img/icons/megaphone.svg" alt=""> Avis (${data.nombreAvis})</h2>
                     ${data.avis.map(a => `
                         <div class="avis">
-                            <p><strong>Utilisateur</strong> <img src="../assets/img/icons/etoile.svg" alt=""> ${a.note}</p>
+                            <p style="display:flex; align-items: center; gap:10px"><strong>Utilisateur</strong> <img src="../assets/img/icons/etoile.svg" alt=""> ${a.note}</p>
                             <p>${a.commentaire}</p>
                         </div>
                     `).join("")}
