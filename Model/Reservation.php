@@ -3,18 +3,6 @@ require_once("Bdd.php");
 
 Class Reservation {
 
-    public static function checkReservationByClientAndActivity($idClient, $idActivite) {
-        $db = Bdd::getInstance();
-        $sql = "SELECT * FROM Reservation 
-                INNER JOIN Evenement ON Reservation.idEvenement = Evenement.idEvenement
-                WHERE Reservation.idClient = :idClient AND Evenement.idActivite = :idActivite";
-        $query = $db->prepare($sql);
-        $query->bindValue(':idClient', $idClient);
-        $query->bindValue(':idActivite', $idActivite);
-        $query->execute();
-        return $query->fetch();
-    }
-    
     public static function getPlacement($idEvenement) {
         $db = Bdd::getInstance();
         $sql = "SELECT COALESCE(MAX(placement), 0) as lastPlacement 

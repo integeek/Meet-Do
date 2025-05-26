@@ -1,11 +1,6 @@
-<?php 
-session_start();
-$messageErreur = $_SESSION["erreur"] ?? "";
-unset($_SESSION["erreur"]);
-?>
-
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -63,9 +58,6 @@ unset($_SESSION["erreur"]);
                                 <div class="boutonActivite">
                                     <div class="btn-bleu" id="boutonParticiper"></div>
                                     <div class="btn-bleu" id="boutonAvis"></div>
-                                </div>
-                                <div class="erreur" style="color: red; margin-bottom: 1rem;">
-                                    <?= htmlspecialchars($messageErreur) ?>
                                 </div>
                                 <p class="prix-activite"><img src="../assets/img/icons/price.svg" alt=""> Prix : 300€</p>
                                 <div class="organisateur">
@@ -387,15 +379,6 @@ unset($_SESSION["erreur"]);
                 `;
             } else {
                 avisContainer.innerHTML = `<h2><img src="../assets/img/icons/megaphone.svg" alt=""> Aucun avis pour le moment</h2>`;
-            }
-
-            const boutonAvis = document.getElementById('boutonAvis');
-            if (!data.canReview) {
-                boutonAvis.style.display = 'none';
-            } else {
-                boutonAvis.innerHTML = BoutonBleu("Laisser un avis");
-                const bouton1 = boutonAvis.querySelector('button');
-                bouton1.addEventListener('click', () => openPopUp("popup-avis"));
             }
 
         } catch (err) {
