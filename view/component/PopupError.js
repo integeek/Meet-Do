@@ -1,6 +1,5 @@
 // Script réutilisable pour afficher une popup d'erreur rouge pendant 10 secondes
 
-// Ajoute la popup à la page si elle n'existe pas déjà
 (function() {
     if (!document.getElementById('errorPopup')) {
         const popup = document.createElement('div');
