@@ -392,7 +392,7 @@ body {
 }
 .carousel-img {
     flex: 0 0 calc(50% - 20px); /* ← réduit le -10px à -20px si besoin de plus d’espace, ou juste 50% */
-    max-width: calc(50% - 20px);
+    max-width: calc(95% - 20px);
     border-radius: 12px;
     object-fit: cover;
     aspect-ratio: 16/9;
