@@ -39,9 +39,15 @@ try {
 
         $idMeeter = $_SESSION['user']['id'] ?? 4;
 
-        if (!$titre || !$description || !$adresse || !$idMeeter) {
+        $missingFields = [];
+        if (!$titre) $missingFields[] = 'titre';
+        if (!$description) $missingFields[] = 'description';
+        if (!$adresse) $missingFields[] = 'adresse';
+        if (!$idMeeter) $missingFields[] = 'idMeeter';
+
+        if (!empty($missingFields)) {
             http_response_code(400);
-            echo "Champs requis manquants.";
+            echo "Champs requis manquants : " . implode(', ', $missingFields) . ".";
             exit;
         }
 
