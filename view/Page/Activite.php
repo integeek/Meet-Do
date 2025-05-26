@@ -1,3 +1,9 @@
+<?php 
+session_start();
+$messageErreur = $_SESSION["erreur"] ?? "";
+unset($_SESSION["erreur"]);
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -64,13 +70,15 @@
                                     <div class="btn-bleu" id="boutonParticiper"></div>
                                     <div class="btn-bleu" id="boutonAvis"></div>
                                 </div>
+                                <div class="erreur" style="color: red; margin-bottom: 1rem;">
+                                    <?= htmlspecialchars($messageErreur) ?>
+                                </div>
                                 <p class="prix-activite"><img src="../assets/img/icons/price.svg" alt=""> Prix : 300€</p>
                                 <div class="organisateur">
                                     <p class="nom-organisateur" id="meeter-page"><img src="../assets/img/icons/user.svg" alt=""> Jean Dupont</p>
                                     <p class="note-organisateur"><img src="../assets/img/icons/etoile.svg" alt=""> 4.89 / 5</p>
                                     <div class="btn-bleu" id="boutonContact"></div>
                                 </div>
-
                             </div>
                         </div>
                         <div class="avis-container">
@@ -437,7 +445,7 @@
                     <h2><img src="../assets/img/icons/megaphone.svg" alt=""> Avis (${data.nombreAvis})</h2>
                     ${data.avis.map(a => `
                         <div class="avis">
-                            <p><strong>Utilisateur</strong> <img src="../assets/img/icons/etoile.svg" alt=""> ${a.note}</p>
+                            <p style="display:flex; align-items: center; gap:10px"><strong>Utilisateur</strong> <img src="../assets/img/icons/etoile.svg" alt=""> ${a.note}</p>
                             <p>${a.commentaire}</p>
                         </div>
                     `).join("")}
