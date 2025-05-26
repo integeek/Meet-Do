@@ -38,19 +38,31 @@ Class Reservation {
         ]);
     }
 
-    public static function getInfoReservation($idClient) {
-        $db = Bdd::getInstance();
-        $stmt =  $db->prepare("
-                    SELECT Activite.idActivite, Activite.titre, Activite.adresse, Activite.prix, Evenement.dateEvenement, Reservation.nbPlace, Reservation.idReservation
-                    FROM Reservation
-                    INNER JOIN Evenement ON Reservation.idEvenement = Evenement.idEvenement
-                    INNER JOIN Activite ON Evenement.idActivite = Activite.idActivite
-                    WHERE Reservation.idClient = :idClient
-                ");
+public static function getInfoReservation($idClient) {
+    $db = Bdd::getInstance();
+    $stmt = $db->prepare("
+        SELECT 
+            Activite.idActivite, 
+            Activite.titre, 
+            Activite.adresse, 
+            Activite.prix, 
+            Evenement.dateEvenement, 
+            Reservation.nbPlace, 
+            Reservation.idReservation,
+            (SELECT chemin 
+             FROM ImageActivite 
+             WHERE ImageActivite.idActivite = Activite.idActivite 
+             LIMIT 1) as image_principale
+        FROM Reservation
+        INNER JOIN Evenement ON Reservation.idEvenement = Evenement.idEvenement
+        INNER JOIN Activite ON Evenement.idActivite = Activite.idActivite
+        WHERE Reservation.idClient = :idClient
+        ORDER BY Evenement.dateEvenement DESC
+    ");
 
-                $stmt->execute([':idClient' => $idClient]);
-                return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+    $stmt->execute([':idClient' => $idClient]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 
     public static function cancelReservation($idResa) {
         $db = Bdd::getInstance();

@@ -3,7 +3,7 @@ session_start();
 require_once("../../Model/Reservation.php");
 
 if (!isset($_SESSION['user']['email'])) {
-    header("Location: ../../view/page/Connexion.php");
+    header("Location: ../../view/page/Connexion");
     exit;
 }
 
