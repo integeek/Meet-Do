@@ -24,9 +24,19 @@ session_start();
         <script>
             (async () => {
                 document.getElementById('navbar-container').innerHTML = await Navbar("..");
+                if (!window.navActionLoaded) {
+                    const script = document.createElement('script');
+                    script.src = "../component/Navbar/navAction.js";
+                    script.onload = () => {
+                        window.navActionLoaded = true;
+                        window.initializeNavbar();
+                    };
+                    document.body.appendChild(script);
+                } else {
+                    window.initializeNavbar();
+                }
             })();
         </script>
-        <script src="../component/Navbar/navAction.js"></script>
     </header>
 
     <!-- CONTENU -->

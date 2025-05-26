@@ -25,12 +25,22 @@ if(!isset($_SESSION['user'])) {
     <header>
         <div id="navbar-container" class="navbar-container"></div>
         <script src="../component/Navbar/Navbar.js"></script>
-        <script>
+                <script>
             (async () => {
                 document.getElementById('navbar-container').innerHTML = await Navbar("..");
+                if (!window.navActionLoaded) {
+                    const script = document.createElement('script');
+                    script.src = "../component/Navbar/navAction.js";
+                    script.onload = () => {
+                        window.navActionLoaded = true;
+                        window.initializeNavbar();
+                    };
+                    document.body.appendChild(script);
+                } else {
+                    window.initializeNavbar();
+                }
             })();
         </script>
-        <script src="../component/Navbar/navAction.js"></script>
     </header>
     <main>
         <div class="flexbox-container">

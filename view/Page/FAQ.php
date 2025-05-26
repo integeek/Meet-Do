@@ -1,10 +1,10 @@
 <?php 
 if (session_status() === PHP_SESSION_NONE) {
   session_start();
-  if (!isset($_SESSION['user'])) {
-    header('Location: Connexion.php');
-    exit;
-  }
+  // if (!isset($_SESSION['user'])) {
+  //   header('Location: Connexion.php');
+  //   exit;
+  // }
 }
 ?>
 
@@ -32,11 +32,21 @@ if (session_status() === PHP_SESSION_NONE) {
     <div id="navbar-container" class="navbar-container"></div>
     <script src="../component/Navbar/Navbar.js"></script>
     <script>
-      (async () => {
+    (async () => {
         document.getElementById('navbar-container').innerHTML = await Navbar("..");
-      })();
-    </script>
-    <script src="../component/navAction.js"></script>
+        if (!window.navActionLoaded) {
+            const script = document.createElement('script');
+            script.src = "../component/Navbar/navAction.js";
+            script.onload = () => {
+                window.navActionLoaded = true;
+                window.initializeNavbar();
+            };
+            document.body.appendChild(script);
+        } else {
+            window.initializeNavbar();
+        }
+    })();
+</script>
 
   </header>
   <main>
