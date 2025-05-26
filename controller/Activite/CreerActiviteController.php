@@ -5,7 +5,7 @@ if (!isset($_SESSION['user'])) {
     exit;
 } elseif ($_SESSION['user']['role'] !== "Administrateur" && $_SESSION['user']['role'] !== "Meeter") {
     $_SESSION['erreur'] = "Vous n'avez pas les droits d'accès à cette page.";
-    header('Location: ../../view/Page/accueil.php');
+    header('Location: ../../view/Page/accueil');
     exit;
 }
 

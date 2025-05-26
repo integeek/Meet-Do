@@ -50,7 +50,7 @@ var_dump($token_hash);
         $pass = password_hash($password, PASSWORD_ARGON2ID);
         Client::resetPassword( $pass, $result["idClient"]);
 
-        header("Location: ../../view/Page/Connexion.php");
+        header("Location: ../../view/Page/Connexion");
 
         echo "Mot de passe mis à jour avec succès !";
 ?>

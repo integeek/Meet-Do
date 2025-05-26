@@ -4,7 +4,7 @@ include_once("../../controller/Activite/mesActivites.php");
 if (session_status() === PHP_SESSION_NONE) {
   session_start();
   if (!isset($_SESSION['user'])) {
-    header('Location: Connexion.php');
+    header('Location: Connexion');
     exit;
   }
 }
