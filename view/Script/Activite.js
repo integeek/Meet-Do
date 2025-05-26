@@ -225,7 +225,7 @@ boutonContact.addEventListener("click", () => {
 });
 
 meeter.addEventListener("click", () => {
-    window.location.href = `./../../view/Page/pageMeeter.php?id=${activiteData.idMeeter}`;
+    window.location.href = `./../../view/Page/pageMeeter/${activiteData.idMeeter}`;
 });
 
 document.addEventListener("DOMContentLoaded", async () => {
