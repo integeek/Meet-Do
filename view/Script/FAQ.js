@@ -143,7 +143,7 @@ const renderFaqContent = () => {
         ${
           role == "Administrateur"
             ? `
-              <image onclick="openPopUp1()" class="pen" src="../assets/img/pen.png" id="${item.id}img-pen"></image>
+              
               <image class="trash" src="../assets/img/trash.png" id="${item.id}img-trash"></image> `
             : ""
         }
