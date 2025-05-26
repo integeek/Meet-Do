@@ -21,6 +21,7 @@ const getEvenement = () => {
             try {
                 const responseData = JSON.parse(this.responseText);
                 evenement = responseData;
+                Refresh();
             } catch (error) {
                 console.error("Error parsing JSON response:", error);
             }
@@ -216,4 +217,3 @@ document.getElementById("prev-page2").addEventListener("click", () => {
 });
 
 getEvenement();
-Refresh();

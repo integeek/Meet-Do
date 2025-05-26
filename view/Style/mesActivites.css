@@ -60,6 +60,7 @@ h1 {
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
+  gap: 1rem;
 }
 
 .popup-container {
@@ -110,6 +111,18 @@ h1 {
   margin-top: 50px;
 }
 
+.button-event {
+  font-size: 1.5rem;
+  border-radius: 10px;
+  background-color: #64A0FB;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+  font-size: 1rem;
+  padding: 10px 20px;
+}
+  
 @media (max-width: 1417px) {
   .item-main {
     display: none;

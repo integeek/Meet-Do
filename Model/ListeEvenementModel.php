@@ -1,5 +1,4 @@
 <?php
-// filepath: c:\xampp\htdocs\Meet-Do\Model\ListeEvenementModel.php
 require_once(__DIR__ . "/Bdd.php");
 
 class ListeEvenementModel {

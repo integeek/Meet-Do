@@ -90,6 +90,9 @@ if (session_status() === PHP_SESSION_NONE) {
                                     <script>
                                         document.getElementById('$boutonrouge').innerHTML = BoutonRouge('Supprimer mon activité');
                                     </script>
+                                    <a href='../../view/Page/ListeEvenement.php?idActivite=$idActivite' class='button-event'>
+                                      Voir l'activité
+                                    </a>
                                 </div>
                             </div>
 
