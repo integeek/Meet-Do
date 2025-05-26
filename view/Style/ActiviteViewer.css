@@ -89,7 +89,7 @@ body {
     margin-right: 0;
     padding-right: 0;
     justify-content: space-around;
-    
+    overflow-x: scroll;
 }
 
 .image-activite {
