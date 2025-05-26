@@ -40,6 +40,21 @@ class FaqController {
         }
 }
 
+public function deleteQuestion() {
+    if (isset($_GET['id'])) {
+        $id = intval($_GET['id']);
+        $result = $this->model->deleteQuestion($id);
+        header('Content-Type: application/json');
+        if ($result) {
+            echo json_encode(["success" => true]);
+        } else {
+            echo json_encode(["success" => false, "error" => "Erreur lors de la suppression."]);
+        }
+    } else {
+        echo json_encode(["success" => false, "error" => "ID manquant."]);
+    }
+}
+
 }
 
 // ROUTEUR SIMPLE
@@ -53,6 +68,8 @@ if (isset($_GET['action'])) {
         $controller->getQuestions();
     } elseif ($_GET['action'] === 'addQuestion') {
         $controller->addQuestion();
+    } elseif ($_GET['action'] === 'deleteQuestion') {
+        $controller->deleteQuestion();
     } else {
         echo json_encode(["error" => "Action inconnue"]);
     }

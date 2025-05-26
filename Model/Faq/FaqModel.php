@@ -38,5 +38,13 @@ class FaqModel {
         $query->bindParam(':theme', $theme, PDO::PARAM_INT);
         return $query->execute();
     }
+
+    public function deleteQuestion($id) {
+        Bdd::getInstance();
+        $sql = "DELETE FROM Faq WHERE idFaq = :id";
+        $query = $this->db->prepare($sql);
+        $query->bindParam(':id', $id, PDO::PARAM_INT);
+        return $query->execute();
+    }
 }
 ?>
