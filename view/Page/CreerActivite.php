@@ -291,7 +291,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (response.ok) {
                 console.log("Activité créée avec succès.");
-                //window.location.href = '../Page/accueil.php';
+                window.location.href = '../Page/accueil.php';
             } else {
                 const errorText = await response.text();
                 console.log("Erreur lors de la création de l'activité : " + errorText);
