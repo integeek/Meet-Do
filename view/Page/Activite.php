@@ -1,3 +1,9 @@
+<?php 
+session_start();
+$messageErreur = $_SESSION["erreur"] ?? "";
+unset($_SESSION["erreur"]);
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -63,6 +69,9 @@
                                 <div class="boutonActivite">
                                     <div class="btn-bleu" id="boutonParticiper"></div>
                                     <div class="btn-bleu" id="boutonAvis"></div>
+                                </div>
+                                <div class="erreur" style="color: red; margin-bottom: 1rem;">
+                                    <?= htmlspecialchars($messageErreur) ?>
                                 </div>
                                 <p class="prix-activite"><img src="../assets/img/icons/price.svg" alt=""> Prix : 300€</p>
                                 <div class="organisateur">
