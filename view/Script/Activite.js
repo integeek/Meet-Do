@@ -242,6 +242,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         const data = await response.json();
         window.activiteData = data;
 
+         const boutonAvis = document.getElementById('boutonAvis');
+        if (!data.userCanReview) {
+            boutonAvis.style.display = 'none';
+        }
+
         if (data.adresse) {
             initMap(data.adresse);
         }
