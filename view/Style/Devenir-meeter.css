@@ -3,18 +3,28 @@ h1 {
 }
 
 main {
-  margin-left: 50px;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+}
+
+.add-photo-container {
+  margin-left: -265px;
 }
 
 .add-photo {
-  width: 42%;
-  margin-left: 20px;
+  width: 100%;
+
   border: 2px solid #000000;
   border-radius: 15px;
   padding: 10px;
   display: flex;
   align-items: center;
   justify-content: space-around;
+}
+
+#adress-title {
+  margin-left: -590px;
 }
 
 #profile-icon {
@@ -116,4 +126,14 @@ input[type="checkbox"]:checked::after {
 .error {
   color: red;
   font-size: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .add-photo-container {
+    margin-left: -150px;
+  }
+
+  .adress-container {
+    flex-direction: column;
+  }
 }
