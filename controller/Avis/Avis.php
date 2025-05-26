@@ -8,8 +8,15 @@ if (!empty($_POST)) {
     $idActivite = isset($_POST['idActivite']) ? intval($_POST['idActivite']) : null;
     $idClient = $_SESSION['user']['id'] ?? null;
 
+    Avis::checkByIdAndActivity($idClient, $idActivite);
+    if (Avis::checkByIdAndActivity($idClient, $idActivite)) {
+        $_SESSION['erreur'] = "Vous avez déjà laissé un avis pour cette activité.";
+        header("Location: ../../view/Page/activite.php?id=$idActivite");
+        exit;
+    }
+
     Avis::create($note, $commentaire, $idActivite, $idClient);
 
-        header("Location: ../../view/Page/activite.php?id=$idActivite");
+    header("Location: ../../view/Page/activite.php?id=$idActivite");
 }
 ?>
