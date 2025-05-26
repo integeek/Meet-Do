@@ -1,7 +1,11 @@
 <?php 
-session_start();
-$messageErreur = $_SESSION["erreur"] ?? "";
-unset($_SESSION["erreur"]);
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+  if (!isset($_SESSION['user'])) {
+    header('Location: Connexion.php');
+    exit;
+  }
+}
 ?>
 
 <!DOCTYPE html>
@@ -37,6 +41,17 @@ unset($_SESSION["erreur"]);
   </header>
   <main>
     <h1 id="title">FAQ</h1>
+    <?php if (isset($_SESSION['success']) || isset($_SESSION['error'])): ?>
+          <div class="alert">
+            <?php if (isset($_SESSION['success'])): ?>
+              <p class="success"><?php echo $_SESSION['success']; ?></p>
+              <?php unset($_SESSION['success']); ?>
+            <?php elseif (isset($_SESSION['error'])): ?>
+              <p class="error"><?php echo $_SESSION['error']; ?></p>
+              <?php unset($_SESSION['error']); ?>
+            <?php endif; ?>
+          </div>
+        <?php endif; ?>
     <div style="display: flex;">
       <div id="select-div">
         <select id="select"></select>
@@ -58,19 +73,21 @@ unset($_SESSION["erreur"]);
         <h1>Ajouter un question</h1>
         </div>
         <div class="popup-main">
+        <form action="../../controller/Faq/FaqControlleur.php?action=addQuestion" method="POST" id="add-question-form">
         <div class="theme">
             <label for="theme">Sélectionner un thème :</label>
             <select id="theme" name="theme">
-              <option value="theme1">Thème 1</option>
-              <option value="theme2">Thème 2</option>
-              <option value="theme3">Thème 3</option>
+              <option value="1">Comptes</option>
+              <option value="2">Réservations</option>
+              <option value="3">Règlements</option>
+              <option value="4">Bugs</option>
             </select>
           </div>
           <div class="question">
-            <input type="text" id="question1" placeholder="Entrez une question" />
+            <input type="text" name="question" id="question1" placeholder="Entrez une question" />
           </div>
           <div class="reponse">
-            <textarea id="reponse1" placeholder="Entrez une réponse" rows="4" cols="50"></textarea>
+            <textarea id="reponse1" name="reponse" placeholder="Entrez une réponse" rows="4" cols="50"></textarea>
           </div>
         </div>
         <div class="popup-footer">
@@ -79,11 +96,12 @@ unset($_SESSION["erreur"]);
             document.getElementById("bouton-rouge1").innerHTML =
               BoutonRouge("Annuler");
           </script>
-          <div id="bouton-bleue1"></div>
+          <div onclick="document.getElementById('add-question-form').submit()" id="bouton-bleue1"></div>
           <script>
             document.getElementById("bouton-bleue1").innerHTML =
               BoutonBleu("Valider");
           </script>
+        </form>
         </div>
       </div>
     </div>

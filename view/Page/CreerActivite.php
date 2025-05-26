@@ -138,24 +138,29 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Sélection des dates avec Flatpickr
-    flatpickr("#dates", {
-        mode: "multiple",
-        dateFormat: "d/m/Y",
-        onClose: function(selectedDates, dateStr) {
-            document.getElementById("datesAjoutees").innerHTML = "";
-            dateStr.split(", ").forEach(date => {
-                let badge = document.createElement("span");
-                badge.classList.add("theme-badge");
-                badge.textContent = date;
-                let removeBtn = document.createElement("button");
-                removeBtn.textContent = "✖";
-                removeBtn.classList.add("remove-theme");
-                removeBtn.onclick = function() { badge.remove(); };
-                badge.appendChild(removeBtn);
-                document.getElementById("datesAjoutees").appendChild(badge);
-            });
-        }
-    });
+       flatpickr("#dates", {
+            mode: "multiple",
+            enableTime: true,
+            noCalendar: false,
+            dateFormat: "d/m/Y H:i",
+            time_24hr: true,
+            onClose: function(selectedDates, dateStr) {
+                document.getElementById("datesAjoutees").innerHTML = "";
+                dateStr.split(", ").forEach(date => {
+                    let badge = document.createElement("span");
+                    badge.classList.add("theme-badge");
+                    badge.textContent = date;
+                    let removeBtn = document.createElement("button");
+                    removeBtn.textContent = "✖";
+                    removeBtn.classList.add("remove-theme");
+                    removeBtn.onclick = function() {
+                        badge.remove();
+                    };
+                    badge.appendChild(removeBtn);
+                    document.getElementById("datesAjoutees").appendChild(badge);
+                });
+            }
+        });
 
     // Gestion de l'affichage et de la suppression des images sélectionnées
     const uploadInput = document.getElementById('uploadInput');
@@ -243,14 +248,21 @@ document.addEventListener('DOMContentLoaded', function() {
             formData.append('description', document.getElementById('description').value);
             formData.append('mobiliteReduite', document.getElementById('mobiliteReduite').checked ? 1 : 0);
             formData.append('adresse', document.getElementById('adresse').value);
-            formData.append('dates', Array.from(document.querySelectorAll('#datesAjoutees .theme-badge')).map(badge => badge.textContent).join(', '));
+                formData.append(
+                    'dates',
+                    Array.from(document.querySelectorAll('#datesAjoutees .theme-badge'))
+                    .map(badge => badge.textContent.replace('✖', '').trim())
+                    .join(', ')
+                );
             formData.append('tailleGroupe', document.getElementById('nbPersonnes').value);
             formData.append('prix', document.getElementById('prix').value);
 
             // Récupérer les thèmes sélectionnés (IDs)
             const themes = Array.from(document.querySelectorAll('#themesAjoutes .theme-badge')).map(badge => badge.dataset.id);
             console.log("IDs des thèmes envoyés :", themes);
-            formData.append('themes', JSON.stringify(themes));
+                if (themes.length > 0) {
+                    formData.append('theme', themes[0]);
+                }
 
             // Ajouter les images
             for (const file of selectedFiles) {
@@ -281,6 +293,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Ajout d'un event listener pour le bouton de création de l'activité
     document.getElementById('boutonContainer').addEventListener('click', function() {
+            const themes = Array.from(document.querySelectorAll('#themesAjoutes .theme-badge'));
+            if (themes.length === 0) {
+                alert("Veuillez sélectionner au moins un thème pour l'activité.");
+                return; // Bloque l'envoi
+            }
         submitActivityData();
     });
 

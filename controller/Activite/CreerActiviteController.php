@@ -31,10 +31,11 @@ try {
         $description = $_POST['description'] ?? '';
         $mobiliteReduite = isset($_POST['mobiliteReduite']) ? 1 : 0;
         $adresse = $_POST['adresse'] ?? '';
-        $dates = $_POST['dates'] ?? [];
+        $dates = array_map('trim', explode(',', $_POST['dates']));
+
         $tailleGroupe = $_POST['tailleGroupe'] ?? 0;
         $prix = $_POST['prix'] ?? 0;
-        $themes = isset($_POST['themes']) ? json_decode($_POST['themes'], true) : [];
+        $themes = $_POST['theme'] ?? null;
 
         $idMeeter = $_SESSION['user']['id'] ?? 4;
 
@@ -49,6 +50,7 @@ try {
             'description' => $description,
             'mobiliteReduite' => $mobiliteReduite,
             'adresse' => $adresse,
+            'theme' => $themes,
             'dateCreation' => date('Y-m-d H:i:s'),
             'tailleGroupe' => $tailleGroupe,
             'prix' => $prix
@@ -56,15 +58,14 @@ try {
 
         $idActivite = ActiviteCreationModel::insererActivite($data, $idMeeter);
 
-        // Catégories
-        $categories = ActiviteCreationModel::getCategoriesByNoms($themes);
-        foreach ($categories as $categorie) {
-            ActiviteCreationModel::lierCategorieActivite($idActivite, $categorie['idCategorie']);
-        }
 
-        // Dates
-        foreach ($dates as $date) {
-            ActiviteCreationModel::ajouterEvenement($idActivite, $date);
+        foreach ($dates as $dateFr) {
+            if (!$dateFr) continue;
+            $dateTime = DateTime::createFromFormat('d/m/Y H:i', $dateFr);
+            if ($dateTime) {
+                $dateMysql = $dateTime->format('Y-m-d H:i:s');
+                ActiviteCreationModel::ajouterEvenement($idActivite, $dateMysql);
+            }
         }
 
         // Upload des images

@@ -79,7 +79,6 @@ unset($_SESSION["erreur"]);
                                     <p class="note-organisateur"><img src="../assets/img/icons/etoile.svg" alt=""> 4.89 / 5</p>
                                     <div class="btn-bleu" id="boutonContact"></div>
                                 </div>
-
                             </div>
                         </div>
                         <div class="avis-container">
@@ -446,7 +445,7 @@ unset($_SESSION["erreur"]);
                     <h2><img src="../assets/img/icons/megaphone.svg" alt=""> Avis (${data.nombreAvis})</h2>
                     ${data.avis.map(a => `
                         <div class="avis">
-                            <p><strong>Utilisateur</strong> <img src="../assets/img/icons/etoile.svg" alt=""> ${a.note}</p>
+                            <p style="display:flex; align-items: center; gap:10px"><strong>Utilisateur</strong> <img src="../assets/img/icons/etoile.svg" alt=""> ${a.note}</p>
                             <p>${a.commentaire}</p>
                         </div>
                     `).join("")}

@@ -20,6 +20,22 @@ function BoutonBleu(texte) {
           </button>
       `;
 
+   } else if (texte === "Créer une activité") {
+      return `
+          <a href="../../view/Page/CreerActivite.php">
+          <button class="buttonCo" type="submit">
+              ${texte}
+          </button>
+          </a>
+      `;
+  } else if (texte === "Voir les activités disponibles") {
+      return `
+          <a href="../../view/Page/accueil.php">
+          <button class="buttonCo" type="submit">
+              ${texte}
+          </button>
+          </a>
+      `;
   } else {
     return `
           <button class="buttonCo" type="submit">

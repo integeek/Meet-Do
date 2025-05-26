@@ -20,32 +20,21 @@ class ActiviteCreationModel
     {
         $db = self::getDb();
         $stmt = $db->prepare("
-            INSERT INTO Activite (titre, description, mobiliteReduite, adresse, dateCreation, tailleGroupe, prix, idMeeter)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO Activite (titre, description, mobiliteReduite, adresse, theme, dateCreation, tailleGroupe, prix, idMeeter)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         ");
         $stmt->execute([
             $data['titre'],
             $data['description'],
             $data['mobiliteReduite'],
             $data['adresse'],
+            $data['theme'],
             $data['dateCreation'],
             $data['tailleGroupe'],
             $data['prix'],
             $idMeeter
         ]);
         return $db->lastInsertId();
-    }
-
-    public static function getCategoriesByNoms(array $noms)
-    {
-        $db = self::getDb();
-        if (empty($noms)) {
-            return [];
-        }
-        $in  = str_repeat('?,', count($noms) - 1) . '?';
-        $stmt = $db->prepare("SELECT idCategorie, nom FROM Categorie WHERE nom IN ($in)");
-        $stmt->execute($noms);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public static function lierCategorieActivite($idActivite, $idCategorie)
