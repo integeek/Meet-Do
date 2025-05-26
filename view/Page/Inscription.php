@@ -30,38 +30,22 @@ unset($_SESSION["success"]);
     <header>
         <div id="navbar-container" class="navbar-container"></div>
         <script src="../component/Navbar/Navbar.js"></script>
-<script>
-    (async () => {
-        const navHTML = await Navbar("..");
-        document.getElementById('navbar-container').innerHTML = navHTML;
-
-        // Interaction : ne doit se faire qu'après que le HTML soit injecté
-        const toggler = document.querySelector(".hamburger");
-        const navLinksContainer = document.querySelector(".nav-links");
-
-        const toggleNav = (e) => {
-            toggler.classList.toggle("open");
-
-            const ariaToggle =
-                toggler.getAttribute("aria-expanded") === "true" ? "false" : "true";
-            toggler.setAttribute("aria-expanded", ariaToggle);
-
-            navLinksContainer.classList.toggle("open");
-        };
-
-        if (toggler) {
-            toggler.addEventListener("click", toggleNav);
-        }
-
-        new ResizeObserver((entries) => {
-            if (entries[0].contentRect.width <= 900) {
-                navLinksContainer.style.transition = "transform 0.4s ease-out";
+    <script>
+        (async () => {
+            document.getElementById('navbar-container').innerHTML = await Navbar("..");
+            if (!window.navActionLoaded) {
+                const script = document.createElement('script');
+                script.src = "../component/Navbar/navAction.js";
+                script.onload = () => {
+                    window.navActionLoaded = true;
+                    window.initializeNavbar();
+                };
+                document.body.appendChild(script);
             } else {
-                navLinksContainer.style.transition = "none";
+                window.initializeNavbar();
             }
-        }).observe(document.body);
-    })();
-</script>
+        })();
+    </script>
 
 
     </header>
