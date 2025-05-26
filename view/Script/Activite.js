@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
-    fetch(`../../controller/Activite/Activite.php?idActivite=${idActivite}`)
+    fetch(`../../controller/Activite/Activite/${idActivite}`)
         .then(res => res.json())
         .then(data => {
             const datesDisponibles = data.datesDisponibles;
@@ -225,7 +225,7 @@ boutonContact.addEventListener("click", () => {
 });
 
 meeter.addEventListener("click", () => {
-    window.location.href = `./../../view/Page/pageMeeter.php?id=${activiteData.idMeeter}`;
+    window.location.href = `./../../view/Page/pageMeeter/${activiteData.idMeeter}`;
 });
 
 document.addEventListener("DOMContentLoaded", async () => {

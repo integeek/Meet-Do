@@ -4,7 +4,7 @@ if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
 if(!isset($_SESSION['user'])) {
-    header('Location: Connexion');
+    header('Location: Connexion.php');
     exit;
 }
 
@@ -16,23 +16,23 @@ if(!isset($_SESSION['user'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../Style/noReservations.css">
+  <link rel="stylesheet" href="../Style/noActivites.css">
   <link rel="stylesheet" href="../component/Navbar/Navbar.css" />
   <link rel="stylesheet" href="../component/Footer/Footer.css" />
   <link rel="stylesheet" href="../component/BoutonBleu.css" />
-  <title>Mes Réservations | Meet&Do</title>
+  <title>Mes Activités | Meet&Do</title>
 </head>
 
 <body>
   <main>
     <img src="../../view/assets/img/icons/warning-icon.svg" alt="warning-icon" id="warning-icon" />
-    <h2 id="warning-text">Aucune réservation trouvée.</h2>
-    <p id="warning-subtext">Vous n'avez pas encore de réservation.</p>
+    <h2 id="warning-text">Aucune activité trouvée.</h2>
+    <p id="warning-subtext">Vous n'avez pas encore crée d'activité.</p>
     <script src="../component/BoutonBleu.js"></script>
     <div id="boutonContainer1"></div>
     <script>
       document.getElementById("boutonContainer1").innerHTML = BoutonBleu(
-        "Voir les activités disponibles"
+        "Créer une activité"
       );
     </script>
   </main>

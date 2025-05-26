@@ -15,6 +15,7 @@ $moyenne = $pageData['moyenneAvis'];
 <html lang="en">
 
 <head>
+    <base href="http://localhost/view/page/">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profil Meeter</title>
@@ -28,12 +29,22 @@ $moyenne = $pageData['moyenneAvis'];
     <header>
         <div id="navbar-container" class="navbar-container"></div>
         <script src="../component/Navbar/Navbar.js"></script>
-        <script>
+                <script>
             (async () => {
                 document.getElementById('navbar-container').innerHTML = await Navbar("..");
+                if (!window.navActionLoaded) {
+                    const script = document.createElement('script');
+                    script.src = "../component/Navbar/navAction.js";
+                    script.onload = () => {
+                        window.navActionLoaded = true;
+                        window.initializeNavbar();
+                    };
+                    document.body.appendChild(script);
+                } else {
+                    window.initializeNavbar();
+                }
             })();
         </script>
-        <script src="../component/Navbar/navAction.js"></script>
     </header>
 
     <main class="profile-container">

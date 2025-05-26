@@ -30,38 +30,22 @@ unset($_SESSION["success"]);
     <header>
         <div id="navbar-container" class="navbar-container"></div>
         <script src="../component/Navbar/Navbar.js"></script>
-<script>
-    (async () => {
-        const navHTML = await Navbar("..");
-        document.getElementById('navbar-container').innerHTML = navHTML;
-
-        // Interaction : ne doit se faire qu'après que le HTML soit injecté
-        const toggler = document.querySelector(".hamburger");
-        const navLinksContainer = document.querySelector(".nav-links");
-
-        const toggleNav = (e) => {
-            toggler.classList.toggle("open");
-
-            const ariaToggle =
-                toggler.getAttribute("aria-expanded") === "true" ? "false" : "true";
-            toggler.setAttribute("aria-expanded", ariaToggle);
-
-            navLinksContainer.classList.toggle("open");
-        };
-
-        if (toggler) {
-            toggler.addEventListener("click", toggleNav);
-        }
-
-        new ResizeObserver((entries) => {
-            if (entries[0].contentRect.width <= 900) {
-                navLinksContainer.style.transition = "transform 0.4s ease-out";
+    <script>
+        (async () => {
+            document.getElementById('navbar-container').innerHTML = await Navbar("..");
+            if (!window.navActionLoaded) {
+                const script = document.createElement('script');
+                script.src = "../component/Navbar/navAction.js";
+                script.onload = () => {
+                    window.navActionLoaded = true;
+                    window.initializeNavbar();
+                };
+                document.body.appendChild(script);
             } else {
-                navLinksContainer.style.transition = "none";
+                window.initializeNavbar();
             }
-        }).observe(document.body);
-    })();
-</script>
+        })();
+    </script>
 
 
     </header>
@@ -91,12 +75,12 @@ unset($_SESSION["success"]);
 
 
                 <div class="versCo">
-                    <p id="pasCompte">Déjà un compte ?</p> <a id="connexion" href="Connexion.php">Se connecter</a>
+                    <p id="pasCompte">Déjà un compte ?</p> <a id="connexion" href="Connexion">Se connecter</a>
                 </div>
 
                 <div id="mention">
                     <input type="checkbox" id="mention" name="mention" required/>
-                    <div id="mentionTexte"><label id="" for="mention">Je confirme avoir lu et accepté </label><a  id="connexion" href="MentionLegales.html">les conditions générales d'utilisations</a></div>
+                    <div id="mentionTexte"><label id="" for="mention">Je confirme avoir lu et accepté </label><a  id="connexion" href="MentionLegales">les conditions générales d'utilisations</a></div>
                 </div>
                 <div class="erreur" style="color: red; margin-bottom: 1rem;">
                     <?= htmlspecialchars($messageErreur) ?>

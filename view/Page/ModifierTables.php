@@ -1,10 +1,10 @@
 <?php
 session_start();
 if (!isset($_SESSION['user'])) {
-    header('Location: Connexion.php');
+    header('Location: Connexion');
     exit;
 } else if ($_SESSION['user']['role'] !== "Administrateur") {
-    header('Location: ../Page/accueil.html');
+    header('Location: ../Page/accueil');
     exit;
 }
 ?>
@@ -64,12 +64,22 @@ if (!isset($_SESSION['user'])) {
         </div>
         <script src="../Script/ModifierTables.js"></script>
         <script src="../component/Navbar/Navbar.js"></script>
-        <script>
+                <script>
             (async () => {
                 document.getElementById('navbar-container').innerHTML = await Navbar("..");
+                if (!window.navActionLoaded) {
+                    const script = document.createElement('script');
+                    script.src = "../component/Navbar/navAction.js";
+                    script.onload = () => {
+                        window.navActionLoaded = true;
+                        window.initializeNavbar();
+                    };
+                    document.body.appendChild(script);
+                } else {
+                    window.initializeNavbar();
+                }
             })();
         </script>
-        <script src="../component/Navbar/navAction.js"></script>
 
         <script src="../component/SideBarAdmin/SideBarAdmin.js"></script>
         <script>
