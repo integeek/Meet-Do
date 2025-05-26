@@ -67,7 +67,7 @@ async function Navbar(url) {
 
             return `
                 <nav> 
-                    <a href="./accueil.php" class="nav-icon" aria-label="homepage" aria-current="page">
+                    <a href="./accueil" class="nav-icon" aria-label="homepage" aria-current="page">
                         <img src="${url}/assets/img/logoMeet&Do.png" alt="logo" id="logo" />
                     </a>
                     <div class="main-navlinks">
@@ -77,14 +77,14 @@ async function Navbar(url) {
                             <span></span>
                         </button>
                         <ul class="nav-links">
-                            <li><a href="./accueil.php">Accueil</a></li>
-                            <li><a href="./Messagerie.php">Messagerie</a></li>
+                            <li><a href="./accueil">Accueil</a></li>
+                            <li><a href="./Messagerie">Messagerie</a></li>
                         </ul>
                     </div>
                     <div id="navbar-grow"></div>
                     <div class="nav-authentication">
                         <div class="icone1">
-                            <a href="./Connexion.php" class="user-toggler" aria-label="Sign in page">
+                            <a href="./Connexion" class="user-toggler" aria-label="Sign in page">
                                 <img src="../assets/img/user.svg" alt="user icon" />
                             </a>
                         </div>
@@ -98,12 +98,12 @@ async function Navbar(url) {
                               connect.role == "Meeter" || connect.role == "Administrateur"
                                 ? `
                             <div class="annonce">
-                                <a href="./CreerActivite.php">Poster une annonce</a>
+                                <a href="./CreerActivite">Poster une annonce</a>
                             </div>
 `
                                 : ""
                             }
-                            <a href="./PageCompte.php" class="profil" id="profil">
+                            <a href="./PageCompte" class="profil" id="profil">
                                 <div class="text-overflow">${connect.firstName} ${connect.lastName}</div>
                                 <img src="${photoProfil}" id="navbar-profile-icon" style="object-fit:cover;width:40px;height:40px;border-radius:50%;">
                             </a>
@@ -117,7 +117,7 @@ async function Navbar(url) {
         } else {
             return `
                 <nav> 
-                    <a href="./accueil.php" class="nav-icon" aria-label="homepage" aria-current="page">
+                    <a href="./accueil" class="nav-icon" aria-label="homepage" aria-current="page">
                         <img src="${url}/assets/img/logoMeet&Do.png" alt="logo" id="logo" />
                     </a>
                     <div class="main-navlinks">
@@ -127,7 +127,7 @@ async function Navbar(url) {
                             <span></span>
                         </button>
                         <ul class="nav-links">
-                            <li><a href="./accueil.php">Accueil</a></li>
+                            <li><a href="./accueil">Accueil</a></li>
                         </ul>
                     </div>
                     <div id="navbar-grow"></div>
@@ -139,10 +139,10 @@ async function Navbar(url) {
                         </div>
                         <div class="sign-btns">
                             <div class="annonce">
-                                <a href="./Inscription.php">S'inscrire</a>
+                                <a href="./Inscription">S'inscrire</a>
                             </div>
                             <div class="annonce">
-                                <a href="./Connexion.php" class="" id="">Se connecter</a>
+                                <a href="./Connexion" class="" id="">Se connecter</a>
                             </div>
                         </div>
                     </div>

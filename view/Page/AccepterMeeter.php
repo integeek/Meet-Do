@@ -1,10 +1,10 @@
 <?php
 session_start();
 if (!isset($_SESSION['user'])) {
-    header('Location: Connexion.php');
+    header('Location: Connexion');
     exit;
 } else if ($_SESSION['user']['role'] !== "Administrateur") {
-    header('Location: ../Page/accueil.html');
+    header('Location: ../Page/accueil');
     exit;
 }
 ?>

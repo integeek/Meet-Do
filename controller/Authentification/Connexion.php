@@ -6,7 +6,7 @@ if(!empty($_POST)){
     if(isset($_POST["email"],$_POST["password"]) && !empty(($_POST["email"]) && !empty($_POST["password"]))) {
         if(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
             $_SESSION["erreur"] = "L'adresse email est incorrecte.";
-            header("Location: ../../view/Page/Connexion.php");
+            header("Location: ../../view/Page/Connexion");
             exit;
         }
 
@@ -14,13 +14,13 @@ if(!empty($_POST)){
         
         if(!$user){
             $_SESSION["erreur"] = "L'utilisateur et/ou le mot de passe n'existe pas";
-            header("Location: ../../view/Page/Connexion.php");
+            header("Location: ../../view/Page/Connexion");
             exit;
         }
 
         if(!password_verify($_POST["password"], $user["password"])){
             $_SESSION["erreur"] = "L'utilisateur et/ou le mot de passe n'existe pas";
-            header("Location: ../../view/Page/Connexion.php");
+            header("Location: ../../view/Page/Connexion");
             exit;
         }
 
@@ -35,11 +35,11 @@ if(!empty($_POST)){
             "role" => $user["role"],
 
         ];
-        header("Location: ../../view/Page/accueil.php");
+        header("Location: ../../view/Page/accueil");
 
     } else {
         $_SESSION["erreur"] = "Le formulaire est incomplet.";
-            header("Location: ../../view/Page/Connexion.php");
+            header("Location: ../../view/Page/Connexion");
             exit;
     }
 }

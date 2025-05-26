@@ -38,7 +38,7 @@ unset($_SESSION["success"]);
                     </div>
                     <p onclick="openPopUp('popup')">Mot de passe oublié ?</p>
                     <div>
-                        <p id="pasCompte">Pas de compte ?</p> <a  id="sinscire" href="Inscription.php">S'inscrire</a>
+                        <p id="pasCompte">Pas de compte ?</p> <a  id="sinscire" href="Inscription">S'inscrire</a>
                     </div>
                     <div class="erreur" style="color: red; margin-bottom: 1rem;">
                         <?= htmlspecialchars($messageErreur) ?>

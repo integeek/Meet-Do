@@ -88,15 +88,15 @@ if (isset($_GET["id"], $_GET["cle"]) && !empty($_GET["id"]) && !empty($_GET["cle
                     echo "L'email a été envoyé avec succès.";
                 } else {
                     $_SESSION["erreur"] = "L'email n'a pas pu être envoyé.";
-                        header("Location: ../../view/Page/Inscription.php");
+                        header("Location: ../../view/Page/Inscription");
                 exit;
                 }
 
-                header("Location: ../Page/accueil.php");
+                header("Location: ../Page/accueil");
                 exit;
             } else {
                 $_SESSION["erreur"] = "Erreur : tous les champs doivent être complétés (nom et prénom obligatoires)";
-                header("Location: ../../view/Page/Inscription.php");
+                header("Location: ../../view/Page/Inscription");
                 exit;
             }
         }

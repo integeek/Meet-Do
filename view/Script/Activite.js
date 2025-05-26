@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
-    fetch(`../../controller/Activite/Activite.php?idActivite=${idActivite}`)
+    fetch(`../../controller/Activite/Activite/${idActivite}`)
         .then(res => res.json())
         .then(data => {
             const datesDisponibles = data.datesDisponibles;
