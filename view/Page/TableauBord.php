@@ -17,7 +17,7 @@ if(!isset($_SESSION['user'])) {
     <link rel="stylesheet" type="text/css" href="../component/Footer/Footer.css">
     <link rel="stylesheet" type="text/css" href="../component/Navbar/Navbar.css">
     <link rel="stylesheet" type="text/css" href="../component/SideBarAdmin/SideBarAdmin.css">
-    <link rel="stylesheet" type="text/css" href="../style/TableauBord.css">
+    <link rel="stylesheet" type="text/css" href="../Style/TableauBord.css">
     <script src="../Script/TableauBord.js" defer></script>
 </head>
 

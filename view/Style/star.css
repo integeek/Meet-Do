@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: row-reverse;
   justify-content: center;
-  gap: 10px;
   width: 300px;
 }
 
@@ -29,14 +28,12 @@
   transition: 0.3s all ease-in-out;
 }
 
-/* Remplissage lors du survol */
 .star-rating label:hover svg path,
 .star-rating label:hover ~ label svg path {
   stroke: gold;
   fill: gold;
 }
 
-/* Remplissage lors de la sélection */
 .star-rating input:checked ~ label svg path {
   stroke: gold;
   fill: gold;

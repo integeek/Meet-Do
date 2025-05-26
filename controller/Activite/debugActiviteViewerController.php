@@ -1,7 +1,7 @@
 <?php
 header('Content-Type: application/json');
 
-require_once("../../model/Bdd.php");
+require_once("../../Model/Bdd.php");
 
 if (!isset($_GET['id'])) {
     http_response_code(400);

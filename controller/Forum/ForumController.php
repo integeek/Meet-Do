@@ -1,6 +1,6 @@
 <?php
-require_once("../../model/Bdd.php");
-require_once("../../model/Forum/ForumModel.php");
+require_once("../../Model/Bdd.php");
+require_once("../../Model/Forum/ForumModel.php");
 session_start();
 
 class ForumController

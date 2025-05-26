@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once("../../model/Bdd.php");
-require_once("../../model/Admin/MessagerieAdminModel.php");
+require_once("../../Model/Bdd.php");
+require_once("../../Model/Admin/MessagerieAdminModel.php");
 
 class MessagerieAdminController {
     private $model;

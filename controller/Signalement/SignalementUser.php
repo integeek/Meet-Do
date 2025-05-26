@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once("../../model/Bdd.php");
+require_once("../../Model/Bdd.php");
 
 if(!empty($_POST)){
     if(isset($_POST["raison"]) && !empty($_POST["raison"])){
