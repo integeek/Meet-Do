@@ -3,7 +3,7 @@ session_start();
 require_once("../../Model/Client.php");
 
 if (!isset($_SESSION['user']['email'])) {
-    header("Location: ../../view/page/Connexion");
+    header("Location: ../../view/page/Connexion.php");
     exit;
 }
 
@@ -18,19 +18,19 @@ $newFirstName = htmlspecialchars($_POST['edit-firstname']);
 
 if (empty($newFirstName)) {
     $_SESSION['error'] = "Le prénom ne peut pas être vide.";
-    header("Location: ../../view/page/PageCompte");
+    header("Location: ../../view/page/PageCompte.php");
     exit;
 }
 
 if (!preg_match("/^[a-zA-ZÀ-ÿ\-'\s]{2,50}$/u", $newFirstName)) {
     $_SESSION['error'] = "Le prénom est invalide. Utilisez uniquement des lettres, espaces, tirets ou apostrophes (2 à 50 caractères).";
-    header("Location: ../../view/page/PageCompte");
+    header("Location: ../../view/page/PageCompte.php");
     exit;
 }
 
 if ($_SESSION['user']['prenom'] === $newFirstName) {
     $_SESSION['error'] = "Le prénom est identique à l'ancien prénom.";
-    header("Location: ../../view/page/PageCompte");
+    header("Location: ../../view/page/PageCompte.php");
     exit;
 }
 
@@ -44,7 +44,7 @@ if ($modif) {
     exit;
 }
 
-header("Location: ../../view/page/PageCompte");
+header("Location: ../../view/page/PageCompte.php");
 exit;
 
 ?>

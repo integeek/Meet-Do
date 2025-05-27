@@ -4,7 +4,7 @@ include("../../controller/Compte/meeterButton.php");
 if (session_status() === PHP_SESSION_NONE) {
   session_start();
   if (!isset($_SESSION['user'])) {
-    header('Location: Connexion');
+    header('Location: Connexion.php');
     exit;
   }
 }

@@ -7,7 +7,7 @@ if(!empty($_POST)){
     if(isset($_POST["email"],$_POST["password"]) && !empty(($_POST["email"]) && !empty($_POST["password"]))) {
         if(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
             $_SESSION["erreur"] = "L'adresse email est incorrecte";
-            header("Location: ../../view/Page/Inscription");
+            header("Location: ../../view/Page/Inscription.php");
             exit;
         }
 
@@ -15,32 +15,32 @@ if(!empty($_POST)){
         $password2 = $_POST["password2"];
         if($password !== $password2){
             $_SESSION["erreur"] = "Les mots de passe ne correspondent pas";
-            header("Location: ../../view/Page/Inscription");
+            header("Location: ../../view/Page/Inscription.php");
             exit;
         }
 
 
         if(strlen($password) < 8){
             $_SESSION["erreur"] = "Le mot de passe doit contenir au moins 8 caractères";
-            header("Location: ../../view/Page/Inscription");
+            header("Location: ../../view/Page/Inscription.php");
             exit;
         }
 
         if(!preg_match("/[0-9]/", $password)){
             $_SESSION["erreur"] = "Le mot de passe doit contenir au moins un chiffre";
-            header("Location: ../../view/Page/Inscription");
+            header("Location: ../../view/Page/Inscription.php");
             exit;
         }
 
         if(!preg_match("/[A-Z]/", $password)){
             $_SESSION["erreur"] = "Le mot de passe doit contenir au moins une majuscule";
-            header("Location: ../../view/Page/Inscription");
+            header("Location: ../../view/Page/Inscription.php");
             exit;
         }
 
         if(!preg_match("/[a-z]/", $password)){
             $_SESSION["erreur"] = "Le mot de passe doit contenir au moins une minuscule";
-            header("Location: ../../view/Page/Inscription");
+            header("Location: ../../view/Page/Inscription.php");
             exit;
         }
 
@@ -50,14 +50,15 @@ if(!empty($_POST)){
     
         if(Client::checkEmail($_POST["email"]) != null){
             $_SESSION["erreur"] = "Cette adresse email est déjà utilisée";
-            header("Location: ../../view/Page/Inscription");
+            header("Location: ../../view/Page/Inscription.php");
             exit;
         }
 
         $expiricy = date("Y-m-d H:i:s", time() + 60 * 60 * 3); // 3 heures
         $id = Client::createUser($cle, $_POST["email"], $pass, $expiricy);
 
-        $lienActivation = "http://localhost/view/page/InfoPerso/" . $id . "/" . $cle;
+        $lienActivation = "http://localhost/view/page/InfoPerso.php?id=" . $id . "&cle=" . $cle;
+
         $destinataire = $_POST["email"];
         $sujet = "Finalisation de votre inscription à Meet&Do";
         $message = "<html><body style=\"margin: 0;\">";
@@ -108,17 +109,17 @@ if(!empty($_POST)){
 
         if (mail($destinataire, $sujet, $message, $headers)) {
             $_SESSION["success"] = "L'email a été envoyé avec succès.";
-            header("Location: ../../view/Page/Inscription");
+            header("Location: ../../view/Page/Inscription.php");
             exit;
 
         } else {
             $_SESSION["erreur"] = "L'email n'a pas pu être envoyé.";
-            header("Location: ../../view/Page/Inscription");
+            header("Location: ../../view/Page/Inscription.php");
             exit;
         }
     } else {
         $_SESSION["erreur"] = "le formulaire est incomplet";
-        header("Location: ../../view/Page/Inscription");
+        header("Location: ../../view/Page/Inscription.php");
         exit;
     }
 }
