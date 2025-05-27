@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['user']['email'])) {
-    header("Location: ../../view/page/Connexion.php");
+    header("Location: ../../view/Page/Connexion.php");
     exit;
 }
 
@@ -36,7 +36,7 @@ if ($stmt->rowCount() > 0) {
     exit;
 }
 
-header("Location: ../../view/page/Devenir-Meeter.php");
+header("Location: ../../view/Page/Devenir-Meeter.php");
 exit;
 
 ?>

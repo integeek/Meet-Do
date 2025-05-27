@@ -18,7 +18,7 @@ $newFirstName = htmlspecialchars($_POST['edit-firstname']);
 
 if (empty($newFirstName)) {
     $_SESSION['error'] = "Le prénom ne peut pas être vide.";
-    header("Location: ../../view/page/PageCompte.php");
+    header("Location: ../../view/Page/PageCompte.php");
     exit;
 }
 
@@ -30,7 +30,7 @@ if (!preg_match("/^[a-zA-ZÀ-ÿ\-'\s]{2,50}$/u", $newFirstName)) {
 
 if ($_SESSION['user']['prenom'] === $newFirstName) {
     $_SESSION['error'] = "Le prénom est identique à l'ancien prénom.";
-    header("Location: ../../view/page/PageCompte.php");
+    header("Location: ../../view/Page/PageCompte.php");
     exit;
 }
 
