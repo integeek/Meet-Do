@@ -23,21 +23,21 @@ const GetCookie = async () => {
             connect.lastName = responseData.user.nom;
             connect.email = responseData.user.email;
             connect.role = responseData.user.role;
-            resolve(connect); // Résoudre la promesse avec les données mises à jour
+            resolve(connect);
           } else {
             console.error("Error:", responseData.message);
             connect.connect = false;
-            resolve(connect); // Résoudre même si non connecté
+            resolve(connect);
           }
         } catch (error) {
           console.error("Error parsing JSON response:", error);
           connect.connect = false;
-          resolve(connect); // Résoudre même si une erreur survient
+          resolve(connect);
         }
       } else if (this.readyState == 4) {
         console.error("Error: Unable to fetch data. Status:", this.status);
         connect.connect = false;
-        resolve(connect); // Résoudre même si la requête échoue
+        resolve(connect);
       }
     };
   });
@@ -47,10 +47,9 @@ async function Navbar(url) {
     console.log("Navbar appelée avec url :", url);
     try {
         await GetCookie();
-        let photoProfil = `${url}/assets/img/profil.png`; // Valeur par défaut
+        let photoProfil = `${url}/assets/img/profil.png`; 
 
         if (connect.connect) {
-            // Récupère la photo de profil via une requête synchrone
             try {
                 console.log("Tentative de fetch photo de profil...");
                 const response = await fetch('../../controller/Compte/PhotoController.php', { method: 'GET' });
@@ -84,7 +83,7 @@ async function Navbar(url) {
                     <div id="navbar-grow"></div>
                     <div class="nav-authentication">
                         <div class="icone1">
-                            <a href="./Connexion" class="user-toggler" aria-label="Sign in page">
+                            <a href="./pageCompte" class="user-toggler" aria-label="Sign in page">
                                 <img src="../assets/img/user.svg" alt="user icon" />
                             </a>
                         </div>
@@ -133,7 +132,7 @@ async function Navbar(url) {
                     <div id="navbar-grow"></div>
                     <div class="nav-authentication">
                         <div class="icone1">
-                            <a href="#" class="user-toggler" aria-label="Sign in page">
+                            <a href="./Connexion" class="user-toggler" aria-label="Sign in page">
                                 <img src="../assets/img/user.svg" alt="user icon" />
                             </a>
                         </div>

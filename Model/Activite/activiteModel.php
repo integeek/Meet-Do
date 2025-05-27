@@ -107,14 +107,30 @@ class ActiviteModel
         return $query->fetch(PDO::FETCH_ASSOC);
     }
 
-    public static function getInfoActivity ($idClient) {
-        $db = Bdd::getInstance();
-        $stmt = $db->prepare("SELECT idActivite, titre, adresse, prix, idMeeter, tailleGroupe, mobiliteReduite
-        FROM Activite
-        WHERE idMeeter = :idClient");
-            $stmt->execute([':idClient' => $idClient]);
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+    public static function getInfoActivity($idClient) {
+    $db = Bdd::getInstance();
+    $stmt = $db->prepare("
+        SELECT 
+            a.idActivite, 
+            a.titre, 
+            a.adresse, 
+            a.prix, 
+            a.idMeeter, 
+            a.tailleGroupe, 
+            a.mobiliteReduite,
+            i.chemin as image
+        FROM Activite a
+        LEFT JOIN ImageActivite i ON a.idActivite = i.idActivite 
+            AND i.idImageActivite = (
+                SELECT MIN(idImageActivite) 
+                FROM ImageActivite 
+                WHERE idActivite = a.idActivite
+            )
+        WHERE a.idMeeter = :idClient
+    ");
+    $stmt->execute([':idClient' => $idClient]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 
     public static function deleteActivity($idActivite) {
         $db = Bdd::getInstance();
