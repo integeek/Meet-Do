@@ -67,6 +67,6 @@ if(!isset($_SESSION['user'])) {
             document.getElementById('footer-container').innerHTML = Footer("..");
         </script>
     </footer>
-    <script src="../component/PopupError.js"></script>
 </body>
+
 </html>

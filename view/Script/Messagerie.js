@@ -163,45 +163,27 @@ attachmentInput.addEventListener('change', () => {
     }
 });
 
-document.getElementById('send-message').addEventListener('click', async function () {
-    const messageInput = document.getElementById('message');
-    const fileInput = document.getElementById('attachment');
-    const content = messageInput.value.trim();
-    const file = fileInput.files[0];
-    const idRecepteur = window.currentRecepteurId; // à adapter selon ton code
-
-    if (!content && !file) {
-        showErrorPopup("Veuillez écrire un message ou sélectionner une image.");
-        return;
-    }
-    if (!idRecepteur) {
-        showErrorPopup("Aucun destinataire sélectionné.");
-        return;
-    }
-
-    const formData = new FormData();
-    formData.append('content', content);
-    formData.append('idRecepteur', idRecepteur);
-    if (file) {
-        formData.append('file', file);
-    }
-
-    try {
-        const response = await fetch('../../controller/Messagerie/MessagerieControlleur.php?action=send', {
-            method: 'POST',
-            body: formData
-        });
-        const data = await response.json();
-
-        if (data.error) {
-            showErrorPopup(data.error);
-        } else if (data.success) {
-            messageInput.value = '';
-            fileInput.value = '';
-            // recharge les messages ou ajoute le message à la vue
+sendMessage.addEventListener('click', () => {
+    if (sendText.value !== "" || file?.files.length > 0) {
+        sendMessageFunction({ content: file?.files.length > 0 ? file.files[0].name : sendText.value, attachment: file?.files.length > 0, idRecepteur: talkID });
+        const attachmentLabel = document.getElementById('send-attachment');
+        if (sendText.value !== "") {
+            sendText.style = "animation: send 1s forwards;"
+        } else {
+            attachmentLabel.style = "animation: send 1s forwards;"
         }
-    } catch (e) {
-        showErrorPopup("Erreur réseau ou serveur.");
+        setTimeout(() => {
+            sendText.value = "";
+            file = null;
+            attachmentInput.value = null;
+            attachmentLabel.innerHTML = `<img src="../assets/img/icons/attachFile.svg" alt="file">`;
+        }, 1000);
+
+        setTimeout(() => {
+            sendText.style = "animation: none;"
+            attachmentLabel.style = "animation: none;"
+            Refresh2();
+        }, 1000);
     }
 });
 
