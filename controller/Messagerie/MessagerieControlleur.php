@@ -40,7 +40,7 @@ class MessagerieController
         $file = false;
 
         if (isset($_FILES["file"])) {
-            $uploadDir = __DIR__ . '/../../view/assets/uploads/messagerie/';
+            $uploadDir = '../../view/assets/uploads/messagerie/';
             if (!is_dir($uploadDir)) {
                 mkdir($uploadDir, 0777, true);
             }
