@@ -107,17 +107,52 @@ class ActiviteModel
         return $query->fetch(PDO::FETCH_ASSOC);
     }
 
-    public static function getInfoActivity ($idClient) {
-        $db = Bdd::getInstance();
-        $stmt = $db->prepare("SELECT idActivite, titre, adresse, prix, idMeeter, tailleGroupe, mobiliteReduite
-        FROM Activite
-        WHERE idMeeter = :idClient");
-            $stmt->execute([':idClient' => $idClient]);
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+    public static function getInfoActivity($idClient) {
+    $db = Bdd::getInstance();
+    $stmt = $db->prepare("
+        SELECT 
+            a.idActivite, 
+            a.titre, 
+            a.adresse, 
+            a.prix, 
+            a.idMeeter, 
+            a.tailleGroupe, 
+            a.mobiliteReduite,
+            i.chemin as image
+        FROM Activite a
+        LEFT JOIN ImageActivite i ON a.idActivite = i.idActivite 
+            AND i.idImageActivite = (
+                SELECT MIN(idImageActivite) 
+                FROM ImageActivite 
+                WHERE idActivite = a.idActivite
+            )
+        WHERE a.idMeeter = :idClient
+    ");
+    $stmt->execute([':idClient' => $idClient]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 
     public static function deleteActivity($idActivite) {
         $db = Bdd::getInstance();
+
+        // 1. Récupérer les chemins des images associées à l'activité
+        $images = self::getImagesByActiviteId($idActivite);
+
+        // 2. Supprimer les fichiers images du serveur
+        foreach ($images as $imgPath) {
+            // Si le chemin n'est pas absolu, adapter le chemin réel du serveur
+            $realPath = $_SERVER['DOCUMENT_ROOT'] . '/' . ltrim($imgPath, '/');
+            if (file_exists($realPath)) {
+                @unlink($realPath);
+            }
+        }
+
+        // 3. Supprimer les entrées images en base
+        $stmtImg = $db->prepare("DELETE FROM ImageActivite WHERE idActivite = :idActivite");
+        $stmtImg->bindParam(':idActivite', $idActivite);
+        $stmtImg->execute();
+
+        // 4. Supprimer l'activité
         $stmt = $db->prepare("DELETE FROM Activite WHERE idActivite = :idActivite");
         $stmt->bindParam(':idActivite', $idActivite);
         return $stmt->execute();

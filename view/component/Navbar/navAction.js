@@ -3,7 +3,6 @@ function initializeNavbar() {
     const navLinksContainer = document.querySelector(".nav-links");
 
     if (toggler && navLinksContainer) {
-        // Supprimer les anciens event listeners
         const oldToggler = toggler.cloneNode(true);
         toggler.parentNode.replaceChild(oldToggler, toggler);
 
@@ -30,5 +29,4 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(initializeNavbar, 100);
 });
 
-// Exporter la fonction pour pouvoir l'appeler après chaque mise à jour de la navbar
 window.initializeNavbar = initializeNavbar;

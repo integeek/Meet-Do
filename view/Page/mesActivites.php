@@ -39,18 +39,19 @@ if (session_status() === PHP_SESSION_NONE) {
     </header>
     <main>
       <?php
-        function resaComponent($idActivite, $title, $place, $people, $price, $mR) {
+        function resaComponent($idActivite, $title, $place, $people, $price, $mR, $image) {
                     $boutonbleu = "boutonbleu" . $idActivite;
                     $boutonbleu1 = "boutonbleu1" . $idActivite;
                     $boutonrouge = "boutonrouge" . $idActivite;
 
+                    $imageUrl = $image ? $image : '../../view/assets/img/placeholder.png';
 
                     return "
                         <div class='reservation-item'>
                             <div class='reservation-item' id='reservation-item-1'>
                                 <div class='item-header'>
                                     <h2>$title</h2>
-                                <img src='../../view/assets/img/macaron1.jpeg' alt='photo-reservation' class='photo-reservation'>
+                                    <img src='$imageUrl' alt='$title' class='photo-reservation'>
                                 </div>
                                 <div class='item-main'>
                                     <div class='item-adresse'>
@@ -112,7 +113,9 @@ if (session_status() === PHP_SESSION_NONE) {
                             $acti['adresse'],
                             $acti['tailleGroupe'],
                             $acti['prix'],
-                            $acti['mobiliteReduite']
+                            $acti['mobiliteReduite'],
+                            $acti['image']
+                  
                         );
                     }
                 }
