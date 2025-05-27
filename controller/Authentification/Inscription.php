@@ -57,7 +57,7 @@ if(!empty($_POST)){
         $expiricy = date("Y-m-d H:i:s", time() + 60 * 60 * 3); // 3 heures
         $id = Client::createUser($cle, $_POST["email"], $pass, $expiricy);
 
-        $lienActivation = "http://localhost/view/page/InfoPerso.php?id=" . $id . "&cle=" . $cle;
+        $lienActivation = "https://meetndo.leroymeunier.fr/view/page/InfoPerso.php?id=" . $id . "&cle=" . $cle;
 
         $destinataire = $_POST["email"];
         $sujet = "Finalisation de votre inscription à Meet&Do";
