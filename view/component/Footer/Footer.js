@@ -2,11 +2,11 @@ function Footer(url) {
         return `
         <div>
             <ul class="footer-links">
-                <li><a href="./Faq">FAQ</a></li>
-                <li><a href="./Formulaire">Nous contacter</a></li>
-                <li><a href="./MentionLegales">Mentions légales</a></li>
-                <li><a href="./CGU">CGU</a></li>
-                <li><a href="./Forum">Forum</a></li>
+                <li><a href="./Faq.php">FAQ</a></li>
+                <li><a href="./Formulaire.php">Nous contacter</a></li>
+                <li><a href="./MentionLegales.php">Mentions légales</a></li>
+                <li><a href="./CGU.php">CGU</a></li>
+                <li><a href="./Forum.php">Forum</a></li>
             </ul>
         </div>
         <div class="footer-social-container">

@@ -56,19 +56,19 @@ if(!empty($_POST)){
 
         if (mail($destinataire, $sujet, $message, $headers)) {
             $_SESSION["success"] = "L'email a été envoyé avec succès.";
-            header("Location: ../../view/Page/Connexion");
+            header("Location: ../../view/Page/Connexion.php");
             exit;
 
         } else {
             $_SESSION["erreur"] = "L'email n'a pas pu être envoyé.";
-            header("Location: ../../view/Page/Connexion");
+            header("Location: ../../view/Page/Connexion.php");
             exit;
         }
 
     }
 }else {
     $_SESSION["erreur"] = "le formulaire est incomplet";
-    header("Location: ../../view/Page/Connexion");
+    header("Location: ../../view/Page/Connexion.php");
     exit;
 }
 

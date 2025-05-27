@@ -36,7 +36,7 @@ if ($stmt->rowCount() > 0) {
     exit;
 }
 
-header("Location: ../../view/page/Devenir-Meeter");
+header("Location: ../../view/page/Devenir-Meeter.php");
 exit;
 
 ?>
