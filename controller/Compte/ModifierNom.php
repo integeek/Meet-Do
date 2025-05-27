@@ -44,7 +44,7 @@ if ($editLastName) {
     exit;
 }
 
-header("Location: ../../view/page/PageCompte.php");
+header("Location: ../../view/Page/PageCompte.php");
 exit;
 
 ?>
