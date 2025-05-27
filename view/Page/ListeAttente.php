@@ -18,7 +18,7 @@ if (!isset($_SESSION['user'])) {
     <title>Liste d'attente</title>
     <link rel="stylesheet" type="text/css" href="../component/Footer/Footer.css">
     <link rel="stylesheet" type="text/css" href="../component/Navbar/Navbar.css">
-    <link rel="stylesheet" type="text/css" href="../style/ListeAttente.css">
+    <link rel="stylesheet" type="text/css" href="../Style/ListeAttente.css">
     <script src="../Script/ListeAttente.js" defer></script>
 </head>
 
