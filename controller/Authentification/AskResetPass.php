@@ -7,7 +7,7 @@ if(!empty($_POST)){
     $token = Client::generateResetToken($email, $expiricy);
 
     if ($token){
-        $lienMDP = "https://meetndo.leroymeunier.fr/view/page/NouveauPass.php?token=$token";
+        $lienMDP = "https://meetndo.leroymeunier.fr/view/Page/NouveauPass.php?token=$token";
 
         $destinataire = $email;
         $sujet = "Réinitialisation de votre mot de passe Meet&Do";
