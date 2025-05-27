@@ -10,7 +10,6 @@ unset($_SESSION["erreur"]);
 
 <head>
     <meta charset="UTF-8">
-    <base href="http://localhost/view/page/">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vos informations</title>
     <link rel="stylesheet" type="text/css" href="../component/Footer/Footer.css">

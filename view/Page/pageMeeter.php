@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once '../../Controller/meeter/meeter.php';
+include_once '../../controller/meeter/meeter.php';
 $nom = $pageData['prenom'] . ' ' . $pageData['nom'];
 $ville = $pageData['localisation'];
 $anciennete = $pageData['anciennete'];
@@ -15,7 +15,6 @@ $moyenne = $pageData['moyenneAvis'];
 <html lang="en">
 
 <head>
-    <base href="http://localhost/view/page/">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profil Meeter</title>

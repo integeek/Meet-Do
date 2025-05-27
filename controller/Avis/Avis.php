@@ -11,12 +11,12 @@ if (!empty($_POST)) {
     Avis::checkByIdAndActivity($idClient, $idActivite);
     if (Avis::checkByIdAndActivity($idClient, $idActivite)) {
         $_SESSION['erreur'] = "Vous avez déjà laissé un avis pour cette activité.";
-        header("Location: ../../view/Page/activite.php?id=$idActivite");
+        header("Location: ../../view/Page/Activite.php?id=$idActivite");
         exit;
     }
 
     Avis::create($note, $commentaire, $idActivite, $idClient);
 
-        header("Location: ../../view/Page/activite.php?id=$idActivite");
+        header("Location: ../../view/Page/Activite.php?id=$idActivite");
 }
 ?>

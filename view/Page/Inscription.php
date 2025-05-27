@@ -75,12 +75,12 @@ unset($_SESSION["success"]);
 
 
                 <div class="versCo">
-                    <p id="pasCompte">Déjà un compte ?</p> <a id="connexion" href="Connexion">Se connecter</a>
+                    <p id="pasCompte">Déjà un compte ?</p> <a id="connexion" href="Connexion.php">Se connecter</a>
                 </div>
 
                 <div id="mention">
                     <input type="checkbox" id="mention" name="mention" required/>
-                    <div id="mentionTexte"><label id="" for="mention">Je confirme avoir lu et accepté </label><a  id="connexion" href="MentionLegales">les conditions générales d'utilisations</a></div>
+                    <div id="mentionTexte"><label id="" for="mention">Je confirme avoir lu et accepté </label><a  id="connexion" href="MentionLegales.html">les conditions générales d'utilisations</a></div>
                 </div>
                 <div class="erreur" style="color: red; margin-bottom: 1rem;">
                     <?= htmlspecialchars($messageErreur) ?>

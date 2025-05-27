@@ -18,7 +18,7 @@ if (!isset($_SESSION['user'])) {
     <title>Evenement</title>
     <link rel="stylesheet" type="text/css" href="../component/Footer/Footer.css">
     <link rel="stylesheet" type="text/css" href="../component/Navbar/Navbar.css">
-    <link rel="stylesheet" type="text/css" href="../style/ListeEvenement.css">
+    <link rel="stylesheet" type="text/css" href="../Style/ListeEvenement.css">
     <script src="../Script/ListeEvenement.js" defer></script>
 </head>
 
