@@ -17,7 +17,7 @@ if (session_status() === PHP_SESSION_NONE) {
   <title>FAQ</title>
   <link rel="stylesheet" type="text/css" href="../component/Footer/Footer.css">
   <link rel="stylesheet" type="text/css" href="../component/Navbar/Navbar.css">
-  <link rel="stylesheet" type="text/css" href="../style/FAQ.css">
+  <link rel="stylesheet" type="text/css" href="../Style/FAQ.css">
   <script src="../Script/Faq.js" defer></script>
   <link rel="stylesheet" type="text/css" href="../component/BoutonBleu.css" />
   <link rel="stylesheet" type="text/css" href="../component/BoutonRouge.css" />

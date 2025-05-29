@@ -13,7 +13,7 @@ unset($_SESSION["erreur"]);
     <title>Forum</title>
     <link rel="stylesheet" type="text/css" href="../component/Footer/Footer.css">
     <link rel="stylesheet" type="text/css" href="../component/Navbar/Navbar.css">
-    <link rel="stylesheet" type="text/css" href="../style/Forum.css">
+    <link rel="stylesheet" type="text/css" href="../Style/Forum.css">
     <script src="../Script/Forum.js" defer></script>
 </head>
 
